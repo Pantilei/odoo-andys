@@ -128,7 +128,6 @@
                     </group>
                     <footer>
                         <button string="Save" class="btn-primary" type="object" name="save_form_data" data-hotkey="v" />
-                        <!-- <button string="Save&amp;Create New" class="btn-primary ml-1" type="action" name="%(restaurant_audit_inline_form_action)d" /> -->
                         <button string="Save&amp;Create New" class="btn-primary ml-1" type="object" name="save_and_create_new" />
                     </footer>
                 </form>
@@ -156,8 +155,8 @@
             <field name="res_model">restaurant_management.restaurant_audit</field>
             <field name="view_mode">tree,form</field>
             <field name="view_ids" eval="[(5, 0, 0),
-                                          (0, 0, {'view_mode': 'tree', 'view_id': ref('restaurant_management.restaurant_audit_tree_view')}),
-                                          (0, 0, {'view_mode': 'form', 'view_id': ref('restaurant_management.restaurant_audit_view_form')})]" />
+                                          (0, 0, {'view_mode': 'tree', 'view_id': ref('restaurant_audit_tree_view')}),
+                                          (0, 0, {'view_mode': 'form', 'view_id': ref('restaurant_audit_view_form')})]" />
         </record>
 
         <record id="restaurant_audit_inline_form_action" model="ir.actions.act_window">
@@ -167,7 +166,7 @@
             <field name="views"></field>
             <field name="target">inline</field>
             <field name="view_ids" eval="[(5, 0, 0),
-                                          (0, 0, {'view_mode': 'form', 'view_id': ref('restaurant_management.restaurant_audit_view_inline_form')})]" />
+                                          (0, 0, {'view_mode': 'form', 'view_id': ref('restaurant_audit_view_inline_form')})]" />
         </record>
 
     </data>
