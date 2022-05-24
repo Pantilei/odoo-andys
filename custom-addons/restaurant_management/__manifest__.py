@@ -19,8 +19,8 @@
 
     # always loaded
     'data': [
-        'security/ir.model.access.csv',
         'security/restaurant_management_security.xml',
+        'security/ir.model.access.csv',
 
         'data/cron.xml',
 
