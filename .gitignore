@@ -1,4 +1,4 @@
-src/
+src/odoo
 configs/odoo.conf
 logs/
 data-dir/
