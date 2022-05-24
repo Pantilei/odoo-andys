@@ -1,0 +1,39 @@
+<odoo>
+    <data>
+        <record id="fault_view_form" model="ir.ui.view">
+            <field name="name">fault.view.form</field>
+            <field name="model">restaurant_management.fault</field>
+            <field name="arch" type="xml">
+                <form string="Faults">
+                    <sheet>
+                        <group>
+                            <field name="category_id" />
+                        </group>
+                        <group>
+                            <field name="description" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="fault_tree_view" model="ir.ui.view">
+            <field name="name">fault.view.tree</field>
+            <field name="model">restaurant_management.fault</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="category_id" />
+                    <field name="description" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- actions opening views on models -->
+        <record id="fault_action" model="ir.actions.act_window">
+            <field name="name">Faults</field>
+            <field name="res_model">restaurant_management.fault</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+
+    </data>
+</odoo>
