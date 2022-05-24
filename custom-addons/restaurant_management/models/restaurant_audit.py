@@ -58,6 +58,9 @@ class RestaurantAudit(models.Model):
             },
         }
 
+    def save_and_create_new(self):
+        return self.env.ref("restaurant_management.restaurant_audit_inline_form_action").read()[0]
+
     # def _compute_fault_registry_json(self):
     #     pass
 

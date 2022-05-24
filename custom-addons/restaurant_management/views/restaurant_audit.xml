@@ -128,7 +128,8 @@
                     </group>
                     <footer>
                         <button string="Save" class="btn-primary" type="object" name="save_form_data" data-hotkey="v" />
-                        <button string="Save&amp;Create New" class="btn-primary ml-1" type="action" name="%(restaurant_audit_inline_form_action)d" />
+                        <!-- <button string="Save&amp;Create New" class="btn-primary ml-1" type="action" name="%(restaurant_audit_inline_form_action)d" /> -->
+                        <button string="Save&amp;Create New" class="btn-primary ml-1" type="object" name="save_and_create_new" />
                     </footer>
                 </form>
             </field>
