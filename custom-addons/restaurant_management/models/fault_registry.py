@@ -29,7 +29,8 @@ class FaultRegistry(models.Model):
         store=True
     )
     restaurant_audit_id = fields.Many2one(
-        comodel_name="restaurant_management.restaurant_audit"
+        comodel_name="restaurant_management.restaurant_audit",
+        ondelete="cascade"
     )
     fault_category_id = fields.Many2one(
         comodel_name="restaurant_management.fault_category",
