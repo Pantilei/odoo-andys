@@ -42,10 +42,6 @@ class RestaurantAudit(models.Model):
         inverse_name="restaurant_audit_id"
     )
 
-    director_comment = fields.Text(
-        string="Director Comment"
-    )
-
     def save_form_data(self):
         return {
             'type': 'ir.actions.client',

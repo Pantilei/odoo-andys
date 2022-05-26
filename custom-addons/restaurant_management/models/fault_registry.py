@@ -51,6 +51,10 @@ class FaultRegistry(models.Model):
         string="Comment"
     )
 
+    director_comment = fields.Text(
+        string="Director Comment"
+    )
+
     attachment_ids = fields.Many2many(
         comodel_name="ir.attachment",
         string="Photos"

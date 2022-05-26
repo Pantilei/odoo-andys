@@ -6,8 +6,8 @@
             <field name="arch" type="xml">
                 <form string="fault_registry">
                     <header>
-                        <button name="confirm" class="oe_highlight" type="object" string="Confirm" attrs="{'invisible': [('state', 'in', ['confirmed', 'cancel'])]}" />
-                        <button name="cancel" type="object" string="Cancel" attrs="{'invisible': [('state', '=', ['confirmed', 'cancel'])]}" />
+                        <button name="confirm" class="oe_highlight" type="object" string="Confirm" attrs="{'invisible': [('state', 'in', ['confirmed', 'cancel'])]}" groups="restaurant_management.group_restaurant_management_audit_controller" />
+                        <button name="cancel" type="object" string="Cancel" attrs="{'invisible': [('state', 'in', ['confirmed', 'cancel'])]}" groups="restaurant_management.group_restaurant_management_audit_controller" />
                         <field name="state" widget="statusbar" statusbar_visible="new,confirm" />
                     </header>
                     <sheet>
@@ -31,15 +31,13 @@
                         <group>
                             <field name="comment" />
                         </group>
+                        <group string="Director Comment">
+                            <field name="director_comment" nolabel="1" />
+                        </group>
                         <group>
                             <field name="attachment_ids" widget="many2many_binary_preview" accepted_file_extensions="image/*" />
                         </group>
                     </sheet>
-                    <!-- <div class="oe_chatter"> -->
-                    <!-- <field name="message_follower_ids" groups="base.group_user" /> -->
-                    <!-- <field name="activity_ids" /> -->
-                    <!-- <field name="message_ids" /> -->
-                    <!-- </div> -->
                 </form>
             </field>
         </record>
@@ -84,6 +82,13 @@
             <field name="name">Fault Registry</field>
             <field name="res_model">restaurant_management.fault_registry</field>
             <field name="view_mode">tree,form,graph,pivot</field>
+            <field name="target">current</field>
+        </record>
+
+        <record id="registered_faults_per_restaurant_report_action" model="ir.actions.act_window">
+            <field name="name">Fault Registry Reporting</field>
+            <field name="res_model">restaurant_management.fault_registry</field>
+            <field name="view_mode">graph,pivot</field>
             <field name="target">current</field>
         </record>
 

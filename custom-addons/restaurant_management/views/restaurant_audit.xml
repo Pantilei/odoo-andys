@@ -32,13 +32,12 @@
                                 <field name="fault_category_id" attrs="{'readonly': [('id', '!=', False)]}" />
                                 <field name="fault_id" domain="[('category_id', '=', fault_category_id)]" attrs="{'readonly': [('id', '!=', False)]}" style="word-break: break-word; white-space: normal;" />
                                 <field name="comment" style="word-break: break-word; white-space: normal;" />
-                                <button string="Confirm" name="confirm" type="object" class="oe_highlight" attrs="{'invisible': [('id', '=', False)]}" groups="restaurant_management.group_restaurant_management_manager" />
-                                <button string="Cancel" name="cancel" type="object" attrs="{'invisible': [('id', '=', False)]}" groups="restaurant_management.group_restaurant_management_manager" />
+                                <field name="state" widget="badge" decoration-danger="state == 'new'" decoration-success="state == 'confirm'" decoration-muted="state == 'cancel'" />
                             </tree>
                             <form>
                                 <header>
-                                    <button name="confirm" class="oe_highlight" type="object" string="Confirm" attrs="{'invisible': [('state', 'in', ['confirmed', 'cancel'])]}" groups="restaurant_management.group_restaurant_management_manager" />
-                                    <button name="cancel" type="object" string="Cancel" attrs="{'invisible': [('state', '=', ['confirmed', 'cancel'])]}" groups="restaurant_management.group_restaurant_management_manager" />
+                                    <button name="confirm" class="oe_highlight" type="object" string="Confirm" attrs="{'invisible': [('state', 'in', ['confirmed', 'cancel'])]}" groups="restaurant_management.group_restaurant_management_audit_controller" />
+                                    <button name="cancel" type="object" string="Cancel" attrs="{'invisible': [('state', '=', ['confirmed', 'cancel'])]}" groups="restaurant_management.group_restaurant_management_audit_controller" />
                                     <field name="state" widget="statusbar" statusbar_visible="new,confirm" />
                                 </header>
                                 <sheet>
@@ -52,14 +51,14 @@
                                         <field name="comment" />
                                     </group>
                                     <group>
+                                        <field name="director_comment" />
+                                    </group>
+                                    <group>
                                         <field name="attachment_ids" widget="many2many_binary_preview" accepted_file_extensions="image/*" />
                                     </group>
                                 </sheet>
                             </form>
                         </field>
-                    </group>
-                    <group string="Director Comment">
-                        <field name="director_comment" nolabel="1" />
                     </group>
                 </form>
             </field>
@@ -97,13 +96,11 @@
                                 <field name="fault_category_id" attrs="{'readonly': [('id', '!=', False)]}" />
                                 <field name="fault_id" domain="[('category_id', '=', fault_category_id)]" attrs="{'readonly': [('id', '!=', False)]}" style="word-break: break-word; white-space: normal;" />
                                 <field name="comment" style="word-break: break-word; white-space: normal;" />
-                                <button string="Confirm" name="confirm" type="object" class="oe_highlight" attrs="{'invisible': [('id', '=', False)]}" groups="restaurant_management.group_restaurant_management_manager" />
-                                <button string="Cancel" name="cancel" type="object" attrs="{'invisible': [('id', '=', False)]}" groups="restaurant_management.group_restaurant_management_manager" />
                             </tree>
                             <form>
                                 <header>
-                                    <button name="confirm" class="oe_highlight" type="object" string="Confirm" attrs="{'invisible': [('state', 'in', ['confirmed', 'cancel'])]}" groups="restaurant_management.group_restaurant_management_manager" />
-                                    <button name="cancel" type="object" string="Cancel" attrs="{'invisible': [('state', '=', ['confirmed', 'cancel'])]}" groups="restaurant_management.group_restaurant_management_manager" />
+                                    <button name="confirm" class="oe_highlight" type="object" string="Confirm" attrs="{'invisible': [('state', 'in', ['confirmed', 'cancel'])]}" groups="restaurant_management.group_restaurant_management_audit_controller" />
+                                    <button name="cancel" type="object" string="Cancel" attrs="{'invisible': [('state', 'in', ['confirmed', 'cancel'])]}" groups="restaurant_management.group_restaurant_management_audit_controller" />
                                     <field name="state" widget="statusbar" statusbar_visible="new,confirm" />
                                 </header>
                                 <sheet>
@@ -117,14 +114,14 @@
                                         <field name="comment" />
                                     </group>
                                     <group>
+                                        <field name="director_comment" />
+                                    </group>
+                                    <group>
                                         <field name="attachment_ids" widget="many2many_binary_preview" accepted_file_extensions="image/*" />
                                     </group>
                                 </sheet>
                             </form>
                         </field>
-                    </group>
-                    <group string="Director Comment">
-                        <field name="director_comment" nolabel="1" />
                     </group>
                     <footer>
                         <button string="Save" class="btn-primary" type="object" name="save_form_data" data-hotkey="v" />
