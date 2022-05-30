@@ -5,7 +5,6 @@ from odoo import models, fields, api
 
 class RestaurantAudit(models.Model):
     _name = 'restaurant_management.restaurant_audit'
-    _inherit = ["mail.thread", 'mail.activity.mixin']
     _description = 'Restaurant Audit'
     _order = "id desc"
 

@@ -5,7 +5,6 @@ from odoo import models, fields, api
 
 class FaultRegistry(models.Model):
     _name = 'restaurant_management.fault_registry'
-    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Fault Registry'
     _order = "id desc"
 
