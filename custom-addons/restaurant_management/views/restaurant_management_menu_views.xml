@@ -4,28 +4,27 @@
     <menuitem id="menu_root" 
               name="Restaurant Management" 
               web_icon="crm,static/description/icon.png" 
-              groups="restaurant_management.group_restaurant_management_user" 
               sequence="25" />
 
     <menuitem id="restaurant_audit" 
               name="Restaurant Audit" 
               parent="menu_root" 
-              action="restaurant_management.restaurant_audit_action"
-              groups="restaurant_management.group_restaurant_management_manager" 
+              action="restaurant_audit_action"
+              groups="restaurant_management.group_restaurant_management_audit_controller" 
               sequence="1" />
               
     <menuitem id="restaurant_audit_form" 
               name="Make Restaurant Audit" 
               parent="menu_root" 
-              action="restaurant_management.restaurant_audit_inline_form_action"
-              groups="restaurant_management.group_restaurant_management_user" 
+              action="restaurant_audit_inline_form_action"
+              groups="restaurant_management.group_restaurant_management_auditer" 
               sequence="2" />
 
     <menuitem id="fault_registry" 
               name="Fault Registry" 
               parent="menu_root" 
-              action="restaurant_management.fault_registry_action"
-              groups="restaurant_management.group_restaurant_management_manager" 
+              action="fault_registry_action"
+              groups="restaurant_management.group_restaurant_management_audit_controller" 
               sequence="10" />
 
     <menuitem id="restaurant_parent" 
@@ -38,8 +37,21 @@
               name="Restaurants" 
               parent="restaurant_parent" 
               groups="restaurant_management.group_restaurant_management_manager" 
-              action="restaurant_management.restaurant_action" 
+              action="restaurant_action" 
               sequence="1" />
+
+    <menuitem id="report_main_menu" 
+              name="Reporting" 
+              parent="menu_root" 
+              groups="restaurant_management.group_restaurant_management_reporter" 
+              sequence="100" />
+
+    <menuitem id="report_registered_faults_per_restaurant_menu" 
+              name="Registered Faults" 
+              parent="report_main_menu" 
+              action="registered_faults_per_restaurant_report_action"
+              groups="restaurant_management.group_restaurant_management_reporter" 
+              sequence="10" />
 
     <menuitem id="configuration_menu" 
               name="Configurations" 
@@ -50,13 +62,13 @@
     <menuitem id="fault_menu" 
               name="Faults" 
               parent="configuration_menu" 
-              action="restaurant_management.fault_action"
+              action="fault_action"
               groups="restaurant_management.group_restaurant_management_manager" 
               sequence="5" />
     <menuitem id="fault_category_menu" 
               name="Fault Categories" 
               parent="configuration_menu" 
-              action="restaurant_management.fault_category_action" 
+              action="fault_category_action" 
               groups="restaurant_management.group_restaurant_management_manager" 
               sequence="10" />
 

@@ -5,7 +5,6 @@ from odoo import models, fields, api
 
 class FaultRegistry(models.Model):
     _name = 'restaurant_management.fault_registry'
-    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Fault Registry'
     _order = "id desc"
 
@@ -29,7 +28,8 @@ class FaultRegistry(models.Model):
         store=True
     )
     restaurant_audit_id = fields.Many2one(
-        comodel_name="restaurant_management.restaurant_audit"
+        comodel_name="restaurant_management.restaurant_audit",
+        ondelete="cascade"
     )
     fault_category_id = fields.Many2one(
         comodel_name="restaurant_management.fault_category",
@@ -49,6 +49,10 @@ class FaultRegistry(models.Model):
 
     comment = fields.Text(
         string="Comment"
+    )
+
+    director_comment = fields.Text(
+        string="Director Comment"
     )
 
     attachment_ids = fields.Many2many(

@@ -1,8 +1,11 @@
 src/odoo
 configs/odoo.conf
+configs/odoo-prod.conf
 logs/
 data-dir/
 env/
+bin/odoo.sh
+bin/odoo-prod.sh
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

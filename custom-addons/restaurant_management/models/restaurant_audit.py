@@ -5,7 +5,6 @@ from odoo import models, fields, api
 
 class RestaurantAudit(models.Model):
     _name = 'restaurant_management.restaurant_audit'
-    _inherit = ["mail.thread", 'mail.activity.mixin']
     _description = 'Restaurant Audit'
     _order = "id desc"
 
@@ -42,10 +41,6 @@ class RestaurantAudit(models.Model):
         inverse_name="restaurant_audit_id"
     )
 
-    director_comment = fields.Text(
-        string="Director Comment"
-    )
-
     def save_form_data(self):
         return {
             'type': 'ir.actions.client',
@@ -57,6 +52,9 @@ class RestaurantAudit(models.Model):
                 'next': {'type': 'ir.actions.act_window_close'}
             },
         }
+
+    def save_and_create_new(self):
+        return self.sudo().env.ref("restaurant_management.restaurant_audit_inline_form_action").read()[0]
 
     # def _compute_fault_registry_json(self):
     #     pass
