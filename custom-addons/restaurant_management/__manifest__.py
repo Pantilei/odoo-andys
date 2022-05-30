@@ -25,11 +25,13 @@
         'data/cron.xml',
 
         'views/restaurant_views.xml',
-        'views/restaurant_audit.xml',
-        'views/fault_views.xml',
+        'views/restaurant_network_views.xml',
+        'views/restaurant_audit_view.xml',
+        'views/check_list_views.xml',
+        'views/check_list_category_views.xml',
         'views/fault_registry_views.xml',
-        'views/fault_category_views.xml',
         'views/restaurant_management_menu_views.xml',
+
     ],
     # only loaded in demonstration mode
     'demo': [],

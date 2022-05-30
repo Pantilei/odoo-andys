@@ -25,15 +25,15 @@ class RestaurantAudit(models.Model):
         comodel_name="res.users",
         default=lambda self: self.env.user.id,
         readonly=True,
-        string="Responsible"
+        string="Expert DKK"
     )
 
     audit_date = fields.Date(default=fields.Datetime.today())
     audit_start_time = fields.Float(
-        string="Start Time"
+        string="From"
     )
     audit_end_time = fields.Float(
-        string="End Time"
+        string="To"
     )
 
     fault_registry_ids = fields.One2many(

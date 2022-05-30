@@ -7,14 +7,14 @@
               sequence="25" />
 
     <menuitem id="restaurant_audit" 
-              name="Restaurant Audit" 
+              name="Audit of Expert DKK" 
               parent="menu_root" 
               action="restaurant_audit_action"
               groups="restaurant_management.group_restaurant_management_audit_controller" 
               sequence="1" />
               
     <menuitem id="restaurant_audit_form" 
-              name="Make Restaurant Audit" 
+              name="Make Audit of Expert DKK" 
               parent="menu_root" 
               action="restaurant_audit_inline_form_action"
               groups="restaurant_management.group_restaurant_management_auditer" 
@@ -40,6 +40,13 @@
               action="restaurant_action" 
               sequence="1" />
 
+    <menuitem id="restaurant_network" 
+              name="Restaurant Networks" 
+              parent="restaurant_parent" 
+              groups="restaurant_management.group_restaurant_management_manager" 
+              action="restaurant_network_action" 
+              sequence="10" />
+
     <menuitem id="report_main_menu" 
               name="Reporting" 
               parent="menu_root" 
@@ -59,16 +66,16 @@
               groups="restaurant_management.group_restaurant_management_manager" 
               sequence="1000" />
 
-    <menuitem id="fault_menu" 
-              name="Faults" 
+    <menuitem id="check_list_menu" 
+              name="Check List" 
               parent="configuration_menu" 
-              action="fault_action"
+              action="check_list_action"
               groups="restaurant_management.group_restaurant_management_manager" 
               sequence="5" />
-    <menuitem id="fault_category_menu" 
-              name="Fault Categories" 
+    <menuitem id="check_list_category_menu" 
+              name="Check List Category" 
               parent="configuration_menu" 
-              action="fault_category_action" 
+              action="check_list_category_action" 
               groups="restaurant_management.group_restaurant_management_manager" 
               sequence="10" />
 

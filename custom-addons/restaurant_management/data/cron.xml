@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="ir_cron_generate_fault_data" model="ir.cron">
-        <field name="name">Generate Fault Data</field>
+    <record id="ir_cron_generate_check_list_data" model="ir.cron">
+        <field name="name">Generate Check List Data</field>
         <field name="model_id" ref="restaurant_management.model_restaurant_management_fault_registry" />
         <field name="state">code</field>
         <field name="code">model._populate_data()</field>
@@ -11,11 +11,11 @@
         <field name="numbercall">-1</field>
     </record>
 
-    <record id="ir_cron_import_fault_data" model="ir.cron">
-        <field name="name">Import Fault Data</field>
-        <field name="model_id" ref="restaurant_management.model_restaurant_management_fault" />
+    <record id="ir_cron_import_check_list_data" model="ir.cron">
+        <field name="name">Import Check List Data</field>
+        <field name="model_id" ref="restaurant_management.model_restaurant_management_check_list" />
         <field name="state">code</field>
-        <field name="code">model._create_faults_and_categories()</field>
+        <field name="code">model._create_check_lists_and_categories()</field>
         <field name="active" eval="False" />
         <field name="interval_number">1</field>
         <field name="interval_type">days</field>

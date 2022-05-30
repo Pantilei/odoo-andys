@@ -1,10 +1,10 @@
 <odoo>
     <data>
-        <record id="fault_view_form" model="ir.ui.view">
-            <field name="name">fault.view.form</field>
-            <field name="model">restaurant_management.fault</field>
+        <record id="check_list_view_form" model="ir.ui.view">
+            <field name="name">check_list.view.form</field>
+            <field name="model">restaurant_management.check_list</field>
             <field name="arch" type="xml">
-                <form string="Faults">
+                <form string="Check List">
                     <sheet>
                         <group>
                             <field name="category_id" />
@@ -16,9 +16,9 @@
                 </form>
             </field>
         </record>
-        <record id="fault_tree_view" model="ir.ui.view">
-            <field name="name">fault.view.tree</field>
-            <field name="model">restaurant_management.fault</field>
+        <record id="check_list_tree_view" model="ir.ui.view">
+            <field name="name">check_list.view.tree</field>
+            <field name="model">restaurant_management.check_list</field>
             <field name="arch" type="xml">
                 <tree>
                     <field name="category_id" />
@@ -28,9 +28,9 @@
         </record>
 
         <!-- actions opening views on models -->
-        <record id="fault_action" model="ir.actions.act_window">
-            <field name="name">Faults</field>
-            <field name="res_model">restaurant_management.fault</field>
+        <record id="check_list_action" model="ir.actions.act_window">
+            <field name="name">Check List</field>
+            <field name="res_model">restaurant_management.check_list</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[]</field>
         </record>

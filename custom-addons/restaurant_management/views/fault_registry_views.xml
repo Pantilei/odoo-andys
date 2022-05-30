@@ -6,17 +6,10 @@
             <field name="arch" type="xml">
                 <form string="fault_registry">
                     <header>
-                        <button name="confirm" class="oe_highlight" type="object" string="Confirm" attrs="{'invisible': [('state', 'in', ['confirmed', 'cancel'])]}" groups="restaurant_management.group_restaurant_management_audit_controller" />
-                        <button name="cancel" type="object" string="Cancel" attrs="{'invisible': [('state', 'in', ['confirmed', 'cancel'])]}" groups="restaurant_management.group_restaurant_management_audit_controller" />
-                        <field name="state" widget="statusbar" statusbar_visible="new,confirm" />
+                        <button name="cancel" type="object" string="Cancel" attrs="{'invisible': [('state', 'in', ['cancel'])]}" groups="restaurant_management.group_restaurant_management_audit_controller" />
+                        <field name="state" widget="statusbar" statusbar_visible="confirm" />
                     </header>
                     <sheet>
-                        <div class='oe_title'>
-                            <label for="name" string="Name" />
-                            <h1>
-                                <field name="name" />
-                            </h1>
-                        </div>
                         <group>
                             <field name="restaurant_id" />
                         </group>
@@ -25,14 +18,17 @@
                             <field name="create_date" readonly="1" />
                         </group>
                         <group>
-                            <field name="fault_category_id" widget="selection" />
-                            <field name="fault_id" widget="selection" domain="[('category_id', '=', fault_category_id)]" />
+                            <field name="check_list_category_id" widget="selection" />
+                            <field name="check_list_id" widget="selection" domain="[('category_id', '=', check_list_category_id)]" />
                         </group>
                         <group>
                             <field name="comment" />
                         </group>
-                        <group string="Director Comment">
-                            <field name="director_comment" nolabel="1" />
+                        <group>
+                            <field name="director_comment" />
+                        </group>
+                        <group>
+                            <field name="check_list_category_responsible_comment" />
                         </group>
                         <group>
                             <field name="attachment_ids" widget="many2many_binary_preview" accepted_file_extensions="image/*" />
@@ -46,11 +42,10 @@
             <field name="model">restaurant_management.fault_registry</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="name" />
                     <field name="restaurant_id" />
-                    <field name="fault_category_id" />
+                    <field name="check_list_category_id" />
                     <field name="responsible_id" widget="many2one_avatar_user" />
-                    <field name="state" widget="badge" decoration-danger="state == 'new'" decoration-success="state == 'confirm'" decoration-muted="state == 'cancel'" />
+                    <field name="state" widget="badge" decoration-success="state == 'confirm'" decoration-muted="state == 'cancel'" />
                 </tree>
             </field>
         </record>
