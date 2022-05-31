@@ -21,11 +21,11 @@
 ###################################################################################
 
 {
-    'name': 'MuK Backend Theme', 
+    'name': 'MuK Backend Theme',
     'summary': 'Odoo Community Backend Theme',
-    'version': '15.0.1.0.1', 
-    'category': 'Themes/Backend', 
-    'license': 'LGPL-3', 
+    'version': '15.0.1.0.1',
+    'category': 'Themes/Backend',
+    'license': 'LGPL-3',
     'author': 'MuK IT',
     'website': 'http://www.mukit.at',
     'live_test_url': 'https://mukit.at/r/SgN',
@@ -35,15 +35,15 @@
     'depends': [
         'base_setup',
         'web_editor',
-        'mail',
+        # 'mail',
     ],
     'excludes': [
         'web_enterprise',
     ],
     'data': [
-       'templates/webclient.xml',
-       'views/res_config_settings_view.xml',
-       'views/res_users.xml',
+        'templates/webclient.xml',
+        'views/res_config_settings_view.xml',
+        'views/res_users.xml',
     ],
     'assets': {
         'web.assets_qweb': [

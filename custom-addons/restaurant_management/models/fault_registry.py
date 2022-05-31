@@ -7,15 +7,12 @@ class FaultRegistry(models.Model):
     _name = 'restaurant_management.fault_registry'
     _description = 'Fault Registry'
     _order = "id desc"
+    _rec_name = "check_list_id"
 
-    name = fields.Char(
-        compute="_compute_name"
-    )
     state = fields.Selection(selection=[
-        ('new', 'New'),
         ('confirm', 'Confirmed'),
         ('cancel', 'Cancel'),
-    ], default="new", tracking=True)
+    ], default="confirm")
 
     restaurant_id = fields.Many2one(
         comodel_name="restaurant_management.restaurant",
@@ -31,28 +28,32 @@ class FaultRegistry(models.Model):
         comodel_name="restaurant_management.restaurant_audit",
         ondelete="cascade"
     )
-    fault_category_id = fields.Many2one(
-        comodel_name="restaurant_management.fault_category",
+    check_list_category_id = fields.Many2one(
+        comodel_name="restaurant_management.check_list_category",
         required=True
     )
-    fault_id = fields.Many2one(
-        comodel_name="restaurant_management.fault",
+    check_list_id = fields.Many2one(
+        comodel_name="restaurant_management.check_list",
         required=True,
-        string="Fault"
+        string="Check List"
     )
     responsible_id = fields.Many2one(
         comodel_name="res.users",
         compute="_compute_responsible",
         store=True,
-        string="Responsible"
+        string="Expert DKK"
     )
 
     comment = fields.Text(
-        string="Comment"
+        string="Expert DKK Comment"
     )
 
     director_comment = fields.Text(
-        string="Director Comment"
+        string="Restaurant Director Comment"
+    )
+
+    check_list_category_responsible_comment = fields.Text(
+        string="Fault Category Responsible Comment"
     )
 
     attachment_ids = fields.Many2many(
@@ -77,16 +78,6 @@ class FaultRegistry(models.Model):
         for record in self:
             if record.restaurant_audit_id:
                 record.fault_date = record.restaurant_audit_id.audit_date
-
-    @api.depends('create_date')
-    def _compute_name(self):
-        for record in self:
-            record.name = f"Fault {record.id}" if record.id else "New Fault"
-
-    def confirm(self):
-        self.write({
-            "state": "confirm",
-        })
 
     def cancel(self):
         self.write({

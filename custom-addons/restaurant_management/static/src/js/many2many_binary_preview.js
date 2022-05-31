@@ -104,7 +104,6 @@ var FieldMany2ManyBinaryPreview = AbstractField.extend({
 
         this.$('.o_image[data-mimetype^="image"]').each(function () {
             var $img = $(this);
-            console.log('$img', $img);
             if (/gif|jpe|jpg|png/.test($img.data('mimetype')) && $img.data('src')) {
                 $img.css('background-image', "url('" + $img.data('src') + "')");
             }
@@ -224,14 +223,25 @@ var FieldMany2ManyBinaryPreview = AbstractField.extend({
         console.log("THIs,", this);
         var self = this;
         var activeAttachmentID = $(ev.currentTarget).data('id');
-        this.attachments = this.value.res_ids.map(r => {
-            return {
-                id: r,
-                mimetype: "image",
-            }
-        });
-        var attachmentViewer = new DocumentViewer(this, this.attachments, activeAttachmentID);
-        attachmentViewer.appendTo($('body'));
+        this._rpc({
+            model: 'ir.attachment',
+            method: 'search_read_sudo',
+            kwargs: {
+                domain: [['id', 'in', this.value.res_ids]],
+                fields: ['id', 'mimetype', 'index_content'],
+            },
+        }).then(result => {
+            console.log("result:", result);
+            this.attachments = result.map(r => {
+                return {
+                    id: r.id,
+                    mimetype: r.mimetype,
+                    fileType: r.index_content
+                }
+            });
+            var attachmentViewer = new DocumentViewer(this, this.attachments, activeAttachmentID);
+            attachmentViewer.appendTo($('body'));
+        })
     }
 });
 
