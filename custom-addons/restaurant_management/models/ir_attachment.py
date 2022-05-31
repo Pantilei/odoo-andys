@@ -54,3 +54,7 @@ class IrAttachment(models.Model):
             access_mode = 'write' if mode in ('create', 'unlink') else mode
             records.check_access_rights(access_mode)
             records.check_access_rule(access_mode)
+
+    @api.model
+    def search_read_sudo(self, domain=None, fields=None):
+        return self.sudo().search_read(domain, fields)

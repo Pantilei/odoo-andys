@@ -225,7 +225,7 @@ var FieldMany2ManyBinaryPreview = AbstractField.extend({
         var activeAttachmentID = $(ev.currentTarget).data('id');
         this._rpc({
             model: 'ir.attachment',
-            method: 'search_read',
+            method: 'search_read_sudo',
             kwargs: {
                 domain: [['id', 'in', this.value.res_ids]],
                 fields: ['id', 'mimetype', 'index_content'],
