@@ -10,21 +10,14 @@
               name="Audit of Expert DKK" 
               parent="menu_root" 
               action="restaurant_audit_action"
-              groups="restaurant_management.group_restaurant_management_audit_controller" 
+              groups="restaurant_management.group_restaurant_management_audit_controller,restaurant_management.group_restaurant_management_auditer,restaurant_management.group_restaurant_management_restaurant_director" 
               sequence="1" />
-              
-    <menuitem id="restaurant_audit_form" 
-              name="Make Audit of Expert DKK" 
-              parent="menu_root" 
-              action="restaurant_audit_inline_form_action"
-              groups="restaurant_management.group_restaurant_management_auditer" 
-              sequence="2" />
 
     <menuitem id="fault_registry" 
               name="Fault Registry" 
               parent="menu_root" 
               action="fault_registry_action"
-              groups="restaurant_management.group_restaurant_management_audit_controller" 
+              groups="restaurant_management.group_restaurant_management_audit_controller,restaurant_management.group_restaurant_management_restaurant_director" 
               sequence="10" />
 
     <menuitem id="restaurant_parent" 

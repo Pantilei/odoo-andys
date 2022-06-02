@@ -64,7 +64,7 @@
             </field>
         </record>
 
-        <record id="restaurant_audit_view_inline_form" model="ir.ui.view">
+        <!-- <record id="restaurant_audit_view_inline_form" model="ir.ui.view">
             <field name="name">restaurant_audit.view.inline.form</field>
             <field name="model">restaurant_management.restaurant_audit</field>
             <field name="arch" type="xml">
@@ -130,7 +130,7 @@
                     </footer>
                 </form>
             </field>
-        </record>
+        </record> -->
 
         <record id="restaurant_audit_tree_view" model="ir.ui.view">
             <field name="name">restaurant_audit.view.tree</field>
@@ -157,7 +157,7 @@
                                           (0, 0, {'view_mode': 'form', 'view_id': ref('restaurant_audit_view_form')})]" />
         </record>
 
-        <record id="restaurant_audit_inline_form_action" model="ir.actions.act_window">
+        <!-- <record id="restaurant_audit_inline_form_action" model="ir.actions.act_window">
             <field name="name">Audit of Expert DKK</field>
             <field name="res_model">restaurant_management.restaurant_audit</field>
             <field name="view_mode">form</field>
@@ -165,7 +165,7 @@
             <field name="target">inline</field>
             <field name="view_ids" eval="[(5, 0, 0),
                                           (0, 0, {'view_mode': 'form', 'view_id': ref('restaurant_audit_view_inline_form')})]" />
-        </record>
+        </record> -->
 
     </data>
 </odoo>
