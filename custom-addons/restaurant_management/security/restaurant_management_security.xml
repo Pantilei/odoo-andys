@@ -79,7 +79,7 @@
         <field name="name">Fault Registry, Restaurant Director, Responsible Rule</field>
         <field name="model_id" ref="model_restaurant_management_fault_registry" />
         <field name="domain_force">[('restaurant_id.director_id', '=', user.id)]</field>
-        <field name="groups" eval="[(4, ref('group_restaurant_management_auditer'))]" />
+        <field name="groups" eval="[(4, ref('group_restaurant_management_restaurant_director'))]" />
     </record>
 
     <record id="fault_registry_admin_responsible_rule" model="ir.rule">

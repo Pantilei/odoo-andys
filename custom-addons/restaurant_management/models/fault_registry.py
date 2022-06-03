@@ -61,6 +61,10 @@ class FaultRegistry(models.Model):
         string="Photos"
     )
 
+    @api.onchange("check_list_category_id")
+    def onchange_check_list_category(self):
+        self.check_list_id = False
+
     @api.depends("restaurant_audit_id")
     def _compute_responsible(self):
         for record in self:

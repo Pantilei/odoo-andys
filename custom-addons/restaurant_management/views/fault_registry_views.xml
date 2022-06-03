@@ -6,7 +6,7 @@
             <field name="arch" type="xml">
                 <form string="fault_registry">
                     <header>
-                        <button name="cancel" type="object" string="Cancel" attrs="{'invisible': [('state', 'in', ['cancel'])]}" groups="restaurant_management.group_restaurant_management_audit_controller" />
+                        <button name="cancel" type="object" string="Cancel" attrs="{'invisible': [('state', 'in', ['cancel'])]}" />
                         <field name="state" widget="statusbar" statusbar_visible="confirm" />
                     </header>
                     <sheet>
@@ -14,8 +14,8 @@
                             <field name="restaurant_id" />
                         </group>
                         <group>
-                            <field name="responsible_id" readonly="1" widget="many2one_avatar_user" />
-                            <field name="create_date" readonly="1" />
+                            <field name="responsible_id" widget="many2one_avatar_user" />
+                            <field name="create_date" />
                         </group>
                         <group>
                             <field name="check_list_category_id" widget="selection" />
@@ -37,6 +37,127 @@
                 </form>
             </field>
         </record>
+
+        <!-- <record id="fault_registry_view_form_group_restaurant_management_manager" model="ir.ui.view">
+            <field name="name">fault_registry.view.form</field>
+            <field name="model">restaurant_management.fault_registry.group_restaurant_management_manager</field>
+            <field name="inherit_id" ref="fault_registry_view_form" />
+            <field name="groups_id" eval="[(6, 0, [ref('group_restaurant_management_manager')])]" />
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='cancel']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('state', 'in', ['cancel'])]}</attribute>
+                </xpath>
+            </field>
+        </record> -->
+
+        <record id="fault_registry_view_form_group_restaurant_management_restaurant_director" model="ir.ui.view">
+            <field name="name">fault_registry.view.form.group_restaurant_management_restaurant_director</field>
+            <field name="model">restaurant_management.fault_registry</field>
+            <field name="inherit_id" ref="fault_registry_view_form" />
+            <field name="groups_id" eval="[(6, 0, [ref('group_restaurant_management_restaurant_director')])]" />
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='cancel']" position="replace">
+                    <button name="cancel" type="object" string="Cancel" invisible="1" />
+                </xpath>
+                <xpath expr="//field[@name='check_list_category_id']" position="replace">
+                    <field name="check_list_category_id" widget="selection" readonly="1" />
+                </xpath>
+                <xpath expr="//field[@name='check_list_id']" position="replace">
+                    <field name="check_list_id" widget="selection" readonly="1" />
+                </xpath>
+                <xpath expr="//field[@name='comment']" position="replace">
+                    <field name="comment" readonly="1" />
+                </xpath>
+                <xpath expr="//field[@name='check_list_category_responsible_comment']" position="replace">
+                    <field name="check_list_category_responsible_comment" readonly="1" />
+                </xpath>
+                <xpath expr="//field[@name='attachment_ids']" position="replace">
+                    <field name="attachment_ids" readonly="1" widget="many2many_binary_preview" accepted_file_extensions="image/*" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="fault_registry_view_form_group_restaurant_management_audit_controller" model="ir.ui.view">
+            <field name="name">fault_registry.view.form.group_restaurant_management_audit_controller</field>
+            <field name="model">restaurant_management.fault_registry</field>
+            <field name="inherit_id" ref="fault_registry_view_form" />
+            <field name="groups_id" eval="[(6, 0, [ref('group_restaurant_management_audit_controller')])]" />
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='cancel']" position="replace">
+                    <button name="cancel" type="object" string="Cancel" invisible="1" />
+                </xpath>
+                <xpath expr="//field[@name='check_list_category_id']" position="replace">
+                    <field name="check_list_category_id" widget="selection" readonly="1" />
+                </xpath>
+                <xpath expr="//field[@name='check_list_id']" position="replace">
+                    <field name="check_list_id" widget="selection" readonly="1" />
+                </xpath>
+                <xpath expr="//field[@name='comment']" position="replace">
+                    <field name="comment" readonly="1" />
+                </xpath>
+                <xpath expr="//field[@name='director_comment']" position="replace">
+                    <field name="director_comment" readonly="1" />
+                </xpath>
+                <xpath expr="//field[@name='attachment_ids']" position="replace">
+                    <field name="attachment_ids" readonly="1" widget="many2many_binary_preview" accepted_file_extensions="image/*" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="fault_registry_view_form_group_restaurant_management_audit_controller" model="ir.ui.view">
+            <field name="name">fault_registry.view.form.group_restaurant_management_audit_controller</field>
+            <field name="model">restaurant_management.fault_registry</field>
+            <field name="inherit_id" ref="fault_registry_view_form" />
+            <field name="groups_id" eval="[(6, 0, [ref('group_restaurant_management_audit_controller')])]" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='check_list_category_id']" position="replace">
+                    <field name="check_list_category_id" widget="selection" readonly="1" />
+                </xpath>
+                <xpath expr="//field[@name='check_list_id']" position="replace">
+                    <field name="check_list_id" widget="selection" readonly="1" />
+                </xpath>
+                <xpath expr="//field[@name='comment']" position="replace">
+                    <field name="comment" readonly="1" />
+                </xpath>
+                <xpath expr="//field[@name='director_comment']" position="replace">
+                    <field name="director_comment" readonly="1" />
+                </xpath>
+                <xpath expr="//field[@name='attachment_ids']" position="replace">
+                    <field name="attachment_ids" readonly="1" widget="many2many_binary_preview" accepted_file_extensions="image/*" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="fault_registry_view_form_group_restaurant_management_auditer" model="ir.ui.view">
+            <field name="name">fault_registry.view.form.group_restaurant_management_auditer</field>
+            <field name="model">restaurant_management.fault_registry</field>
+            <field name="inherit_id" ref="fault_registry_view_form" />
+            <field name="groups_id" eval="[(6, 0, [ref('group_restaurant_management_auditer')])]" />
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='cancel']" position="replace">
+                    <button name="cancel" type="object" string="Cancel" invisible="1" />
+                </xpath>
+                <xpath expr="//field[@name='check_list_category_id']" position="replace">
+                    <field name="check_list_category_id" widget="selection" attrs="{'readonly': [('id', '!=', False)]}" />
+                </xpath>
+                <xpath expr="//field[@name='check_list_id']" position="replace">
+                    <field name="check_list_id" widget="selection" readonly="1" attrs="{'readonly': [('id', '!=', False)]}" />
+                </xpath>
+                <xpath expr="//field[@name='comment']" position="replace">
+                    <field name="comment" />
+                </xpath>
+                <xpath expr="//field[@name='director_comment']" position="replace">
+                    <field name="director_comment" readonly="1" />
+                </xpath>
+                <xpath expr="//field[@name='check_list_category_responsible_comment']" position="replace">
+                    <field name="check_list_category_responsible_comment" readonly="1" />
+                </xpath>
+                <xpath expr="//field[@name='attachment_ids']" position="replace">
+                    <field name="attachment_ids" widget="many2many_binary_preview" accepted_file_extensions="image/*" />
+                </xpath>
+            </field>
+        </record>
+
         <record id="fault_registry_tree_view" model="ir.ui.view">
             <field name="name">fault_registry.view.tree</field>
             <field name="model">restaurant_management.fault_registry</field>
