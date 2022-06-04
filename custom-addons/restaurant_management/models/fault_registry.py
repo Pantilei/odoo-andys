@@ -88,9 +88,14 @@ class FaultRegistry(models.Model):
             "state": "cancel"
         })
 
+    def confirm(self):
+        self.write({
+            "state": "confirm"
+        })
+
     @api.model
     def _populate_data(self):
         print("Populate data", self)
-        self.create({
+        # self.create({
 
-        })
+        # })
