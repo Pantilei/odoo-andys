@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 
 
 class RestaurantAudit(models.Model):
@@ -11,7 +11,7 @@ class RestaurantAudit(models.Model):
     @api.depends("restaurant_id", "audit_date")
     def _compute_name(self):
         for record in self:
-            record.name = f"Audit--{record.restaurant_id.name or 'New'}--{record.audit_date or ''}--{record.id or ''}"
+            record.name = f"{record.restaurant_id.name or _('New')}--{record.audit_date or ''}--{record.id or ''}"
 
     name = fields.Char(
         compute="_compute_name",

@@ -10,14 +10,14 @@
               name="Audit of Expert DKK" 
               parent="menu_root" 
               action="restaurant_audit_action"
-              groups="restaurant_management.group_restaurant_management_audit_controller,restaurant_management.group_restaurant_management_auditer,restaurant_management.group_restaurant_management_restaurant_director" 
+              groups="restaurant_management.group_restaurant_management_audit_controller,restaurant_management.group_restaurant_management_auditer,restaurant_management.group_restaurant_management_restaurant_director,restaurant_management.group_restaurant_management_manager" 
               sequence="1" />
 
     <menuitem id="fault_registry" 
               name="Fault Registry" 
               parent="menu_root" 
               action="fault_registry_action"
-              groups="restaurant_management.group_restaurant_management_audit_controller,restaurant_management.group_restaurant_management_restaurant_director" 
+              groups="restaurant_management.group_restaurant_management_audit_controller,restaurant_management.group_restaurant_management_restaurant_director,restaurant_management.group_restaurant_management_manager" 
               sequence="10" />
 
     <menuitem id="restaurant_parent" 
@@ -43,14 +43,14 @@
     <menuitem id="report_main_menu" 
               name="Reporting" 
               parent="menu_root" 
-              groups="restaurant_management.group_restaurant_management_reporter" 
+              groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager" 
               sequence="100" />
 
     <menuitem id="report_registered_faults_per_restaurant_menu" 
               name="Registered Faults" 
               parent="report_main_menu" 
               action="registered_faults_per_restaurant_report_action"
-              groups="restaurant_management.group_restaurant_management_reporter" 
+              groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager" 
               sequence="10" />
 
     <menuitem id="configuration_menu" 

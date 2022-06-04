@@ -33,10 +33,10 @@
     <record id="group_restaurant_management_manager" model="res.groups">
         <field name="name">Administrator</field>
         <field name="category_id" ref="module_category_restaurant_management" />
-        <field name="implied_ids" eval="[(4, ref('group_restaurant_management_reporter')), 
+        <!-- <field name="implied_ids" eval="[(4, ref('group_restaurant_management_reporter')), 
                                          (4, ref('group_restaurant_management_auditer')), 
                                          (4, ref('group_restaurant_management_restaurant_director')), 
-                                         (4, ref('group_restaurant_management_audit_controller'))]" />
+                                         (4, ref('group_restaurant_management_audit_controller'))]" /> -->
         <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]" />
         <field name="comment">User under this group are allowed to manange everything in restaurant</field>
     </record>

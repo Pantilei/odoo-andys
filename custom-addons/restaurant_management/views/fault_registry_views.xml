@@ -38,18 +38,6 @@
             </field>
         </record>
 
-        <!-- <record id="fault_registry_view_form_group_restaurant_management_manager" model="ir.ui.view">
-            <field name="name">fault_registry.view.form</field>
-            <field name="model">restaurant_management.fault_registry.group_restaurant_management_manager</field>
-            <field name="inherit_id" ref="fault_registry_view_form" />
-            <field name="groups_id" eval="[(6, 0, [ref('group_restaurant_management_manager')])]" />
-            <field name="arch" type="xml">
-                <xpath expr="//button[@name='cancel']" position="attributes">
-                    <attribute name="attrs">{'invisible': [('state', 'in', ['cancel'])]}</attribute>
-                </xpath>
-            </field>
-        </record> -->
-
         <record id="fault_registry_view_form_group_restaurant_management_restaurant_director" model="ir.ui.view">
             <field name="name">fault_registry.view.form.group_restaurant_management_restaurant_director</field>
             <field name="model">restaurant_management.fault_registry</field>
@@ -164,6 +152,7 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="restaurant_id" />
+                    <field name="create_date" />
                     <field name="check_list_category_id" />
                     <field name="responsible_id" widget="many2one_avatar_user" />
                     <field name="state" widget="badge" decoration-success="state == 'confirm'" decoration-muted="state == 'cancel'" />
