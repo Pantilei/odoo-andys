@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-30 19:13+0000\n"
-"PO-Revision-Date: 2022-05-30 19:13+0000\n"
+"POT-Creation-Date: 2022-06-04 11:07+0000\n"
+"PO-Revision-Date: 2022-06-04 11:07+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -37,19 +37,19 @@ msgstr "Дата Проверки"
 
 #. module: restaurant_management
 #: model:ir.actions.act_window,name:restaurant_management.restaurant_audit_action
-#: model:ir.actions.act_window,name:restaurant_management.restaurant_audit_inline_form_action
 #: model:ir.ui.menu,name:restaurant_management.restaurant_audit
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_tree_view
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_inline_form
 msgid "Audit of Expert DKK"
 msgstr "Проверка Эксперта ДКК"
 
 #. module: restaurant_management
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_fault_registry__state__cancel
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_auditer
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_restaurant_director
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_inline_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_audit_controller
 msgid "Cancel"
 msgstr "Отменить"
 
@@ -166,7 +166,7 @@ msgstr "Показываемое имя"
 #: code:addons/restaurant_management/static/src/xml/many2many_binary_preview.xml:0
 #, python-format
 msgid "Download"
-msgstr "Загрузить"
+msgstr "Загрузка"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__responsible_id
@@ -207,7 +207,6 @@ msgstr "Отчёт по Ошибкам"
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_graph_view
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_pivot
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_inline_form
 msgid "Faults"
 msgstr "Ошибки"
 
@@ -295,11 +294,6 @@ msgstr "Последнее обновление в"
 #, python-format
 msgid "Loading"
 msgstr "Загрузка"
-
-#. module: restaurant_management
-#: model:ir.ui.menu,name:restaurant_management.restaurant_audit_form
-msgid "Make Audit of Expert DKK"
-msgstr "Создать проверку эксперта ДКК"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__name
@@ -423,6 +417,11 @@ msgid "Restaurant Networks"
 msgstr "Сеть Ресторанов"
 
 #. module: restaurant_management
+#: model:res.groups,name:restaurant_management.group_restaurant_management_restaurant_director
+msgid "Restaurant director"
+msgstr "Директор Ресторана"
+
+#. module: restaurant_management
 #: model:ir.model,name:restaurant_management.model_restaurant_management_restaurant
 #: model:ir.ui.menu,name:restaurant_management.restaurant
 #: model:ir.ui.menu,name:restaurant_management.restaurant_parent
@@ -436,16 +435,6 @@ msgstr "Рестораны"
 #, python-format
 msgid "Rotate"
 msgstr "Вращать"
-
-#. module: restaurant_management
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_inline_form
-msgid "Save"
-msgstr "Сохранить"
-
-#. module: restaurant_management
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_inline_form
-msgid "Save&Create New"
-msgstr "Сохранить & Создать новый"
 
 #. module: restaurant_management
 #: code:addons/restaurant_management/models/ir_attachment.py:0
@@ -523,7 +512,7 @@ msgstr ""
 
 #. module: restaurant_management
 #: model:res.groups,comment:restaurant_management.group_restaurant_management_manager
-msgid "User under this group are allowed to manange everythin in restaurant"
+msgid "User under this group are allowed to manange everything in restaurant"
 msgstr ""
 
 #. module: restaurant_management
@@ -538,6 +527,11 @@ msgstr ""
 msgid ""
 "User under this group are allowed to view and cancel the expert DKK "
 "registered faults"
+msgstr ""
+
+#. module: restaurant_management
+#: model:res.groups,comment:restaurant_management.group_restaurant_management_restaurant_director
+msgid "User under this group are restaurant directors"
 msgstr ""
 
 #. module: restaurant_management
@@ -561,7 +555,7 @@ msgstr ""
 #: code:addons/restaurant_management/static/src/xml/document_viewer_legacy.xml:0
 #, python-format
 msgid "Zoom In"
-msgstr "Увеличить"
+msgstr "Уменьшить"
 
 #. module: restaurant_management
 #. openerp-web
@@ -569,7 +563,7 @@ msgstr "Увеличить"
 #: code:addons/restaurant_management/static/src/xml/document_viewer_legacy.xml:0
 #, python-format
 msgid "Zoom Out"
-msgstr "Уменьшить"
+msgstr "Увеличить"
 
 #. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form
