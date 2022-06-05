@@ -4,9 +4,10 @@
             <field name="name">fault_registry.view.form</field>
             <field name="model">restaurant_management.fault_registry</field>
             <field name="arch" type="xml">
-                <form string="fault_registry">
+                <form string="fault_registry" duplicate="0">
                     <header>
                         <button name="cancel" type="object" string="Cancel" attrs="{'invisible': [('state', 'in', ['cancel'])]}" />
+                        <button name="confirm" type="object" string="Confirm" attrs="{'invisible': [('state', 'in', ['confirm'])]}" />
                         <field name="state" widget="statusbar" statusbar_visible="confirm" />
                     </header>
                     <sheet>
@@ -47,6 +48,9 @@
                 <xpath expr="//button[@name='cancel']" position="replace">
                     <button name="cancel" type="object" string="Cancel" invisible="1" />
                 </xpath>
+                <xpath expr="//button[@name='confirm']" position="replace">
+                    <button name="confirm" type="object" string="Confirm" invisible="1" />
+                </xpath>
                 <xpath expr="//field[@name='check_list_category_id']" position="replace">
                     <field name="check_list_category_id" widget="selection" readonly="1" />
                 </xpath>
@@ -73,6 +77,9 @@
             <field name="arch" type="xml">
                 <xpath expr="//button[@name='cancel']" position="replace">
                     <button name="cancel" type="object" string="Cancel" invisible="1" />
+                </xpath>
+                <xpath expr="//button[@name='confirm']" position="replace">
+                    <button name="confirm" type="object" string="Confirm" invisible="1" />
                 </xpath>
                 <xpath expr="//field[@name='check_list_category_id']" position="replace">
                     <field name="check_list_category_id" widget="selection" readonly="1" />
@@ -124,6 +131,9 @@
             <field name="arch" type="xml">
                 <xpath expr="//button[@name='cancel']" position="replace">
                     <button name="cancel" type="object" string="Cancel" invisible="1" />
+                </xpath>
+                <xpath expr="//button[@name='confirm']" position="replace">
+                    <button name="confirm" type="object" string="Confirm" invisible="1" />
                 </xpath>
                 <xpath expr="//field[@name='check_list_category_id']" position="replace">
                     <field name="check_list_category_id" widget="selection" attrs="{'readonly': [('id', '!=', False)]}" />

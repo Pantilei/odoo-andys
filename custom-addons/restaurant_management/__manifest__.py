@@ -15,7 +15,7 @@
     'version': '15.0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'web'],
+    'depends': ['base', 'web', 'muk_web_theme'],
 
     # always loaded
     'data': [
@@ -32,6 +32,7 @@
         'views/fault_registry_views.xml',
         'views/restaurant_management_menu_views.xml',
         'views/res_users.xml',
+        'views/res_users_preference.xml',
 
     ],
     # only loaded in demonstration mode

@@ -4,7 +4,7 @@
             <field name="name">restaurant_audit.view.form</field>
             <field name="model">restaurant_management.restaurant_audit</field>
             <field name="arch" type="xml">
-                <form string="Audit of Expert DKK">
+                <form string="Audit of Expert DKK" duplicate="0">
                     <h1>
                         <field name="name" />
                     </h1>

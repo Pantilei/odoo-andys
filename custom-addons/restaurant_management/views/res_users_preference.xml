@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_users_form_simple_modif_web_muk_theme" model="ir.ui.view">
+        <field name="name">res.users.preferences.muk_web_theme</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="muk_web_theme.res_users_preferences" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='sidebar_type']" position="replace"></xpath>
+            <xpath expr="//field[@name='chatter_position']" position="replace"></xpath>
+        </field>
+    </record>
+
+    <record id="view_users_form_simple_modif" model="ir.ui.view">
+        <field name="name">res.users.preferences</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form_simple_modif" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='signature']" position="replace"></xpath>
+        </field>
+    </record>
+</odoo>
