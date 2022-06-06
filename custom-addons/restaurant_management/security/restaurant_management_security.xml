@@ -54,7 +54,7 @@
     <record id="restaurant_audit_restaurant_director_restaurant_rule" model="ir.rule">
         <field name="name">Restaurant Audit, Restaurant Director, Restaurant Rule</field>
         <field name="model_id" ref="model_restaurant_management_restaurant_audit" />
-        <field name="domain_force">[('restaurant_id.director_id', '=', user.id)]</field>
+        <field name="domain_force">[('restaurant_id.director_ids', 'in', [user.id])]</field>
         <field name="groups" eval="[(4, ref('group_restaurant_management_restaurant_director'))]" />
     </record>
 

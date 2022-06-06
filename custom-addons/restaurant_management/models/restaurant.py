@@ -15,9 +15,9 @@ class Restaurant(models.Model):
         string="Restaurant Network"
     )
     description = fields.Text()
-    director_id = fields.Many2one(
+    director_ids = fields.Many2many(
         comodel_name="res.users",
-        string="Restaurant Director"
+        string="Restaurant Directors"
     )
 
     country_id = fields.Many2one(

@@ -11,7 +11,7 @@
                         </group>
                         <group>
                             <field name="restaurant_network_id" />
-                            <field name="director_id" options="{'no_create': True}" />
+                            <field name="director_ids" widget="many2many_tags" options="{'no_create': True}" />
                         </group>
                         <group>
                             <label for="street" string="Address" />
