@@ -22,6 +22,7 @@
         # 'security/debranding_security.xml',
         # 'security/ir.model.access.csv',
         'views/menus.xml',
+        'views/login_layout.xml',
     ],
     # only loaded in demonstration mode
     'demo': [],
