@@ -17,6 +17,14 @@ class FaultRegistry(models.Model):
     _order = "id desc"
     _rec_name = "check_list_id"
 
+    @api.depends('check_list_category_id')
+    def _compute_no_fault_check_list_category(self):
+        for record in self:
+            if record.check_list_category_id:
+                record.no_fault_check_list_category = record.check_list_category_id.no_fault_category
+            else:
+                record.no_fault_check_list_category = False
+
     state = fields.Selection(selection=[
         ('confirm', 'Confirmed'),
         ('cancel', 'Cancel'),
@@ -40,9 +48,11 @@ class FaultRegistry(models.Model):
         comodel_name="restaurant_management.check_list_category",
         required=True
     )
+    no_fault_check_list_category = fields.Boolean(
+        compute="_compute_no_fault_check_list_category"
+    )
     check_list_id = fields.Many2one(
         comodel_name="restaurant_management.check_list",
-        required=True,
         string="Check List"
     )
     responsible_id = fields.Many2one(

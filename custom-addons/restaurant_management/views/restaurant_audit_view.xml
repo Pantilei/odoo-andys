@@ -33,6 +33,8 @@
                             </tree>
                             <form>
                                 <header>
+                                    <field name="no_fault_check_list_category" invisible="1" />
+
                                     <button name="cancel" type="object" string="Cancel" attrs="{'invisible': [('state', 'in', ['cancel'])]}" />
                                     <button name="confirm" type="object" string="Confirm" attrs="{'invisible': [('state', 'in', ['confirm'])]}" />
                                     <field name="state" widget="statusbar" statusbar_visible="confirm" />
@@ -42,7 +44,8 @@
                                         <field name="check_list_category_id" widget="selection" />
                                     </group>
                                     <group>
-                                        <field name="check_list_id" widget="selection" domain="[('category_id', '=', check_list_category_id)]" />
+                                        <!-- <field name="check_list_id" widget="selection" domain="[('category_id', '=', check_list_category_id)]" /> -->
+                                        <field name="check_list_id" widget="selection" domain="[('category_id', '=', check_list_category_id)]" attrs="{'required': [('no_fault_check_list_category', '=', False)], 'invisible': [('no_fault_check_list_category', '=', True)], 'readonly': [('check_list_category_id', '=', False)]}" />
                                     </group>
                                     <group>
                                         <field name="comment" />
@@ -212,6 +215,8 @@
                         </tree>
                         <form>
                             <header>
+                                <field name="no_fault_check_list_category" invisible="1" />
+
                                 <field name="state" widget="statusbar" statusbar_visible="confirm" />
                             </header>
                             <sheet>
@@ -219,7 +224,9 @@
                                     <field name="check_list_category_id" widget="selection" attrs="{'readonly': [('id', '!=', False)]}" />
                                 </group>
                                 <group>
-                                    <field name="check_list_id" widget="selection" attrs="{'readonly': [('id', '!=', False)]}" domain="[('category_id', '=', check_list_category_id)]" />
+                                    <!-- <field name="check_list_id" widget="selection" attrs="{'readonly': [('id', '!=', False)]}" domain="[('category_id', '=', check_list_category_id)]" /> -->
+                                    <field name="check_list_id" widget="selection" domain="[('category_id', '=', check_list_category_id)]" attrs="{'required': [('no_fault_check_list_category', '=', False)], 'invisible': [('no_fault_check_list_category', '=', True)], 'readonly': ['|', ('check_list_category_id', '=', False), ('id', '!=', False)]}" />
+
                                 </group>
                                 <group>
                                     <field name="comment" attrs="{'readonly': [('id', '!=', False)]}" />

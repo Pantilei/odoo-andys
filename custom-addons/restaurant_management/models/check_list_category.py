@@ -9,6 +9,11 @@ class CheckListCategory(models.Model):
 
     name = fields.Char(required=True)
 
+    no_fault_category = fields.Boolean(
+        string="No Fault Category",
+        default=False
+    )
+
     telegram_chat_id = fields.Char(
         string="Telegram Chat Id",
         help="""

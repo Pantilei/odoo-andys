@@ -1,6 +1,6 @@
 id,name
 restaurant_management.fault_category_1,Продукты
-restaurant_management.fault_category_2,Бар и десертный бар
+restaurant_management.fault_category_2,Бар и десертный бар.
 restaurant_management.fault_category_3,Обслуживание (сервис официантов)
 restaurant_management.fault_category_4,Интерьер 
 restaurant_management.fault_category_5,Документация
