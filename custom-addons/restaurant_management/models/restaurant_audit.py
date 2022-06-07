@@ -28,7 +28,9 @@ class RestaurantAudit(models.Model):
         string="Expert DKK"
     )
 
-    audit_date = fields.Date(default=fields.Datetime.today())
+    audit_date = fields.Date(
+        default=lambda self: fields.Datetime.today(),
+    )
     audit_start_time = fields.Float(
         string="From"
     )
