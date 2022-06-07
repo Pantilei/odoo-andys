@@ -1,6 +1,14 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
+import requests
+import logging
+import traceback
+
+
+requests.packages.urllib3.util.connection.HAS_IPV6 = False
+
+_logger = logging.getLogger(__name__)
 
 
 class FaultRegistry(models.Model):
@@ -92,6 +100,31 @@ class FaultRegistry(models.Model):
         self.write({
             "state": "confirm"
         })
+
+    @api.model_create_multi
+    def create(self, values):
+        recs = super().create(values)
+        telegram_token = self.env["ir.config_parameter"].sudo(
+        ).get_param("telegram_token")
+        if telegram_token:
+            url = f"https://api.telegram.org/bot{telegram_token}/sendMessage"
+            for rec in recs:
+                chat_id = rec.check_list_category_id.telegram_chat_id
+                if chat_id:
+                    params = {
+                        "chat_id": chat_id,
+                        "text": f"""
+                            <b>{rec.responsible_id.name}</b> создал ошибку.\n\n<b>Категория:</b> {rec.check_list_category_id.name}. \n\n<b>Ошибка:</b> {rec.check_list_id.description}\n\n<b>Ресторан:</b> {rec.restaurant_id.name}
+                        """,
+                        "parse_mode": "html"
+                    }
+                    try:
+                        r = requests.get(url=url, params=params, timeout=5)
+                        _logger.info(f"Telegram message sent: {r.json()}")
+                    except Exception as ex:
+                        _logger.error(traceback.format_exc())
+                        _logger.warning("Telegram message couldnt be sent!")
+        return recs
 
     @api.model
     def _populate_data(self):

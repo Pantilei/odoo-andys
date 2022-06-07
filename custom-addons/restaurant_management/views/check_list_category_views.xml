@@ -12,6 +12,9 @@
                                 <field class="o_text_overflow" name="name" placeholder="Interior" />
                             </h1>
                         </div>
+                        <group>
+                            <field name="telegram_chat_id" groups="base.group_no_one" />
+                        </group>
                     </sheet>
                 </form>
             </field>
@@ -20,7 +23,7 @@
             <field name="name">check_list.view.tree</field>
             <field name="model">restaurant_management.check_list_category</field>
             <field name="arch" type="xml">
-                <tree editable="bottom">
+                <tree>
                     <field name="name" />
                 </tree>
             </field>
