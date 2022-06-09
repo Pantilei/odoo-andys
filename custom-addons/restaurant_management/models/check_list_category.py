@@ -6,8 +6,13 @@ from odoo import models, fields, api
 class CheckListCategory(models.Model):
     _name = 'restaurant_management.check_list_category'
     _description = 'Check List Category'
+    _order = "sequence asc"
 
     name = fields.Char(required=True)
+
+    sequence = fields.Integer(
+        string="Sequence"
+    )
 
     no_fault_category = fields.Boolean(
         string="No Fault Category",
