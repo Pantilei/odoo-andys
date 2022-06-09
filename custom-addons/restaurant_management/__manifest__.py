@@ -30,7 +30,8 @@
         'views/check_list_views.xml',
         'views/check_list_category_views.xml',
         'views/fault_registry_views.xml',
-        'views/restaurant_management_menu_views.xml',
+
+        'views/menu_items.xml',
         'views/res_users.xml',
         'views/res_users_preference.xml',
 

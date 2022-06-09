@@ -123,18 +123,39 @@ class FaultRegistry(models.Model):
                 if chat_id:
                     params = {
                         "chat_id": chat_id,
-                        "text": f"""
-                            <b>{rec.responsible_id.name}</b> создал ошибку.\n\n<b>Категория:</b> {rec.check_list_category_id.name}. \n\n<b>Ошибка:</b> {rec.check_list_id.description}\n\n<b>Ресторан:</b> {rec.restaurant_id.name}
-                        """,
+                        "text": self._construct_message(rec),
                         "parse_mode": "html"
                     }
                     try:
                         r = requests.get(url=url, params=params, timeout=5)
                         _logger.info(f"Telegram message sent: {r.json()}")
+                        print(self._construct_message(rec))
                     except Exception as ex:
                         _logger.error(traceback.format_exc())
                         _logger.warning("Telegram message couldnt be sent!")
         return recs
+
+    def _construct_message(self, rec):
+        message = ""
+        if rec.responsible_id.name:
+            message += f"<b>{rec.responsible_id.name}</b> создал ошибку."
+        if rec.check_list_category_id.name:
+            message += f"\n\n<b>Категория:</b> {rec.check_list_category_id.name}. "
+        if rec.check_list_id.description:
+            message += f"\n\n<b>Ошибка:</b> {rec.check_list_id.description}"
+        if rec.restaurant_id.name:
+            message += f"\n\n<b>Ресторан:</b> {rec.restaurant_id.name}"
+
+        base_url = self.env["ir.config_parameter"].sudo(
+        ).get_param("web.base.url")
+        menu_id = self.env.ref("restaurant_management.fault_registry").id
+        action_id = self.env.ref(
+            "restaurant_management.fault_registry_action").id
+        if base_url and menu_id and action_id:
+            url = f"{base_url}/web#id={rec.id}&menu_id={menu_id}&action={action_id}&model=restaurant_management.fault_registry&view_type=form"
+            message += f"\n\n<a href=\"{url}\">Посмотреть!</a>"
+
+        return message
 
     @api.model
     def _populate_data(self):
