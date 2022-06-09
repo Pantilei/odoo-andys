@@ -6,14 +6,24 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-04 11:07+0000\n"
-"PO-Revision-Date: 2022-06-04 11:07+0000\n"
+"POT-Creation-Date: 2022-06-09 15:35+0000\n"
+"PO-Revision-Date: 2022-06-09 15:35+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: restaurant_management
+#: model:ir.model.fields,help:restaurant_management.field_restaurant_management_check_list_category__telegram_chat_id
+msgid ""
+"\n"
+"            To find the chat id make GET request to \n"
+"            https://api.telegram.org/bot{token}/getUpdates\n"
+"            There you can find all chat_ids that this bot is currently used in.\n"
+"        "
+msgstr ""
 
 #. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_view_form
@@ -46,10 +56,11 @@ msgstr "Проверка Эксперта ДКК"
 #. module: restaurant_management
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_fault_registry__state__cancel
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_audit_controller
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_auditer
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_restaurant_director
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_audit_controller
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_dkk_manager
 msgid "Cancel"
 msgstr "Отменить"
 
@@ -93,12 +104,22 @@ msgstr "Город"
 #: code:addons/restaurant_management/static/src/xml/document_viewer_legacy.xml:0
 #, python-format
 msgid "Close"
-msgstr "Закрыть"
+msgstr ""
 
 #. module: restaurant_management
 #: model:ir.ui.menu,name:restaurant_management.configuration_menu
 msgid "Configurations"
 msgstr "Конфигурации"
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_audit_controller
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_auditer
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_restaurant_director
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_dkk_manager
+msgid "Confirm"
+msgstr "Подтвердить"
 
 #. module: restaurant_management
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_fault_registry__state__confirm
@@ -130,6 +151,11 @@ msgstr "Создано"
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_network__create_date
 msgid "Created on"
 msgstr "Создано"
+
+#. module: restaurant_management
+#: model:res.groups,name:restaurant_management.group_restaurant_management_dkk_manager
+msgid "DKK Manager"
+msgstr "Руководитель ДКК"
 
 #. module: restaurant_management
 #. openerp-web
@@ -166,7 +192,7 @@ msgstr "Показываемое имя"
 #: code:addons/restaurant_management/static/src/xml/many2many_binary_preview.xml:0
 #, python-format
 msgid "Download"
-msgstr "Загрузка"
+msgstr "Загрузить"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__responsible_id
@@ -243,7 +269,7 @@ msgstr ""
 #: code:addons/restaurant_management/static/src/xml/document_viewer_legacy.xml:0
 #, python-format
 msgid "Image"
-msgstr "Фото"
+msgstr "Фотографии"
 
 #. module: restaurant_management
 #: model:ir.actions.server,name:restaurant_management.ir_cron_import_check_list_data_ir_actions_server
@@ -255,7 +281,7 @@ msgstr "Импортировать данные Чек Листа"
 #. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.check_list_category_view_form
 msgid "Interior"
-msgstr ""
+msgstr "Интерьер"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list____last_update
@@ -311,6 +337,16 @@ msgstr "Имя"
 #, python-format
 msgid "Next"
 msgstr "Следующее"
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__no_fault_category
+msgid "No Fault Category"
+msgstr "Нет категории ошибок"
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__no_fault_check_list_category
+msgid "No Fault Check List Category"
+msgstr "Нет чек листа категории"
 
 #. module: restaurant_management
 #. openerp-web
@@ -389,14 +425,14 @@ msgid "Restaurant DKK"
 msgstr "ДКК Ресторана"
 
 #. module: restaurant_management
-#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant__director_id
-msgid "Restaurant Director"
-msgstr "Директор Ресторана"
-
-#. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__director_comment
 msgid "Restaurant Director Comment"
 msgstr "Коментарий Директора Ресторана"
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant__director_ids
+msgid "Restaurant Directors"
+msgstr "Директоры ресторанов"
 
 #. module: restaurant_management
 #: model:ir.ui.menu,name:restaurant_management.menu_root
@@ -437,6 +473,11 @@ msgid "Rotate"
 msgstr "Вращать"
 
 #. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__sequence
+msgid "Sequence"
+msgstr "Последовательность"
+
+#. module: restaurant_management
 #: code:addons/restaurant_management/models/ir_attachment.py:0
 #, python-format
 msgid "Sorry, you are not allowed to access this document."
@@ -466,6 +507,11 @@ msgstr "Улица 2..."
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_view_form
 msgid "Street..."
 msgstr "Улица..."
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__telegram_chat_id
+msgid "Telegram Chat Id"
+msgstr "Чат Id Телеграм"
 
 #. module: restaurant_management
 #. openerp-web
@@ -502,6 +548,11 @@ msgstr "Загрузка"
 #, python-format
 msgid "Uploading Error"
 msgstr "Ошибка загрузки"
+
+#. module: restaurant_management
+#: model:res.groups,comment:restaurant_management.group_restaurant_management_dkk_manager
+msgid "User under this group are DKK managers"
+msgstr "Юзер этой группы является руководителем ДКК"
 
 #. module: restaurant_management
 #: model:res.groups,comment:restaurant_management.group_restaurant_management_auditer
