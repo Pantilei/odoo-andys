@@ -44,7 +44,6 @@
                                         <field name="check_list_category_id" widget="selection" />
                                     </group>
                                     <group>
-                                        <!-- <field name="check_list_id" widget="selection" domain="[('category_id', '=', check_list_category_id)]" /> -->
                                         <field name="check_list_id" widget="selection" domain="[('category_id', '=', check_list_category_id)]" attrs="{'required': [('no_fault_check_list_category', '=', False)], 'invisible': [('no_fault_check_list_category', '=', True)], 'readonly': [('check_list_category_id', '=', False)]}" />
                                     </group>
                                     <group>
@@ -155,6 +154,64 @@
                         </tree>
                         <form>
                             <header>
+                                <field name="state" widget="statusbar" statusbar_visible="confirm" />
+                            </header>
+                            <sheet>
+                                <group>
+                                    <field name="check_list_category_id" widget="selection" readonly="1" />
+                                </group>
+                                <group>
+                                    <field name="check_list_id" widget="selection" readonly="1" domain="[('category_id', '=', check_list_category_id)]" />
+                                </group>
+                                <group>
+                                    <field name="comment" readonly="1" />
+                                </group>
+                                <group>
+                                    <field name="director_comment" readonly="1" />
+                                </group>
+                                <group>
+                                    <field name="check_list_category_responsible_comment" />
+                                </group>
+                                <group>
+                                    <field name="attachment_ids" widget="many2many_binary_preview" readonly="1" accepted_file_extensions="image/*" />
+                                </group>
+                            </sheet>
+                        </form>
+                    </field>
+                </field>
+            </field>
+        </record>
+
+        <record id="restaurant_audit_view_form_group_restaurant_management_dkk_manager" model="ir.ui.view">
+            <field name="name">restaurant_audit.view.form.group_restaurant_management_dkk_manager</field>
+            <field name="model">restaurant_management.restaurant_audit</field>
+            <field name="inherit_id" ref="restaurant_audit_view_form" />
+            <field name="groups_id" eval="[(6, 0, [ref('group_restaurant_management_dkk_manager')])]" />
+            <field name="arch" type="xml">
+                <field name="restaurant_id" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </field>
+                <field name="audit_date" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </field>
+                <field name="audit_start_time" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </field>
+                <field name="audit_end_time" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </field>
+                <field name="fault_registry_ids" position="replace">
+                    <field name="fault_registry_ids" nolabel="1" context="{'default_restaurant_id': restaurant_id, 'default_responsible_id': responsible_id}">
+                        <tree>
+                            <field name="id" invisible="1" />
+                            <field name="responsible_id" invisible="1" />
+                            <field name="restaurant_id" invisible="1" />
+                            <field name="check_list_category_id" readonly="1" />
+                            <field name="check_list_id" domain="[('category_id', '=', check_list_category_id)]" readonly="1" />
+                            <field name="state" widget="badge" decoration-success="state == 'confirm'" decoration-muted="state == 'cancel'" />
+                        </tree>
+                        <form>
+                            <header>
                                 <button name="cancel" type="object" string="Cancel" attrs="{'invisible': [('state', 'in', ['cancel'])]}" />
                                 <button name="confirm" type="object" string="Confirm" attrs="{'invisible': [('state', 'in', ['confirm'])]}" />
                                 <field name="state" widget="statusbar" statusbar_visible="confirm" />
@@ -173,7 +230,7 @@
                                     <field name="director_comment" readonly="1" />
                                 </group>
                                 <group>
-                                    <field name="check_list_category_responsible_comment" />
+                                    <field name="check_list_category_responsible_comment" readonly="1" />
                                 </group>
                                 <group>
                                     <field name="attachment_ids" widget="many2many_binary_preview" readonly="1" accepted_file_extensions="image/*" />
