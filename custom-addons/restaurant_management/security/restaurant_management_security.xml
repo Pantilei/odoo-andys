@@ -30,6 +30,12 @@
         <field name="comment">User under this group are restaurant directors</field>
     </record>
 
+    <record id="group_restaurant_management_dkk_manager" model="res.groups">
+        <field name="name">DKK Manager</field>
+        <field name="category_id" ref="module_category_restaurant_management" />
+        <field name="comment">User under this group are DKK managers</field>
+    </record>
+
     <record id="group_restaurant_management_manager" model="res.groups">
         <field name="name">Administrator</field>
         <field name="category_id" ref="module_category_restaurant_management" />
