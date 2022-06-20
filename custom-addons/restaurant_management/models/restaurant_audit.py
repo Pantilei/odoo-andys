@@ -13,6 +13,14 @@ class RestaurantAudit(models.Model):
         for record in self:
             record.name = f"{record.restaurant_id.name or _('New')}--{record.audit_date or ''}--{record.id or ''}"
 
+    @api.depends("restaurant_id")
+    def _compute_restaurant_directors(self):
+        for record in self:
+            if record.restaurant_id:
+                record.restaurant_director_ids = record.restaurant_id.director_ids.ids
+            else:
+                record.restaurant_director_ids = False
+
     name = fields.Char(
         compute="_compute_name",
         store=True
@@ -21,6 +29,12 @@ class RestaurantAudit(models.Model):
         comodel_name="restaurant_management.restaurant",
         string="Restaurant"
     )
+    restaurant_director_ids = fields.Many2many(
+        comodel_name="res.users",
+        string="Restaurant Directors",
+        compute="_compute_restaurant_directors"
+    )
+
     responsible_id = fields.Many2one(
         comodel_name="res.users",
         default=lambda self: self.env.user.id,
