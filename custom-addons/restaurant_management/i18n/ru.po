@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-09 15:35+0000\n"
-"PO-Revision-Date: 2022-06-09 15:35+0000\n"
+"POT-Creation-Date: 2022-06-20 18:49+0000\n"
+"PO-Revision-Date: 2022-06-20 18:49+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -42,6 +42,7 @@ msgstr "Вложение"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__audit_date
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_search
 msgid "Audit Date"
 msgstr "Дата Проверки"
 
@@ -54,11 +55,18 @@ msgid "Audit of Expert DKK"
 msgstr "Проверка Эксперта ДКК"
 
 #. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_fault_registry__fault_type__barman
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
+msgid "Barman"
+msgstr "Бармэн"
+
+#. module: restaurant_management
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_fault_registry__state__cancel
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_audit_controller
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_auditer
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_restaurant_director
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_dkk_manager
 msgid "Cancel"
@@ -75,6 +83,7 @@ msgstr "Категория"
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__check_list_id
 #: model:ir.ui.menu,name:restaurant_management.check_list_menu
 #: model_terms:ir.ui.view,arch_db:restaurant_management.check_list_view_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
 msgid "Check List"
 msgstr "Чек Лист"
 
@@ -84,6 +93,7 @@ msgstr "Чек Лист"
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__check_list_category_id
 #: model:ir.ui.menu,name:restaurant_management.check_list_category_menu
 #: model_terms:ir.ui.view,arch_db:restaurant_management.check_list_category_view_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
 msgid "Check List Category"
 msgstr "Категория Чек Листа"
 
@@ -104,7 +114,7 @@ msgstr "Город"
 #: code:addons/restaurant_management/static/src/xml/document_viewer_legacy.xml:0
 #, python-format
 msgid "Close"
-msgstr ""
+msgstr "Закрыть"
 
 #. module: restaurant_management
 #: model:ir.ui.menu,name:restaurant_management.configuration_menu
@@ -116,6 +126,7 @@ msgstr "Конфигурации"
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_audit_controller
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_auditer
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_restaurant_director
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_dkk_manager
 msgid "Confirm"
@@ -125,6 +136,12 @@ msgstr "Подтвердить"
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_fault_registry__state__confirm
 msgid "Confirmed"
 msgstr "Потверждено"
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_fault_registry__fault_type__cook
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
+msgid "Cook"
+msgstr "Повар"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant__country_id
@@ -166,6 +183,12 @@ msgid "Delete"
 msgstr "Удалить"
 
 #. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_fault_registry__fault_type__delivery
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
+msgid "Delivery"
+msgstr "Доставка"
+
+#. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list__description
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant__description
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_network__description
@@ -192,7 +215,7 @@ msgstr "Показываемое имя"
 #: code:addons/restaurant_management/static/src/xml/many2many_binary_preview.xml:0
 #, python-format
 msgid "Download"
-msgstr "Загрузить"
+msgstr "Загрузка"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__responsible_id
@@ -213,6 +236,7 @@ msgstr "Коментарий ответственного по категори�
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__fault_date
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
 msgid "Fault Date"
 msgstr "Дата Ошибки"
 
@@ -221,6 +245,7 @@ msgstr "Дата Ошибки"
 #: model:ir.model,name:restaurant_management.model_restaurant_management_fault_registry
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__fault_registry_ids
 #: model:ir.ui.menu,name:restaurant_management.fault_registry
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
 msgid "Fault Registry"
 msgstr "Ошибки"
 
@@ -228,6 +253,12 @@ msgstr "Ошибки"
 #: model:ir.actions.act_window,name:restaurant_management.registered_faults_per_restaurant_report_action
 msgid "Fault Registry Reporting"
 msgstr "Отчёт по Ошибкам"
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__fault_type
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
+msgid "Fault Type"
+msgstr "Тип ошибки"
 
 #. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_graph_view
@@ -249,9 +280,21 @@ msgid "Generate Check List Data"
 msgstr ""
 
 #. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_search
+msgid "Group By"
+msgstr "Группировать по"
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__guilty_person_id
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
+msgid "Guilty Person"
+msgstr "Виновный"
+
+#. module: restaurant_management
 #: model:ir.module.category,description:restaurant_management.module_category_restaurant_management
 msgid "Helps to manage Restaurant Management."
-msgstr ""
+msgstr "Помогает управлять рестораном"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list__id
@@ -349,6 +392,11 @@ msgid "No Fault Check List Category"
 msgstr "Нет чек листа категории"
 
 #. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
+msgid "None Severe Faults"
+msgstr "Не грубые ошики"
+
+#. module: restaurant_management
 #. openerp-web
 #: code:addons/restaurant_management/static/src/xml/document_viewer_legacy.xml:0
 #: code:addons/restaurant_management/static/src/xml/document_viewer_legacy.xml:0
@@ -385,7 +433,7 @@ msgstr "Ошибки"
 #. module: restaurant_management
 #: model:res.groups,name:restaurant_management.group_restaurant_management_reporter
 msgid "Reporter"
-msgstr "Докладчик"
+msgstr "Получатель отчётов"
 
 #. module: restaurant_management
 #: model:ir.ui.menu,name:restaurant_management.report_main_menu
@@ -401,6 +449,12 @@ msgid "Reset Zoom"
 msgstr "Востановить Zoom"
 
 #. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_search
+msgid "Responsible"
+msgstr "Эксперт ДКК"
+
+#. module: restaurant_management
 #: model:res.groups,name:restaurant_management.group_restaurant_management_audit_controller
 msgid "Responsible for category faults"
 msgstr "Ответственный по категориям ошибок"
@@ -409,6 +463,8 @@ msgstr "Ответственный по категориям ошибок"
 #: model:ir.actions.act_window,name:restaurant_management.restaurant_action
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__restaurant_id
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__restaurant_id
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_search
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_view_form
 msgid "Restaurant"
 msgstr "Ресторан"
@@ -416,6 +472,7 @@ msgstr "Ресторан"
 #. module: restaurant_management
 #: model:ir.model,name:restaurant_management.model_restaurant_management_restaurant_audit
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__restaurant_audit_id
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_search
 msgid "Restaurant Audit"
 msgstr "Проверка Ресторана"
 
@@ -430,7 +487,9 @@ msgid "Restaurant Director Comment"
 msgstr "Коментарий Директора Ресторана"
 
 #. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__restaurant_director_ids
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant__director_ids
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__restaurant_director_ids
 msgid "Restaurant Directors"
 msgstr "Директоры ресторанов"
 
@@ -478,6 +537,21 @@ msgid "Sequence"
 msgstr "Последовательность"
 
 #. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
+msgid "Severe"
+msgstr "Грубая"
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__severe
+msgid "Severe Fault"
+msgstr "Грубая ошибка"
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
+msgid "Severe Faults"
+msgstr "Грубые ошибки"
+
+#. module: restaurant_management
 #: code:addons/restaurant_management/models/ir_attachment.py:0
 #, python-format
 msgid "Sorry, you are not allowed to access this document."
@@ -485,6 +559,7 @@ msgstr "Извините, вы не имеете достум к этому до
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__state
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
 msgid "State"
 msgstr "Статус"
 
@@ -507,6 +582,18 @@ msgstr "Улица 2..."
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_view_form
 msgid "Street..."
 msgstr "Улица..."
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_fault_registry__fault_type__suchif
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
+msgid "Suchif"
+msgstr "Сушеф"
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_fault_registry__fault_type__tech_personal
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
+msgid "Tech Personal"
+msgstr "Тех-персонал"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__telegram_chat_id
@@ -599,6 +686,12 @@ msgstr "Видео"
 #, python-format
 msgid "Viewer"
 msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_fault_registry__fault_type__waiter
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
+msgid "Waiter"
+msgstr "Оффициант"
 
 #. module: restaurant_management
 #. openerp-web
