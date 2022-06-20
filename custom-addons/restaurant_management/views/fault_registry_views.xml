@@ -15,14 +15,20 @@
                     <sheet>
                         <group>
                             <field name="restaurant_id" />
+                            <field name="restaurant_director_ids" widget="many2many_tags" />
                         </group>
                         <group>
                             <field name="responsible_id" widget="many2one_avatar_user" />
-                            <field name="create_date" />
+                            <field name="fault_date" />
                         </group>
                         <group>
                             <field name="check_list_category_id" widget="selection" />
                             <field name="check_list_id" widget="selection" domain="[('category_id', '=', check_list_category_id)]" attrs="{'required': [('no_fault_check_list_category', '=', False)], 'invisible': [('no_fault_check_list_category', '=', True)], 'readonly': [('check_list_category_id', '=', False)]}" />
+                            <field name="fault_type" />
+                            <field name="guilty_person_id" />
+                        </group>
+                        <group>
+                            <field name="severe" />
                         </group>
                         <group>
                             <field name="comment" />
@@ -59,6 +65,15 @@
                 <xpath expr="//field[@name='check_list_id']" position="replace">
                     <field name="check_list_id" widget="selection" readonly="1" />
                 </xpath>
+                <xpath expr="//field[@name='fault_type']" position="replace">
+                    <field name="fault_type" readonly="1" />
+                </xpath>
+                <xpath expr="//field[@name='guilty_person_id']" position="replace">
+                    <field name="guilty_person_id" readonly="1" />
+                </xpath>
+                <xpath expr="//field[@name='severe']" position="replace">
+                    <field name="severe" readonly="1" />
+                </xpath>
                 <xpath expr="//field[@name='comment']" position="replace">
                     <field name="comment" readonly="1" />
                 </xpath>
@@ -89,6 +104,15 @@
                 <xpath expr="//field[@name='check_list_id']" position="replace">
                     <field name="check_list_id" widget="selection" readonly="1" />
                 </xpath>
+                <xpath expr="//field[@name='fault_type']" position="replace">
+                    <field name="fault_type" readonly="1" />
+                </xpath>
+                <xpath expr="//field[@name='guilty_person_id']" position="replace">
+                    <field name="guilty_person_id" readonly="1" />
+                </xpath>
+                <xpath expr="//field[@name='severe']" position="replace">
+                    <field name="severe" readonly="1" />
+                </xpath>
                 <xpath expr="//field[@name='comment']" position="replace">
                     <field name="comment" readonly="1" />
                 </xpath>
@@ -113,10 +137,16 @@
                 <xpath expr="//field[@name='check_list_id']" position="replace">
                     <field name="check_list_id" widget="selection" readonly="1" />
                 </xpath>
+                <xpath expr="//field[@name='fault_type']" position="replace">
+                    <field name="fault_type" readonly="1" />
+                </xpath>
+                <xpath expr="//field[@name='guilty_person_id']" position="replace">
+                    <field name="guilty_person_id" readonly="1" />
+                </xpath>
                 <xpath expr="//field[@name='comment']" position="replace">
                     <field name="comment" readonly="1" />
                 </xpath>
-                <xpath expr="//field[@name='comment']" position="replace">
+                <xpath expr="//field[@name='check_list_category_responsible_comment']" position="replace">
                     <field name="check_list_category_responsible_comment" readonly="1" />
                 </xpath>
                 <xpath expr="//field[@name='director_comment']" position="replace">
@@ -145,6 +175,15 @@
                 </xpath>
                 <xpath expr="//field[@name='check_list_id']" position="replace">
                     <field name="check_list_id" widget="selection" domain="[('category_id', '=', check_list_category_id)]" attrs="{'required': [('no_fault_check_list_category', '=', False)], 'invisible': [('no_fault_check_list_category', '=', True)], 'readonly': ['|', ('check_list_category_id', '=', False), ('id', '!=', False)]}" />
+                </xpath>
+                <xpath expr="//field[@name='fault_type']" position="replace">
+                    <field name="fault_type" readonly="1" />
+                </xpath>
+                <xpath expr="//field[@name='guilty_person_id']" position="replace">
+                    <field name="guilty_person_id" readonly="1" />
+                </xpath>
+                <xpath expr="//field[@name='severe']" position="replace">
+                    <field name="severe" readonly="1" />
                 </xpath>
                 <xpath expr="//field[@name='comment']" position="replace">
                     <field name="comment" />
@@ -194,6 +233,49 @@
                     <field name="create_date" type="col" interval="day" />
                     <field name="restaurant_id" type="row" />
                 </pivot>
+            </field>
+        </record>
+
+        <record id="fault_registry_view_search" model="ir.ui.view">
+            <field name="name">fault_registry.view.search</field>
+            <field name="model">restaurant_management.fault_registry</field>
+            <field name="arch" type="xml">
+                <search string="Fault Registry">
+                    <field name="restaurant_id" />
+                    <field name="responsible_id" />
+                    <field name="check_list_category_id" />
+                    <field name="check_list_id" />
+                    <field name="guilty_person_id" />
+
+                    <separator />
+                    <filter string="Confirm" name="confirm_state" domain="[('state', '=', 'confirm')]" />
+                    <filter string="Cancel" name="cancel_state" domain="[('state', '=', 'cancel')]" />
+
+                    <separator />
+                    <filter string="Cook" name="cook_fault_type" domain="[('fault_type', '=', 'cook')]" />
+                    <filter string="Suchif" name="suchif_fault_type" domain="[('fault_type', '=', 'suchif')]" />
+                    <filter string="Waiter" name="waiter_fault_type" domain="[('fault_type', '=', 'waiter')]" />
+                    <filter string="Tech Personal" name="tech_personal_fault_type" domain="[('fault_type', '=', 'tech_personal')]" />
+                    <filter string="Barman" name="barman_fault_type" domain="[('fault_type', '=', 'barman')]" />
+                    <filter string="Delivery" name="delivery_fault_type" domain="[('fault_type', '=', 'delivery')]" />
+
+                    <separator />
+                    <filter string="Severe Faults" name="severe_faults" domain="[('severe', '=', True)]" />
+                    <filter string="None Severe Faults" name="none_severe_faults" domain="[('severe', '=', False)]" />
+
+                    <group expand="0" string="Group By">
+                        <filter string="Restaurant" name="group_by_restaurant_id" context="{'group_by': 'restaurant_id'}" domain="[]" />
+                        <filter string="Responsible" name="group_by_responsible_id" context="{'group_by': 'responsible_id'}" domain="[]" />
+                        <filter string="Fault Date" name="group_by_fault_date" context="{'group_by': 'fault_date:month'}" domain="[]" />
+                        <filter string="Check List Category" name="group_by_check_list_category_id" context="{'group_by': 'check_list_category_id'}" domain="[]" />
+                        <filter string="Check List" name="group_by_check_list_id" context="{'group_by': 'check_list_id'}" domain="[]" />
+                        <filter string="Guilty Person" name="group_by_guilty_person_id" context="{'group_by': 'guilty_person_id'}" domain="[]" />
+                        <filter string="State" name="group_by_state" context="{'group_by': 'state'}" domain="[]" />
+                        <filter string="Fault Type" name="group_by_fault_type" context="{'group_by': 'fault_type'}" domain="[]" />
+                        <filter string="Severe" name="group_by_severe" context="{'group_by': 'severe'}" domain="[]" />
+                    </group>
+
+                </search>
             </field>
         </record>
 

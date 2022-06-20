@@ -25,16 +25,48 @@ class FaultRegistry(models.Model):
             else:
                 record.no_fault_check_list_category = False
 
+    @api.depends("restaurant_id")
+    def _compute_restaurant_directors(self):
+        for record in self:
+            if record.restaurant_id:
+                record.restaurant_director_ids = record.restaurant_id.director_ids.ids
+            else:
+                record.restaurant_director_ids = False
+
     state = fields.Selection(selection=[
         ('confirm', 'Confirmed'),
         ('cancel', 'Cancel'),
     ], default="confirm")
+
+    fault_type = fields.Selection(selection=[
+        ("cook", "Cook"),
+        ("suchif", "Suchif"),
+        ("waiter", "Waiter"),
+        ("tech_personal", "Tech Personal"),
+        ("barman", "Barman"),
+        ("delivery", "Delivery"),
+    ])
+
+    guilty_person_id = fields.Many2one(
+        comodel_name="res.partner",
+        string="Guilty Person"
+    )
+
+    severe = fields.Boolean(
+        string="Severe Fault",
+        default=False
+    )
 
     restaurant_id = fields.Many2one(
         comodel_name="restaurant_management.restaurant",
         string="Restaurant",
         compute="_compute_restaurant",
         store=True
+    )
+    restaurant_director_ids = fields.Many2many(
+        comodel_name="res.users",
+        string="Restaurant Directors",
+        compute="_compute_restaurant_directors"
     )
     fault_date = fields.Date(
         compute="_compute_fault_date",
