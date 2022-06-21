@@ -110,8 +110,8 @@
                                 </group>
                                 <group>
                                     <field name="check_list_id" widget="selection" readonly="1" domain="[('category_id', '=', check_list_category_id)]" />
-                                    <field name="fault_type" readonly="1" />
-                                    <field name="guilty_person_id" readonly="1" />
+                                    <field name="fault_type" />
+                                    <field name="guilty_person_id" />
                                 </group>
                                 <group>
                                     <field name="severe" readonly="1" />
@@ -304,8 +304,8 @@
                                 <group>
                                     <!-- <field name="check_list_id" widget="selection" attrs="{'readonly': [('id', '!=', False)]}" domain="[('category_id', '=', check_list_category_id)]" /> -->
                                     <field name="check_list_id" widget="selection" domain="[('category_id', '=', check_list_category_id)]" attrs="{'required': [('no_fault_check_list_category', '=', False)], 'invisible': [('no_fault_check_list_category', '=', True)], 'readonly': ['|', ('check_list_category_id', '=', False), ('id', '!=', False)]}" />
-                                    <field name="fault_type" attrs="{'readonly': [('id', '!=', False)]}" />
-                                    <field name="guilty_person_id" attrs="{'readonly': [('id', '!=', False)]}" />
+                                    <field name="fault_type" readonly="1" />
+                                    <field name="guilty_person_id" readonly="1" />
                                 </group>
                                 <group>
                                     <field name="severe" readonly="1" />
