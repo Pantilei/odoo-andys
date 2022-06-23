@@ -49,6 +49,7 @@
             'restaurant_management/static/src/scss/variables/derived_variables.scss',
             'restaurant_management/static/src/scss/document_viewer.scss',
             'restaurant_management/static/src/js/documnet_viewer_legacy.js',
+            'restaurant_management/static/src/js/many2one_selection_owl_widget.js',
         ],
         'web.assets_frontend': [],
         'web.assets_tests': [],
@@ -56,6 +57,7 @@
         'web.assets_qweb': [
             'restaurant_management/static/src/xml/many2many_binary_preview.xml',
             'restaurant_management/static/src/xml/document_viewer_legacy.xml',
+            'restaurant_management/static/src/xml/many2one_selection_owl_widget.xml',
         ],
     },
     'license': 'LGPL-3',
