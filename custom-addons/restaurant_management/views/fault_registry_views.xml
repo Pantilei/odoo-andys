@@ -176,9 +176,6 @@
                 <xpath expr="//field[@name='guilty_person_id']" position="replace">
                     <field name="guilty_person_id" readonly="1" />
                 </xpath>
-                <xpath expr="//field[@name='severe']" position="replace">
-                    <field name="severe" readonly="1" />
-                </xpath>
                 <xpath expr="//field[@name='comment']" position="replace">
                     <field name="comment" />
                 </xpath>

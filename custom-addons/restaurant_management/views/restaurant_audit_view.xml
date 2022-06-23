@@ -308,7 +308,7 @@
                                     <field name="guilty_person_id" readonly="1" />
                                 </group>
                                 <group>
-                                    <field name="severe" readonly="1" />
+                                    <field name="severe" attrs="{'readonly': [('id', '!=', False)]}" />
                                 </group>
                                 <group>
                                     <field name="comment" attrs="{'readonly': [('id', '!=', False)]}" />
