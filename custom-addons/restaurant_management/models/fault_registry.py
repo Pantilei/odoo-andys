@@ -4,6 +4,7 @@ from odoo import models, fields, api
 import requests
 import logging
 import traceback
+from datetime import datetime, timedelta
 
 
 requests.packages.urllib3.util.connection.HAS_IPV6 = False
@@ -110,6 +111,16 @@ class FaultRegistry(models.Model):
         comodel_name="ir.attachment",
         string="Photos"
     )
+
+    available_for_edit = fields.Boolean(
+        compute="_compute_available_for_edit",
+        string="Availabe for Edit"
+    )
+
+    @api.depends("create_date")
+    def _compute_available_for_edit(self):
+        for record in self:
+            record.available_for_edit = record.restaurant_audit_id.available_for_edit
 
     @api.onchange("check_list_category_id")
     def onchange_check_list_category(self):

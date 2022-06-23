@@ -5,6 +5,7 @@
             <field name="model">restaurant_management.restaurant_audit</field>
             <field name="arch" type="xml">
                 <form string="Audit of Expert DKK" duplicate="0">
+                    <field name="available_for_edit" invisible="1" />
                     <h1>
                         <field name="name" />
                     </h1>
@@ -78,6 +79,9 @@
             <field name="inherit_id" ref="restaurant_audit_view_form" />
             <field name="groups_id" eval="[(6, 0, [ref('group_restaurant_management_restaurant_director')])]" />
             <field name="arch" type="xml">
+                <!-- <xpath expr="//form" position="attributes">
+                    <attribute name="edit">0</attribute>
+                </xpath> -->
                 <field name="restaurant_id" position="attributes">
                     <attribute name="readonly">1</attribute>
                 </field>
@@ -91,7 +95,7 @@
                     <attribute name="readonly">1</attribute>
                 </field>
                 <field name="fault_registry_ids" position="replace">
-                    <field name="fault_registry_ids" nolabel="1" context="{'default_restaurant_id': restaurant_id, 'default_responsible_id': responsible_id}">
+                    <field name="fault_registry_ids" nolabel="1" attrs="{'readonly': [('available_for_edit', '=', False)]}" context="{'default_restaurant_id': restaurant_id, 'default_responsible_id': responsible_id}">
                         <tree>
                             <field name="id" invisible="1" />
                             <field name="responsible_id" invisible="1" />
@@ -154,7 +158,7 @@
                     <attribute name="readonly">1</attribute>
                 </field>
                 <field name="fault_registry_ids" position="replace">
-                    <field name="fault_registry_ids" nolabel="1" context="{'default_restaurant_id': restaurant_id, 'default_responsible_id': responsible_id}">
+                    <field name="fault_registry_ids" nolabel="1" attrs="{'readonly': [('available_for_edit', '=', False)]}" context="{'default_restaurant_id': restaurant_id, 'default_responsible_id': responsible_id}">
                         <tree>
                             <field name="id" invisible="1" />
                             <field name="responsible_id" invisible="1" />

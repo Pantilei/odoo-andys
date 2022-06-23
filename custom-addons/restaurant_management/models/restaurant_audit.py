@@ -2,6 +2,9 @@
 
 from odoo import models, fields, api, _
 
+from datetime import datetime, timedelta
+from lxml import etree
+
 
 class RestaurantAudit(models.Model):
     _name = 'restaurant_management.restaurant_audit'
@@ -57,6 +60,25 @@ class RestaurantAudit(models.Model):
         inverse_name="restaurant_audit_id"
     )
 
+    available_for_edit = fields.Boolean(
+        compute="_compute_available_for_edit",
+        string="Availabe for Change"
+    )
+
+    @api.depends("create_date")
+    def _compute_available_for_edit(self):
+        for record in self:
+            if self.user_has_groups("restaurant_management.group_restaurant_management_dkk_manager,restaurant_management.group_restaurant_management_manager"):
+                record.available_for_edit = True
+            else:
+                create_date_week_day = record.create_date.weekday()
+                delta = timedelta(hours=24)
+                # Do not consider weekends if created in friday
+                if create_date_week_day == 4:
+                    delta = timedelta(hours=24*3)
+                record.available_for_edit = (
+                    record.create_date + delta) > datetime.now()
+
     def save_form_data(self):
         return {
             'type': 'ir.actions.client',
@@ -72,12 +94,19 @@ class RestaurantAudit(models.Model):
     def save_and_create_new(self):
         return self.sudo().env.ref("restaurant_management.restaurant_audit_inline_form_action").read()[0]
 
-    # def _compute_fault_registry_json(self):
-    #     pass
+    # @api.model
+    # def fields_view_get(self, view_id=None, view_type='form', toolbar=False, submenu=False):
+    #     res = super(RestaurantAudit, self).fields_view_get(
+    #         view_id=view_id, view_type=view_type, toolbar=toolbar, submenu=submenu)
 
-    # def _inverse_fault_registry_json(self):
-    #     pass
+    #     if view_type == "form" and not self.available_for_change:
+    #         doc = etree.XML(res['arch'])
+    #         form = doc.xpath("//form")[0]
+    #         form.attrib["edit"] = "0"
 
-    # @api.onchange("fault_registry_json")
-    # def on_change_of_fault_registry_json(self):
-    #     print(self.fault_registry_ids, "\n", self.fault_registry_json)
+    #         xarch, xfields = self.env['ir.ui.view'].postprocess_and_fields(
+    #             doc, model=self._name)
+
+    #         res['arch'] = xarch
+    #         res['fields'] = xfields
+    #     return res
