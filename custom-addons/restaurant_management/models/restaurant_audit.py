@@ -124,8 +124,6 @@ class RestaurantAudit(models.Model):
             for rec in recs:
                 check_list_category_ids = rec.fault_registry_ids.mapped(
                     "check_list_category_id")
-                print("check_list_category_ids: ",
-                      check_list_category_ids, "\n\n")
 
                 for check_list_category_id in check_list_category_ids:
                     if chat_id := check_list_category_id.telegram_chat_id:
@@ -144,7 +142,7 @@ class RestaurantAudit(models.Model):
                         except Exception as ex:
                             _logger.error(traceback.format_exc())
                             _logger.warning(
-                                "Telegram message couldnt be sent!")
+                                "Telegram message couldn't be sent!")
         cr.commit()
         cr.close()
 
