@@ -46,12 +46,20 @@
               groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager" 
               sequence="100" />
 
-    <menuitem id="report_registered_faults_per_restaurant_menu" 
+    <menuitem id="registered_grouped_faults_menu" 
               name="Registered Faults" 
               parent="report_main_menu" 
-              action="registered_faults_per_restaurant_report_action"
+              action="registered_grouped_faults_action"
+              groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager" 
+              sequence="5" />
+
+    <menuitem id="report_registered_faults_per_restaurant_menu" 
+              name="Registered Faults' Graphs" 
+              parent="report_main_menu" 
+              action="registered_faults_per_restaurant_graphs_report_action"
               groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager" 
               sequence="10" />
+    
 
     <menuitem id="configuration_menu" 
               name="Configurations" 

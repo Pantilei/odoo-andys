@@ -210,7 +210,7 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="restaurant_id" />
-                    <field name="create_date" />
+                    <field name="fault_date" />
                     <field name="check_list_category_id" />
                     <field name="responsible_id" widget="many2one_avatar_user" />
                     <field name="state" widget="badge" decoration-success="state == 'confirm'" decoration-muted="state == 'cancel'" />
@@ -223,7 +223,7 @@
             <field name="model">restaurant_management.fault_registry</field>
             <field name="arch" type="xml">
                 <graph string="Faults" type="line" sample="1">
-                    <field name="create_date" interval="day" />
+                    <field name="fault_date" interval="day" />
                     <field name="restaurant_id" />
                 </graph>
             </field>
@@ -234,7 +234,7 @@
             <field name="model">restaurant_management.fault_registry</field>
             <field name="arch" type="xml">
                 <pivot string="Faults" disable_linking="true">
-                    <field name="create_date" type="col" interval="day" />
+                    <field name="fault_date" type="col" interval="day" />
                     <field name="restaurant_id" type="row" />
                 </pivot>
             </field>
@@ -291,10 +291,18 @@
             <field name="target">current</field>
         </record>
 
-        <record id="registered_faults_per_restaurant_report_action" model="ir.actions.act_window">
+        <record id="registered_faults_per_restaurant_graphs_report_action" model="ir.actions.act_window">
             <field name="name">Fault Registry Reporting</field>
             <field name="res_model">restaurant_management.fault_registry</field>
             <field name="view_mode">graph,pivot</field>
+            <field name="target">current</field>
+        </record>
+
+        <record id="registered_grouped_faults_action" model="ir.actions.act_window">
+            <field name="name">Fault Registry Reporting</field>
+            <field name="res_model">restaurant_management.fault_registry</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_group_by_fault_date': 1, 'search_default_group_by_check_list_category_id': 1}</field>
             <field name="target">current</field>
         </record>
 
