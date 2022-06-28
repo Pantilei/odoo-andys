@@ -1,9 +1,16 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api, _
+from odoo import models, fields, api, _, registry
 
 from datetime import datetime, timedelta
 from lxml import etree
+
+import requests
+import traceback
+import logging
+import threading
+
+_logger = logging.getLogger(__name__)
 
 
 class RestaurantAudit(models.Model):
@@ -93,6 +100,79 @@ class RestaurantAudit(models.Model):
 
     def save_and_create_new(self):
         return self.sudo().env.ref("restaurant_management.restaurant_audit_inline_form_action").read()[0]
+
+    @api.model_create_multi
+    def create(self, values):
+        recs = super().create(values)
+        self._cr.commit()
+
+        th = threading.Thread(
+            target=self._send_telegram_message, args=(recs.ids,))
+        th.daemon = True
+        th.start()
+
+        return recs
+
+    def _send_telegram_message(self, rec_ids):
+        cr = registry(self._cr.dbname).cursor()
+        self = self.with_env(self.env(cr=cr))
+        recs = self.env["restaurant_management.restaurant_audit"].search([
+            ('id', 'in', rec_ids)
+        ])
+        if telegram_token := self.env["ir.config_parameter"].sudo().get_param("telegram_token"):
+            url = f"https://api.telegram.org/bot{telegram_token}/sendMessage"
+            for rec in recs:
+                check_list_category_ids = rec.fault_registry_ids.mapped(
+                    "check_list_category_id")
+                print("check_list_category_ids: ",
+                      check_list_category_ids, "\n\n")
+
+                for check_list_category_id in check_list_category_ids:
+                    if chat_id := check_list_category_id.telegram_chat_id:
+                        fault_ids = rec.fault_registry_ids.filtered(
+                            lambda r: r.check_list_category_id.id == check_list_category_id.id)
+                        params = {
+                            "chat_id": chat_id,
+                            "text": self._construct_message(rec, fault_ids),
+                            "parse_mode": "html"
+                        }
+                        try:
+                            t_response = requests.get(
+                                url=url, params=params, timeout=5)
+                            _logger.info(
+                                f"Telegram message sent: {t_response.json()}")
+                        except Exception as ex:
+                            _logger.error(traceback.format_exc())
+                            _logger.warning(
+                                "Telegram message couldnt be sent!")
+        cr.commit()
+        cr.close()
+
+    def _construct_message(self, record, fault_ids):
+        message = ""
+        if record.responsible_id.name:
+            message += f"<b>{record.responsible_id.name}</b> создал ошибку(и)."
+        if record.restaurant_id.name:
+            message += f"\n<b>Ресторан:</b> {record.restaurant_id.name}"
+        if fault_ids[0].check_list_category_id.name:
+            message += f"\n<b>Категория:</b> {fault_ids[0].check_list_category_id.name}. \n"
+        for rec in fault_ids:
+            if rec.check_list_id.description:
+                base_url = self.env["ir.config_parameter"].sudo(
+                ).get_param("web.base.url")
+                menu_id = self.env.ref(
+                    "restaurant_management.fault_registry").id
+                action_id = self.env.ref(
+                    "restaurant_management.fault_registry_action").id
+                if base_url and menu_id and action_id:
+                    url = f"{base_url}/web#id={rec.id}&menu_id={menu_id}&action={action_id}&model=restaurant_management.fault_registry&view_type=form"
+                    message += f"\n<a href=\"{url}\"><b>Ошибка: </b>{rec.check_list_id.description}</a>"
+                else:
+                    message += f"\n<b>Ошибка: </b>{rec.check_list_id.description}"
+
+            message += "\n"
+
+        return message
 
     # @api.model
     # def fields_view_get(self, view_id=None, view_type='form', toolbar=False, submenu=False):
