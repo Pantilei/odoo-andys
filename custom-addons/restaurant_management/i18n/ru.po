@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-28 19:08+0000\n"
-"PO-Revision-Date: 2022-06-28 19:08+0000\n"
+"POT-Creation-Date: 2022-07-02 16:33+0000\n"
+"PO-Revision-Date: 2022-07-02 16:33+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -201,7 +201,7 @@ msgstr "Страна"
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__create_uid
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_network__create_uid
 msgid "Created by"
-msgstr "Создано"
+msgstr "Создано Пользователем"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list__create_date
@@ -211,7 +211,7 @@ msgstr "Создано"
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__create_date
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_network__create_date
 msgid "Created on"
-msgstr "Создано"
+msgstr "Дата создания"
 
 #. module: restaurant_management
 #: model:res.groups,name:restaurant_management.group_restaurant_management_dkk_manager
@@ -259,7 +259,7 @@ msgstr "Показываемое имя"
 #: code:addons/restaurant_management/static/src/xml/many2many_binary_preview.xml:0
 #, python-format
 msgid "Download"
-msgstr "Загрузить"
+msgstr "Загрузка"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__responsible_id
@@ -379,7 +379,7 @@ msgstr "Интерьер"
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit____last_update
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_network____last_update
 msgid "Last Modified on"
-msgstr "Последнее обновление в"
+msgstr "Дата последнего обновления"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list__write_uid
@@ -389,7 +389,7 @@ msgstr "Последнее обновление в"
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__write_uid
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_network__write_uid
 msgid "Last Updated by"
-msgstr "Последнее обновление"
+msgstr "Последнее обновление пользователем"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list__write_date
@@ -399,7 +399,7 @@ msgstr "Последнее обновление"
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__write_date
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_network__write_date
 msgid "Last Updated on"
-msgstr "Последнее обновление в"
+msgstr "Дата последнего обновления"
 
 #. module: restaurant_management
 #. openerp-web
@@ -416,7 +416,7 @@ msgstr "Загрузка"
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_network__name
 #: model_terms:ir.ui.view,arch_db:restaurant_management.check_list_category_view_form
 msgid "Name"
-msgstr "Имя"
+msgstr "Название"
 
 #. module: restaurant_management
 #. openerp-web
@@ -518,6 +518,21 @@ msgstr "Ответственный по категориям ошибок"
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_view_form
 msgid "Restaurant"
 msgstr "Ресторан"
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_search
+msgid "Restaurant AP1"
+msgstr "Ресторан АП1"
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_search
+msgid "Restaurant AP2"
+msgstr "Ресторан АП3"
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_search
+msgid "Restaurant AP3"
+msgstr "Ресторан АП3"
 
 #. module: restaurant_management
 #: model:ir.model,name:restaurant_management.model_restaurant_management_restaurant_audit
