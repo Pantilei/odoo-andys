@@ -56,10 +56,12 @@ class RestaurantAudit(models.Model):
         default=lambda self: fields.Datetime.today(),
     )
     audit_start_time = fields.Float(
-        string="From"
+        string="From",
+        group_operator=False
     )
     audit_end_time = fields.Float(
-        string="To"
+        string="To",
+        group_operator=False
     )
 
     fault_registry_ids = fields.One2many(
