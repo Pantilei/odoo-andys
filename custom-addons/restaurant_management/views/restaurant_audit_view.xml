@@ -355,21 +355,12 @@
                 <search string="Restaurant Audit">
                     <field name="restaurant_id" />
                     <field name="responsible_id" />
-                    <filter string="Restaurant AP1" name="restaurant_ap1" context="{}" domain="[('restaurant_id.name', 'ilike', 'АП1')]" />
-                    <filter string="Restaurant AP2" name="restaurant_ap2" context="{}" domain="[('restaurant_id.name', 'ilike', 'АП2')]" />
-                    <filter string="Restaurant AP3" name="restaurant_ap3" context="{}" domain="[('restaurant_id.name', 'ilike', 'АП3')]" />
 
                     <group expand="0" string="Group By">
                         <filter string="Restaurant" name="group_by_restaurant_id" context="{'group_by': 'restaurant_id'}" domain="[]" />
                         <filter string="Responsible" name="group_by_responsible_id" context="{'group_by': 'responsible_id'}" domain="[]" />
                         <filter string="Audit Date" name="group_by_audit_date" context="{'group_by': 'audit_date:month'}" domain="[]" />
                     </group>
-
-                    <!-- <searchpanel>
-                        <field name="restaurant_id" string="Рестораны" enable_counters="1" />
-                        <field name="responsible_id" string="Эксперт ДКК" enable_counters="1" />
-                    </searchpanel> -->
-
                 </search>
             </field>
         </record>
