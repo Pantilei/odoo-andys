@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="fault_list_paper_format" model="report.paperformat">
+            <field name="name">Fault List Report</field>
+            <field name="default" eval="True" />
+            <field name="format">custom</field>
+            <field name="page_height">297</field>
+            <field name="page_width">210</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">3</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">1</field>
+            <field name="margin_right">1</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">0</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="action_fault_list_report" model="ir.actions.report">
+            <field name="name">Fault List</field>
+            <field name="model">restaurant_management.fault_registry</field>
+            <field name="report_type">qweb-pdf</field>
+            <!-- <field name="report_type">qweb-html</field> -->
+            <field name="report_name">restaurant_management.report_fault_list</field>
+            <field name="report_file">restaurant_management.report_fault_list</field>
+            <field name="print_report_name">'Fault List - %s' % (object.id)</field>
+            <field name="paperformat_id" ref="fault_list_paper_format" />
+
+            <field name="binding_model_id" ref="model_restaurant_management_fault_registry" />
+            <field name="binding_type">report</field>
+        </record>
+
+        <template id="report_fault_list">
+            <t t-call="web.basic_layout">
+                <!-- <style>
+                    @font-face {
+                        font-family: 'Source Sans Pro Bold';
+                        src: url("/drives_testing/static/src/fonts/SourceSansPro-Bold.ttf") format('truetype');
+                    }
+                    .page {
+                        font-family: 'Source Sans Pro Bold';
+                        line-height: 1.0;
+                    }
+                    p {
+                        margin-top: 0px;
+                        margin-bottom: 0px;
+                    }
+                </style> -->
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="o" t-value="o.with_context(lang=lang)" />
+
+                    <div class="page" style="background-color: grey; height: 900px; border: 1px solid black;">
+                        <div class="row">
+                            <p class="col-12 ml-4" style="font-size: 32px;">
+                                Restaurant:
+                                <t t-esc="o.restaurant_id.name" />
+                            </p>
+                        </div>
+                        <div class="row mt-1" t-if="o.fault_date">
+                            <p class="col-12 ml-4" style="font-size: 32px;">
+                                Fault Date:
+                                <t t-esc="o.fault_date.strftime('%d/%m/%Y')" />
+                            </p>
+                        </div>
+                        <div class="row mt-1" t-if="o.fault_date">
+                            <p class="col-12 ml-4" style="font-size: 32px;">
+                                Check List Category:
+                                <t t-esc="o.check_list_category_id.name" />
+                            </p>
+                        </div>
+                        <div class="row mt-1" t-if="o.fault_date">
+                            <p class="col-12 ml-4" style="font-size: 32px;">
+                                Check List:
+                                <t t-esc="o.check_list_id.description" />
+                            </p>
+                        </div>
+                        <div class="row mt-4">
+                            <t t-foreach="o.attachment_ids" t-as="photo">
+                                <div class="col-3 ml-1">
+                                    <img width="290px" t-attf-src="/web/image/{{photo.id}}?unique=&#38;model=ir.attachment" alt="Photo" />
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                    <p style="page-break-before:always;"></p>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

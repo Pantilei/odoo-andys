@@ -35,6 +35,8 @@
         'views/res_users.xml',
         'views/res_users_preference.xml',
 
+        'report/fault_list_report.xml',
+
     ],
     # only loaded in demonstration mode
     'demo': [],
