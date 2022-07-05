@@ -153,3 +153,24 @@ class FaultRegistry(models.Model):
         self.write({
             "state": "confirm"
         })
+
+    @api.model
+    def get_report_data(self, report_type):
+        data = self.env["restaurant_management.restaurant_audit"].read_group(
+            domain=[],
+            fields=['restaurant_id'],
+            groupby=['audit_date:month'],
+        )
+        # print(data)
+        # self.env.cr.execute("""
+        # SELECT
+        #     DATE_TRUNC('month',audit_date)
+        #         AS  audit_date_month,
+        #     COUNT(id) AS count
+        # FROM restaurant_management_restaurant_audit
+        # GROUP BY DATE_TRUNC('month',audit_date);
+        # """)
+        # print(self.env.cr.fetchall())
+        return {
+            "data": data
+        }

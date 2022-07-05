@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <!-- Template for ScanDrivesHeader  -->
+    <t t-name="ReportsAppMain" owl="1">
+        <div>
+            <div class="o_control_panel d-flex flex-row">
+                <h1>Reports</h1>
+            </div>
+            <div class="ml-5 mt-3">
+                <div class="form-check form-check-inline">
+                    <input t-on-change="_onReportTypeChange" t-model="state.report_type" class="form-check-input" name="report_type" type="radio" value="audits_per_month_table" id="audits_per_month_table" />
+                    <label class="form-check-label" for="audits_per_month_table">Количество проверок</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input t-on-change="_onReportTypeChange" t-model="state.report_type" class="form-check-input" name="report_type" type="radio" value="dynamics_of_audits_per_month_graph" id="dynamics_of_audits_per_month_graph" />
+                    <label class="form-check-label" for="dynamics_of_audits_per_month_graph">Динамика общего кол-ва ошибок.</label>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center mt-5">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <t t-foreach="months" t-as="month" t-key="month">
+                                <th scope="col">
+                                    <t t-esc="month" />
+                                </th>
+                            </t>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Плановое</th>
+                            <t t-foreach="months" t-as="month" t-key="month">
+                                <td>Mark</td>
+                            </t>
+                        </tr>
+                        <tr>
+                            <th scope="row">Фактическое</th>
+                            <t t-foreach="months" t-as="month" t-key="month">
+                                <td>Mark</td>
+                            </t>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </t>
+</templates>

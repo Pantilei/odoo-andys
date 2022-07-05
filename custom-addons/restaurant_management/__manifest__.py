@@ -30,6 +30,7 @@
         'views/check_list_views.xml',
         'views/check_list_category_views.xml',
         'views/fault_registry_views.xml',
+        'views/reports_action_views.xml',
 
         'views/menu_items.xml',
         'views/res_users.xml',
@@ -50,8 +51,11 @@
 
             'restaurant_management/static/src/scss/variables/derived_variables.scss',
             'restaurant_management/static/src/scss/document_viewer.scss',
+            'restaurant_management/static/src/scss/reports_action.scss',
+
             'restaurant_management/static/src/js/documnet_viewer_legacy.js',
             'restaurant_management/static/src/js/many2one_selection_owl_widget.js',
+            'restaurant_management/static/src/js/reports_action.js',
         ],
         'web.assets_frontend': [],
         'web.assets_tests': [],
@@ -60,6 +64,7 @@
             'restaurant_management/static/src/xml/many2many_binary_preview.xml',
             'restaurant_management/static/src/xml/document_viewer_legacy.xml',
             'restaurant_management/static/src/xml/many2one_selection_owl_widget.xml',
+            'restaurant_management/static/src/xml/reports_action.xml',
         ],
     },
     'license': 'LGPL-3',
