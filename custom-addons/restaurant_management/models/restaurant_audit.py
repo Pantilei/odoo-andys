@@ -77,7 +77,7 @@ class RestaurantAudit(models.Model):
     @api.depends("create_date")
     def _compute_available_for_edit(self):
         for record in self:
-            if self.user_has_groups("restaurant_management.group_restaurant_management_dkk_manager,restaurant_management.group_restaurant_management_manager"):
+            if self.user_has_groups("restaurant_management.group_restaurant_management_dkk_manager,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_dkk_manager"):
                 record.available_for_edit = True
             else:
                 create_date_week_day = record.create_date.weekday()
