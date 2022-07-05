@@ -79,7 +79,7 @@ class RestaurantAudit(models.Model):
         for record in self:
             if self.user_has_groups("restaurant_management.group_restaurant_management_dkk_manager,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_dkk_manager"):
                 record.available_for_edit = True
-            else:
+            elif record.create_date:
                 create_date_week_day = record.create_date.weekday()
                 delta = timedelta(hours=24)
                 # Do not consider weekends if created in friday
@@ -87,6 +87,8 @@ class RestaurantAudit(models.Model):
                     delta = timedelta(hours=24*3)
                 record.available_for_edit = (
                     record.create_date + delta) > datetime.now()
+            else:
+                record.available_for_edit = True
 
     def save_form_data(self):
         return {

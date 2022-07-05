@@ -32,13 +32,13 @@
                             <field name="severe" />
                         </group>
                         <group>
-                            <field name="comment" />
+                            <field name="comment" widget="html" />
                         </group>
                         <group>
-                            <field name="director_comment" />
+                            <field name="director_comment" widget="html" />
                         </group>
                         <group>
-                            <field name="check_list_category_responsible_comment" />
+                            <field name="check_list_category_responsible_comment" widget="html" />
                         </group>
                         <group>
                             <field name="attachment_ids" widget="many2many_binary_preview" accepted_file_extensions="image/*" />
@@ -76,13 +76,13 @@
                     <field name="severe" readonly="1" />
                 </xpath>
                 <xpath expr="//field[@name='comment']" position="replace">
-                    <field name="comment" readonly="1" />
+                    <field name="comment" readonly="1" widget="html" />
                 </xpath>
                 <xpath expr="//field[@name='director_comment']" position="replace">
-                    <field name="director_comment" attrs="{'readonly': [('available_for_edit', '=', False)]}" />
+                    <field name="director_comment" attrs="{'readonly': [('available_for_edit', '=', False)]}" widget="html" />
                 </xpath>
                 <xpath expr="//field[@name='check_list_category_responsible_comment']" position="replace">
-                    <field name="check_list_category_responsible_comment" readonly="1" />
+                    <field name="check_list_category_responsible_comment" readonly="1" widget="html" />
                 </xpath>
                 <xpath expr="//field[@name='attachment_ids']" position="replace">
                     <field name="attachment_ids" readonly="1" widget="many2many_binary_preview" accepted_file_extensions="image/*" />
@@ -118,13 +118,13 @@
                     <field name="severe" readonly="1" />
                 </xpath>
                 <xpath expr="//field[@name='comment']" position="replace">
-                    <field name="comment" readonly="1" />
+                    <field name="comment" readonly="1" widget="html" />
                 </xpath>
                 <xpath expr="//field[@name='director_comment']" position="replace">
-                    <field name="director_comment" readonly="1" />
+                    <field name="director_comment" readonly="1" widget="html" />
                 </xpath>
                 <xpath expr="//field[@name='check_list_category_responsible_comment']" position="replace">
-                    <field name="check_list_category_responsible_comment" attrs="{'readonly': [('available_for_edit', '=', False)]}" />
+                    <field name="check_list_category_responsible_comment" attrs="{'readonly': [('available_for_edit', '=', False)]}" widget="html" />
                 </xpath>
                 <xpath expr="//field[@name='attachment_ids']" position="replace">
                     <field name="attachment_ids" readonly="1" widget="many2many_binary_preview" accepted_file_extensions="image/*" />
@@ -151,13 +151,13 @@
                     <field name="guilty_person_id" readonly="1" />
                 </xpath>
                 <xpath expr="//field[@name='comment']" position="replace">
-                    <field name="comment" readonly="1" />
+                    <field name="comment" readonly="1" widget="html" />
                 </xpath>
                 <xpath expr="//field[@name='check_list_category_responsible_comment']" position="replace">
-                    <field name="check_list_category_responsible_comment" readonly="1" />
+                    <field name="check_list_category_responsible_comment" readonly="1" widget="html" />
                 </xpath>
                 <xpath expr="//field[@name='director_comment']" position="replace">
-                    <field name="director_comment" readonly="1" />
+                    <field name="director_comment" readonly="1" widget="html" />
                 </xpath>
                 <xpath expr="//field[@name='attachment_ids']" position="replace">
                     <field name="attachment_ids" readonly="1" widget="many2many_binary_preview" accepted_file_extensions="image/*" />
@@ -190,13 +190,13 @@
                     <field name="guilty_person_id" readonly="1" />
                 </xpath>
                 <xpath expr="//field[@name='comment']" position="replace">
-                    <field name="comment" attrs="{'readonly': [('available_for_edit', '=', False)]}" />
+                    <field name="comment" attrs="{'readonly': [('available_for_edit', '=', False)]}" widget="html" />
                 </xpath>
                 <xpath expr="//field[@name='director_comment']" position="replace">
-                    <field name="director_comment" readonly="1" />
+                    <field name="director_comment" readonly="1" widget="html" />
                 </xpath>
                 <xpath expr="//field[@name='check_list_category_responsible_comment']" position="replace">
-                    <field name="check_list_category_responsible_comment" readonly="1" />
+                    <field name="check_list_category_responsible_comment" readonly="1" widget="html" />
                 </xpath>
                 <xpath expr="//field[@name='attachment_ids']" position="replace">
                     <field name="attachment_ids" widget="many2many_binary_preview" accepted_file_extensions="image/*" />

@@ -6,6 +6,7 @@
             <field name="arch" type="xml">
                 <form string="Audit of Expert DKK" duplicate="0">
                     <field name="available_for_edit" invisible="1" />
+                    <field name="create_date" invisible="1" />
                     <h1>
                         <field name="name" />
                     </h1>
@@ -54,13 +55,13 @@
                                         <field name="severe" />
                                     </group>
                                     <group>
-                                        <field name="comment" />
+                                        <field name="comment" widget="html" />
                                     </group>
                                     <group>
-                                        <field name="director_comment" />
+                                        <field name="director_comment" widget="html" />
                                     </group>
                                     <group>
-                                        <field name="check_list_category_responsible_comment" />
+                                        <field name="check_list_category_responsible_comment" widget="html" />
                                     </group>
                                     <group>
                                         <field name="attachment_ids" widget="many2many_binary_preview" accepted_file_extensions="image/*" />
@@ -121,13 +122,13 @@
                                     <field name="severe" readonly="1" />
                                 </group>
                                 <group>
-                                    <field name="comment" readonly="1" />
+                                    <field name="comment" readonly="1" widget="html" />
                                 </group>
                                 <group>
-                                    <field name="director_comment" />
+                                    <field name="director_comment" widget="html" />
                                 </group>
                                 <group>
-                                    <field name="check_list_category_responsible_comment" readonly="1" />
+                                    <field name="check_list_category_responsible_comment" widget="html" readonly="1" />
                                 </group>
                                 <group>
                                     <field name="attachment_ids" widget="many2many_binary_preview" readonly="1" accepted_file_extensions="image/*" />
@@ -184,13 +185,13 @@
                                     <field name="severe" readonly="1" />
                                 </group>
                                 <group>
-                                    <field name="comment" readonly="1" />
+                                    <field name="comment" readonly="1" widget="html" />
                                 </group>
                                 <group>
-                                    <field name="director_comment" readonly="1" />
+                                    <field name="director_comment" readonly="1" widget="html" />
                                 </group>
                                 <group>
-                                    <field name="check_list_category_responsible_comment" />
+                                    <field name="check_list_category_responsible_comment" widget="html" />
                                 </group>
                                 <group>
                                     <field name="attachment_ids" widget="many2many_binary_preview" readonly="1" accepted_file_extensions="image/*" />
@@ -249,13 +250,13 @@
                                     <field name="severe" />
                                 </group>
                                 <group>
-                                    <field name="comment" readonly="1" />
+                                    <field name="comment" widget="html" readonly="1" />
                                 </group>
                                 <group>
-                                    <field name="director_comment" readonly="1" />
+                                    <field name="director_comment" widget="html" readonly="1" />
                                 </group>
                                 <group>
-                                    <field name="check_list_category_responsible_comment" readonly="1" />
+                                    <field name="check_list_category_responsible_comment" widget="html" readonly="1" />
                                 </group>
                                 <group>
                                     <field name="attachment_ids" widget="many2many_binary_preview" readonly="1" accepted_file_extensions="image/*" />
@@ -274,19 +275,19 @@
             <field name="groups_id" eval="[(6, 0, [ref('group_restaurant_management_auditer')])]" />
             <field name="arch" type="xml">
                 <field name="restaurant_id" position="replace">
-                    <field name="restaurant_id" required="1" widget="selection" attrs="{'readonly': [('id', '!=', False)]}" />
+                    <field name="restaurant_id" required="1" widget="selection" attrs="{'readonly': [('available_for_edit', '=', False)]}" />
                 </field>
                 <field name="audit_date" position="replace">
-                    <field name="audit_date" attrs="{'readonly': [('id', '!=', False)]}" />
+                    <field name="audit_date" attrs="{'readonly': [('available_for_edit', '=', False)]}" />
                 </field>
                 <field name="audit_start_time" position="replace">
-                    <field name="audit_start_time" widget="float_time" attrs="{'readonly': [('id', '!=', False)]}" />
+                    <field name="audit_start_time" widget="float_time" attrs="{'readonly': [('available_for_edit', '=', False)]}" />
                 </field>
                 <field name="audit_end_time" position="replace">
-                    <field name="audit_end_time" widget="float_time" attrs="{'readonly': [('id', '!=', False)]}" />
+                    <field name="audit_end_time" widget="float_time" attrs="{'readonly': [('available_for_edit', '=', False)]}" />
                 </field>
                 <field name="fault_registry_ids" position="replace">
-                    <field name="fault_registry_ids" nolabel="1" attrs="{'readonly': [('id', '!=', False)]}" context="{'default_restaurant_id': restaurant_id, 'default_responsible_id': responsible_id}">
+                    <field name="fault_registry_ids" nolabel="1" attrs="{'readonly': [('available_for_edit', '=', False)]}" context="{'default_restaurant_id': restaurant_id, 'default_responsible_id': responsible_id}">
                         <tree>
                             <field name="id" invisible="1" />
                             <field name="responsible_id" invisible="1" />
@@ -303,25 +304,25 @@
                             </header>
                             <sheet>
                                 <group>
-                                    <field name="check_list_category_id" widget="selection" attrs="{'readonly': [('id', '!=', False)]}" />
+                                    <field name="check_list_category_id" widget="selection" attrs="{'readonly': [('parent.available_for_edit', '=', False)]}" />
                                 </group>
                                 <group>
-                                    <!-- <field name="check_list_id" widget="selection" attrs="{'readonly': [('id', '!=', False)]}" domain="[('category_id', '=', check_list_category_id)]" /> -->
-                                    <field name="check_list_id" widget="selection" domain="[('category_id', '=', check_list_category_id)]" attrs="{'required': [('no_fault_check_list_category', '=', False)], 'invisible': [('no_fault_check_list_category', '=', True)], 'readonly': ['|', ('check_list_category_id', '=', False), ('id', '!=', False)]}" />
+                                    <!-- <field name="check_list_id" widget="selection" attrs="{'readonly': [('available_for_edit', '=', False)]}" domain="[('category_id', '=', check_list_category_id)]" /> -->
+                                    <field name="check_list_id" widget="selection" domain="[('category_id', '=', check_list_category_id)]" attrs="{'required': [('no_fault_check_list_category', '=', False)], 'invisible': [('no_fault_check_list_category', '=', True)], 'readonly': ['|', ('check_list_category_id', '=', False), ('parent.available_for_edit', '=', False)]}" />
                                     <field name="fault_type" readonly="1" />
                                     <field name="guilty_person_id" readonly="1" />
                                 </group>
                                 <group>
-                                    <field name="severe" attrs="{'readonly': [('id', '!=', False)]}" />
+                                    <field name="severe" attrs="{'readonly': [('parent.available_for_edit', '=', False)]}" />
                                 </group>
                                 <group>
-                                    <field name="comment" attrs="{'readonly': [('id', '!=', False)]}" />
+                                    <field name="comment" widget="html" attrs="{'readonly': [('parent.available_for_edit', '=', False)]}" />
                                 </group>
                                 <group>
-                                    <field name="director_comment" readonly="1" />
+                                    <field name="director_comment" widget="html" readonly="1" />
                                 </group>
                                 <group>
-                                    <field name="check_list_category_responsible_comment" readonly="1" />
+                                    <field name="check_list_category_responsible_comment" widget="html" readonly="1" />
                                 </group>
                                 <group>
                                     <field name="attachment_ids" widget="many2many_binary_preview" accepted_file_extensions="image/*" />
