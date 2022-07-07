@@ -155,22 +155,34 @@ class FaultRegistry(models.Model):
         })
 
     @api.model
-    def get_report_data(self, report_type):
-        data = self.env["restaurant_management.restaurant_audit"].read_group(
-            domain=[],
+    def get_audit_fault_counts_per_month(self, report_type):
+        audit_counts = [0 for _ in range(12)]
+        fault_counts = [0 for _ in range(12)]
+        audit_count_per_month = self.env["restaurant_management.restaurant_audit"].with_context(lang="en_US").read_group(
+            domain=[
+                ('audit_date', '>=', datetime.now().date().replace(month=1, day=1))],
             fields=['restaurant_id'],
             groupby=['audit_date:month'],
         )
-        # print(data)
-        # self.env.cr.execute("""
-        # SELECT
-        #     DATE_TRUNC('month',audit_date)
-        #         AS  audit_date_month,
-        #     COUNT(id) AS count
-        # FROM restaurant_management_restaurant_audit
-        # GROUP BY DATE_TRUNC('month',audit_date);
-        # """)
-        # print(self.env.cr.fetchall())
+
+        fault_count_per_month = self.env["restaurant_management.fault_registry"].with_context(lang="en_US").read_group(
+            domain=[
+                ('fault_date', '>=', datetime.now().date().replace(month=1, day=1))],
+            fields=['restaurant_id'],
+            groupby=['fault_date:month'],
+        )
+
+        for row in fault_count_per_month:
+            month = datetime.strptime(
+                row["__range"]["fault_date"]["from"], "%Y-%m-%d").month
+            fault_counts[month-1] = row["fault_date_count"]
+
+        for row in audit_count_per_month:
+            month = datetime.strptime(
+                row["__range"]["audit_date"]["from"], "%Y-%m-%d").month
+            audit_counts[month-1] = row["audit_date_count"]
+
         return {
-            "data": data
+            "audit_counts": audit_counts,
+            "fault_counts": fault_counts,
         }
