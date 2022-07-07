@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="web_layout" inherit_id="web.layout">
+        <xpath expr="//link[@type='image/x-icon']" position="replace">
+            <link type="image/x-icon" rel="shortcut icon" href="/web/binary/company_logo" />
+        </xpath>
+        <xpath expr="//title" position="replace">
+            <title t-esc="'RNQC'" />
+        </xpath>
+    </template>
+
+    <template id="web_brand_promotion_message" inherit_id="web.brand_promotion_message">
+        <xpath expr="//t[@t-out]" position="replace">
+            <t t-out="''" />
+        </xpath>
+    </template>
+
+    <!-- <template id="message_notification_email" inherit_id="mail.message_notification_email">
+        <xpath expr="//a[@href='https://www.odoo.com?utm_source=db&amp;utm_medium=email']/.." position="replace">
+
+        </xpath>
+    </template>
+
+    <template id="mail_notification_borders" inherit_id="mail.mail_notification_borders">
+        <xpath expr="//a[@href='https://www.odoo.com?utm_source=db&amp;utm_medium=email']/.." position="replace">
+
+        </xpath>
+    </template> -->
+
+</odoo>

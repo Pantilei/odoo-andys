@@ -23,6 +23,7 @@
         # 'security/ir.model.access.csv',
         'views/menus.xml',
         'views/login_layout.xml',
+        'views/web_layout.xml',
     ],
     # only loaded in demonstration mode
     'demo': [],
@@ -33,6 +34,7 @@
         'web._assets_primary_variables': [],
         'web.assets_backend': [
             'odoo_debranding/static/src/js/user_systray_item.js',
+            'odoo_debranding/static/src/js/webclient.js',
         ],
         'web.assets_frontend': [],
         'web.assets_tests': [],
