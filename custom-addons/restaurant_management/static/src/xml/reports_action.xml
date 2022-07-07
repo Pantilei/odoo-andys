@@ -16,8 +16,8 @@
                     <label class="form-check-label" for="dynamics_of_audits_per_month_graph">Динамика общего кол-ва ошибок.</label>
                 </div>
             </div>
-            <div class="d-flex justify-content-center mt-5">
-                <table class="table">
+            <div class="d-flex flex-column justify-content-center mt-5">
+                <table class="table" t-if="state.report_type == 'audits_per_month_table'">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -32,17 +32,26 @@
                         <tr>
                             <th scope="row">Плановое</th>
                             <t t-foreach="months" t-as="month" t-key="month">
-                                <td>Mark</td>
+                                <td>
+                                    <t t-esc="state.countPerMonthY1[month_index]" />
+                                </td>
                             </t>
                         </tr>
                         <tr>
                             <th scope="row">Фактическое</th>
                             <t t-foreach="months" t-as="month" t-key="month">
-                                <td>Mark</td>
+                                <td>
+                                    <t t-esc="state.countPerMonthY2[month_index]" />
+                                </td>
                             </t>
                         </tr>
                     </tbody>
                 </table>
+                <div class="o_graph_container">
+                    <div class="o_graph_canvas_container">
+                        <canvas t-ref="graphCanvasRef" />
+                    </div>
+                </div>
             </div>
         </div>
 

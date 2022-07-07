@@ -48,6 +48,7 @@
         'web._assets_primary_variables': [],
         'web.assets_backend': [
             'restaurant_management/static/src/js/many2many_binary_preview.js',
+            'web/static/lib/Chart/Chart.js',
 
             'restaurant_management/static/src/scss/variables/derived_variables.scss',
             'restaurant_management/static/src/scss/document_viewer.scss',
