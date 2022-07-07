@@ -31,7 +31,7 @@ patch(WebClient.prototype, "remove branding title", {
       );
     }
     this.localization = localization;
-    // Remove title including 'ODoo'!
+    // Remove title including 'Odoo'!
     // this.title.setParts({ zopenerp: "Odoo" }); // zopenerp is easy to grep
     useBus(this.env.bus, "ROUTE_CHANGE", this.loadRouterState);
     useBus(this.env.bus, "ACTION_MANAGER:UI-UPDATED", (mode) => {
