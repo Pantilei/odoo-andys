@@ -2,8 +2,6 @@
 
 import core from "web.core";
 import AbstractAction from "web.AbstractAction";
-import Dialog from "web.Dialog";
-import rpc from "web.rpc";
 import { _lt } from "@web/core/l10n/translation";
 import { ComponentWrapper, WidgetAdapterMixin } from "web.OwlCompatibility";
 
