@@ -33,3 +33,9 @@ class Restaurant(models.Model):
     street2 = fields.Char(
         string="Street 2"
     )
+
+    planned_audit_ids = fields.One2many(
+        comodel_name="restaurant_management.planned_audits",
+        inverse_name="restaurant_id",
+        string="Planned Audits"
+    )

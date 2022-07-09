@@ -22,6 +22,25 @@
                                 <field name="country_id" placeholder="Country" class="o_address_country" options="{'no_open': True, 'no_create': True}" />
                             </div>
                         </group>
+                        <group string="Planned Audits">
+                            <field name="planned_audit_ids" nolabel="1">
+                                <tree order="year desc" editable="bottom" limit="5">
+                                    <field name="year" />
+                                    <field name="jan" />
+                                    <field name="feb" />
+                                    <field name="mar" />
+                                    <field name="apr" />
+                                    <field name="may" />
+                                    <field name="jun" />
+                                    <field name="jul" />
+                                    <field name="aug" />
+                                    <field name="sept" />
+                                    <field name="oct" />
+                                    <field name="nov" />
+                                    <field name="dec" />
+                                </tree>
+                            </field>
+                        </group>
                     </sheet>
                 </form>
             </field>
