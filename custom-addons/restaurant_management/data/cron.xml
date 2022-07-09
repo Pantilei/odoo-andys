@@ -21,4 +21,15 @@
         <field name="interval_type">days</field>
         <field name="numbercall">-1</field>
     </record>
+
+    <record id="ir_cron_create_planned_audits_of_restaurants" model="ir.cron">
+        <field name="name">Create planned audit amount of restaurants</field>
+        <field name="model_id" ref="restaurant_management.model_restaurant_management_planned_audits" />
+        <field name="state">code</field>
+        <field name="code">model.create_yearly_planned_amount()</field>
+        <field name="active" eval="True" />
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+    </record>
 </odoo>

@@ -3,7 +3,7 @@ from datetime import date
 
 
 MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun',
-          'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
+          'jul', 'aug', 'sept', 'oct', 'nov', 'dec']
 
 
 class PlannedAudits(models.Model):
@@ -24,64 +24,85 @@ class PlannedAudits(models.Model):
 
     jan = fields.Integer(
         string="January",
-        default=0,
+        default=4,
     )
     feb = fields.Integer(
         string="February",
-        default=0,
+        default=4,
     )
     mar = fields.Integer(
         string="March",
-        default=0,
+        default=4,
     )
     apr = fields.Integer(
         string="April",
-        default=0,
+        default=4,
     )
     may = fields.Integer(
         string="May",
-        default=0,
+        default=4,
     )
     jun = fields.Integer(
         string="June",
-        default=0
+        default=4
     )
     jul = fields.Integer(
         string="July",
-        default=0
+        default=4
     )
     aug = fields.Integer(
         string="August",
-        default=0,
+        default=4,
 
     )
     sept = fields.Integer(
         string="September",
-        default=0,
+        default=4,
     )
     oct = fields.Integer(
         string="October",
-        default=0,
+        default=4,
     )
     nov = fields.Integer(
         string="November",
+        default=4,
     )
     dec = fields.Integer(
         string="December",
-        default=0,
+        default=4,
     )
 
-    def get_number_of_audits(self, restaurant_id, year=None):
+    def get_number_of_audits(self, year=None, restaurant_id=None, restaurant_network_id=None):
         if not year:
             year = date.today().year
-        planned_audit_id = self.env["restaurant_management.planned_audits"].search([
-            ("restaurant_id", "=", restaurant_id),
-            ("year", "=", year)
-        ], limit=1)
-        if not planned_audit_id:
-            planned_audit_id = self.env["restaurant_management.planned_audits"].create({
-                "restaurant_id": restaurant_id,
-                "year": year
-            })
+        if restaurant_id:
+            planned_audit_id = self.env["restaurant_management.planned_audits"].search([
+                ("restaurant_id", "=", restaurant_id),
+                ("year", "=", year)
+            ], limit=1)
+            return [getattr(planned_audit_id, month) for month in MONTHS]
 
-        return [getattr(planned_audit_id, month) for month in MONTHS]
+        if restaurant_network_id:
+            planned_audit_ids = self.env["restaurant_management.planned_audits"].search([
+                ("restaurant_id.restaurant_network_id", "=", restaurant_network_id),
+                ("year", "=", year)
+            ])
+            return [sum(planned_audit_ids.mapped(month)) for month in MONTHS]
+
+        planned_audit_ids = self.env["restaurant_management.planned_audits"].search([
+            ("year", "=", year)
+        ])
+        return [sum(planned_audit_ids.mapped(month)) for month in MONTHS]
+
+    def create_yearly_planned_amount(self):
+        year = date.today().year
+        for restaurant_id in self.env["restaurant_management.restaurant"].search([]):
+            planned_audit_id = self.env["restaurant_management.planned_audits"].search([
+                ("restaurant_id", "=", restaurant_id.id),
+                ("year", "=", year)
+            ], limit=1)
+            if not planned_audit_id:
+                self.env["restaurant_management.planned_audits"].create({
+                    "restaurant_id": restaurant_id.id,
+                    "year": year,
+                })

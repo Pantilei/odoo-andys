@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
+from odoo.osv import expression
+
 import requests
 import logging
 import traceback
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 
 
 requests.packages.urllib3.util.connection.HAS_IPV6 = False
@@ -155,19 +157,32 @@ class FaultRegistry(models.Model):
         })
 
     @api.model
-    def get_audit_fault_counts_per_month(self, report_type):
-        audit_counts = [0 for _ in range(12)]
+    def get_fault_counts_per_month(self, year, check_list_category_id=None, restaurant_id=None, restaurant_network_id=None):
+
+        domain = [
+            ('fault_date', '>=', date(year=year, month=1, day=1)),
+            ('fault_date', '<=', date(year=year, month=12, day=31)),
+        ]
+        if check_list_category_id:
+            domain = expression.AND([
+                [("check_list_category_id", "=", check_list_category_id)],
+                domain
+            ])
+        if restaurant_id:
+            domain = expression.AND([
+                [("restaurant_id", "=", restaurant_id)],
+                domain
+            ])
+        if restaurant_network_id:
+            domain = expression.AND([
+                [("restaurant_id.restaurant_network_id", "=", restaurant_network_id)],
+                domain
+            ])
+
         fault_counts = [0 for _ in range(12)]
-        audit_count_per_month = self.env["restaurant_management.restaurant_audit"].with_context(lang="en_US").read_group(
-            domain=[
-                ('audit_date', '>=', datetime.now().date().replace(month=1, day=1))],
-            fields=['restaurant_id'],
-            groupby=['audit_date:month'],
-        )
 
         fault_count_per_month = self.env["restaurant_management.fault_registry"].with_context(lang="en_US").read_group(
-            domain=[
-                ('fault_date', '>=', datetime.now().date().replace(month=1, day=1))],
+            domain=domain,
             fields=['restaurant_id'],
             groupby=['fault_date:month'],
         )
@@ -177,12 +192,88 @@ class FaultRegistry(models.Model):
                 row["__range"]["fault_date"]["from"], "%Y-%m-%d").month
             fault_counts[month-1] = row["fault_date_count"]
 
-        for row in audit_count_per_month:
-            month = datetime.strptime(
-                row["__range"]["audit_date"]["from"], "%Y-%m-%d").month
-            audit_counts[month-1] = row["audit_date_count"]
+        audit_counts = self.env["restaurant_management.restaurant_audit"]\
+            .get_audit_counts_per_month(year, restaurant_id=restaurant_id, restaurant_network_id=restaurant_network_id)
+        fault_per_audit = [round(fault_count/audit_count, 2)if audit_count else 0 for audit_count,
+                           fault_count in zip(audit_counts["actual"], fault_counts)]
 
         return {
-            "audit_counts": audit_counts,
+            "fault_per_audit": fault_per_audit,
             "fault_counts": fault_counts,
         }
+
+    @api.model
+    def get_restaurant_rating_data(self, year):
+        res = []
+        for restaurant_id in self.env["restaurant_management.restaurant"].search([]):
+            domain = [
+                ('fault_date', '>=', date(year=year, month=1, day=1)),
+                ('fault_date', '<=', date(year=year, month=12, day=31)),
+            ]
+            domain = expression.AND([
+                [("restaurant_id", "=", restaurant_id.id)],
+                domain
+            ])
+            fault_count_per_month = self.env["restaurant_management.fault_registry"]\
+                .with_context(lang="en_US")\
+                .read_group(
+                    domain=domain,
+                    fields=['restaurant_id'],
+                    groupby=['fault_date:month'],
+            )
+            fault_counts = [0 for _ in range(12)]
+
+            for row in fault_count_per_month:
+                month = datetime.strptime(
+                    row["__range"]["fault_date"]["from"], "%Y-%m-%d").month
+                fault_counts[month-1] = row["fault_date_count"]
+
+            all_count = sum(fault_counts)
+            res.append([restaurant_id.name, *fault_counts, all_count])
+
+        if len(res) > 1:
+            res.sort(key=lambda r: r[len(r)-1])
+
+        return res
+
+    @api.model
+    def get_restaurant_rating_per_audit_data(self, year):
+        res = []
+        for restaurant_id in self.env["restaurant_management.restaurant"].search([]):
+            domain = [
+                ('fault_date', '>=', date(year=year, month=1, day=1)),
+                ('fault_date', '<=', date(year=year, month=12, day=31)),
+            ]
+            domain = expression.AND([
+                [("restaurant_id", "=", restaurant_id.id)],
+                domain
+            ])
+            fault_count_per_month = self.env["restaurant_management.fault_registry"]\
+                .with_context(lang="en_US")\
+                .read_group(
+                    domain=domain,
+                    fields=['restaurant_id'],
+                    groupby=['fault_date:month'],
+            )
+            fault_counts = [0 for _ in range(12)]
+
+            for row in fault_count_per_month:
+                month = datetime.strptime(
+                    row["__range"]["fault_date"]["from"], "%Y-%m-%d").month
+                fault_counts[month-1] = row["fault_date_count"]
+
+            actual_count_of_audits = self.env["restaurant_management.restaurant_audit"]\
+                .get_audit_counts_per_month(year, restaurant_id=restaurant_id.id)["actual"]
+
+            relative_count_of_faults = [
+                round(f/ac, 2) if ac else 0 for f, ac in zip(fault_counts, actual_count_of_audits)
+            ]
+
+            all_count_relative = round(sum(relative_count_of_faults)/12, 2)
+            res.append(
+                [restaurant_id.name, *relative_count_of_faults, all_count_relative])
+
+        if len(res) > 1:
+            res.sort(key=lambda r: r[len(r)-1])
+
+        return res

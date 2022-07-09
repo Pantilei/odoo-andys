@@ -24,7 +24,7 @@
                         </group>
                         <group string="Planned Audits">
                             <field name="planned_audit_ids" nolabel="1">
-                                <tree order="year desc" editable="bottom" limit="5">
+                                <tree default_order="year desc" editable="bottom" limit="5">
                                     <field name="year" />
                                     <field name="jan" />
                                     <field name="feb" />
