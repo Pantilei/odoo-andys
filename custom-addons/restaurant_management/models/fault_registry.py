@@ -162,6 +162,7 @@ class FaultRegistry(models.Model):
         domain = [
             ('fault_date', '>=', date(year=year, month=1, day=1)),
             ('fault_date', '<=', date(year=year, month=12, day=31)),
+            ('state', '=', 'confirm')
         ]
         if check_list_category_id:
             domain = expression.AND([
@@ -203,13 +204,24 @@ class FaultRegistry(models.Model):
         }
 
     @api.model
-    def get_restaurant_rating_data(self, year):
+    def get_restaurant_rating_data(self, year, restaurant_network_id=None, check_list_category_id=None):
+        restaurant_domain = []
+        if restaurant_network_id:
+            restaurant_domain = [
+                ("restaurant_network_id", "=", restaurant_network_id)]
+
         res = []
-        for restaurant_id in self.env["restaurant_management.restaurant"].search([]):
+        for restaurant_id in self.env["restaurant_management.restaurant"].search(restaurant_domain):
             domain = [
                 ('fault_date', '>=', date(year=year, month=1, day=1)),
                 ('fault_date', '<=', date(year=year, month=12, day=31)),
+                ('state', '=', 'confirm')
             ]
+            if check_list_category_id:
+                domain = expression.AND([
+                    [('check_list_category_id', '=', check_list_category_id)],
+                    domain
+                ])
             domain = expression.AND([
                 [("restaurant_id", "=", restaurant_id.id)],
                 domain
@@ -237,13 +249,23 @@ class FaultRegistry(models.Model):
         return res
 
     @api.model
-    def get_restaurant_rating_per_audit_data(self, year):
+    def get_restaurant_rating_per_audit_data(self, year, restaurant_network_id=None, check_list_category_id=None):
+        restaurant_domain = []
+        if restaurant_network_id:
+            restaurant_domain = [
+                ("restaurant_network_id", "=", restaurant_network_id)]
         res = []
-        for restaurant_id in self.env["restaurant_management.restaurant"].search([]):
+        for restaurant_id in self.env["restaurant_management.restaurant"].search(restaurant_domain):
             domain = [
                 ('fault_date', '>=', date(year=year, month=1, day=1)),
                 ('fault_date', '<=', date(year=year, month=12, day=31)),
+                ('state', '=', 'confirm')
             ]
+            if check_list_category_id:
+                domain = expression.AND([
+                    [('check_list_category_id', '=', check_list_category_id)],
+                    domain
+                ])
             domain = expression.AND([
                 [("restaurant_id", "=", restaurant_id.id)],
                 domain

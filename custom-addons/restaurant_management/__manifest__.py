@@ -32,11 +32,14 @@
         'views/fault_registry_views.xml',
         'views/reports_action_views.xml',
 
+        'wizards/reports.xml',
+
         'views/menu_items.xml',
         'views/res_users.xml',
         'views/res_users_preference.xml',
 
         'report/fault_list_report.xml',
+        'report/general_report.xml',
 
     ],
     # only loaded in demonstration mode

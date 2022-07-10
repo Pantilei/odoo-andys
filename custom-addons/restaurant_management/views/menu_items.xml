@@ -67,6 +67,13 @@
               groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager" 
               sequence="15" />
     
+    <menuitem id="print_reports_menu" 
+              name="Print Reports" 
+              parent="report_main_menu" 
+              action="reports_wizard_action"
+              groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager" 
+              sequence="20" />
+    
 
     <menuitem id="configuration_menu" 
               name="Configurations" 
