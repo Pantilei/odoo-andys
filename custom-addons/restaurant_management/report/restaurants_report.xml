@@ -1,70 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-        <record id="general_report_paper_format" model="report.paperformat">
-            <field name="name">General Report</field>
-            <field name="default" eval="True" />
-            <field name="format">A4</field>
-            <!-- <field name="page_height">297</field>
-            <field name="page_width">210</field> -->
-            <field name="orientation">Portrait</field>
-            <field name="margin_top">20</field>
-            <field name="margin_bottom">20</field>
-            <field name="margin_left">20</field>
-            <field name="margin_right">7</field>
-            <field name="header_line" eval="False" />
-            <field name="header_spacing">20</field>
-            <field name="dpi">90</field>
-        </record>
 
-        <record id="action_general_report" model="ir.actions.report">
+        <record id="action_restaurants_report" model="ir.actions.report">
             <field name="name">General Report</field>
             <field name="model">restaurant_management.reports_wizard</field>
             <field name="report_type">qweb-pdf</field>
             <!-- <field name="report_type">qweb-html qweb-pdf</field> -->
-            <field name="report_name">restaurant_management.general_report</field>
-            <field name="report_file">restaurant_management.general_report</field>
+            <field name="report_name">restaurant_management.restaurants_report</field>
+            <field name="report_file">restaurant_management.restaurants_report</field>
             <field name="print_report_name">'Report'</field>
-            <field name="paperformat_id" ref="general_report_paper_format" />
+            <field name="paperformat_id" ref="report_paper_format" />
         </record>
 
-        <!-- Header of Report -->
-        <template id="header_of_general_report">
-            <div class="header">
-                <div class="row">
-                    <div class="col-8"></div>
-                    <div class="col-4">
-                        <img class="ml-auto" width="70" src="/restaurant_management/static/src/img/andys_logo.jpg" alt="Andy's Logo" />
-                        <img class="ml-1" width="70" src="/restaurant_management/static/src/img/la_placinte_logo.jpg" alt="La Placinte Logo" />
-                    </div>
-                </div>
-                <div class="row zero_min_height">
-                    <div class="col-12">
-                        <div style="border-bottom: 1px solid black;" />
-                    </div>
-                </div>
-            </div>
-
-            <div class="article o_report_layout_standard">
-                <t t-out="0" />
-            </div>
-
-            <div class="footer o_standard_footer">
-                <div class="text-center" style="border-top: 1px solid black;">
-                    <div t-if="report_type == 'pdf'" class="text-muted">
-                        Page:
-                        <span class="page" />
-                        /
-                        <span class="topage" />
-                    </div>
-                </div>
-            </div>
-
-        </template>
-
-        <template id="general_report">
+        <template id="restaurants_report">
             <t t-call="web.html_container">
-                <t t-call="restaurant_management.header_of_general_report">
+                <t t-call="restaurant_management.layout_of_report">
                     <div class="page">
                         <h2 class="font-italic">Общий отчет по проверкам ресторанов за месяц</h2>
                         <h4 class="mt-5">1. Количество проверок</h4>

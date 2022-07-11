@@ -38,8 +38,11 @@
         'views/res_users.xml',
         'views/res_users_preference.xml',
 
+        'report/layout.xml',
+        'report/paper_format.xml',
         'report/fault_list_report.xml',
-        'report/general_report.xml',
+        'report/restaurants_report.xml',
+        'report/departaments_report.xml',
 
     ],
     # only loaded in demonstration mode

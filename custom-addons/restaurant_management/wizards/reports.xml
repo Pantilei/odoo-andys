@@ -12,7 +12,9 @@
                             <field name="name" readonly="1" />
                         </group>
                         <group>
+                            <field name="report" />
                             <field name="year" />
+                            <field name="month" />
                             <field name="restaurant_network_id" widget="selection" />
                         </group>
                     </sheet>

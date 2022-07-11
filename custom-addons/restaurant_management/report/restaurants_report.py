@@ -1,12 +1,5 @@
-import base64
-import io
+from ..tools import get_char_svg
 from odoo import fields, models, api, _
-from matplotlib import pyplot as plt
-from datetime import date
-from scipy import interpolate
-import warnings
-
-warnings.filterwarnings("ignore")
 
 
 MONTHS = [
@@ -27,9 +20,9 @@ MONTHS = [
 MONTHS_INT = list(range(12))
 
 
-class FaultListReport(models.AbstractModel):
-    _name = 'report.restaurant_management.general_report'
-    _description = 'General Report'
+class RestaurnatsReport(models.AbstractModel):
+    _name = 'report.restaurant_management.restaurants_report'
+    _description = 'Restaurants Report'
 
     def _get_report_values(self, docids, data=None):
         docs = self.env['restaurant_management.fault_registry'].search([])
@@ -85,39 +78,9 @@ class FaultListReport(models.AbstractModel):
                 check_list_category_id=check_list_category_id,
                 restaurant_id=None,
                 restaurant_network_id=restaurant_network_id)
-        return self._get_char_svg(
+        return get_char_svg(
+            list(zip(MONTHS_INT, MONTHS)),
             data.get("fault_counts"),
             data.get("fault_per_audit"),
             ['Кол-во ошибок', 'Кол-во ошибок/1 проверку'],
         )
-
-    def _get_char_svg(self, y1, y2, legend):
-        plt.rcParams["figure.figsize"] = [7.50, 3.50]
-        plt.rcParams["figure.autolayout"] = True
-
-        ax1 = plt.subplot()
-        ax2 = ax1.twinx()
-
-        l1, = ax1.plot(MONTHS, y1, color="red", marker="o")
-        l2, = ax2.plot(MONTHS, y2, color="orange", marker="o")
-        plt.legend([l1, l2], legend)
-        plt.grid()
-
-        # bspline_y1 = interpolate.make_interp_spline(MONTHS_INT, y1)
-        # bspline_y2 = interpolate.make_interp_spline(MONTHS_INT, y2)
-
-        # y1_new = bspline_y1([i/10 for i in range(110)])
-        # y2_new = bspline_y2([i/10 for i in range(110)])
-
-        # l1, = ax1.plot([i/10 for i in range(110)], y1_new, color="red")
-        # l2, = ax2.plot([i/10 for i in range(110)], y2_new, color="orange")
-        # plt.legend([l1, l2], ['Кол-во ошибок', 'Кол-во ошибок/1 проверки'])
-
-        # ax1.set_xticks(range(12))
-        # ax1.set_xticklabels(MONTHS)
-
-        source = io.BytesIO()
-        plt.savefig(source, format="svg")
-        plt.close()
-
-        return base64.b64encode(source.getvalue())

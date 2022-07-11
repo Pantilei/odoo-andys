@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="action_departaments_report" model="ir.actions.report">
+            <field name="name">Departaments Report</field>
+            <field name="model">restaurant_management.reports_wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <!-- <field name="report_type">qweb-html qweb-pdf</field> -->
+            <field name="report_name">restaurant_management.departaments_report</field>
+            <field name="report_file">restaurant_management.departaments_report</field>
+            <field name="print_report_name">'Report'</field>
+            <field name="paperformat_id" ref="report_paper_format" />
+        </record>
+
+        <template id="departaments_report">
+            <t t-call="web.html_container">
+                <t t-call="restaurant_management.layout_of_report">
+                    <div class="page">
+                        <h2 class="font-italic">Отчет по проверкам ресторанов за месяц</h2>
+                        <h4 class="mt-5">1. Рейтинг ресторанов компании по департаментам</h4>
+                        <t t-foreach="restaurant_rating_by_check_list_category" t-as="check_list_category">
+                            <div class="row mt-5">
+                                <div class="col-5">
+                                    <h5 class="font-italic">
+                                        <t t-esc="check_list_category['name']" />
+                                    </h5>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Ресторан</th>
+                                                <th scope="col">Кол-во ошибок</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="check_list_category['restaurants_absolute_rating']" t-as="restaurant">
+                                                <tr>
+                                                    <td>
+                                                        <t t-esc="restaurant['name']" />
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="restaurant['count']" />
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-5">
+                                    <h5 class="font-italic">
+                                        <t t-esc="check_list_category['name']" />
+                                        /1 проверки
+                                    </h5>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Ресторан</th>
+                                                <th scope="col">Кол-во ошибок</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="check_list_category['restaurants_relative_rating']" t-as="restaurant">
+                                                <tr>
+                                                    <td>
+                                                        <t t-esc="restaurant['name']" />
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="restaurant['count']" />
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <p style="page-break-before:always;"></p>
+                        </t>
+
+                        <h4 class="mt-5">2. Топ ошибок по департаментам</h4>
+
+                        <p style="page-break-before:always;"></p>
+
+                    </div>
+                </t>
+            </t>
+
+        </template>
+    </data>
+</odoo>

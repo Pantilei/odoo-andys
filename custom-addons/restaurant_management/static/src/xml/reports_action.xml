@@ -22,6 +22,9 @@
                         <option value="relative_restaurant_rating" t-att-selected="state.reportType === 'relative_restaurant_rating'">
                             Рейтинг ресторанов по общему количеству ошибок на единицу проверки.
                         </option>
+                        <option value="departaments" t-att-selected="state.reportType === 'departaments'">
+                            Рейтинг ресторанов по департаментам.
+                        </option>
                     </select>
                 </div>
 
