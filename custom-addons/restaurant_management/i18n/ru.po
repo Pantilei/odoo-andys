@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-04 20:54+0000\n"
-"PO-Revision-Date: 2022-07-04 20:54+0000\n"
+"POT-Creation-Date: 2022-07-13 19:14+0000\n"
+"PO-Revision-Date: 2022-07-13 19:14+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -29,6 +29,302 @@ msgstr ""
 #: model:ir.actions.report,print_report_name:restaurant_management.action_fault_list_report
 msgid "'Fault List - %s' % (object.id)"
 msgstr "'Ошибки - %s' % (object.id)"
+
+#. module: restaurant_management
+#: model:ir.actions.report,print_report_name:restaurant_management.action_departaments_report
+#: model:ir.actions.report,print_report_name:restaurant_management.action_restaurants_report
+msgid "'Report'"
+msgstr ""
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurants_report
+msgid ". Динамика кол-ва ошибок по"
+msgstr ""
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurants_report
+msgid ". Рейтинг ресторанов по количеству ошибок на единицу проверки."
+msgstr ""
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurants_report
+msgid ". Рейтинг ресторанов по общему количеству ошибок."
+msgstr ""
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.departaments_report
+msgid "/1 проверки"
+msgstr ""
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurants_report
+msgid "1. Количество проверок"
+msgstr ""
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.departaments_report
+msgid "1. Рейтинг ресторанов компании по департаментам"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__1999
+msgid "1999"
+msgstr ""
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurants_report
+msgid "2. Динамика общего кол-ва ошибок."
+msgstr ""
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.departaments_report
+msgid "2. Топ ошибок по департаментам"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2000
+msgid "2000"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2001
+msgid "2001"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2002
+msgid "2002"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2003
+msgid "2003"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2004
+msgid "2004"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2005
+msgid "2005"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2006
+msgid "2006"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2007
+msgid "2007"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2008
+msgid "2008"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2009
+msgid "2009"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2010
+msgid "2010"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2011
+msgid "2011"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2012
+msgid "2012"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2013
+msgid "2013"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2014
+msgid "2014"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2015
+msgid "2015"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2016
+msgid "2016"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2017
+msgid "2017"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2018
+msgid "2018"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2019
+msgid "2019"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2020
+msgid "2020"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2021
+msgid "2021"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2022
+msgid "2022"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2023
+msgid "2023"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2024
+msgid "2024"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2025
+msgid "2025"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2026
+msgid "2026"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2027
+msgid "2027"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2028
+msgid "2028"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2029
+msgid "2029"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2030
+msgid "2030"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2031
+msgid "2031"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2032
+msgid "2032"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2033
+msgid "2033"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2034
+msgid "2034"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2035
+msgid "2035"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2036
+msgid "2036"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2037
+msgid "2037"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2038
+msgid "2038"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2039
+msgid "2039"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2040
+msgid "2040"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2041
+msgid "2041"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2042
+msgid "2042"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2043
+msgid "2043"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2044
+msgid "2044"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2045
+msgid "2045"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2046
+msgid "2046"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2047
+msgid "2047"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__year__2048
+msgid "2048"
+msgstr ""
 
 #. module: restaurant_management
 #. openerp-web
@@ -75,6 +371,25 @@ msgid "Administrator"
 msgstr "Администратор"
 
 #. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.layout_of_report
+msgid "Andy's Logo"
+msgstr ""
+
+#. module: restaurant_management
+#: code:addons/restaurant_management/report/departaments_report.py:0
+#: code:addons/restaurant_management/report/restaurants_report.py:0
+#: code:addons/restaurant_management/wizards/reports.py:0
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__month__4
+#, python-format
+msgid "Apr"
+msgstr "Апр"
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_planned_audits__apr
+msgid "April"
+msgstr "Апрель"
+
+#. module: restaurant_management
 #: model:ir.model,name:restaurant_management.model_ir_attachment
 msgid "Attachment"
 msgstr "Вложение"
@@ -92,6 +407,20 @@ msgstr "Дата Проверки"
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form
 msgid "Audit of Expert DKK"
 msgstr "Проверка Эксперта ДКК"
+
+#. module: restaurant_management
+#: code:addons/restaurant_management/report/departaments_report.py:0
+#: code:addons/restaurant_management/report/restaurants_report.py:0
+#: code:addons/restaurant_management/wizards/reports.py:0
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__month__8
+#, python-format
+msgid "Aug"
+msgstr "Авг"
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_planned_audits__aug
+msgid "August"
+msgstr "Август"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__available_for_edit
@@ -116,6 +445,7 @@ msgstr "Бармэн"
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_auditer
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_restaurant_director
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
+#: model_terms:ir.ui.view,arch_db:restaurant_management.reports_wizard_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_dkk_manager
 msgid "Cancel"
@@ -209,9 +539,18 @@ msgid "Country"
 msgstr "Страна"
 
 #. module: restaurant_management
+#: model:ir.actions.server,name:restaurant_management.ir_cron_create_planned_audits_of_restaurants_ir_actions_server
+#: model:ir.cron,cron_name:restaurant_management.ir_cron_create_planned_audits_of_restaurants
+#: model:ir.cron,name:restaurant_management.ir_cron_create_planned_audits_of_restaurants
+msgid "Create planned audit amount of restaurants"
+msgstr ""
+
+#. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list__create_uid
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__create_uid
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__create_uid
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_planned_audits__create_uid
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_reports_wizard__create_uid
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant__create_uid
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__create_uid
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_network__create_uid
@@ -222,6 +561,8 @@ msgstr "Создано Пользователем"
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list__create_date
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__create_date
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__create_date
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_planned_audits__create_date
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_reports_wizard__create_date
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant__create_date
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__create_date
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_network__create_date
@@ -232,6 +573,20 @@ msgstr "Дата создания"
 #: model:res.groups,name:restaurant_management.group_restaurant_management_dkk_manager
 msgid "DKK Manager"
 msgstr "Руководитель ДКК"
+
+#. module: restaurant_management
+#: code:addons/restaurant_management/report/departaments_report.py:0
+#: code:addons/restaurant_management/report/restaurants_report.py:0
+#: code:addons/restaurant_management/wizards/reports.py:0
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__month__12
+#, python-format
+msgid "Dec"
+msgstr "Дек"
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_planned_audits__dec
+msgid "December"
+msgstr "Декабрь"
 
 #. module: restaurant_management
 #. openerp-web
@@ -248,6 +603,12 @@ msgid "Delivery"
 msgstr "Доставка"
 
 #. module: restaurant_management
+#: model:ir.actions.report,name:restaurant_management.action_departaments_report
+#: model:ir.model,name:restaurant_management.model_report_restaurant_management_departaments_report
+msgid "Departaments Report"
+msgstr ""
+
+#. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list__description
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant__description
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_network__description
@@ -258,6 +619,8 @@ msgstr "Описание"
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list__display_name
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__display_name
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__display_name
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_planned_audits__display_name
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_reports_wizard__display_name
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant__display_name
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__display_name
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_network__display_name
@@ -278,20 +641,19 @@ msgstr "Загрузить"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__responsible_id
-#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__responsible_id
-#: model:res.groups,name:restaurant_management.group_restaurant_management_auditer
-msgid "Expert DKK"
+msgid "Expert DCC"
 msgstr "Эксперт ДКК"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__comment
-msgid "Expert DKK Comment"
-msgstr "Коментарий Эксперта ДКК"
+msgid "Expert DCC comment"
+msgstr "Комментарий Эксперта ДКК"
 
 #. module: restaurant_management
-#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__check_list_category_responsible_comment
-msgid "Fault Category Responsible Comment"
-msgstr "Коментарий ответственного по категории ошибок"
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__responsible_id
+#: model:res.groups,name:restaurant_management.group_restaurant_management_auditer
+msgid "Expert DKK"
+msgstr "Эксперт ДКК"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__fault_date
@@ -325,7 +687,6 @@ msgid "Fault Registry Reporting"
 msgstr "Отчётность ошибок"
 
 #. module: restaurant_management
-#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__fault_type
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
 msgid "Fault Type"
 msgstr "Тип ошибки"
@@ -338,9 +699,28 @@ msgid "Faults"
 msgstr "Ошибки"
 
 #. module: restaurant_management
+#: code:addons/restaurant_management/report/departaments_report.py:0
+#: code:addons/restaurant_management/report/restaurants_report.py:0
+#: code:addons/restaurant_management/wizards/reports.py:0
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__month__2
+#, python-format
+msgid "Feb"
+msgstr "Фев"
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_planned_audits__feb
+msgid "February"
+msgstr "Февраль"
+
+#. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__audit_start_time
 msgid "From"
 msgstr "С"
+
+#. module: restaurant_management
+#: model:ir.actions.report,name:restaurant_management.action_restaurants_report
+msgid "General Report"
+msgstr ""
 
 #. module: restaurant_management
 #: model:ir.actions.server,name:restaurant_management.ir_cron_generate_check_list_data_ir_actions_server
@@ -356,7 +736,6 @@ msgid "Group By"
 msgstr "Группировать по"
 
 #. module: restaurant_management
-#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__guilty_person_id
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
 msgid "Guilty Person"
 msgstr "Виновный"
@@ -370,6 +749,8 @@ msgstr "Помогает управлять рестораном."
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list__id
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__id
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__id
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_planned_audits__id
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_reports_wizard__id
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant__id
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__id
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_network__id
@@ -397,9 +778,78 @@ msgid "Interior"
 msgstr "Интерьер"
 
 #. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_audit_controller
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_auditer
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_dkk_manager
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_restaurant_director
+msgid "Involved Worker"
+msgstr "Причастный Работник"
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__guilty_person_id
+msgid "Involved Worker Name/Family Name"
+msgstr "Ф.И.О. Причастного работника"
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__fault_type
+msgid "Involved Worker Position"
+msgstr "Должность Причастного работника"
+
+#. module: restaurant_management
+#: code:addons/restaurant_management/report/departaments_report.py:0
+#: code:addons/restaurant_management/report/restaurants_report.py:0
+#: code:addons/restaurant_management/wizards/reports.py:0
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__month__1
+#, python-format
+msgid "Jan"
+msgstr "Янв"
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_planned_audits__jan
+msgid "January"
+msgstr "Январь"
+
+#. module: restaurant_management
+#: code:addons/restaurant_management/report/departaments_report.py:0
+#: code:addons/restaurant_management/report/restaurants_report.py:0
+#: code:addons/restaurant_management/wizards/reports.py:0
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__month__7
+#, python-format
+msgid "Jul"
+msgstr "Июль"
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_planned_audits__jul
+msgid "July"
+msgstr "Июль"
+
+#. module: restaurant_management
+#: code:addons/restaurant_management/report/departaments_report.py:0
+#: code:addons/restaurant_management/report/restaurants_report.py:0
+#: code:addons/restaurant_management/wizards/reports.py:0
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__month__6
+#, python-format
+msgid "Jun"
+msgstr "Июнь"
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_planned_audits__jun
+msgid "June"
+msgstr "Июнь"
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.layout_of_report
+msgid "La Placinte Logo"
+msgstr ""
+
+#. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list____last_update
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category____last_update
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry____last_update
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_planned_audits____last_update
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_reports_wizard____last_update
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant____last_update
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit____last_update
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_network____last_update
@@ -410,6 +860,8 @@ msgstr "Дата последнего обновления"
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list__write_uid
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__write_uid
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__write_uid
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_planned_audits__write_uid
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_reports_wizard__write_uid
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant__write_uid
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__write_uid
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_network__write_uid
@@ -420,6 +872,8 @@ msgstr "Последнее обновление пользователем"
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list__write_date
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__write_date
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__write_date
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_planned_audits__write_date
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_reports_wizard__write_date
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant__write_date
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__write_date
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_network__write_date
@@ -435,13 +889,67 @@ msgid "Loading"
 msgstr "Загрузка"
 
 #. module: restaurant_management
+#: code:addons/restaurant_management/report/departaments_report.py:0
+#: code:addons/restaurant_management/report/restaurants_report.py:0
+#: code:addons/restaurant_management/wizards/reports.py:0
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__month__3
+#, python-format
+msgid "Mar"
+msgstr "Март"
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_planned_audits__mar
+msgid "March"
+msgstr "Март"
+
+#. module: restaurant_management
+#: code:addons/restaurant_management/report/departaments_report.py:0
+#: code:addons/restaurant_management/report/restaurants_report.py:0
+#: code:addons/restaurant_management/wizards/reports.py:0
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_planned_audits__may
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__month__5
+#, python-format
+msgid "May"
+msgstr "Май"
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_audit_controller
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_auditer
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_dkk_manager
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_restaurant_director
+msgid "Measures Taken"
+msgstr "Принятые меры"
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_reports_wizard__month
+msgid "Month"
+msgstr "Месяц"
+
+#. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__name
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_reports_wizard__name
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant__name
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__name
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_network__name
 #: model_terms:ir.ui.view,arch_db:restaurant_management.check_list_category_view_form
 msgid "Name"
 msgstr "Название"
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_audit_controller
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_auditer
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_dkk_manager
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_restaurant_director
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_audit_controller
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_auditer
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_dkk_manager
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_restaurant_director
+msgid "Name/Family Name"
+msgstr "Ф.И.О."
 
 #. module: restaurant_management
 #. openerp-web
@@ -467,6 +975,44 @@ msgid "None Severe Faults"
 msgstr "Не грубые ошики"
 
 #. module: restaurant_management
+#: code:addons/restaurant_management/report/departaments_report.py:0
+#: code:addons/restaurant_management/report/restaurants_report.py:0
+#: code:addons/restaurant_management/wizards/reports.py:0
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__month__11
+#, python-format
+msgid "Nov"
+msgstr "Ноябрь"
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_planned_audits__nov
+msgid "November"
+msgstr "Ноябрь"
+
+#. module: restaurant_management
+#: model:ir.model,name:restaurant_management.model_restaurant_management_planned_audits
+msgid "Number of planned audits in restaurant per month"
+msgstr ""
+
+#. module: restaurant_management
+#: code:addons/restaurant_management/report/departaments_report.py:0
+#: code:addons/restaurant_management/report/restaurants_report.py:0
+#: code:addons/restaurant_management/wizards/reports.py:0
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__month__10
+#, python-format
+msgid "Oct"
+msgstr "Окт"
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_planned_audits__oct
+msgid "October"
+msgstr "Октябрь"
+
+#. module: restaurant_management
+#: model:ir.model.constraint,message:restaurant_management.constraint_restaurant_management_planned_audits_restaurant_year_uniq
+msgid "One year definition per restaurant is allowed!"
+msgstr ""
+
+#. module: restaurant_management
 #. openerp-web
 #: code:addons/restaurant_management/static/src/xml/document_viewer_legacy.xml:0
 #: code:addons/restaurant_management/static/src/xml/document_viewer_legacy.xml:0
@@ -475,14 +1021,54 @@ msgid "PDF file"
 msgstr "PDF файл"
 
 #. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.reports_wizard_view_form
+msgid "PDF reports"
+msgstr "PDF Отчёты"
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.layout_of_report
+msgid ""
+"Page:\n"
+"                        <span class=\"page\"/>\n"
+"                        /\n"
+"                        <span class=\"topage\"/>"
+msgstr ""
+
+#. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.report_fault_list
 msgid "Photo"
 msgstr "Фото"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__attachment_ids
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_audit_controller
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_auditer
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_dkk_manager
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_restaurant_director
 msgid "Photos"
 msgstr "Фото"
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant__planned_audit_ids
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_view_form
+msgid "Planned Audits"
+msgstr "Плановые проверки"
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_audit_controller
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_auditer
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_dkk_manager
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_restaurant_director
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_audit_controller
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_auditer
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_dkk_manager
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_restaurant_director
+msgid "Position"
+msgstr "Должность"
 
 #. module: restaurant_management
 #. openerp-web
@@ -501,6 +1087,16 @@ msgid "Print"
 msgstr "Печать"
 
 #. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.reports_wizard_view_form
+msgid "Print Report"
+msgstr "Распечатать Отчёт"
+
+#. module: restaurant_management
+#: model:ir.ui.menu,name:restaurant_management.print_reports_menu
+msgid "Print Reports"
+msgstr "Распечатать Отчёты"
+
+#. module: restaurant_management
 #: model:ir.ui.menu,name:restaurant_management.registered_grouped_faults_menu
 msgid "Registered Faults"
 msgstr "Ошибки"
@@ -511,14 +1107,43 @@ msgid "Registered Faults' Graphs"
 msgstr "Графики ошибок"
 
 #. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_reports_wizard__report
+msgid "Report"
+msgstr "Отчёт"
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__report__departaments
+msgid "Report of Departaments"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__report__restaurants
+msgid "Report of Restaurants"
+msgstr ""
+
+#. module: restaurant_management
 #: model:res.groups,name:restaurant_management.group_restaurant_management_reporter
 msgid "Reporter"
 msgstr "Получатель отчётов"
 
 #. module: restaurant_management
+#: model:ir.actions.client,name:restaurant_management.reports_library_client_action
 #: model:ir.ui.menu,name:restaurant_management.report_main_menu
 msgid "Reporting"
 msgstr "Отчётность"
+
+#. module: restaurant_management
+#. openerp-web
+#: code:addons/restaurant_management/static/src/xml/reports_action.xml:0
+#: model:ir.ui.menu,name:restaurant_management.reports_library_menu
+#, python-format
+msgid "Reports"
+msgstr "Отчёты"
+
+#. module: restaurant_management
+#: model:ir.actions.act_window,name:restaurant_management.reports_wizard_action
+msgid "Reports Action"
+msgstr ""
 
 #. module: restaurant_management
 #. openerp-web
@@ -540,8 +1165,23 @@ msgid "Responsible for category faults"
 msgstr "Ответственный по категориям ошибок"
 
 #. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_audit_controller
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_auditer
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_dkk_manager
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_restaurant_director
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_audit_controller
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_auditer
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_dkk_manager
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_restaurant_director
+msgid "Responsible within Department"
+msgstr "Ответственные по департаменту"
+
+#. module: restaurant_management
 #: model:ir.actions.act_window,name:restaurant_management.restaurant_action
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__restaurant_id
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_planned_audits__restaurant_id
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__restaurant_id
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_search
@@ -562,16 +1202,25 @@ msgid "Restaurant DKK"
 msgstr "ДКК Ресторана"
 
 #. module: restaurant_management
-#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__director_comment
-msgid "Restaurant Director Comment"
-msgstr "Коментарий Директора Ресторана"
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_audit_controller
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_auditer
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_dkk_manager
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_restaurant_director
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_audit_controller
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_auditer
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_dkk_manager
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_restaurant_director
+msgid "Restaurant Director"
+msgstr "Директор Ресторана"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__restaurant_director_ids
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant__director_ids
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__restaurant_director_ids
 msgid "Restaurant Directors"
-msgstr "Директоры ресторанов"
+msgstr "Директоры ресторана"
 
 #. module: restaurant_management
 #: model:ir.ui.menu,name:restaurant_management.menu_root
@@ -581,6 +1230,7 @@ msgstr "Отчёт ДКК"
 #. module: restaurant_management
 #: model:ir.actions.act_window,name:restaurant_management.restaurant_network_action
 #: model:ir.model,name:restaurant_management.model_restaurant_management_restaurant_network
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_reports_wizard__restaurant_network_id
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant__restaurant_network_id
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_network_view_form
 msgid "Restaurant Network"
@@ -609,12 +1259,31 @@ msgid "Restaurants"
 msgstr "Рестораны"
 
 #. module: restaurant_management
+#: model:ir.model,name:restaurant_management.model_report_restaurant_management_restaurants_report
+msgid "Restaurants Report"
+msgstr ""
+
+#. module: restaurant_management
 #. openerp-web
 #: code:addons/restaurant_management/static/src/xml/document_viewer_legacy.xml:0
 #: code:addons/restaurant_management/static/src/xml/document_viewer_legacy.xml:0
 #, python-format
 msgid "Rotate"
 msgstr "Вращать"
+
+#. module: restaurant_management
+#: code:addons/restaurant_management/report/departaments_report.py:0
+#: code:addons/restaurant_management/report/restaurants_report.py:0
+#: code:addons/restaurant_management/wizards/reports.py:0
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__month__9
+#, python-format
+msgid "Sept"
+msgstr "Сент"
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_planned_audits__sept
+msgid "September"
+msgstr "Сентябрь"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__sequence
@@ -643,9 +1312,13 @@ msgid "Sorry, you are not allowed to access this document."
 msgstr "Извините, вы не имеете достум к этому документу"
 
 #. module: restaurant_management
-#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__state
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
 msgid "State"
+msgstr "Статус"
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__state
+msgid "Status"
 msgstr "Статус"
 
 #. module: restaurant_management
@@ -673,6 +1346,16 @@ msgstr "Улица..."
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
 msgid "Suchif"
 msgstr "Сушеф"
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__check_list_category_responsible_comment
+msgid "Taken Measures by Responsible within Department "
+msgstr "Принятые меры Ответственного по Департаменту"
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__director_comment
+msgid "Taken Measures by Restaurant Director"
+msgstr "Принятые меры Директором Ресторана"
 
 #. module: restaurant_management
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_fault_registry__fault_type__tech_personal
@@ -779,6 +1462,17 @@ msgid "Waiter"
 msgstr "Оффициант"
 
 #. module: restaurant_management
+#: model:ir.model,name:restaurant_management.model_restaurant_management_reports_wizard
+msgid "Wizard to print the reports"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_planned_audits__year
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_reports_wizard__year
+msgid "Year"
+msgstr "Год"
+
+#. module: restaurant_management
 #. openerp-web
 #: code:addons/restaurant_management/static/src/xml/document_viewer_legacy.xml:0
 #: code:addons/restaurant_management/static/src/xml/document_viewer_legacy.xml:0
@@ -803,3 +1497,132 @@ msgstr ""
 #: model:ir.model,name:restaurant_management.model_report_restaurant_management_report_fault_list
 msgid "report list"
 msgstr "список ошибок"
+
+#. module: restaurant_management
+#. openerp-web
+#: code:addons/restaurant_management/static/src/xml/reports_action.xml:0
+#: code:addons/restaurant_management/static/src/xml/reports_action.xml:0
+#: code:addons/restaurant_management/static/src/xml/reports_action.xml:0
+#, python-format
+msgid "Все"
+msgstr ""
+
+#. module: restaurant_management
+#. openerp-web
+#: code:addons/restaurant_management/static/src/xml/reports_action.xml:0
+#, python-format
+msgid "Год"
+msgstr ""
+
+#. module: restaurant_management
+#. openerp-web
+#: code:addons/restaurant_management/static/src/xml/reports_action.xml:0
+#, python-format
+msgid "Динамика кол-ва ошибок."
+msgstr ""
+
+#. module: restaurant_management
+#. openerp-web
+#: code:addons/restaurant_management/static/src/xml/reports_action.xml:0
+#, python-format
+msgid "Категории Чек Листов"
+msgstr ""
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.departaments_report
+msgid "Кол-во ошибок"
+msgstr ""
+
+#. module: restaurant_management
+#. openerp-web
+#: code:addons/restaurant_management/static/src/xml/reports_action.xml:0
+#, python-format
+msgid "Количество проверок"
+msgstr ""
+
+#. module: restaurant_management
+#. openerp-web
+#: code:addons/restaurant_management/static/src/xml/reports_action.xml:0
+#: code:addons/restaurant_management/static/src/xml/reports_action.xml:0
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurants_report
+#, python-format
+msgid "Обшее количество"
+msgstr ""
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurants_report
+msgid "Общий отчет по проверкам ресторанов за месяц"
+msgstr ""
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.departaments_report
+msgid "Отчет по проверкам ресторанов за месяц"
+msgstr ""
+
+#. module: restaurant_management
+#. openerp-web
+#: code:addons/restaurant_management/static/src/xml/reports_action.xml:0
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurants_report
+#, python-format
+msgid "Плановое"
+msgstr ""
+
+#. module: restaurant_management
+#. openerp-web
+#: code:addons/restaurant_management/static/src/xml/reports_action.xml:0
+#, python-format
+msgid "Рейтинг ресторанов по департаментам."
+msgstr ""
+
+#. module: restaurant_management
+#. openerp-web
+#: code:addons/restaurant_management/static/src/xml/reports_action.xml:0
+#, python-format
+msgid "Рейтинг ресторанов по общему количеству ошибок на единицу проверки."
+msgstr ""
+
+#. module: restaurant_management
+#. openerp-web
+#: code:addons/restaurant_management/static/src/xml/reports_action.xml:0
+#, python-format
+msgid "Рейтинг ресторанов по общему количеству ошибок."
+msgstr ""
+
+#. module: restaurant_management
+#. openerp-web
+#: code:addons/restaurant_management/static/src/xml/reports_action.xml:0
+#: code:addons/restaurant_management/static/src/xml/reports_action.xml:0
+#: model_terms:ir.ui.view,arch_db:restaurant_management.departaments_report
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurants_report
+#, python-format
+msgid "Ресторан"
+msgstr ""
+
+#. module: restaurant_management
+#. openerp-web
+#: code:addons/restaurant_management/static/src/xml/reports_action.xml:0
+#, python-format
+msgid "Рестораны"
+msgstr ""
+
+#. module: restaurant_management
+#. openerp-web
+#: code:addons/restaurant_management/static/src/xml/reports_action.xml:0
+#, python-format
+msgid "Сеть Ресторанов"
+msgstr ""
+
+#. module: restaurant_management
+#. openerp-web
+#: code:addons/restaurant_management/static/src/xml/reports_action.xml:0
+#, python-format
+msgid "Тип Отчёта"
+msgstr ""
+
+#. module: restaurant_management
+#. openerp-web
+#: code:addons/restaurant_management/static/src/xml/reports_action.xml:0
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurants_report
+#, python-format
+msgid "Фактическое"
+msgstr ""
