@@ -45,26 +45,23 @@
                                 <sheet>
                                     <group>
                                         <field name="check_list_category_id" widget="selection" />
-                                    </group>
-                                    <group>
                                         <field name="check_list_id" widget="selection" domain="[('category_id', '=', check_list_category_id)]" attrs="{'required': [('no_fault_check_list_category', '=', False)], 'invisible': [('no_fault_check_list_category', '=', True)], 'readonly': [('check_list_category_id', '=', False)]}" />
-                                        <field name="fault_type" />
-                                        <field name="guilty_person_id" />
+                                        <field name="severe" widget="boolean_toggle" />
                                     </group>
-                                    <group>
-                                        <field name="severe" />
+
+                                    <group string="Involved Worker">
+                                        <field name="fault_type" string="Position" />
+                                        <field name="guilty_person_id" string="Name/Family Name" />
                                     </group>
-                                    <group>
+
+                                    <group string="Measures Taken">
                                         <field name="comment" widget="html" />
+                                        <field name="director_comment" widget="html" string="Restaurant Director" />
+                                        <field name="check_list_category_responsible_comment" widget="html" string="Responsible within Department" />
                                     </group>
-                                    <group>
-                                        <field name="director_comment" widget="html" />
-                                    </group>
-                                    <group>
-                                        <field name="check_list_category_responsible_comment" widget="html" />
-                                    </group>
-                                    <group>
-                                        <field name="attachment_ids" widget="many2many_binary_preview" accepted_file_extensions="image/*" />
+
+                                    <group string="Photos">
+                                        <field name="attachment_ids" widget="many2many_binary_preview" nolabel="1" accepted_file_extensions="image/*" />
                                     </group>
                                 </sheet>
                             </form>
@@ -112,26 +109,23 @@
                             <sheet>
                                 <group>
                                     <field name="check_list_category_id" widget="selection" readonly="1" />
-                                </group>
-                                <group>
                                     <field name="check_list_id" widget="selection" readonly="1" domain="[('category_id', '=', check_list_category_id)]" />
-                                    <field name="fault_type" />
-                                    <field name="guilty_person_id" />
+                                    <field name="severe" readonly="1" widget="boolean_toggle" />
                                 </group>
-                                <group>
-                                    <field name="severe" readonly="1" />
+
+                                <group string="Involved Worker">
+                                    <field name="fault_type" string="Position" />
+                                    <field name="guilty_person_id" string="Name/Family Name" />
                                 </group>
-                                <group>
+
+                                <group string="Measures Taken">
                                     <field name="comment" readonly="1" widget="html" />
+                                    <field name="director_comment" widget="html" string="Restaurant Director" />
+                                    <field name="check_list_category_responsible_comment" widget="html" string="Responsible within Department" readonly="1" />
                                 </group>
-                                <group>
-                                    <field name="director_comment" widget="html" />
-                                </group>
-                                <group>
-                                    <field name="check_list_category_responsible_comment" widget="html" readonly="1" />
-                                </group>
-                                <group>
-                                    <field name="attachment_ids" widget="many2many_binary_preview" readonly="1" accepted_file_extensions="image/*" />
+
+                                <group string="Photos">
+                                    <field name="attachment_ids" nolabel="1" widget="many2many_binary_preview" readonly="1" accepted_file_extensions="image/*" />
                                 </group>
                             </sheet>
                         </form>
@@ -175,26 +169,23 @@
                             <sheet>
                                 <group>
                                     <field name="check_list_category_id" widget="selection" readonly="1" />
-                                </group>
-                                <group>
                                     <field name="check_list_id" widget="selection" readonly="1" domain="[('category_id', '=', check_list_category_id)]" />
-                                    <field name="fault_type" readonly="1" />
-                                    <field name="guilty_person_id" readonly="1" />
+                                    <field name="severe" readonly="1" widget="boolean_toggle" />
                                 </group>
-                                <group>
-                                    <field name="severe" readonly="1" />
+
+                                <group string="Involved Worker">
+                                    <field name="fault_type" readonly="1" string="Position" />
+                                    <field name="guilty_person_id" readonly="1" string="Name/Family Name" />
                                 </group>
-                                <group>
+
+                                <group string="Measures Taken">
                                     <field name="comment" readonly="1" widget="html" />
+                                    <field name="director_comment" readonly="1" widget="html" string="Restaurant Director" />
+                                    <field name="check_list_category_responsible_comment" widget="html" string="Responsible within Department" />
                                 </group>
-                                <group>
-                                    <field name="director_comment" readonly="1" widget="html" />
-                                </group>
-                                <group>
-                                    <field name="check_list_category_responsible_comment" widget="html" />
-                                </group>
-                                <group>
-                                    <field name="attachment_ids" widget="many2many_binary_preview" readonly="1" accepted_file_extensions="image/*" />
+
+                                <group string="Photos">
+                                    <field name="attachment_ids" nolabel="1" widget="many2many_binary_preview" readonly="1" accepted_file_extensions="image/*" />
                                 </group>
                             </sheet>
                         </form>
@@ -240,26 +231,23 @@
                             <sheet>
                                 <group>
                                     <field name="check_list_category_id" widget="selection" readonly="1" />
-                                </group>
-                                <group>
                                     <field name="check_list_id" widget="selection" readonly="1" domain="[('category_id', '=', check_list_category_id)]" />
-                                    <field name="fault_type" readonly="1" />
-                                    <field name="guilty_person_id" readonly="1" />
+                                    <field name="severe" widget="boolean_toggle" />
                                 </group>
-                                <group>
-                                    <field name="severe" />
+
+                                <group string="Involved Worker">
+                                    <field name="fault_type" readonly="1" string="Position" />
+                                    <field name="guilty_person_id" readonly="1" string="Name/Family Name" />
                                 </group>
-                                <group>
+
+                                <group string="Measures Taken">
                                     <field name="comment" widget="html" readonly="1" />
+                                    <field name="director_comment" widget="html" readonly="1" string="Restaurant Director" />
+                                    <field name="check_list_category_responsible_comment" widget="html" readonly="1" string="Responsible within Department" />
                                 </group>
-                                <group>
-                                    <field name="director_comment" widget="html" readonly="1" />
-                                </group>
-                                <group>
-                                    <field name="check_list_category_responsible_comment" widget="html" readonly="1" />
-                                </group>
-                                <group>
-                                    <field name="attachment_ids" widget="many2many_binary_preview" readonly="1" accepted_file_extensions="image/*" />
+
+                                <group string="Photos">
+                                    <field name="attachment_ids" nolabel="1" widget="many2many_binary_preview" readonly="1" accepted_file_extensions="image/*" />
                                 </group>
                             </sheet>
                         </form>
@@ -305,27 +293,23 @@
                             <sheet>
                                 <group>
                                     <field name="check_list_category_id" widget="selection" attrs="{'readonly': [('parent.available_for_edit', '=', False)]}" />
-                                </group>
-                                <group>
-                                    <!-- <field name="check_list_id" widget="selection" attrs="{'readonly': [('available_for_edit', '=', False)]}" domain="[('category_id', '=', check_list_category_id)]" /> -->
                                     <field name="check_list_id" widget="selection" domain="[('category_id', '=', check_list_category_id)]" attrs="{'required': [('no_fault_check_list_category', '=', False)], 'invisible': [('no_fault_check_list_category', '=', True)], 'readonly': ['|', ('check_list_category_id', '=', False), ('parent.available_for_edit', '=', False)]}" />
-                                    <field name="fault_type" readonly="1" />
-                                    <field name="guilty_person_id" readonly="1" />
+                                    <field name="severe" widget="boolean_toggle" attrs="{'readonly': [('parent.available_for_edit', '=', False)]}" />
                                 </group>
-                                <group>
-                                    <field name="severe" attrs="{'readonly': [('parent.available_for_edit', '=', False)]}" />
+
+                                <group string="Involved Worker">
+                                    <field name="fault_type" readonly="1" string="Position" />
+                                    <field name="guilty_person_id" readonly="1" string="Name/Family Name" />
                                 </group>
-                                <group>
+
+                                <group string="Measures Taken">
                                     <field name="comment" widget="html" attrs="{'readonly': [('parent.available_for_edit', '=', False)]}" />
+                                    <field name="director_comment" widget="html" readonly="1" string="Restaurant Director" />
+                                    <field name="check_list_category_responsible_comment" widget="html" readonly="1" string="Responsible within Department" />
                                 </group>
-                                <group>
-                                    <field name="director_comment" widget="html" readonly="1" />
-                                </group>
-                                <group>
-                                    <field name="check_list_category_responsible_comment" widget="html" readonly="1" />
-                                </group>
-                                <group>
-                                    <field name="attachment_ids" widget="many2many_binary_preview" accepted_file_extensions="image/*" />
+
+                                <group string="Photos">
+                                    <field name="attachment_ids" nolabel="1" widget="many2many_binary_preview" accepted_file_extensions="image/*" />
                                 </group>
                             </sheet>
                         </form>

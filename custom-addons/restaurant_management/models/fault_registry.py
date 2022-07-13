@@ -39,7 +39,7 @@ class FaultRegistry(models.Model):
     state = fields.Selection(selection=[
         ('confirm', 'Confirmed'),
         ('cancel', 'Cancel'),
-    ], default="confirm")
+    ], default="confirm", string="Status")
 
     fault_type = fields.Selection(selection=[
         ("cook", "Cook"),
@@ -48,11 +48,11 @@ class FaultRegistry(models.Model):
         ("tech_personal", "Tech Personal"),
         ("barman", "Barman"),
         ("delivery", "Delivery"),
-    ])
+    ], string="Involved Worker Position")
 
     guilty_person_id = fields.Many2one(
         comodel_name="res.partner",
-        string="Guilty Person"
+        string="Involved Worker Name/Family Name"
     )
 
     severe = fields.Boolean(
@@ -81,7 +81,8 @@ class FaultRegistry(models.Model):
     )
     check_list_category_id = fields.Many2one(
         comodel_name="restaurant_management.check_list_category",
-        required=True
+        required=True,
+        string="Check List Category"
     )
     no_fault_check_list_category = fields.Boolean(
         compute="_compute_no_fault_check_list_category"
@@ -94,19 +95,19 @@ class FaultRegistry(models.Model):
         comodel_name="res.users",
         compute="_compute_responsible",
         store=True,
-        string="Expert DKK"
+        string="Expert DCC"
     )
 
     comment = fields.Text(
-        string="Expert DKK Comment"
+        string="Expert DCC comment"
     )
 
     director_comment = fields.Text(
-        string="Restaurant Director Comment"
+        string="Taken Measures by Restaurant Director"
     )
 
     check_list_category_responsible_comment = fields.Text(
-        string="Fault Category Responsible Comment"
+        string="Taken Measures by Responsible within Department "
     )
 
     attachment_ids = fields.Many2many(
