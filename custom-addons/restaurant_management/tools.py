@@ -11,11 +11,15 @@ def get_char_svg(x_cat, y1, y2, legend):
 
     MONTHS = [cat for x, cat in x_cat]
     MONTHS_INT = [x for x, cat in x_cat]
-    print(MONTHS)
-    print(MONTHS_INT)
 
     ax1 = plt.subplot()
     ax2 = ax1.twinx()
+    ax1.set_ylim(bottom=0, top=max(y1)+max(y1)/10)
+    ax2.set_ylim(bottom=0, top=max(y2)+max(y2)/10)
+    ax1.grid(visible=True, which='both', axis="both",
+             color='#CCCCCC', linestyle='--', linewidth=1)
+    ax2.grid(visible=True, which='both',
+             color='#CCCCCC', linestyle=':', linewidth=1)
 
     l1 = ax1.scatter(MONTHS, y1, color="red", marker="o")
     for i, txt in enumerate(y1):
@@ -27,11 +31,13 @@ def get_char_svg(x_cat, y1, y2, legend):
             MONTHS_INT[i]+0.2, y2[i]))
 
     plt.legend([l1, l2], legend)
-    plt.grid()
+    # plt.grid()
 
-    bspline_y1 = interpolate.interp1d(MONTHS_INT, y1, kind="quadratic")
-    bspline_y2 = interpolate.interp1d(MONTHS_INT, y2, kind="quadratic")
+    # bspline_y1 = interpolate.interp1d(MONTHS_INT, y1, kind="quadratic")
+    # bspline_y2 = interpolate.interp1d(MONTHS_INT, y2, kind="quadratic")
 
+    bspline_y1 = interpolate.Akima1DInterpolator(MONTHS_INT, y1)
+    bspline_y2 = interpolate.Akima1DInterpolator(MONTHS_INT, y2)
     x = np.linspace(0, 11, 100)
     y1_new = bspline_y1(x)
     y2_new = bspline_y2(x)
