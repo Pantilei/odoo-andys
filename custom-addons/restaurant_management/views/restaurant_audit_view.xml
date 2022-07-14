@@ -55,7 +55,7 @@
                                     </group>
 
                                     <group string="Measures Taken">
-                                        <field name="comment" widget="html" />
+                                        <field name="comment" widget="html" string="Expert DCC" />
                                         <field name="director_comment" widget="html" string="Restaurant Director" />
                                         <field name="check_list_category_responsible_comment" widget="html" string="Responsible within Department" />
                                     </group>
@@ -119,7 +119,7 @@
                                 </group>
 
                                 <group string="Measures Taken">
-                                    <field name="comment" readonly="1" widget="html" />
+                                    <field name="comment" readonly="1" widget="html" string="Expert DCC" />
                                     <field name="director_comment" widget="html" string="Restaurant Director" />
                                     <field name="check_list_category_responsible_comment" widget="html" string="Responsible within Department" readonly="1" />
                                 </group>
@@ -179,7 +179,7 @@
                                 </group>
 
                                 <group string="Measures Taken">
-                                    <field name="comment" readonly="1" widget="html" />
+                                    <field name="comment" readonly="1" widget="html" string="Expert DCC" />
                                     <field name="director_comment" readonly="1" widget="html" string="Restaurant Director" />
                                     <field name="check_list_category_responsible_comment" widget="html" string="Responsible within Department" />
                                 </group>
@@ -241,7 +241,7 @@
                                 </group>
 
                                 <group string="Measures Taken">
-                                    <field name="comment" widget="html" readonly="1" />
+                                    <field name="comment" widget="html" readonly="1" string="Expert DCC" />
                                     <field name="director_comment" widget="html" readonly="1" string="Restaurant Director" />
                                     <field name="check_list_category_responsible_comment" widget="html" readonly="1" string="Responsible within Department" />
                                 </group>
@@ -303,7 +303,7 @@
                                 </group>
 
                                 <group string="Measures Taken">
-                                    <field name="comment" widget="html" attrs="{'readonly': [('parent.available_for_edit', '=', False)]}" />
+                                    <field name="comment" widget="html" string="Expert DCC" attrs="{'readonly': [('parent.available_for_edit', '=', False)]}" />
                                     <field name="director_comment" widget="html" readonly="1" string="Restaurant Director" />
                                     <field name="check_list_category_responsible_comment" widget="html" readonly="1" string="Responsible within Department" />
                                 </group>
