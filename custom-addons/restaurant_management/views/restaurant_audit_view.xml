@@ -338,7 +338,7 @@
             <field name="model">restaurant_management.restaurant_audit</field>
             <field name="arch" type="xml">
                 <search string="Restaurant Audit">
-                    <field name="restaurant_id" />
+                    <field name="restaurant_id" filter_domain="[('restaurant_id', '=ilike', self)]" />
                     <field name="responsible_id" />
 
                     <group expand="0" string="Group By">

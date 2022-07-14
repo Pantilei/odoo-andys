@@ -247,7 +247,7 @@
             <field name="model">restaurant_management.fault_registry</field>
             <field name="arch" type="xml">
                 <search string="Fault Registry">
-                    <field name="restaurant_id" />
+                    <field name="restaurant_id" filter_domain="[('restaurant_id', '=ilike', self)]" />
                     <field name="responsible_id" />
                     <field name="check_list_category_id" />
                     <field name="check_list_id" />
