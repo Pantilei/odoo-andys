@@ -1,7 +1,7 @@
 from datetime import timedelta, date
 from dateutil.rrule import rrule, MONTHLY
 from calendar import monthrange
-from ..tools import get_char_svg
+from ..tools import get_char_svg, short_date
 from odoo import fields, models, api, _
 
 
@@ -45,8 +45,8 @@ class RestaurnatsReport(models.AbstractModel):
         date_start = date(year=year_start, month=month_start, day=1)
         date_end = date(year=year_end, month=month_end,
                         day=monthrange(year_end, month_end)[1])
-        months = [self._short_date(d) for d in rrule(MONTHLY,
-                                                     dtstart=date_start, until=date_end)]
+        months = [short_date(d) for d in rrule(MONTHLY,
+                                               dtstart=date_start, until=date_end)]
 
         counts_per_month = RestaurantAudit.get_audit_counts_per_month(
             date_start, date_end)
@@ -71,10 +71,6 @@ class RestaurnatsReport(models.AbstractModel):
             report_date)
 
         return {
-            # 'doc_ids': docids,
-            # 'doc_model': 'restaurant_management.fault_registry',
-            # 'docs': docs,
-
             'dynamics_of_faults_png': dynamics_of_faults_png,
             'fault_category_data': fault_category_data,
 
@@ -84,10 +80,6 @@ class RestaurnatsReport(models.AbstractModel):
             'months': months,
             'counts_per_month': counts_per_month
         }
-
-    def _short_date(self, dt):
-        a = dt.strftime('%m/%Y').split('/')
-        return "/".join([a[0], a[1][2:]])
 
     def _get_dynamics_of_faults_png(self, date_start, date_end, months, check_list_category_id=None):
         data = self.env["restaurant_management.fault_registry"]\

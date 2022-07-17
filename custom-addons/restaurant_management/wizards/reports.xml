@@ -14,6 +14,9 @@
                         <group>
                             <field name="report" />
                         </group>
+                        <group>
+                            <field name="check_list_category_id" attrs="{'invisible': [('report', '!=', 'general_report_by_restaurant_department')]}" />
+                        </group>
                         <group string="Date of report">
                             <field name="year" />
                             <field name="month" />

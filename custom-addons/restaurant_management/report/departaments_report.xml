@@ -17,66 +17,148 @@
             <t t-call="web.html_container">
                 <t t-call="restaurant_management.layout_of_report">
                     <div class="page">
-                        <h2 class="font-italic">Отчет по проверкам ресторанов за месяц</h2>
-                        <h4 class="mt-5">1. Рейтинг ресторанов компании по департаментам</h4>
-                        <t t-foreach="restaurant_rating_by_check_list_category" t-as="check_list_category">
-                            <div class="row mt-5">
-                                <div class="col-5">
-                                    <h5 class="font-italic">
-                                        <t t-esc="check_list_category['name']" />
-                                    </h5>
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Ресторан</th>
-                                                <th scope="col">Кол-во ошибок</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <t t-foreach="check_list_category['restaurants_absolute_rating']" t-as="restaurant">
-                                                <tr>
-                                                    <td>
-                                                        <t t-esc="restaurant['name']" />
-                                                    </td>
-                                                    <td>
-                                                        <t t-esc="restaurant['count']" />
-                                                    </td>
-                                                </tr>
-                                            </t>
-                                        </tbody>
-                                    </table>
+                        <h2 class="font-italic">
+                            Отчет по ошибкам по депортаменту
+                            <t t-esc="check_list_category_name" />
+                            .
+                        </h2>
+
+                        <div class="row">
+                            <h4 class="col-12 mt-3">
+                                1. Динамика кол-ва ошибок по
+                                <t t-esc="check_list_category_name" />
+                                .
+                            </h4>
+                        </div>
+                        <div class="row">
+                            <img class="col-12" t-attf-src="data:image/png;base64,{{dynamics_of_faults_png}}" />
+                        </div>
+
+                        <p style="page-break-before:always;"></p>
+
+                        <h4 class="mt-3">
+                            Рейтинг ресторанов по компании.
+                        </h4>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="row">
+                                    <h3 class="col-12 font-italic">
+                                        <t t-esc="check_list_category_name" />
+                                    </h3>
                                 </div>
-                                <div class="col-5">
-                                    <h5 class="font-italic">
-                                        <t t-esc="check_list_category['name']" />
-                                        /1 проверки
-                                    </h5>
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Ресторан</th>
-                                                <th scope="col">Кол-во ошибок</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <t t-foreach="check_list_category['restaurants_relative_rating']" t-as="restaurant">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <table class="table table-striped">
+                                            <thead>
                                                 <tr>
-                                                    <td>
-                                                        <t t-esc="restaurant['name']" />
-                                                    </td>
-                                                    <td>
-                                                        <t t-esc="restaurant['count']" />
-                                                    </td>
+                                                    <th scope="col">Ресторан</th>
+                                                    <th scope="col">
+                                                            Кол-во ошибок
+                                                        </th>
                                                 </tr>
-                                            </t>
-                                        </tbody>
-                                    </table>
+                                            </thead>
+                                            <tbody>
+                                                <t t-foreach="restaurant_rating" t-as="row">
+                                                    <tr>
+                                                        <t t-foreach="row" t-as="cell" t-key="cell_index">
+                                                            <td t-att-class="'font-weight-bold' if cell_index == (len(row)-1) else ''">
+                                                                <t t-esc="cell" />
+                                                            </td>
+                                                        </t>
+                                                    </tr>
+                                                </t>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-                            <p style="page-break-before:always;"></p>
-                        </t>
+                            <div class="col-6">
+                                <div class="row">
+                                    <h3 class="col-12 font-italic">
+                                        <t t-esc="check_list_category_name" />
+                                        / 1 проверка
+                                    </h3>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Ресторан</th>
+                                                    <th scope="col">
+                                                            Кол-во ошибок
+                                                        </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <t t-foreach="restaurant_rating_per_audit" t-as="row" t-key="row_index">
+                                                    <tr>
+                                                        <t t-foreach="row" t-as="cell" t-key="cell_index">
+                                                            <td t-att-class="'font-weight-bold' if cell_index == (len(row)-1) else ''">
+                                                                <t t-esc="cell" />
+                                                            </td>
+                                                        </t>
+                                                    </tr>
+                                                </t>
 
-                        <h4 class="mt-5">2. Топ ошибок по департаментам</h4>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <p style="page-break-before:always;"></p>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <h4 class="mt-5">3. Топ ошибок по департаменту</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <t t-esc="check_list_category_name" />
+                                            </th>
+                                            <th>
+                                                Кол-во ошибок
+                                           </th>
+                                            <th>
+                                                Принятые меры директора ресторана
+                                           </th>
+                                            <th>
+                                                Принятые меры ответственного по департаменту
+                                           </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="top_faults_with_comments" t-as="top_fault">
+                                            <tr>
+                                                <td>
+                                                    <t t-esc="top_fault[1]" />
+                                                </td>
+                                                <td>
+                                                    <t t-esc="top_fault[2]" />
+                                                </td>
+                                                <td>
+                                                    <t t-raw="top_fault[3]" />
+                                                </td>
+                                                <td>
+                                                    <t t-raw="top_fault[4]" />
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
 
                         <p style="page-break-before:always;"></p>
 

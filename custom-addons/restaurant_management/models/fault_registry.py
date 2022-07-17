@@ -316,6 +316,70 @@ class FaultRegistry(models.Model):
         return res
 
     @api.model
+    def get_top_faults(self, date_start, date_end,
+                       check_list_category_id=None,
+                       restaurant_id=None,
+                       restaurant_network_id=None):
+
+        FaultRegistryModel = self.env["restaurant_management.fault_registry"]
+        domain = [
+            ('fault_date', '>=', date_start),
+            ('fault_date', '<=', date_end),
+            ('state', '=', 'confirm')
+        ]
+        if check_list_category_id:
+            domain = expression.AND([
+                [("check_list_category_id", "=", check_list_category_id)],
+                domain
+            ])
+        if restaurant_id:
+            domain = expression.AND([
+                [("restaurant_id", "=", restaurant_id)],
+                domain
+            ])
+        if restaurant_network_id:
+            domain = expression.AND([
+                [("restaurant_id.restaurant_network_id", "=", restaurant_network_id)],
+                domain
+            ])
+
+        grouped_fault_count = FaultRegistryModel.read_group(
+            domain=domain,
+            fields=['fault_count'],
+            groupby=['check_list_id'],
+        )
+        fault_count_data = [
+            (f['check_list_id'][0], f['check_list_id'][1]._value, f["fault_count"])
+            for f in grouped_fault_count if f['check_list_id']
+        ]
+
+        fault_count_data.sort(key=lambda r: r[2], reverse=True)
+
+        return fault_count_data
+
+    def get_director_comments_of_faults(self, date_start, date_end, check_list_id):
+        FaultRegistryModel = self.env["restaurant_management.fault_registry"]
+        comments = FaultRegistryModel.search([
+            ("check_list_id", "=", check_list_id),
+            ("fault_date", ">=", date_start),
+            ("fault_date", "<=", date_end),
+            ('state', '=', 'confirm')
+        ]).mapped("director_comment")
+
+        return "<hr/>".join([c for c in comments if c])
+
+    def get_comments_of_faults(self, date_start, date_end, check_list_id):
+        FaultRegistryModel = self.env["restaurant_management.fault_registry"]
+        comments = FaultRegistryModel.search([
+            ("check_list_id", "=", check_list_id),
+            ("fault_date", ">=", date_start),
+            ("fault_date", "<=", date_end),
+            ('state', '=', 'confirm')
+        ]).mapped("comment")
+
+        return "<hr/>".join([c for c in comments if c])
+
+    @api.model
     def get_restaurant_rating_within_month_for_all_check_list_categories(
         self,
         year,

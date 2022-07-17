@@ -38,10 +38,16 @@ class Reports(models.TransientModel):
     report = fields.Selection(selection=[
         ("general_report_by_audit_of_restaurants",
          "General Report by Audit of Restaurants"),
-        ("departaments", "Report of Departaments"),
+        ("general_report_by_restaurant_department",
+         "General Report by Restaurant Department"),
     ],
         default="general_report_by_audit_of_restaurants",
         # required=True
+    )
+
+    check_list_category_id = fields.Many2one(
+        comodel_name="restaurant_management.check_list_category",
+        string="Department"
     )
 
     year = fields.Selection(
@@ -99,11 +105,15 @@ class Reports(models.TransientModel):
             return self.env.ref("restaurant_management.action_restaurants_report")\
                 .report_action(self, data=data)
 
-        if self.report == "departaments":
+        if self.report == "general_report_by_restaurant_department":
             data = {
-                "restaurant_network_id": self.restaurant_network_id.id,
                 "year": self.year,
                 "month": self.month,
+                "year_start": self.year_start,
+                "year_end": self.year_end,
+                "month_start": self.month_start,
+                "month_end": self.month_end,
+                "check_list_category_id": self.check_list_category_id.id,
             }
             return self.env.ref("restaurant_management.action_departaments_report")\
                 .report_action(self, data=data)

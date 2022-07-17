@@ -54,3 +54,8 @@ def get_char_svg(x_cat, y1, y2, legend):
     plt.close()
 
     return base64.b64encode(source.getvalue())
+
+
+def short_date(dt):
+    a = dt.strftime('%m/%Y').split('/')
+    return "/".join([a[0], a[1][2:]])
