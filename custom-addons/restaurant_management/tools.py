@@ -1,8 +1,12 @@
+import warnings
 from matplotlib import pyplot as plt
 from scipy import interpolate
 import numpy as np
 import io
 import base64
+
+plt.set_loglevel('WARNING')
+warnings.filterwarnings("ignore")
 
 
 def get_char_svg(x_cat, y1, y2, legend):
@@ -14,8 +18,8 @@ def get_char_svg(x_cat, y1, y2, legend):
 
     ax1 = plt.subplot()
     ax2 = ax1.twinx()
-    ax1.set_ylim(bottom=0, top=max(y1)+max(y1)/10)
-    ax2.set_ylim(bottom=0, top=max(y2)+max(y2)/10)
+    # ax1.set_ylim(bottom=0, top=max(y1)+max(y1)/10)
+    # ax2.set_ylim(bottom=0, top=max(y2)+max(y2)/10)
     ax1.grid(visible=True, which='both', axis="both",
              color='#CCCCCC', linestyle='--', linewidth=1)
     ax2.grid(visible=True, which='both',
@@ -46,7 +50,7 @@ def get_char_svg(x_cat, y1, y2, legend):
     l2, = ax2.plot(x, y2_new, color="orange")
 
     source = io.BytesIO()
-    plt.savefig(source, format="svg")
+    plt.savefig(source, format="png")
     plt.close()
 
     return base64.b64encode(source.getvalue())

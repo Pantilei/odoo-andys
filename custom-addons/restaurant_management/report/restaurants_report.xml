@@ -19,7 +19,7 @@
                     <div class="page">
                         <h2 class="font-italic">Общий отчет по проверкам ресторанов за месяц</h2>
                         <h4 class="mt-5">1. Количество проверок</h4>
-                        <table class="table">
+                        <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th scope="col"></th>
@@ -52,7 +52,7 @@
 
                         <div class="w-100">
                             <h4 class="mt-3">2. Динамика общего кол-ва ошибок.</h4>
-                            <img style="width: 100%;" align="left" t-attf-src="data:image/svg+xml;base64,{{dynamics_of_faults_svg}}" />
+                            <img style="width: 100%;" align="left" t-attf-src="data:image/png;base64,{{dynamics_of_faults_png}}" />
                         </div>
 
                         <t t-foreach="fault_category_data" t-as="fault_category">
@@ -63,75 +63,76 @@
                                     <t t-esc="fault_category[0]" />
                                     .
                                 </h4>
-                                <img style="width: 100%;" t-attf-src="data:image/svg+xml;base64,{{fault_category[1]}}" />
+                                <img style="width: 100%;" t-attf-src="data:image/png;base64,{{fault_category[1]}}" />
                             </div>
                         </t>
 
                         <p style="page-break-before:always;"></p>
-                        <h4 class="mt-2">
+
+                        <h4 class="mt-3">
                             <t t-esc="len(fault_category_data) + 4" />
                             . Рейтинг ресторанов по общему количеству ошибок.
                         </h4>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Ресторан</th>
-                                    <t t-foreach="months" t-as="month" t-key="month">
-                                        <th scope="col">
-                                            <t t-esc="month" />
-                                        </th>
-                                    </t>
-                                    <th scope="col">
-                                        Обшее количество
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <t t-foreach="restaurant_rating" t-as="row">
-                                    <tr>
-                                        <t t-foreach="row" t-as="cell" t-key="cell_index">
-                                            <td t-att-class="'font-weight-bold' if cell_index == (len(row)-1) else ''">
-                                                <t t-esc="cell" />
-                                            </td>
-                                        </t>
-                                    </tr>
-                                </t>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Ресторан</th>
+                                                    <th scope="col">
+                                                        Кол-во ошибок
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <t t-foreach="restaurant_rating" t-as="row">
+                                                    <tr>
+                                                        <t t-foreach="row" t-as="cell" t-key="cell_index">
+                                                            <td t-att-class="'font-weight-bold' if cell_index == (len(row)-1) else ''">
+                                                                <t t-esc="cell" />
+                                                            </td>
+                                                        </t>
+                                                    </tr>
+                                                </t>
 
-                            </tbody>
-                        </table>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Ресторан</th>
+                                                    <th scope="col">
+                                                        Кол-во ошибок/ед. проверки
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <t t-foreach="restaurant_rating_per_audit" t-as="row" t-key="row_index">
+                                                    <tr>
+                                                        <t t-foreach="row" t-as="cell" t-key="cell_index">
+                                                            <td t-att-class="'font-weight-bold' if cell_index == (len(row)-1) else ''">
+                                                                <t t-esc="cell" />
+                                                            </td>
+                                                        </t>
+                                                    </tr>
+                                                </t>
 
-                        <p style="page-break-before:always;"></p>
-                        <h4 class="mt-2">
-                            <t t-esc="len(fault_category_data) + 3" />
-                            . Рейтинг ресторанов по количеству ошибок на единицу проверки.
-                        </h4>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Ресторан</th>
-                                    <t t-foreach="months" t-as="month" t-key="month">
-                                        <th scope="col">
-                                            <t t-esc="month" />
-                                        </th>
-                                    </t>
-                                    <th scope="col">
-                                        Обшее количество
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <t t-foreach="restaurant_rating_per_audit" t-as="row" t-key="row_index">
-                                    <tr>
-                                        <t t-foreach="row" t-as="cell" t-key="cell_index">
-                                            <td t-att-class="'font-weight-bold' if cell_index == (len(row)-1) else ''">
-                                                <t t-esc="cell" />
-                                            </td>
-                                        </t>
-                                    </tr>
-                                </t>
+                                            </tbody>
+                                        </table>
 
-                            </tbody>
-                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
 
                         <p style="page-break-before:always;"></p>
                     </div>

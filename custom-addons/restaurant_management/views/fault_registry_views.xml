@@ -215,6 +215,7 @@
                     <field name="fault_date" />
                     <field name="check_list_category_id" />
                     <field name="responsible_id" widget="many2one_avatar_user" />
+                    <field name="fault_count" />
                     <field name="state" widget="badge" decoration-success="state == 'confirm'" decoration-muted="state == 'cancel'" />
                 </tree>
             </field>

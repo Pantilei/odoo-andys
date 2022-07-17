@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 
+import enum
 from odoo import models, fields, api, _, registry
 from odoo.osv import expression
 
 from datetime import datetime, timedelta, date
+from dateutil.rrule import rrule, MONTHLY
 
 import requests
 import traceback
@@ -194,10 +196,12 @@ class RestaurantAudit(models.Model):
     #     return res
 
     @api.model
-    def get_audit_counts_per_month(self, year, restaurant_id=None, restaurant_network_id=None):
+    def get_audit_counts_per_month(self, date_start, date_end,
+                                   restaurant_id=None, restaurant_network_id=None):
+        RestaurantAudit = self.env["restaurant_management.restaurant_audit"]
         domain = [
-            ('audit_date', '>=', date(year=year, month=1, day=1)),
-            ('audit_date', '<=', date(year=year, month=12, day=31)),
+            ('audit_date', '>=', date_start),
+            ('audit_date', '<=', date_end),
         ]
         if restaurant_id:
             domain = expression.AND([
@@ -209,22 +213,26 @@ class RestaurantAudit(models.Model):
                 [("restaurant_id.restaurant_network_id", "=", restaurant_network_id)],
                 domain
             ])
-        audit_counts = [0 for _ in range(12)]
-        audit_count_per_month = self.env["restaurant_management.restaurant_audit"].with_context(lang="en_US").read_group(
+        audit_count_per_month = RestaurantAudit.read_group(
             domain=domain,
             fields=['restaurant_id'],
             groupby=['audit_date:month'],
         )
-
-        for row in audit_count_per_month:
-            month = datetime.strptime(
-                row["__range"]["audit_date"]["from"], "%Y-%m-%d").month
-            audit_counts[month-1] = row["audit_date_count"]
+        date_range_monthly = list(
+            rrule(MONTHLY, dtstart=date_start, until=date_end))
+        audit_counts = [0 for _ in range(len(date_range_monthly))]
+        # months = []
+        for index, d in enumerate(date_range_monthly):
+            for row in audit_count_per_month:
+                row_date = datetime.strptime(
+                    row["__range"]["audit_date"]["from"], "%Y-%m-%d")
+                if row_date.year == d.year and row_date.month == d.month:
+                    audit_counts[index] = row["audit_date_count"]
 
         return {
             "actual": audit_counts,
             "planned": self.env["restaurant_management.planned_audits"].get_number_of_audits(
-                year=year, restaurant_id=restaurant_id,
+                date_start, date_end, restaurant_id=restaurant_id,
                 restaurant_network_id=restaurant_network_id
             )
         }

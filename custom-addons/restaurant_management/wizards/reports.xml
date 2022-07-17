@@ -9,14 +9,26 @@
                 <form string="PDF reports">
                     <sheet>
                         <group>
-                            <field name="name" readonly="1" />
+                            <field name="name" readonly="1" nolabel="1" />
                         </group>
                         <group>
                             <field name="report" />
+                        </group>
+                        <group string="Date of report">
                             <field name="year" />
                             <field name="month" />
-                            <field name="restaurant_network_id" widget="selection" />
                         </group>
+                        <group string="Date range for dynamics">
+                            <group>
+                                <field name="year_start" />
+                                <field name="month_start" />
+                            </group>
+                            <gorup>
+                                <field name="year_end" />
+                                <field name="month_end" />
+                            </gorup>
+                        </group>
+                        <!-- <field name="restaurant_network_id" widget="selection" /> -->
                     </sheet>
                     <footer>
                         <button name="print_report" string="Print Report" type="object" class="oe_highlight" />
