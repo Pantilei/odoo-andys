@@ -1,7 +1,7 @@
 from datetime import timedelta, date
 from dateutil.rrule import rrule, MONTHLY
 from calendar import monthrange
-from ..tools import get_char_svg, short_date
+from ..tools import get_double_y_axis_chart_png, short_date
 from odoo import fields, models, api, _
 
 
@@ -23,12 +23,11 @@ MONTHS = [
 MONTHS_INT = list(range(12))
 
 
-class RestaurnatsReport(models.AbstractModel):
-    _name = 'report.restaurant_management.restaurants_report'
+class RestaurnatsAllReport(models.AbstractModel):
+    _name = 'report.restaurant_management.restaurants_all_report'
     _description = 'Restaurants Report'
 
     def _get_report_values(self, docids, data=None):
-        # docs = self.env['restaurant_management.fault_registry'].search([])
         RestaurantAudit = self.env["restaurant_management.restaurant_audit"]
         FaultRegistry = self.env["restaurant_management.fault_registry"]
         FaultCategory = self.env["restaurant_management.check_list_category"]
@@ -87,7 +86,7 @@ class RestaurnatsReport(models.AbstractModel):
                 date_start, date_end,
                 check_list_category_id=check_list_category_id)
 
-        return get_char_svg(
+        return get_double_y_axis_chart_png(
             months,
             data.get("fault_counts"),
             data.get("fault_per_audit"),

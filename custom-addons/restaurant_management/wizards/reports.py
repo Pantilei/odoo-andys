@@ -36,18 +36,25 @@ class Reports(models.TransientModel):
     )
 
     report = fields.Selection(selection=[
-        ("general_report_by_audit_of_restaurants",
-         "General Report by Audit of Restaurants"),
+        ("general_report_by_audit_of_all_restaurants",
+         "General Report by Audit of All Restaurants"),
         ("general_report_by_restaurant_department",
          "General Report by Restaurant Department"),
+        ("general_report_by_audit_of_restaurant",
+         "General Report by Audit of Restaurant."),
     ],
-        default="general_report_by_audit_of_restaurants",
+        default="general_report_by_audit_of_all_restaurants",
         # required=True
     )
 
     check_list_category_id = fields.Many2one(
         comodel_name="restaurant_management.check_list_category",
         string="Department"
+    )
+
+    restaurant_id = fields.Many2one(
+        comodel_name="restaurant_management.restaurant",
+        string="Restaurant"
     )
 
     year = fields.Selection(
@@ -92,9 +99,8 @@ class Reports(models.TransientModel):
     # )
 
     def print_report(self):
-        if self.report == "general_report_by_audit_of_restaurants":
+        if self.report == "general_report_by_audit_of_all_restaurants":
             data = {
-                # "restaurant_network_id": self.restaurant_network_id.id,
                 "year": self.year,
                 "month": self.month,
                 "year_start": self.year_start,
@@ -102,7 +108,7 @@ class Reports(models.TransientModel):
                 "month_start": self.month_start,
                 "month_end": self.month_end,
             }
-            return self.env.ref("restaurant_management.action_restaurants_report")\
+            return self.env.ref("restaurant_management.action_restaurants_all_report")\
                 .report_action(self, data=data)
 
         if self.report == "general_report_by_restaurant_department":
@@ -116,4 +122,17 @@ class Reports(models.TransientModel):
                 "check_list_category_id": self.check_list_category_id.id,
             }
             return self.env.ref("restaurant_management.action_departaments_report")\
+                .report_action(self, data=data)
+
+        if self.report == "general_report_by_audit_of_restaurant":
+            data = {
+                "year": self.year,
+                "month": self.month,
+                "year_start": self.year_start,
+                "year_end": self.year_end,
+                "month_start": self.month_start,
+                "month_end": self.month_end,
+                "restaurant_id": self.restaurant_id.id,
+            }
+            return self.env.ref("restaurant_management.action_restaurant_report")\
                 .report_action(self, data=data)

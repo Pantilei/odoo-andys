@@ -196,7 +196,6 @@ class FaultRegistry(models.Model):
             fields=['fault_count'],
             groupby=['fault_date:month'],
         )
-        print("fault_count_per_month:", fault_count_per_month, "\n\n")
 
         month_range = list(rrule(MONTHLY, dtstart=date_start, until=date_end))
         fault_counts = [0 for _ in range(len(month_range))]
@@ -222,6 +221,22 @@ class FaultRegistry(models.Model):
             "fault_per_audit": fault_per_audit,
             "fault_counts": fault_counts,
         }
+
+    @api.model
+    def get_restaurant_rating_monthly_data(self, date_start, date_end,
+                                           restaurant_id, check_list_category_id=None):
+        Restaurant = self.env["restaurant_management.restaurant"]
+        if isinstance(restaurant_id, int):
+            restaurant_id = Restaurant.browse(restaurant_id)
+        restaurant_rating_per_month = []
+        for r_date in rrule(MONTHLY, dtstart=date_start, until=date_end):
+            restaurant_ratings = self.get_restaurant_rating_data(
+                r_date, check_list_category_id=check_list_category_id)
+            for idx, d in enumerate(restaurant_ratings):
+                if d[0] == restaurant_id.id:
+                    restaurant_rating_per_month.append(idx+1)
+
+        return restaurant_rating_per_month
 
     @api.model
     def get_restaurant_rating_data(self, report_date,
@@ -259,10 +274,10 @@ class FaultRegistry(models.Model):
 
             fault_count = sum(restaurant_faults.mapped("fault_count"))
 
-            res.append([restaurant_id.name, fault_count])
+            res.append([restaurant_id.id, restaurant_id.name, fault_count])
 
         if len(res) > 1:
-            res.sort(key=lambda r: r[1])
+            res.sort(key=lambda r: r[2])
 
         return res
 
@@ -305,13 +320,12 @@ class FaultRegistry(models.Model):
 
             actual_count_of_audits = FaultAudit\
                 .get_audit_counts_per_month(date_start, date_end, restaurant_id=restaurant_id.id)["actual"][0]
-            print("actual_count_of_audits: !!!",
-                  restaurant_id.name, actual_count_of_audits)
+
             res.append(
-                [restaurant_id.name, round(fault_count/actual_count_of_audits, 2) if actual_count_of_audits else 0])
+                [restaurant_id.id, restaurant_id.name, round(fault_count/actual_count_of_audits, 2) if actual_count_of_audits else 0])
 
         if len(res) > 1:
-            res.sort(key=lambda r: r[1])
+            res.sort(key=lambda r: r[2])
 
         return res
 
@@ -379,119 +393,119 @@ class FaultRegistry(models.Model):
 
         return "<hr/>".join([c for c in comments if c])
 
-    @api.model
-    def get_restaurant_rating_within_month_for_all_check_list_categories(
-        self,
-        year,
-        month,
-        restaurant_network_id=None
-    ):
-        data = []
-        for check_list_category_id in self.env["restaurant_management.check_list_category"].search([]):
-            ordered_absolute_fault_count_per_restaurant = self.get_restaurant_absolute_rating_within_month_and_check_list_category(
-                year,
-                month,
-                check_list_category_id=check_list_category_id.id,
-                restaurant_network_id=restaurant_network_id
-            )
-            ordered_relative_fault_count_per_restaurant = self.get_restaurant_relative_rating_within_month_and_check_list_category(
-                year,
-                month,
-                check_list_category_id=check_list_category_id.id,
-                restaurant_network_id=restaurant_network_id
-            )
-            data.append({
-                "id": check_list_category_id.id,
-                "name": check_list_category_id.name,
-                "restaurants_absolute_rating": ordered_absolute_fault_count_per_restaurant,
-                "restaurants_relative_rating": ordered_relative_fault_count_per_restaurant
-            })
+    # @api.model
+    # def get_restaurant_rating_within_month_for_all_check_list_categories(
+    #     self,
+    #     year,
+    #     month,
+    #     restaurant_network_id=None
+    # ):
+    #     data = []
+    #     for check_list_category_id in self.env["restaurant_management.check_list_category"].search([]):
+    #         ordered_absolute_fault_count_per_restaurant = self.get_restaurant_absolute_rating_within_month_and_check_list_category(
+    #             year,
+    #             month,
+    #             check_list_category_id=check_list_category_id.id,
+    #             restaurant_network_id=restaurant_network_id
+    #         )
+    #         ordered_relative_fault_count_per_restaurant = self.get_restaurant_relative_rating_within_month_and_check_list_category(
+    #             year,
+    #             month,
+    #             check_list_category_id=check_list_category_id.id,
+    #             restaurant_network_id=restaurant_network_id
+    #         )
+    #         data.append({
+    #             "id": check_list_category_id.id,
+    #             "name": check_list_category_id.name,
+    #             "restaurants_absolute_rating": ordered_absolute_fault_count_per_restaurant,
+    #             "restaurants_relative_rating": ordered_relative_fault_count_per_restaurant
+    #         })
 
-        return data
+    #     return data
 
-    @api.model
-    def get_restaurant_absolute_rating_within_month_and_check_list_category(
-        self,
-        year,
-        month,
-        check_list_category_id=None,
-        restaurant_network_id=None
-    ):
-        domain = [
-            ("fault_date", ">=", date(year=year, month=month, day=1)),
-            ("fault_date", "<=", date(year=year, month=month, day=31)),
-        ]
-        if restaurant_network_id:
-            domain = expression.AND([
-                [("restaurant_id.restaurant_network_id", "=", restaurant_network_id)],
-                domain
-            ])
-        if check_list_category_id:
-            domain = expression.AND([
-                [("check_list_category_id", "=", check_list_category_id)],
-                domain
-            ])
+    # @api.model
+    # def get_restaurant_absolute_rating_within_month_and_check_list_category(
+    #     self,
+    #     year,
+    #     month,
+    #     check_list_category_id=None,
+    #     restaurant_network_id=None
+    # ):
+    #     domain = [
+    #         ("fault_date", ">=", date(year=year, month=month, day=1)),
+    #         ("fault_date", "<=", date(year=year, month=month, day=31)),
+    #     ]
+    #     if restaurant_network_id:
+    #         domain = expression.AND([
+    #             [("restaurant_id.restaurant_network_id", "=", restaurant_network_id)],
+    #             domain
+    #         ])
+    #     if check_list_category_id:
+    #         domain = expression.AND([
+    #             [("check_list_category_id", "=", check_list_category_id)],
+    #             domain
+    #         ])
 
-        fault_count_per_restaurant = self.env["restaurant_management.fault_registry"]\
-            .read_group(
-            domain=domain,
-            fields=['restaurant_id'],
-            groupby=['restaurant_id'],
-        )
+    #     fault_count_per_restaurant = self.env["restaurant_management.fault_registry"]\
+    #         .read_group(
+    #         domain=domain,
+    #         fields=['restaurant_id'],
+    #         groupby=['restaurant_id'],
+    #     )
 
-        res = [{
-            "id": r["restaurant_id"][0],
-            "name": self.env["restaurant_management.restaurant"].browse(r["restaurant_id"][0]).name,
-            "count": r["restaurant_id_count"]
-        } for r in fault_count_per_restaurant]
+    #     res = [{
+    #         "id": r["restaurant_id"][0],
+    #         "name": self.env["restaurant_management.restaurant"].browse(r["restaurant_id"][0]).name,
+    #         "count": r["restaurant_id_count"]
+    #     } for r in fault_count_per_restaurant]
 
-        print("\n\n\n\n", "res:",
-              res)
+    #     print("\n\n\n\n", "res:",
+    #           res)
 
-        res.sort(key=lambda r: r["count"])
+    #     res.sort(key=lambda r: r["count"])
 
-        return res
+    #     return res
 
-    def get_restaurant_relative_rating_within_month_and_check_list_category(
-        self,
-        year,
-        month,
-        check_list_category_id=None,
-        restaurant_network_id=None
-    ):
-        domain = [
-            ("fault_date", ">=", date(year=year, month=month, day=1)),
-            ("fault_date", "<=", date(year=year, month=month, day=31)),
-        ]
-        if restaurant_network_id:
-            domain = expression.AND([
-                [("restaurant_id.restaurant_network_id", "=", restaurant_network_id)],
-                domain
-            ])
-        if check_list_category_id:
-            domain = expression.AND([
-                [("check_list_category_id", "=", check_list_category_id)],
-                domain
-            ])
+    # def get_restaurant_relative_rating_within_month_and_check_list_category(
+    #     self,
+    #     year,
+    #     month,
+    #     check_list_category_id = None,
+    #     restaurant_network_id = None
+    # ):
+    #     domain=[
+    #         ("fault_date", ">=", date(year=year, month=month, day=1)),
+    #         ("fault_date", "<=", date(year=year, month=month, day=31)),
+    #     ]
+    #     if restaurant_network_id:
+    #         domain = expression.AND([
+    #             [("restaurant_id.restaurant_network_id", "=", restaurant_network_id)],
+    #             domain
+    #         ])
+    #     if check_list_category_id:
+    #         domain = expression.AND([
+    #             [("check_list_category_id", "=", check_list_category_id)],
+    #             domain
+    #         ])
 
-        fault_count_per_restaurant = self.env["restaurant_management.fault_registry"]\
-            .read_group(
-            domain=domain,
-            fields=['restaurant_id'],
-            groupby=['restaurant_id'],
-        )
+    #     fault_count_per_restaurant = self.env["restaurant_management.fault_registry"]\
+    #         .read_group(
+    #         domain=domain,
+    #         fields=['restaurant_id'],
+    #         groupby=['restaurant_id'],
+    #     )
 
-        res = [{
-            "id": r["restaurant_id"][0],
-            "name": self.env["restaurant_management.restaurant"].browse(r["restaurant_id"][0]).name,
-            "count": r["restaurant_id_count"]/self.env["restaurant_management.restaurant_audit"]
-            .search_count([
-                ('restaurant_id', '=', r["restaurant_id"][0]),
-                ("audit_date", ">=", date(year=year, month=month, day=1)),
-                ("audit_date", "<=", date(year=year, month=month, day=31)),
-            ])
-        } for r in fault_count_per_restaurant]
+    #     res = [{
+    #         "id": r["restaurant_id"][0],
+    #         "name": self.env["restaurant_management.restaurant"].browse(r["restaurant_id"][0]).name,
+    #         "count": r["restaurant_id_count"]/self.env["restaurant_management.restaurant_audit"]
+    #         .search_count([
+    #             ('restaurant_id', '=', r["restaurant_id"][0]),
+    #             ("audit_date", ">=", date(year=year, month=month, day=1)),
+    #             ("audit_date", "<=", date(year=year, month=month, day=31)),
+    #         ])
+    #     } for r in fault_count_per_restaurant]
 
-        res.sort(key=lambda r: r["count"])
+    #     res.sort(key=lambda r: r["count"])
 
-        return res
+    #     return res

@@ -4,12 +4,16 @@ from scipy import interpolate
 import numpy as np
 import io
 import base64
+import itertools
 
 plt.set_loglevel('WARNING')
 warnings.filterwarnings("ignore")
 
+marker = itertools.cycle(
+    (',', '+', '.', 'o', '*', 'v', '1', '2', '3', '4', '8', 'D', 's', 'p', 'x'))
 
-def get_char_svg(x_cat, y1, y2, legend):
+
+def get_double_y_axis_chart_png(x_cat, y1, y2, legend):
     plt.rcParams["figure.figsize"] = [7.50, 3.50]
     plt.rcParams["figure.autolayout"] = True
 
@@ -51,6 +55,39 @@ def get_char_svg(x_cat, y1, y2, legend):
 
     source = io.BytesIO()
     plt.savefig(source, format="png")
+    plt.close()
+
+    return base64.b64encode(source.getvalue())
+
+
+def get_multi_line_png(x_cat, ys, legend, legend_loc=None, legend_ncol=None, figsize=None):
+
+    if not legend_loc:
+        legend_loc = (0, -0.40)
+    if not legend_ncol:
+        legend_ncol = 2
+
+    if not figsize:
+        figsize = [11, 6]
+
+    plt.rcParams["figure.figsize"] = figsize
+    plt.rcParams["figure.autolayout"] = True
+
+    MONTHS = [cat for x, cat in x_cat]
+    MONTHS_INT = [x for x, cat in x_cat]
+
+    for idx, y in enumerate(ys):
+        plt.plot(MONTHS, y, marker=next(marker),
+                 markersize=10, label=legend[idx])
+        for i, txt in enumerate(y):
+            plt.annotate(txt, (MONTHS[i], y[i]), xytext=(
+                MONTHS_INT[i]-0.25, y[i]))
+
+    plt.legend(loc=legend_loc, ncol=legend_ncol)
+    plt.grid()
+
+    source = io.BytesIO()
+    plt.savefig(source, format="png", dpi=150)
     plt.close()
 
     return base64.b64encode(source.getvalue())

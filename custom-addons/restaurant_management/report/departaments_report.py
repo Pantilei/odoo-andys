@@ -1,4 +1,4 @@
-from ..tools import get_char_svg, short_date
+from ..tools import get_double_y_axis_chart_png, short_date
 from odoo import fields, models, api, _
 from datetime import date
 from calendar import monthrange
@@ -98,7 +98,7 @@ class DepartamentsReport(models.AbstractModel):
                 date_start, date_end,
                 check_list_category_id=check_list_category_id)
 
-        return get_char_svg(
+        return get_double_y_axis_chart_png(
             months,
             data.get("fault_counts"),
             data.get("fault_per_audit"),

@@ -41,8 +41,9 @@
         'report/layout.xml',
         'report/paper_format.xml',
         'report/fault_list_report.xml',
-        'report/restaurants_report.xml',
+        'report/restaurants_all_report.xml',
         'report/departaments_report.xml',
+        'report/restaurant_report.xml',
 
     ],
     # only loaded in demonstration mode
