@@ -2,7 +2,7 @@
 
 from odoo import models, fields, api
 from odoo.osv import expression
-
+from ..tools import short_date
 import requests
 import logging
 import traceback
@@ -163,6 +163,23 @@ class FaultRegistry(models.Model):
         self.write({
             "state": "confirm"
         })
+
+    @api.model
+    def get_fault_counts_per_month_rpc(self):
+        today = date.today()
+        year = today.year
+        month = today.month
+
+        date_start = date(year=year-1, month=month, day=1)
+        date_end = date(year=year, month=month,
+                        day=monthrange(year, month)[1])
+        months = [short_date(d) for d in rrule(MONTHLY,
+                                               dtstart=date_start, until=date_end)]
+
+        return {
+            "months": months,
+            "fault_counts_per_month": self.get_fault_counts_per_month(date_start, date_end)
+        }
 
     @api.model
     def get_fault_counts_per_month(self, date_start, date_end,

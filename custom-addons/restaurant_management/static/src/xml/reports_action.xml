@@ -10,13 +10,13 @@
                 <div class="d-flex flex-column ml-2">
                     <label for="reportType">Тип Отчёта</label>
                     <select t-on-change="_onReportTypeChange" class="form-control" id="reportType">
-                        <option value="audits_per_month_table" t-att-selected="state.reportType === 'audits_per_month_table'">
+                        <!-- <option value="audits_per_month_table" t-att-selected="state.reportType === 'audits_per_month_table'">
                             Количество проверок
-                        </option>
+                        </option> -->
                         <option value="dynamics_of_faults_per_month_graph" t-att-selected="state.reportType === 'dynamics_of_faults_per_month_graph'">
                             Динамика кол-ва ошибок.
                         </option>
-                        <option value="restaurant_rating" t-att-selected="state.reportType === 'restaurant_rating'">
+                        <!-- <option value="restaurant_rating" t-att-selected="state.reportType === 'restaurant_rating'">
                             Рейтинг ресторанов по общему количеству ошибок.
                         </option>
                         <option value="relative_restaurant_rating" t-att-selected="state.reportType === 'relative_restaurant_rating'">
@@ -24,11 +24,11 @@
                         </option>
                         <option value="departaments" t-att-selected="state.reportType === 'departaments'">
                             Рейтинг ресторанов по департаментам.
-                        </option>
+                        </option> -->
                     </select>
                 </div>
 
-                <div class="d-flex flex-column ml-2">
+                <!-- <div class="d-flex flex-column ml-2">
                     <label for="year">Год</label>
                     <select t-on-change="_onYearChange" class="form-control" id="year">
                         <t t-foreach="_getOptionYears()" t-as="year" t-key="year">
@@ -72,10 +72,10 @@
                             </option>
                         </t>
                     </select>
-                </div>
+                </div> -->
             </div>
             <div class="d-flex flex-column justify-content-center mt-5 overflow-auto">
-                <table class="table" t-if="state.reportType == 'audits_per_month_table'">
+                <!-- <table class="table" t-if="state.reportType == 'audits_per_month_table'">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -104,9 +104,9 @@
                             </t>
                         </tr>
                     </tbody>
-                </table>
+                </table> -->
 
-                <table class="table" t-if="state.reportType == 'restaurant_rating'">
+                <!-- <table class="table" t-if="state.reportType == 'restaurant_rating'">
                     <thead>
                         <tr>
                             <th scope="col">Ресторан</th>
@@ -132,9 +132,9 @@
                         </t>
 
                     </tbody>
-                </table>
+                </table> -->
 
-                <table class="table" t-if="state.reportType == 'relative_restaurant_rating'">
+                <!-- <table class="table" t-if="state.reportType == 'relative_restaurant_rating'">
                     <thead>
                         <tr>
                             <th scope="col">Ресторан</th>
@@ -160,7 +160,7 @@
                         </t>
 
                     </tbody>
-                </table>
+                </table> -->
 
                 <div class="o_graph_container">
                     <div class="o_graph_canvas_container">

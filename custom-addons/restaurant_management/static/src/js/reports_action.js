@@ -25,12 +25,13 @@ class ReportsAppComponent extends Component {
   }
 
   setup() {
-    this.months = this.getMonths();
+    // this.months = this.getMonths();
+    this.months = [];
     this.graphCanvasRef = useRef("graphCanvasRef");
     this.chart = null;
 
     this.state = useState({
-      reportType: "audits_per_month_table",
+      reportType: "dynamics_of_faults_per_month_graph",
 
       currentYear: moment().year(),
 
@@ -56,14 +57,16 @@ class ReportsAppComponent extends Component {
     });
 
     onWillStart(async () => {
-      await this._getCheckListCategory();
-      await this._getRestaurantNetworks();
-      await this._getRestaurants();
-      await this._getAuditCountsPerMonth();
+      await this._getChartData();
+      //   await this._getCheckListCategory();
+      //   await this._getRestaurantNetworks();
+      //   await this._getRestaurants();
+      //   await this._getAuditCountsPerMonth();
     });
 
     onMounted(() => {
       console.log("THIS:", this);
+      this._renderChart();
     });
 
     onWillUnmount(() => {
@@ -234,29 +237,16 @@ class ReportsAppComponent extends Component {
   }
 
   async _getChartData() {
-    let counts = await this.env.services.rpc({
+    let res = await this.env.services.rpc({
       model: "restaurant_management.fault_registry",
-      method: "get_fault_counts_per_month",
-      args: [parseInt(this.state.currentYear)],
-      kwargs: {
-        check_list_category_id:
-          this.state.currentCheckListCategory === "all"
-            ? null
-            : parseInt(this.state.currentCheckListCategory),
-        restaurant_id:
-          this.state.currentRestaurant === "all"
-            ? null
-            : parseInt(this.state.currentRestaurant),
-        restaurant_network_id:
-          this.state.currentRestaurantNetwork === "all"
-            ? null
-            : parseInt(this.state.currentRestaurantNetwork),
-      },
+      method: "get_fault_counts_per_month_rpc",
+      args: [],
     });
-    this.state.faultCountPerMonth = counts.fault_counts;
-    this.state.faultCountPerMonthPerAudit = counts.fault_per_audit;
-
-    return counts;
+    this.state.faultCountPerMonth = res.fault_counts_per_month.fault_counts;
+    this.state.faultCountPerMonthPerAudit =
+      res.fault_counts_per_month.fault_per_audit;
+    this.months = res.months;
+    return res;
   }
 
   _renderChart() {
