@@ -31,9 +31,30 @@
             <field name="binding_type">report</field>
         </record>
 
+        <template id="layout_of_fault_list_report">
+            <div class="header"></div>
+
+            <div class="article">
+                <t t-out="0" />
+            </div>
+
+            <div class="footer o_standard_footer">
+                <div class="text-center" style="border-top: 1px solid black;">
+                    <div t-if="report_type == 'pdf'" class="text-muted">
+                        Page:
+                        <span class="page" />
+                        /
+                        <span class="topage" />
+                    </div>
+                </div>
+            </div>
+
+        </template>
+
         <template id="report_fault_list">
-            <t t-call="web.basic_layout">
-                <!-- <style>
+            <t t-call="web.html_container">
+                <t t-call="restaurant_management.layout_of_fault_list_report">
+                    <!-- <style>
                     @font-face {
                         font-family: 'Source Sans Pro Bold';
                         src: url("/drives_testing/static/src/fonts/SourceSansPro-Bold.ttf") format('truetype');
@@ -47,43 +68,61 @@
                         margin-bottom: 0px;
                     }
                 </style> -->
-                <t t-foreach="docs" t-as="o">
-                    <t t-set="o" t-value="o.with_context(lang=lang)" />
+                    <t t-foreach="docs" t-as="o">
+                        <t t-set="o" t-value="o.with_context(lang=lang)" />
 
-                    <div class="page" style="background-color: grey; height: 900px; border: 1px solid black;">
-                        <div class="row">
-                            <p class="col-12 ml-4" style="font-size: 32px;">
-                                Restaurant:
-                                <t t-esc="o.restaurant_id.name" />
-                            </p>
-                        </div>
-                        <div class="row mt-1" t-if="o.fault_date">
-                            <p class="col-12 ml-4" style="font-size: 32px;">
-                                Fault Date:
-                                <t t-esc="o.fault_date.strftime('%d/%m/%Y')" />
-                            </p>
-                        </div>
-                        <div class="row mt-1" t-if="o.fault_date">
-                            <p class="col-12 ml-4" style="font-size: 32px;">
-                                Check List Category:
-                                <t t-esc="o.check_list_category_id.name" />
-                            </p>
-                        </div>
-                        <div class="row mt-1" t-if="o.fault_date">
-                            <p class="col-12 ml-4" style="font-size: 32px;">
-                                Check List:
-                                <t t-esc="o.check_list_id.description" />
-                            </p>
-                        </div>
-                        <div class="row mt-4">
-                            <t t-foreach="o.attachment_ids" t-as="photo">
-                                <div class="col-3 ml-1">
-                                    <img width="290px" t-attf-src="/web/image/{{photo.id}}?unique=&#38;model=ir.attachment" alt="Photo" />
+                        <div class="page" style="background-color: #F8F8F8; height: 900px; border: 1px solid black; border-radius: 5px;">
+                            <div class="row">
+                                <p class="col-6 ml-4" style="font-size: 32px;">
+                                    <strong>Restaurant:</strong>
+                                    <t t-esc="o.restaurant_id.name" />
+                                </p>
+                                <p class="col-6 ml-4" style="font-size: 32px;">
+                                    <strong>Director:</strong>
+                                    <t t-esc="','.join(o.restaurant_id.director_ids.mapped('name'))" />
+                                </p>
+                            </div>
+                            <div class="row mt-1" t-if="o.fault_date">
+                                <p class="col-12 ml-4" style="font-size: 32px;">
+                                    <strong>Fault Date:</strong>
+                                    <t t-esc="o.fault_date.strftime('%d/%m/%Y')" />
+                                </p>
+                            </div>
+                            <div class="row mt-1" t-if="o.fault_date">
+                                <p class="col-12 ml-4" style="font-size: 32px;">
+                                    <strong>Department:</strong>
+                                    <t t-esc="o.check_list_category_id.name" />
+                                </p>
+                            </div>
+                            <div class="row mt-1" t-if="o.fault_date">
+                                <p class="col-12 ml-4" style="font-size: 32px;">
+                                    <strong>Check List:</strong>
+                                    <t t-esc="o.check_list_id.description" />
+                                </p>
+                            </div>
+                            <div class="row mt-1" t-if="o.fault_date">
+                                <p class="col-12 ml-4" style="font-size: 32px;">
+                                    <strong>Count:</strong>
+                                    <t t-esc="o.fault_count" />
+                                </p>
+                            </div>
+
+                            <t t-set="number_of_attachments" t-value="len(o.attachment_ids)" />
+                            <t t-foreach="range(0,number_of_attachments, 3)" t-as="index">
+                                <div t-if="index &lt; 3" class="row">
+                                    <t t-foreach="range(index, index+3)" t-as="variable">
+                                        <div t-if="number_of_attachments &gt; variable" class="col-4 ml-1">
+                                            <t t-set="photo" t-value="o.attachment_ids[variable]" />
+                                            <img style="height: 70%;" t-attf-src="/web/image/{{photo.id}}?unique=&#38;model=ir.attachment" alt="Photo" />
+                                        </div>
+                                    </t>
                                 </div>
+                                <p style="page-break-before:always;"></p>
                             </t>
+
                         </div>
-                    </div>
-                    <p style="page-break-before:always;"></p>
+                        <p style="page-break-before:always;"></p>
+                    </t>
                 </t>
             </t>
         </template>

@@ -16,18 +16,38 @@
         <template id="restaurant_report">
             <t t-call="web.html_container">
                 <t t-call="restaurant_management.layout_of_report">
+                    <style>
+                        .title {
+                            font-size: 26px; 
+                            font-style: italic;
+                        }
+
+                        .date_font {
+                            font-size: 20px; 
+                            font-style: italic;
+                        }
+
+                        .section {
+                            font-size: 24px; 
+                            font-style: italic;
+                        }
+
+                        .table_header {
+                            font-size: 14px;
+                        }
+                    </style>
                     <div class="page">
                         <div class="row">
-                            <h2 class="col-10 font-italic">
+                            <h2 class="col-10 title">
                                 Общий отчет по проверкам ресторана
                                 <t t-esc="restaurant_name" />
                             </h2>
-                            <h3 class="col-2 font_italic">
+                            <h3 class="col-2 date_font">
                                 <t t-esc="report_date" />
                             </h3>
                         </div>
                         <div class="row mt-2">
-                            <h4 class="col-12 mt-5">1. Количество проверок</h4>
+                            <h4 class="col-12 mt-5 section">1. Количество проверок</h4>
                         </div>
                         <div class="row">
                             <table class="table table-striped">
@@ -43,7 +63,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th scope="row">Плановое</th>
+                                        <th class="table_header" scope="row">Плановое</th>
                                         <t t-foreach="counts_per_month['planned']" t-as="countPlanned">
                                             <td>
                                                 <t t-esc="countPlanned" />
@@ -51,7 +71,7 @@
                                         </t>
                                     </tr>
                                     <tr>
-                                        <th scope="row">Фактическое</th>
+                                        <th class="table_header" scope="row">Фактическое</th>
                                         <t t-foreach="counts_per_month['actual']" t-as="countActual">
                                             <td>
                                                 <t t-esc="countActual" />
@@ -63,14 +83,14 @@
                         </div>
 
                         <div class="row mt-2">
-                            <h4 class="col-12">2. Движение ресторана по шкале рейтинга.</h4>
+                            <h4 class="col-12 section">2. Движение ресторана по шкале рейтинга.</h4>
                         </div>
                         <div class="row">
                             <img class="col-12" t-attf-src="data:image/png;base64,{{dynamics_of_rating_png}}" />
                         </div>
 
                         <div class="row mt-2">
-                            <h4 class="col-12">3. Относительное среднее значение ошибок.</h4>
+                            <h4 class="col-12 section">3. Относительное среднее значение ошибок.</h4>
                         </div>
                         <div class="row">
                             <img class="col-12" t-attf-src="data:image/png;base64,{{relative_fault_count_png}}" />
@@ -79,23 +99,23 @@
                         <p style="page-break-before:always;"></p>
 
                         <div class="row mt-2">
-                            <h4 class="col-12">4. Топ 5 ошибок за месяц.</h4>
+                            <h4 class="col-12 section">4. Топ 5 ошибок за месяц.</h4>
                         </div>
                         <div class="row">
                             <div class="col-12">
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>
+                                            <th class="table_header">
                                                 Ошибки по чек листу
                                             </th>
-                                            <th>
+                                            <th class="table_header">
                                                 Кол-во ошибок
                                            </th>
-                                            <th>
+                                            <th class="table_header">
                                                 Принятые меры директора ресторана
                                            </th>
-                                            <th>
+                                            <th class="table_header">
                                                 Принятые меры ответственного по департаменту
                                            </th>
                                         </tr>

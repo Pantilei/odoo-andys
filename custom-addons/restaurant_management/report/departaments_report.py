@@ -80,6 +80,8 @@ class DepartamentsReport(models.AbstractModel):
             for top_fault in top_faults
         ]
         return {
+            'report_date': report_date.strftime('%m/%Y'),
+
             'check_list_category_name': check_list_category_id.name,
 
             'dynamics_of_faults_png': dynamics_of_faults_png,

@@ -70,6 +70,8 @@ class RestaurnatsAllReport(models.AbstractModel):
             report_date)
 
         return {
+            'report_date': report_date.strftime('%m/%Y'),
+
             'dynamics_of_faults_png': dynamics_of_faults_png,
             'fault_category_data': fault_category_data,
 
