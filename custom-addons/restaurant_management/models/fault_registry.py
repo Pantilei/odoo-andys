@@ -142,7 +142,7 @@ class FaultRegistry(models.Model):
                     ("fault_date", ">=", record.fault_date - timedelta(weeks=2))
                 ]).mapped("fault_count"))
                 record.fault_occurrence_info = _(f"""
-                    <p class="{'text-danger' if count >= 2 else 'text-warning' if count == 1 else 'text-primary'}">This fault already occured <strong>{count}</strong> times in last 2 weeks of this fault date within this restaurant!</p>
+                    <p class="{'text-danger' if count >= 2 else 'text-warning' if count == 1 else 'text-primary'}">Эта ошибка повторилась <strong>{count}</strong> раз за последние 2 недели внутри этого департамента и ресторана!</p>
                 """)
             else:
                 record.fault_occurrence_info = False
