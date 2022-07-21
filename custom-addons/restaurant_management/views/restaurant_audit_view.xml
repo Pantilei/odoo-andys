@@ -47,6 +47,7 @@
                                         <field name="check_list_category_id" widget="selection" />
                                         <field name="check_list_id" widget="selection" domain="[('category_id', '=', check_list_category_id)]" attrs="{'required': [('no_fault_check_list_category', '=', False)], 'invisible': [('no_fault_check_list_category', '=', True)], 'readonly': [('check_list_category_id', '=', False)]}" />
                                         <field name="fault_count" />
+                                        <field name="fault_occurrence_info" widget="html" />
                                         <field name="severe" widget="boolean_toggle" />
                                     </group>
 
@@ -112,6 +113,7 @@
                                     <field name="check_list_category_id" widget="selection" readonly="1" />
                                     <field name="check_list_id" widget="selection" readonly="1" domain="[('category_id', '=', check_list_category_id)]" />
                                     <field name="fault_count" readonly="1" />
+                                    <field name="fault_occurrence_info" widget="html" />
                                     <field name="severe" readonly="1" widget="boolean_toggle" />
                                 </group>
 
@@ -173,6 +175,7 @@
                                     <field name="check_list_category_id" widget="selection" readonly="1" />
                                     <field name="check_list_id" widget="selection" readonly="1" domain="[('category_id', '=', check_list_category_id)]" />
                                     <field name="fault_count" readonly="1" />
+                                    <field name="fault_occurrence_info" widget="html" />
                                     <field name="severe" readonly="1" widget="boolean_toggle" />
                                 </group>
 
@@ -236,6 +239,7 @@
                                     <field name="check_list_category_id" widget="selection" readonly="1" />
                                     <field name="check_list_id" widget="selection" readonly="1" domain="[('category_id', '=', check_list_category_id)]" />
                                     <field name="fault_count" readonly="1" />
+                                    <field name="fault_occurrence_info" widget="html" />
                                     <field name="severe" widget="boolean_toggle" />
                                 </group>
 
@@ -299,6 +303,7 @@
                                     <field name="check_list_category_id" widget="selection" attrs="{'readonly': [('parent.available_for_edit', '=', False)]}" />
                                     <field name="check_list_id" widget="selection" domain="[('category_id', '=', check_list_category_id)]" attrs="{'required': [('no_fault_check_list_category', '=', False)], 'invisible': [('no_fault_check_list_category', '=', True)], 'readonly': ['|', ('check_list_category_id', '=', False), ('parent.available_for_edit', '=', False)]}" />
                                     <field name="fault_count" attrs="{'readonly': [('parent.available_for_edit', '=', False)]}" />
+                                    <field name="fault_occurrence_info" widget="html" />
                                     <field name="severe" widget="boolean_toggle" attrs="{'readonly': [('parent.available_for_edit', '=', False)]}" />
                                 </group>
 

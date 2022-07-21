@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 from odoo.osv import expression
 from ..tools import short_date
 import requests
@@ -126,6 +126,26 @@ class FaultRegistry(models.Model):
         compute="_compute_available_for_edit",
         string="Availabe for Edit"
     )
+
+    fault_occurrence_info = fields.Html(
+        string="Fault Occurrence",
+        compute="_compute_fault_occurance",
+    )
+
+    @api.depends("check_list_id", "restaurant_id", "fault_date")
+    def _compute_fault_occurance(self):
+        for record in self:
+            if record.check_list_id and record.restaurant_id and record.fault_date:
+                count = sum(self.search([
+                    ("check_list_id", "=", record.check_list_id.id),
+                    ("restaurant_id", "=", record.restaurant_id.id),
+                    ("fault_date", ">=", record.fault_date - timedelta(weeks=2))
+                ]).mapped("fault_count"))
+                record.fault_occurrence_info = _(f"""
+                    <p class="{'text-danger' if count >= 2 else 'text-warning' if count == 1 else 'text-primary'}">This fault already occured <strong>{count}</strong> times in last 2 weeks of this fault date within this restaurant!</p>
+                """)
+            else:
+                record.fault_occurrence_info = False
 
     @api.depends("create_date")
     def _compute_available_for_edit(self):

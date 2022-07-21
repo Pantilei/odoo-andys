@@ -32,96 +32,130 @@
         </record>
 
         <template id="layout_of_fault_list_report">
-            <div class="header"></div>
-
+            <!-- <div class="header"></div> -->
             <div class="article">
                 <t t-out="0" />
             </div>
-
-            <div class="footer o_standard_footer">
-                <div class="text-center" style="border-top: 1px solid black;">
-                    <div t-if="report_type == 'pdf'" class="text-muted">
-                        Page:
-                        <span class="page" />
-                        /
-                        <span class="topage" />
-                    </div>
-                </div>
-            </div>
-
         </template>
 
         <template id="report_fault_list">
             <t t-call="web.html_container">
-                <t t-call="restaurant_management.layout_of_fault_list_report">
-                    <!-- <style>
-                    @font-face {
-                        font-family: 'Source Sans Pro Bold';
-                        src: url("/drives_testing/static/src/fonts/SourceSansPro-Bold.ttf") format('truetype');
-                    }
-                    .page {
-                        font-family: 'Source Sans Pro Bold';
-                        line-height: 1.0;
-                    }
-                    p {
-                        margin-top: 0px;
-                        margin-bottom: 0px;
-                    }
-                </style> -->
-                    <t t-foreach="docs" t-as="o">
-                        <t t-set="o" t-value="o.with_context(lang=lang)" />
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="o" t-value="o.with_context(lang=lang)" />
 
-                        <div class="page" style="background-color: #F8F8F8; height: 900px; border: 1px solid black; border-radius: 5px;">
+                    <t t-call="restaurant_management.layout_of_fault_list_report">
+                        <style>
+                            .field-name {
+                                font-weight: 900;
+                            }
+
+                            .field-value {
+                                font-weight: 400;
+                                font-size: 16pt;
+                            }
+
+                            .container-content {
+                                background-color: #F8F8F8;
+                                height: 660pt;
+                                width: 940pt;
+                            
+                                border: 2pt solid black; 
+                                border-radius: 5pt;
+                            }
+                        </style>
+
+                        <div class="page container-content">
                             <div class="row">
-                                <p class="col-6 ml-4" style="font-size: 32px;">
-                                    <strong>Restaurant:</strong>
+                                <p class="col-2 ml-4 field-value">
+                                    <span class="field-name">Restaurant:</span>
+                                </p>
+                                <p class="col-4 ml-4 field-value">
                                     <t t-esc="o.restaurant_id.name" />
                                 </p>
-                                <p class="col-6 ml-4" style="font-size: 32px;">
-                                    <strong>Director:</strong>
+
+                                <p class="col-2 field-value">
+                                    <span class="field-name">Director:</span>
+                                </p>
+                                <p class="col-4 field-value">
                                     <t t-esc="','.join(o.restaurant_id.director_ids.mapped('name'))" />
                                 </p>
                             </div>
-                            <div class="row mt-1" t-if="o.fault_date">
-                                <p class="col-12 ml-4" style="font-size: 32px;">
-                                    <strong>Fault Date:</strong>
+
+                            <div class="row" t-if="o.fault_date">
+                                <p class="col-2 ml-4 field-value">
+                                    <span class="field-name">Fault Date:</span>
+                                </p>
+                                <p class="col-10 ml-4 field-value">
                                     <t t-esc="o.fault_date.strftime('%d/%m/%Y')" />
                                 </p>
                             </div>
-                            <div class="row mt-1" t-if="o.fault_date">
-                                <p class="col-12 ml-4" style="font-size: 32px;">
-                                    <strong>Department:</strong>
+                            <div class="row">
+                                <p class="col-2 ml-4 field-value">
+                                    <span class="field-name">Department:</span>
+                                </p>
+                                <p class="col-10 ml-4 field-value">
                                     <t t-esc="o.check_list_category_id.name" />
                                 </p>
                             </div>
-                            <div class="row mt-1" t-if="o.fault_date">
-                                <p class="col-12 ml-4" style="font-size: 32px;">
-                                    <strong>Check List:</strong>
+                            <div class="row">
+                                <p class="col-2 ml-4 field-value">
+                                    <span class="field-name">Check List:</span>
+                                </p>
+                                <p class="col-10 ml-4 field-value">
                                     <t t-esc="o.check_list_id.description" />
                                 </p>
                             </div>
-                            <div class="row mt-1" t-if="o.fault_date">
-                                <p class="col-12 ml-4" style="font-size: 32px;">
-                                    <strong>Count:</strong>
+                            <div class="row">
+                                <p class="col-2 ml-4 field-value">
+                                    <span class="field-name">Count:</span>
+                                </p>
+                                <p class="col-10 ml-4 field-value">
                                     <t t-esc="o.fault_count" />
                                 </p>
                             </div>
-
+                            <hr />
+                            <div class="row">
+                                <p class="col-2 ml-4 field-value">
+                                    <span class="field-name">Expert DKK:</span>
+                                </p>
+                                <div class="col-10">
+                                    <t t-raw="o.comment" />
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <p class="col-2 ml-4 field-value">
+                                    <span class="field-name">Restaurant Director:</span>
+                                </p>
+                                <div class="col-10">
+                                    <t t-raw="o.director_comment" />
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <p class="col-2 ml-4 field-value">
+                                    <span class="field-name">Responsible within Department:</span>
+                                </p>
+                                <div class="col-10">
+                                    <t t-raw="o.check_list_category_responsible_comment" />
+                                </div>
+                            </div>
+                            <hr />
+                            <p style="page-break-before:always;"></p>
                             <t t-set="number_of_attachments" t-value="len(o.attachment_ids)" />
                             <t t-foreach="range(0,number_of_attachments, 3)" t-as="index">
-                                <div t-if="index &lt; 3" class="row">
+                                <div class="row">
                                     <t t-foreach="range(index, index+3)" t-as="variable">
-                                        <div t-if="number_of_attachments &gt; variable" class="col-4 ml-1">
+                                        <div t-if="number_of_attachments &gt; variable" class="col-4" style="margin-left: 2pt; margin-right: 2pt;">
                                             <t t-set="photo" t-value="o.attachment_ids[variable]" />
-                                            <img style="height: 70%;" t-attf-src="/web/image/{{photo.id}}?unique=&#38;model=ir.attachment" alt="Photo" />
+                                            <img style="width: 285pt; max-height: 640pt;" t-attf-src="/web/image/{{photo.id}}?unique=&#38;model=ir.attachment" alt="Photo" />
                                         </div>
                                     </t>
                                 </div>
                                 <p style="page-break-before:always;"></p>
                             </t>
-
                         </div>
-                        <p style="page-break-before:always;"></p>
+                        <!-- <p style="page-break-before:always;"></p> -->
                     </t>
                 </t>
             </t>
