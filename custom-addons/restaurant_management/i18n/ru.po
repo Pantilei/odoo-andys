@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-19 20:55+0000\n"
-"PO-Revision-Date: 2022-07-19 20:55+0000\n"
+"POT-Creation-Date: 2022-07-21 19:45+0000\n"
+"PO-Revision-Date: 2022-07-21 19:45+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -474,33 +474,48 @@ msgstr ""
 
 #. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.report_fault_list
-msgid "<strong>Check List:</strong>"
-msgstr "<strong>Чек лист:</strong>"
+msgid "<span class=\"field-name\">Check List:</span>"
+msgstr "<span class=\"field-name\">Чек Лист:</span>"
 
 #. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.report_fault_list
-msgid "<strong>Count:</strong>"
-msgstr "<strong>Количество:</strong>"
+msgid "<span class=\"field-name\">Count:</span>"
+msgstr "<span class=\"field-name\">Количество:</span>"
 
 #. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.report_fault_list
-msgid "<strong>Department:</strong>"
-msgstr "<strong>Департамент:</strong>"
+msgid "<span class=\"field-name\">Department:</span>"
+msgstr "<span class=\"field-name\">Департамент:</span>"
 
 #. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.report_fault_list
-msgid "<strong>Director:</strong>"
-msgstr "<strong>Директор:</strong>"
+msgid "<span class=\"field-name\">Director:</span>"
+msgstr "<span class=\"field-name\">Директор:</span>"
 
 #. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.report_fault_list
-msgid "<strong>Fault Date:</strong>"
-msgstr "<strong>Дата Ошибки:</strong>"
+msgid "<span class=\"field-name\">Expert DKK:</span>"
+msgstr "<span class=\"field-name\">Эксперт ДКК:</span>"
 
 #. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.report_fault_list
-msgid "<strong>Ресторан:</strong>"
-msgstr ""
+msgid "<span class=\"field-name\">Fault Date:</span>"
+msgstr "<span class=\"field-name\">Дата Ошибки:</span>"
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.report_fault_list
+msgid "<span class=\"field-name\">Responsible within Department:</span>"
+msgstr "<span class=\"field-name\">Ответственный по Департаменту:</span>"
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.report_fault_list
+msgid "<span class=\"field-name\">Restaurant Director:</span>"
+msgstr "<span class=\"field-name\">Директор Ресторана:</span>"
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.report_fault_list
+msgid "<span class=\"field-name\">Restaurant:</span>"
+msgstr "<span class=\"field-name\">Ресторан:</span>"
 
 #. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_view_form
@@ -855,6 +870,11 @@ msgid "Fault List"
 msgstr "Список Ошибок"
 
 #. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__fault_occurrence_info
+msgid "Fault Occurrence"
+msgstr "Частота Ошибки"
+
+#. module: restaurant_management
 #: model:ir.actions.act_window,name:restaurant_management.fault_registry_action
 #: model:ir.model,name:restaurant_management.model_restaurant_management_fault_registry
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__fault_registry_ids
@@ -1137,7 +1157,7 @@ msgstr "Месяц начала"
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_reports_wizard__month
 msgid "Month of Report"
-msgstr "Месяц Отчёта"
+msgstr "Месяц Отчета"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__name
@@ -1242,7 +1262,6 @@ msgid "PDF reports"
 msgstr "PDF Отчёты"
 
 #. module: restaurant_management
-#: model_terms:ir.ui.view,arch_db:restaurant_management.layout_of_fault_list_report
 #: model_terms:ir.ui.view,arch_db:restaurant_management.layout_of_report
 msgid ""
 "Page:\n"
@@ -1680,7 +1699,7 @@ msgstr "Год начала"
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_reports_wizard__year
 msgid "Year of Report"
-msgstr "Год отчёта"
+msgstr "Год Отчёта"
 
 #. module: restaurant_management
 #. openerp-web
