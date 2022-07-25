@@ -19,6 +19,10 @@ class CheckListCategory(models.Model):
         default=False
     )
 
+    identificator = fields.Integer(
+        string="Identificator"
+    )
+
     telegram_chat_id = fields.Char(
         string="Telegram Chat Id",
         help="""

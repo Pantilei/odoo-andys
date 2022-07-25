@@ -16,6 +16,9 @@
                             <field name="no_fault_category" />
                         </group>
                         <group>
+                            <field name="identificator" />
+                        </group>
+                        <group>
                             <field name="telegram_chat_id" groups="base.group_no_one" />
                         </group>
                     </sheet>

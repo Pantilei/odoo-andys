@@ -7,12 +7,44 @@ class CheckList(models.Model):
     _name = "restaurant_management.check_list"
     _description = "Check List"
     _rec_name = "description"
+    _order = "sequence"
+
+    @api.depends("identificator", "category_id.identificator")
+    def _compute_full_identificator(self):
+        for record in self:
+            if record.category_id and record.identificator:
+                record.full_identificator = f"{record.category_id.identificator}.{record.identificator}"
+            elif record.category_id:
+                record.full_identificator = f"{record.category_id.identificator}."
+            else:
+                record.full_identificator = ""
 
     description = fields.Text()
+
+    identificator = fields.Integer(
+        string="Itentificator within category"
+    )
+
+    full_identificator = fields.Char(
+        compute="_compute_full_identificator",
+        string="Identificator"
+    )
+
+    sequence = fields.Integer(
+        default=10,
+        string="Sequence"
+    )
     category_id = fields.Many2one(
         comodel_name="restaurant_management.check_list_category",
         required=True
     )
+
+    def name_get(self):
+        result = []
+        for record in self:
+            name = record.full_identificator + ' ' + record.description
+            result.append((record.id, name))
+        return result
 
     @api.model
     def _create_check_lists_and_categories(self):
@@ -53,3 +85,12 @@ class CheckList(models.Model):
             "category_id": self.env["restaurant_management.check_list_category"].search([
                 ('name', 'ilike', category_name)], limit=1).id
         })
+
+    @api.model
+    def _extract_identificator(self):
+        for record in self.search([]):
+            ident, desc = record.description.split(" ", 1)
+            print(int(ident.split(".", 1)[1]))
+            print(desc)
+            record.identificator = int(ident.split(".", 1)[1])
+            record.description = desc

@@ -10,6 +10,10 @@
                             <field name="category_id" />
                         </group>
                         <group>
+                            <field name="identificator" />
+                            <field name="full_identificator" />
+                        </group>
+                        <group>
                             <field name="description" />
                         </group>
                     </sheet>
@@ -21,7 +25,9 @@
             <field name="model">restaurant_management.check_list</field>
             <field name="arch" type="xml">
                 <tree>
+                    <field name="sequence" widget="handle" />
                     <field name="category_id" />
+                    <field name="full_identificator" />
                     <field name="description" />
                 </tree>
             </field>
