@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-21 19:45+0000\n"
-"PO-Revision-Date: 2022-07-21 19:45+0000\n"
+"POT-Creation-Date: 2022-07-25 18:25+0000\n"
+"PO-Revision-Date: 2022-07-25 18:25+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -854,6 +854,13 @@ msgid "Expert DKK"
 msgstr "Эксперт ДКК"
 
 #. module: restaurant_management
+#: model:ir.actions.server,name:restaurant_management.ir_cron_extract_identificator_data_ir_actions_server
+#: model:ir.cron,cron_name:restaurant_management.ir_cron_extract_identificator_data
+#: model:ir.cron,name:restaurant_management.ir_cron_extract_identificator_data
+msgid "Extract Identificators"
+msgstr "Извлечь идентификаторы"
+
+#. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__fault_count
 msgid "Fault Count"
 msgstr "Количество Ошибок"
@@ -968,6 +975,12 @@ msgid "ID"
 msgstr ""
 
 #. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list__full_identificator
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__identificator
+msgid "Identificator"
+msgstr "Идентификатор"
+
+#. module: restaurant_management
 #. openerp-web
 #: code:addons/restaurant_management/static/src/xml/document_viewer_legacy.xml:0
 #: code:addons/restaurant_management/static/src/xml/document_viewer_legacy.xml:0
@@ -1008,6 +1021,11 @@ msgstr "Ф.И.О. Причастного работника"
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
 msgid "Involved Worker Position"
 msgstr "Должность Причастного работника"
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list__identificator
+msgid "Itentificator within category"
+msgstr "Идентификатор внутри категории"
 
 #. module: restaurant_management
 #: code:addons/restaurant_management/report/departaments_report.py:0
@@ -1443,7 +1461,7 @@ msgstr "Директор Ресторана"
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant__director_ids
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__restaurant_director_ids
 msgid "Restaurant Directors"
-msgstr "Директоры ресторана"
+msgstr "Директор ресторана"
 
 #. module: restaurant_management
 #: model:ir.ui.menu,name:restaurant_management.menu_root
@@ -1511,6 +1529,7 @@ msgid "September"
 msgstr "Сентябрь"
 
 #. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list__sequence
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__sequence
 msgid "Sequence"
 msgstr "Последовательность"
