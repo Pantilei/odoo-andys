@@ -51,7 +51,7 @@
 
                             .field-value {
                                 font-weight: 400;
-                                font-size: 16pt;
+                                font-size: 15pt;
                             }
 
                             .container-content {
