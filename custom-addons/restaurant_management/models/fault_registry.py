@@ -148,10 +148,10 @@ class FaultRegistry(models.Model):
                 count = sum(self.search([
                     ("check_list_id", "=", record.check_list_id.id),
                     ("restaurant_id", "=", record.restaurant_id.id),
-                    ("fault_date", ">=", record.fault_date - timedelta(weeks=2))
+                    ("fault_date", ">=", record.fault_date - timedelta(days=30))
                 ]).mapped("fault_count"))
                 record.fault_occurrence_info = _(f"""
-                    <p class="{'text-danger' if count >= 2 else 'text-warning' if count == 1 else 'text-primary'}">Эта ошибка повторилась <strong>{count}</strong> раз за последние 2 недели внутри этого департамента и ресторана!</p>
+                    <p class="{'text-danger' if count >= 2 else 'text-warning' if count == 1 else 'text-primary'}">Эта ошибка повторилась <strong>{count}</strong> раз за последние 30 дней внутри этого департамента и ресторана!</p>
                 """)
             else:
                 record.fault_occurrence_info = False
