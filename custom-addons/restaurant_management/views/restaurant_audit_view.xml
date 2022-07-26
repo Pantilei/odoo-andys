@@ -157,7 +157,7 @@
                     <attribute name="readonly">1</attribute>
                 </field>
                 <field name="fault_registry_ids" position="replace">
-                    <field name="fault_registry_ids" nolabel="1" attrs="{'readonly': [('available_for_edit', '=', False)]}" context="{'default_restaurant_id': restaurant_id, 'default_responsible_id': responsible_id}">
+                    <field name="fault_registry_ids" nolabel="1" context="{'default_restaurant_id': restaurant_id, 'default_responsible_id': responsible_id}">
                         <tree>
                             <field name="id" invisible="1" />
                             <field name="responsible_id" invisible="1" />
@@ -238,7 +238,7 @@
                                 <group>
                                     <field name="check_list_category_id" widget="selection" readonly="1" />
                                     <field name="check_list_id" widget="selection" readonly="1" domain="[('category_id', '=', check_list_category_id)]" />
-                                    <field name="fault_count" readonly="1" />
+                                    <field name="fault_count" />
                                     <field name="fault_occurrence_info" widget="html" />
                                     <field name="severe" widget="boolean_toggle" />
                                 </group>
@@ -251,7 +251,7 @@
                                 <group string="Measures Taken">
                                     <field name="comment" widget="html" readonly="1" string="Expert DCC" />
                                     <field name="director_comment" widget="html" readonly="1" string="Restaurant Director" />
-                                    <field name="check_list_category_responsible_comment" widget="html" readonly="1" string="Responsible within Department" />
+                                    <field name="check_list_category_responsible_comment" widget="html" string="Responsible within Department" />
                                 </group>
 
                                 <group string="Photos">
@@ -349,10 +349,12 @@
             <field name="arch" type="xml">
                 <search string="Restaurant Audit">
                     <field name="restaurant_id" filter_domain="[('restaurant_id', '=ilike', self)]" />
+                    <field name="restaurant_network_id" filter_domain="[('restaurant_network_id', '=ilike', self)]" />
                     <field name="responsible_id" />
 
                     <group expand="0" string="Group By">
                         <filter string="Restaurant" name="group_by_restaurant_id" context="{'group_by': 'restaurant_id'}" domain="[]" />
+                        <filter string="Restaurant Network" name="group_by_restaurant_network_id" context="{'group_by': 'restaurant_network_id'}" domain="[]" />
                         <filter string="Responsible" name="group_by_responsible_id" context="{'group_by': 'responsible_id'}" domain="[]" />
                         <filter string="Audit Date" name="group_by_audit_date" context="{'group_by': 'audit_date:month'}" domain="[]" />
                     </group>

@@ -2,6 +2,7 @@
 
 from odoo import models, fields, api, _
 from odoo.osv import expression
+
 from ..tools import short_date
 import requests
 import logging
@@ -73,6 +74,14 @@ class FaultRegistry(models.Model):
         compute="_compute_restaurant",
         store=True
     )
+    restaurant_network_id = fields.Many2one(
+        comodel_name="restaurant_management.restaurant_network",
+        string="Restaurant Network",
+        related="restaurant_id.restaurant_network_id",
+        readonly=False,
+        store=True
+    )
+
     restaurant_director_ids = fields.Many2many(
         comodel_name="res.users",
         string="Restaurant Directors",

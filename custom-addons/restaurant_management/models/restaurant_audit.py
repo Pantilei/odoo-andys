@@ -41,6 +41,13 @@ class RestaurantAudit(models.Model):
         comodel_name="restaurant_management.restaurant",
         string="Restaurant"
     )
+    restaurant_network_id = fields.Many2one(
+        comodel_name="restaurant_management.restaurant_network",
+        string="Restaurant Network",
+        related="restaurant_id.restaurant_network_id",
+        readonly=False,
+        store=True
+    )
     restaurant_director_ids = fields.Many2many(
         comodel_name="res.users",
         string="Restaurant Directors",

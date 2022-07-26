@@ -134,7 +134,7 @@
                     <field name="director_comment" string="Restaurant Director" readonly="1" widget="html" />
                 </xpath>
                 <xpath expr="//field[@name='check_list_category_responsible_comment']" position="replace">
-                    <field name="check_list_category_responsible_comment" attrs="{'readonly': [('available_for_edit', '=', False)]}" widget="html" string="Responsible within Department" />
+                    <field name="check_list_category_responsible_comment" widget="html" string="Responsible within Department" />
                 </xpath>
                 <xpath expr="//field[@name='attachment_ids']" position="replace">
                     <field name="attachment_ids" nolabel="1" readonly="1" widget="many2many_binary_preview" accepted_file_extensions="image/*" />
@@ -155,7 +155,7 @@
                     <field name="check_list_id" widget="selection" readonly="1" />
                 </xpath>
                 <xpath expr="//field[@name='fault_count']" position="replace">
-                    <field name="fault_count" readonly="1" />
+                    <field name="fault_count" />
                 </xpath>
                 <xpath expr="//field[@name='fault_type']" position="replace">
                     <field name="fault_type" readonly="1" string="Position" />
@@ -167,7 +167,7 @@
                     <field name="comment" readonly="1" widget="html" string="Expert DCC" />
                 </xpath>
                 <xpath expr="//field[@name='check_list_category_responsible_comment']" position="replace">
-                    <field name="check_list_category_responsible_comment" readonly="1" widget="html" string="Responsible within Department" />
+                    <field name="check_list_category_responsible_comment" widget="html" string="Responsible within Department" />
                 </xpath>
                 <xpath expr="//field[@name='director_comment']" position="replace">
                     <field name="director_comment" string="Restaurant Director" readonly="1" widget="html" />
@@ -263,6 +263,7 @@
             <field name="arch" type="xml">
                 <search string="Fault Registry">
                     <field name="restaurant_id" filter_domain="[('restaurant_id', '=ilike', self)]" />
+                    <field name="restaurant_network_id" filter_domain="[('restaurant_network_id', '=ilike', self)]" />
                     <field name="responsible_id" />
                     <field name="check_list_category_id" />
                     <field name="check_list_id" />
@@ -286,6 +287,7 @@
 
                     <group expand="0" string="Group By">
                         <filter string="Restaurant" name="group_by_restaurant_id" context="{'group_by': 'restaurant_id'}" domain="[]" />
+                        <filter string="Restaurant Network" name="group_by_restaurant_network_id" context="{'group_by': 'restaurant_network_id'}" domain="[]" />
                         <filter string="Responsible" name="group_by_responsible_id" context="{'group_by': 'responsible_id'}" domain="[]" />
                         <filter string="Fault Date" name="group_by_fault_date" context="{'group_by': 'fault_date:month'}" domain="[]" />
                         <filter string="Check List Category" name="group_by_check_list_category_id" context="{'group_by': 'check_list_category_id'}" domain="[]" />
