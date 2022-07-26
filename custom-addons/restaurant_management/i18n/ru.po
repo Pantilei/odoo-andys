@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-25 18:25+0000\n"
-"PO-Revision-Date: 2022-07-25 18:25+0000\n"
+"POT-Creation-Date: 2022-07-26 19:58+0000\n"
+"PO-Revision-Date: 2022-07-26 19:58+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -36,16 +36,6 @@ msgstr "'Ошибки - %s' % (object.id)"
 #: model:ir.actions.report,print_report_name:restaurant_management.action_restaurants_all_report
 msgid "'Report'"
 msgstr "Отчёт"
-
-#. module: restaurant_management
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurants_all_report
-msgid ". Динамика кол-ва ошибок по"
-msgstr ""
-
-#. module: restaurant_management
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurants_all_report
-msgid ". Рейтинг ресторанов по общему количеству ошибок."
-msgstr ""
 
 #. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.departaments_report
@@ -535,6 +525,7 @@ msgstr "Все"
 
 #. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.layout_of_report
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurants_all_report
 msgid "Andy's Logo"
 msgstr ""
 
@@ -1077,6 +1068,7 @@ msgstr "Июнь"
 
 #. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.layout_of_report
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurants_all_report
 msgid "La Placinte Logo"
 msgstr ""
 
@@ -1366,11 +1358,6 @@ msgid "Report"
 msgstr "Отчёт"
 
 #. module: restaurant_management
-#: model:res.groups,name:restaurant_management.group_restaurant_management_reporter
-msgid "Reporter"
-msgstr "Получатель отчётов"
-
-#. module: restaurant_management
 #: model:ir.actions.client,name:restaurant_management.reports_library_client_action
 #: model:ir.ui.menu,name:restaurant_management.report_main_menu
 msgid "Reporting"
@@ -1471,10 +1458,19 @@ msgstr "Отчёт ДКК"
 #. module: restaurant_management
 #: model:ir.actions.act_window,name:restaurant_management.restaurant_network_action
 #: model:ir.model,name:restaurant_management.model_restaurant_management_restaurant_network
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__restaurant_network_id
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant__restaurant_network_id
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__restaurant_network_id
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_search
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_network_view_form
 msgid "Restaurant Network"
 msgstr "Сеть Ресторанов"
+
+#. module: restaurant_management
+#: model:res.groups,name:restaurant_management.group_restaurant_management_reporter
+msgid "Restaurant Network Manager"
+msgstr "Руководитель сети"
 
 #. module: restaurant_management
 #: model:ir.ui.menu,name:restaurant_management.restaurant_network
@@ -1756,13 +1752,7 @@ msgstr ""
 #. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.departaments_report
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_report
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurants_all_report
 msgid "Кол-во ошибок"
-msgstr ""
-
-#. module: restaurant_management
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurants_all_report
-msgid "Кол-во ошибок/ед. проверки"
 msgstr ""
 
 #. module: restaurant_management
@@ -1810,7 +1800,6 @@ msgstr ""
 
 #. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.departaments_report
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurants_all_report
 msgid "Ресторан"
 msgstr ""
 
