@@ -10,7 +10,5 @@ class FaultListReport(models.AbstractModel):
         return {
             'doc_ids': docs.ids,
             'doc_model': 'restaurant_management.fault_registry',
-            'docs': docs,
-            'image_process': image_process,
-            'image_data_uri': image_data_uri,
+            'docs': docs
         }
