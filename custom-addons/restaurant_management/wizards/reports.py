@@ -1,5 +1,6 @@
 from odoo import models, fields, api, _
 from datetime import date, datetime, timedelta
+from dateutil.relativedelta import relativedelta
 
 
 MONTHS = [
@@ -22,13 +23,11 @@ class Reports(models.TransientModel):
     _name = "restaurant_management.reports_wizard"
     _description = "Wizard to print the reports"
 
-    # def _default_date_start(self):
-    #     d = date.today() - timedelta(days=365)
-    #     return date(year=d.year, month=d.month, day=1)
+    def _default_month_end(self):
+        return str((date.today() + relativedelta(months=+2)).month)
 
-    # def _default_date_end(self):
-    #     d = date.today()
-    #     return date(year=d.year, month=d.month, day=1)
+    def _default_month_start(self):
+        return str((date.today() + relativedelta(months=+2)).month)
 
     name = fields.Char(
         string="Name",
@@ -66,7 +65,8 @@ class Reports(models.TransientModel):
     month = fields.Selection(
         string="Month of Report",
         selection=MONTHS,
-        default=lambda self: str(date.today().month - 1),
+        default=lambda self: str(
+            (date.today() + relativedelta(months=-1)).month),
     )
 
     year_start = fields.Selection(
@@ -78,18 +78,18 @@ class Reports(models.TransientModel):
     month_start = fields.Selection(
         string="Month Start",
         selection=MONTHS,
-        default=lambda self: str(date.today().month - 1),
+        default=_default_month_start,
     )
 
     year_end = fields.Selection(
         selection=[(str(year), str(year)) for year in range(1999, 2049)],
         string="Date End",
-        default=lambda self: str(date.today().year)
+        default=lambda self: str(date.today().year),
     )
 
     month_end = fields.Selection(
         selection=MONTHS,
-        default=lambda self: str(date.today().month - 1),
+        default=_default_month_end,
         string="Month End"
     )
 
@@ -108,7 +108,7 @@ class Reports(models.TransientModel):
                 "month_start": self.month_start,
                 "month_end": self.month_end,
             }
-            return self.env.ref("restaurant_management.action_restaurants_all_report")\
+            return self.sudo().env.ref("restaurant_management.action_restaurants_all_report")\
                 .report_action(self, data=data)
 
         if self.report == "general_report_by_restaurant_department":
@@ -121,7 +121,7 @@ class Reports(models.TransientModel):
                 "month_end": self.month_end,
                 "check_list_category_id": self.check_list_category_id.id,
             }
-            return self.env.ref("restaurant_management.action_departaments_report")\
+            return self.sudo().env.ref("restaurant_management.action_departaments_report")\
                 .report_action(self, data=data)
 
         if self.report == "general_report_by_audit_of_restaurant":
@@ -134,5 +134,5 @@ class Reports(models.TransientModel):
                 "month_end": self.month_end,
                 "restaurant_id": self.restaurant_id.id,
             }
-            return self.env.ref("restaurant_management.action_restaurant_report")\
+            return self.sudo().env.ref("restaurant_management.action_restaurant_report")\
                 .report_action(self, data=data)

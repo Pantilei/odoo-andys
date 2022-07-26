@@ -15,136 +15,136 @@
 
         <template id="restaurant_report">
             <t t-call="web.html_container">
-                <t t-call="restaurant_management.layout_of_report">
-                    <style>
-                        .title {
-                            font-size: 26px; 
-                            font-style: italic;
-                        }
-
-                        .date_font {
-                            font-size: 20px; 
-                            font-style: italic;
-                        }
-
-                        .section {
-                            font-size: 24px; 
-                            font-style: italic;
-                        }
-
-                        .table_header {
-                            font-size: 14px;
-                        }
-                    </style>
+                <div class="header">
+                    <div class="row ml-5 p-0">
+                        <div class="col-9 p-0 report-header_title">
+                            Общий отчет по проверкам ресторана
+                            <t t-esc="restaurant_name" />
+                        </div>
+                        <div class="col-3">
+                            <img class="ml-auto" style="width: 70px;" src="/restaurant_management/static/src/img/andys_logo.jpg" alt="Andy's Logo" />
+                            <img class="ml-1" style="width: 70px;" src="/restaurant_management/static/src/img/la_placinte_logo.jpg" alt="La Placinte Logo" />
+                        </div>
+                    </div>
+                    <div class="row zero_min_height">
+                        <div class="col-12 p-0">
+                            <div style="border-bottom: 3px solid #CF431A;" />
+                        </div>
+                    </div>
+                </div>
+                <div class="article">
                     <div class="page">
-                        <div class="row">
-                            <h2 class="col-10 title">
-                                Общий отчет по проверкам ресторана
-                                <t t-esc="restaurant_name" />
-                            </h2>
-                            <h3 class="col-2 date_font">
-                                <t t-esc="report_date" />
-                            </h3>
-                        </div>
-                        <div class="row mt-2">
-                            <h4 class="col-12 mt-5 section">1. Количество проверок</h4>
-                        </div>
-                        <div class="row">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th scope="col"></th>
-                                        <t t-foreach="months" t-as="month">
-                                            <th scope="col">
-                                                <t t-esc="month" />
-                                            </th>
-                                        </t>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th class="table_header" scope="row">Плановое</th>
-                                        <t t-foreach="counts_per_month['planned']" t-as="countPlanned">
-                                            <td>
-                                                <t t-esc="countPlanned" />
-                                            </td>
-                                        </t>
-                                    </tr>
-                                    <tr>
-                                        <th class="table_header" scope="row">Фактическое</th>
-                                        <t t-foreach="counts_per_month['actual']" t-as="countActual">
-                                            <td>
-                                                <t t-esc="countActual" />
-                                            </td>
-                                        </t>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        <div class="container ml-5 mr-5">
+                            <div class="row mt-1">
+                                <p class="col-2 p-0 report-date">
+                                    <t t-esc="report_date" />
+                                </p>
+                                <div class="col-10"></div>
+                            </div>
 
-                        <div class="row mt-2">
-                            <h4 class="col-12 section">2. Движение ресторана по шкале рейтинга.</h4>
-                        </div>
-                        <div class="row">
-                            <img class="col-12" t-attf-src="data:image/png;base64,{{dynamics_of_rating_png}}" />
-                        </div>
-
-                        <div class="row mt-2">
-                            <h4 class="col-12 section">3. Относительное среднее значение ошибок.</h4>
-                        </div>
-                        <div class="row">
-                            <img class="col-12" t-attf-src="data:image/png;base64,{{relative_fault_count_png}}" />
-                        </div>
-
-                        <p style="page-break-before:always;"></p>
-
-                        <div class="row mt-2">
-                            <h4 class="col-12 section">4. Топ 5 ошибок за месяц.</h4>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <table class="table table-striped">
+                            <div class="row">
+                                <h4 class="col-12 p-0 section">1. Количество проверок</h4>
+                            </div>
+                            <div class="row">
+                                <table class="col-12 table_with_inner_border">
                                     <thead>
                                         <tr>
-                                            <th class="table_header">
-                                                Ошибки по чек листу
-                                            </th>
-                                            <th class="table_header">
-                                                Кол-во ошибок
-                                           </th>
-                                            <th class="table_header">
-                                                Принятые меры директора ресторана
-                                           </th>
-                                            <th class="table_header">
-                                                Принятые меры ответственного по департаменту
-                                           </th>
+                                            <th scope="col" style="width: 15%;"></th>
+                                            <t t-foreach="months if len(months) &lt; 12 else months[:12]" t-as="month">
+                                                <th class="table_header" style="width: 7.1%;" scope="col">
+                                                    <t t-esc="month" />
+                                                </th>
+                                            </t>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <t t-foreach="top_faults_with_comments" t-as="top_fault">
-                                            <tr>
+                                        <tr>
+                                            <th class="table_header" scope="row">Плановое</th>
+                                            <t t-foreach="counts_per_month['planned'] if len(months) &lt; 12 else counts_per_month['planned'][:12]" t-as="countPlanned">
                                                 <td>
-                                                    <t t-esc="top_fault[1]" />
+                                                    <t t-esc="countPlanned" />
                                                 </td>
+                                            </t>
+                                        </tr>
+                                        <tr>
+                                            <th class="table_header" scope="row">Фактическое</th>
+                                            <t t-foreach="counts_per_month['actual'] if len(months) &lt; 12 else counts_per_month['actual'][:12]" t-as="countActual">
                                                 <td>
-                                                    <t t-esc="top_fault[2]" />
+                                                    <t t-esc="countActual" />
                                                 </td>
-                                                <td>
-                                                    <t t-raw="top_fault[3]" />
-                                                </td>
-                                                <td>
-                                                    <t t-raw="top_fault[4]" />
-                                                </td>
-                                            </tr>
-                                        </t>
+                                            </t>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
 
-                        <p style="page-break-before:always;"></p>
+                            <div class="row">
+                                <h4 class="col-12 p-0 section">2. Движение ресторана по шкале рейтинга.</h4>
+                            </div>
+                            <div class="row">
+                                <img class="col-12 img--bordered" style="width: 87%;" t-attf-src="data:image/png;base64,{{dynamics_of_rating_png}}" />
+                            </div>
+
+                            <p style="page-break-before:always;"></p>
+
+                            <div class="row">
+                                <h4 class="col-12 p-0 section">3. Относительное среднее значение ошибок.</h4>
+                            </div>
+                            <div class="row">
+                                <img class="col-12 img--bordered" style="width: 87%;" t-attf-src="data:image/png;base64,{{relative_fault_count_png}}" />
+                            </div>
+
+                            <p style="page-break-before:always;"></p>
+
+                            <div class="row">
+                                <h4 class="col-12 p-0 section">4. Топ 5 ошибок за месяц.</h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th class="table_header">
+                                                    Ошибки по чек листу
+                                                </th>
+                                                <th class="table_header">
+                                                    Кол-во ошибок
+                                               </th>
+                                                <th class="table_header">
+                                                    Принятые меры директора ресторана
+                                               </th>
+                                                <th class="table_header">
+                                                    Принятые меры ответственного по департаменту
+                                               </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="top_faults_with_comments" t-as="top_fault">
+                                                <tr>
+                                                    <td>
+                                                        <t t-esc="top_fault[1]" />
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="top_fault[2]" />
+                                                    </td>
+                                                    <td>
+                                                        <t t-raw="top_fault[3]" />
+                                                    </td>
+                                                    <td>
+                                                        <t t-raw="top_fault[4]" />
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <p style="page-break-before:always;"></p>
+                        </div>
                     </div>
-                </t>
+                </div>
+
             </t>
 
         </template>

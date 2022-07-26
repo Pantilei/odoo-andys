@@ -7,7 +7,7 @@
     </record>
     <!-- Groups -->
     <record id="group_restaurant_management_reporter" model="res.groups">
-        <field name="name">Reporter</field>
+        <field name="name">Restaurant Network Manager</field>
         <field name="category_id" ref="module_category_restaurant_management" />
         <field name="comment">User under this group are allowed to only view report menu in Restaurant Management</field>
     </record>

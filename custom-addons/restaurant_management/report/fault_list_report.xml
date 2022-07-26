@@ -148,7 +148,7 @@
                                     <t t-foreach="range(index, index+3)" t-as="variable">
                                         <div t-if="number_of_attachments &gt; variable" class="col-4" style="margin-left: 2pt; margin-right: 2pt;">
                                             <t t-set="photo" t-value="o.attachment_ids[variable]" />
-                                            <img style="width: 285pt; max-height: 640pt;" t-attf-src="/web/image/{{photo.id}}?unique=&#38;model=ir.attachment" alt="Photo" />
+                                            <img style="width: 285pt; max-height: 640pt;" t-attf-src="/web/image/{{photo.id}}/520x520?unique=&#38;model=ir.attachment" alt="Photo" />
                                         </div>
                                     </t>
                                 </div>

@@ -1,0 +1,43 @@
+.report-header_title {
+    font-size: 30px; 
+    font-weight: bold;
+}
+
+.report-date {
+    font-size: 16px;
+    float: left;
+}
+
+.section {
+    font-size: 24px; 
+    font-weight: bold;
+}
+
+.table_header {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.img--bordered {
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 2px;
+}
+
+.table_with_inner_border {
+    table-layout: fixed;
+    width: 800px;
+    border-collapse: collapse;
+    border-style: hidden;
+
+    & td {
+        border: 1px solid black;
+        text-align: center;
+    }
+
+    & th {
+        border: 1px solid black;
+        text-align: center;
+    }
+
+}

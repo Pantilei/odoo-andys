@@ -68,6 +68,9 @@
         'web.assets_frontend': [],
         'web.assets_tests': [],
         'web.qunit_suite_tests': [],
+        'web.report_assets_common': [
+            'restaurant_management/static/src/scss/report_styles.scss',
+        ],
         'web.assets_qweb': [
             'restaurant_management/static/src/xml/many2many_binary_preview.xml',
             'restaurant_management/static/src/xml/document_viewer_legacy.xml',
