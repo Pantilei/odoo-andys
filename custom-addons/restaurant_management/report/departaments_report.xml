@@ -81,7 +81,7 @@
                                                 </thead>
                                                 <tbody>
                                                     <t t-foreach="restaurant_rating" t-as="row">
-                                                        <tr>
+                                                        <tr t-attf-style="color: {{'red' if len(restaurant_rating)//2 &lt; row_index+1 else 'green'}}">
                                                             <t t-foreach="row[1:]" t-as="cell" t-key="cell_index">
                                                                 <td t-att-class="'font-weight-bold' if cell_index == (len(row)-1) else ''">
                                                                     <t t-esc="cell" />
@@ -109,7 +109,7 @@
                                                 </thead>
                                                 <tbody>
                                                     <t t-foreach="restaurant_rating_per_audit" t-as="row" t-key="row_index">
-                                                        <tr>
+                                                        <tr t-attf-style="color: {{'red' if len(restaurant_rating)//2 &lt; row_index+1 else 'green'}}">
                                                             <t t-foreach="row[1:]" t-as="cell" t-key="cell_index">
                                                                 <td t-att-class="'font-weight-bold' if cell_index == (len(row)-1) else ''">
                                                                     <t t-esc="cell" />
