@@ -15,70 +15,67 @@
 
         <template id="departaments_report">
             <t t-call="web.html_container">
-                <div class="header">
-                    <div class="row ml-5 p-0">
-                        <div class="col-9 p-0 report-header_title">
-                            Отчет по ошибкам по департаменту
-                            <t t-esc="check_list_category_name" />
-                            .
-                        </div>
-                        <div class="col-3">
-                            <img class="ml-auto" style="width: 70px;" src="/restaurant_management/static/src/img/andys_logo.jpg" alt="Andy's Logo" />
-                            <img class="ml-1" style="width: 70px;" src="/restaurant_management/static/src/img/la_placinte_logo.jpg" alt="La Placinte Logo" />
-                        </div>
-                    </div>
-                    <div class="row zero_min_height">
-                        <div class="col-12 p-0">
-                            <div style="border-bottom: 3px solid #CF431A;" />
-                        </div>
-                    </div>
-                </div>
 
                 <div class="article">
                     <div class="page">
-                        <div class="container ml-5 mr-5">
-                            <div class="row mt-1">
-                                <p class="col-2 p-0 report-date">
+                        <div class="row p-0 report-header_container">
+                            <div class="col-9 p-0 report-header_title">
+                                Отчет по ошибкам по департаменту
+                                <t t-esc="check_list_category_name" />
+                                .
+                            </div>
+                            <div class="col-3">
+                                <img src="/restaurant_management/static/src/img/andys_logo.jpg" alt="Andy's Logo" />
+                                <img src="/restaurant_management/static/src/img/la_placinte_logo.jpg" alt="La Placinte Logo" />
+                            </div>
+                        </div>
+
+                        <div class="row zero_min_height">
+                            <div class="col-12 p-0">
+                                <div class="report-header_border" />
+                            </div>
+                        </div>
+
+                        <div class="container p-0 report-page_content_spacing">
+                            <div class="row report-date">
+                                <p class="col-2 p-0 ">
                                     <t t-esc="report_date" />
                                 </p>
                                 <div class="col-10"></div>
                             </div>
 
-                            <div class="row">
-                                <h4 class="col-12 p-0 section">
+                            <div class="row section-name w-210mm">
+                                <h4 class="col-12 p-0">
                                     1. Динамика кол-ва ошибок по
                                     <t t-esc="check_list_category_name" />
                                     .
                                 </h4>
                             </div>
-                            <div class="row">
-                                <img class="col-12" t-attf-src="data:image/png;base64,{{dynamics_of_faults_png}}" />
+                            <div class="row w-210mm">
+                                <img class="col-12 img--bordered" t-attf-src="data:image/png;base64,{{dynamics_of_faults_png}}" />
                             </div>
 
                             <p style="page-break-before:always;"></p>
 
-                            <div class="row">
-                                <h4 class="col-12 p-0 section">
-                                    2. Рейтинг ресторанов компании.
+                            <div class="row section-name w-210mm">
+                                <h4 class="col-12 p-0">
+                                    2. Рейтинг ресторанов компании по департаменту
+                                    <t t-esc="check_list_category_name" />
+                                    .
                                 </h4>
                             </div>
-                            <div class="row">
+                            <div class="row w-210mm">
                                 <div class="col-6">
-                                    <div class="row">
-                                        <h3 class="col-12 table_title">
-                                            <t t-esc="check_list_category_name" />
-                                        </h3>
-                                    </div>
                                     <div class="row">
                                         <div class="col-12">
                                             <table class="table table-striped">
                                                 <thead>
                                                     <tr>
-                                                        <th class="table_header" scope="col">
+                                                        <th class="table-header" scope="col">
                                                         Ресторан
                                                     </th>
-                                                        <th class="table_header" scope="col">
-                                                        Кол-во ошибок
+                                                        <th class="table-header" scope="col">
+                                                        Кол-во
                                                     </th>
                                                     </tr>
                                                 </thead>
@@ -100,20 +97,14 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="row">
-                                        <h3 class="col-12 table_title">
-                                            <t t-esc="check_list_category_name" />
-                                            / 1 проверка
-                                        </h3>
-                                    </div>
-                                    <div class="row">
                                         <div class="col-12">
                                             <table class="table table-striped">
                                                 <thead>
                                                     <tr>
-                                                        <th class="table_header" scope="col">Ресторан</th>
-                                                        <th class="table_header" scope="col">
-                                                        Кол-во ошибок
-                                                    </th>
+                                                        <th class="table-header" scope="col">Ресторан</th>
+                                                        <th class="table-header" scope="col">
+                                                            Кол-во/1 проверка
+                                                        </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -137,44 +128,30 @@
 
                             <p style="page-break-before:always;"></p>
 
-                            <div class="row">
+                            <div class="row section-name w-210mm">
                                 <div class="col-12">
-                                    <h4 class="mt-5 section">3. Топ ошибок по департаменту</h4>
+                                    <h4>
+                                        3. Топ
+                                        <t t-out="10 if len(top_faults_with_comments) &gt; 10 else len(top_faults_with_comments)" />
+                                        ошибок по департаменту - принятые меры ответственного по департаменту
+                                    </h4>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row w-210mm">
                                 <div class="col-12">
-                                    <table class="table table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th class="table_header">
-                                                    <t t-esc="check_list_category_name" />
-                                                </th>
-                                                <th class="table_header">
-                                                Кол-во ошибок
-                                           </th>
-                                                <th class="table_header">
-                                                Принятые меры директора ресторана
-                                           </th>
-                                                <th class="table_header">
-                                                Принятые меры ответственного по департаменту
-                                           </th>
-                                            </tr>
-                                        </thead>
+                                    <table class="table-top-faults">
                                         <tbody>
-                                            <t t-foreach="top_faults_with_comments" t-as="top_fault">
-                                                <tr>
+                                            <t t-foreach="top_faults_with_comments[:10] if len(top_faults_with_comments) &gt; 10 else top_faults_with_comments" t-as="top_fault">
+                                                <tr style="font-size: 4.5mm;">
                                                     <td>
-                                                        <t t-esc="top_fault[1]" />
-                                                    </td>
-                                                    <td>
-                                                        <t t-esc="top_fault[2]" />
-                                                    </td>
-                                                    <td>
-                                                        <t t-raw="top_fault[3]" />
-                                                    </td>
-                                                    <td>
-                                                        <t t-raw="top_fault[4]" />
+                                                        <span style="color: white; background-color: red; padding: 0.5mm 2mm; font-size: 6mm; border-radius: 2mm; margin: 0 1mm 0 0;">
+                                                            <t t-esc="top_fault[2]" />
+                                                        </span>
+                                                        <span style="vertical-align:bottom;">
+                                                            <t t-esc="top_fault[1]" />
+                                                        </span>
+                                                        <hr />
+                                                        <t t-out="Markup(top_fault[3])" />
                                                     </td>
                                                 </tr>
                                             </t>

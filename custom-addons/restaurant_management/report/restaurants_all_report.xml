@@ -15,43 +15,44 @@
 
         <template id="restaurants_all_report">
             <t t-call="web.html_container">
-                <div class="header">
-                    <div class="row ml-5 p-0">
-                        <div class="col-9 p-0 report-header_title">
-                            Общий отчет по проверкам ресторанов за месяц
-                        </div>
-                        <div class="col-3">
-                            <img class="ml-auto" style="width: 70px;" src="/restaurant_management/static/src/img/andys_logo.jpg" alt="Andy's Logo" />
-                            <img class="ml-1" style="width: 70px;" src="/restaurant_management/static/src/img/la_placinte_logo.jpg" alt="La Placinte Logo" />
-                        </div>
-                    </div>
-                    <div class="row zero_min_height">
-                        <div class="col-12 p-0">
-                            <div style="border-bottom: 3px solid #CF431A;" />
-                        </div>
-                    </div>
-                </div>
 
                 <div class="article">
                     <div class="page">
-                        <div class="container ml-5 mr-5">
-                            <div class="row mt-1">
-                                <p class="col-2 p-0 report-date">
+
+                        <div class="row p-0 report-header_container">
+                            <div class="col-9 p-0 report-header_title">
+                                Общий отчет по проверкам ресторанов за месяц.
+                            </div>
+                            <div class="col-3">
+                                <img src="/restaurant_management/static/src/img/andys_logo.jpg" alt="Andy's Logo" />
+                                <img src="/restaurant_management/static/src/img/la_placinte_logo.jpg" alt="La Placinte Logo" />
+                            </div>
+                        </div>
+
+                        <div class="row zero_min_height">
+                            <div class="col-12 p-0">
+                                <div class="report-header_border" />
+                            </div>
+                        </div>
+
+                        <div class="container report-page_content_spacing">
+                            <div class="row report-date">
+                                <p class="col-2 p-0 ">
                                     <t t-esc="report_date" />
                                 </p>
                                 <div class="col-10"></div>
                             </div>
 
-                            <div class="row">
-                                <h4 class="col-12 p-0 section">1. Количество проверок</h4>
+                            <div class="row section-name w-210mm">
+                                <h4 class="col-12 p-0">1. Количество проверок</h4>
                             </div>
-                            <div class="row">
-                                <table class="col-12 table_with_inner_border">
+                            <div class="row w-210mm">
+                                <table class="col-12 report-audit-amount-table">
                                     <thead>
                                         <tr>
                                             <th scope="col" style="width: 15%;"></th>
                                             <t t-foreach="months if len(months) &lt; 12 else months[:12]" t-as="month">
-                                                <th class="table_header" style="width: 7.1%;" scope="col">
+                                                <th class="report-audit-amount-table--header" style="width: 7.1%;" scope="col">
                                                     <t t-esc="month" />
                                                 </th>
                                             </t>
@@ -59,7 +60,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <th class="table_header" scope="row">Плановое</th>
+                                            <th class="report-audit-amount-table--header" scope="row">Плановое</th>
                                             <t t-foreach="counts_per_month['planned'] if len(months) &lt; 12 else counts_per_month['planned'][:12]" t-as="countPlanned">
                                                 <td>
                                                     <t t-esc="countPlanned" />
@@ -67,7 +68,7 @@
                                             </t>
                                         </tr>
                                         <tr>
-                                            <th class="table_header" scope="row">Фактическое</th>
+                                            <th class="report-audit-amount-table--header" scope="row">Фактическое</th>
                                             <t t-foreach="counts_per_month['actual'] if len(months) &lt; 12 else counts_per_month['actual'][:12]" t-as="countActual">
                                                 <td>
                                                     <t t-esc="countActual" />
@@ -78,25 +79,25 @@
                                 </table>
                             </div>
 
-                            <div class="row">
-                                <h4 class="col-12 p-0 section">2. Динамика общего кол-ва ошибок.</h4>
+                            <div class="row section-name w-210mm">
+                                <h4 class="col-12 p-0">2. Динамика общего кол-ва ошибок.</h4>
                             </div>
-                            <div class="row">
+                            <div class="row w-210mm">
                                 <img class="col-12 img--bordered" t-attf-src="data:image/png;base64,{{dynamics_of_faults_png}}" />
                             </div>
 
                             <p style="page-break-before:always;"></p>
 
                             <t t-foreach="fault_category_data" t-as="fault_category">
-                                <div class="row mt-3">
-                                    <h4 class="col-12 p-0 section">
+                                <div class="row section-name w-210mm">
+                                    <h4 class="col-12 p-0">
                                         <t t-esc="fault_category_index + 3" />
                                         . Динамика кол-ва ошибок по
                                         <t t-esc="fault_category[0]" />
                                         .
                                     </h4>
                                 </div>
-                                <div class="row">
+                                <div class="row w-210mm">
                                     <img class="col-12 img--bordered" t-attf-src="data:image/png;base64,{{fault_category[1]}}" />
                                 </div>
 
@@ -107,13 +108,13 @@
 
                             <p style="page-break-before:always;"></p>
 
-                            <div class="row mt-3">
-                                <h4 class="col-12 section p-0">
+                            <div class="row section-name w-210mm">
+                                <h4 class="col-12 p-0">
                                     <t t-esc="len(fault_category_data) + 3" />
                                     . Рейтинг ресторанов по общему количеству ошибок.
                                 </h4>
                             </div>
-                            <div class="row">
+                            <div class="row w-210mm">
                                 <div class="col-12 row">
                                     <div class="col-6">
                                         <div class="row">
@@ -121,9 +122,9 @@
                                                 <table class="table table-striped">
                                                     <thead>
                                                         <tr>
-                                                            <th class="table_header" scope="col">Ресторан</th>
-                                                            <th class="table_header" scope="col">
-                                                            Кол-во ошибок
+                                                            <th class="table-header" scope="col">Ресторан</th>
+                                                            <th class="table-header" scope="col">
+                                                            Кол-во
                                                         </th>
                                                         </tr>
                                                     </thead>
@@ -149,9 +150,9 @@
                                                 <table class="table table-striped">
                                                     <thead>
                                                         <tr>
-                                                            <th class="table_header" scope="col">Ресторан</th>
-                                                            <th class="table_header" scope="col">
-                                                            Кол-во ошибок/ед. проверки
+                                                            <th class="table-header" scope="col">Ресторан</th>
+                                                            <th class="table-header" scope="col">
+                                                            Кол-во/1 проверка
                                                         </th>
                                                         </tr>
                                                     </thead>

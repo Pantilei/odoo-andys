@@ -213,7 +213,20 @@ class FaultRegistry(models.Model):
     @api.model
     def get_fault_counts_per_month(self, date_start, date_end,
                                    check_list_category_id=None,
-                                   restaurant_id=None, restaurant_network_id=None):
+                                   restaurant_id=None,
+                                   restaurant_network_id=None,
+                                   check_list_category_ids=None,
+                                   restaurant_ids=None,
+                                   restaurant_network_ids=None):
+
+        if check_list_category_ids is None:
+            check_list_category_ids = []
+
+        if restaurant_ids is None:
+            restaurant_ids = []
+
+        if restaurant_network_ids is None:
+            restaurant_network_ids = []
 
         FaultRegistryModel = self.env["restaurant_management.fault_registry"]
         domain = [
@@ -234,6 +247,22 @@ class FaultRegistry(models.Model):
         if restaurant_network_id:
             domain = expression.AND([
                 [("restaurant_id.restaurant_network_id", "=", restaurant_network_id)],
+                domain
+            ])
+
+        if len(check_list_category_ids):
+            domain = expression.AND([
+                [("check_list_category_id", "in", check_list_category_ids)],
+                domain
+            ])
+        if len(restaurant_ids):
+            domain = expression.AND([
+                [("restaurant_id", "in", restaurant_ids)],
+                domain
+            ])
+        if len(restaurant_network_ids):
+            domain = expression.AND([
+                [("restaurant_id.restaurant_network_id", "in", restaurant_network_ids)],
                 domain
             ])
 
@@ -277,7 +306,9 @@ class FaultRegistry(models.Model):
         restaurant_rating_per_month = []
         for r_date in rrule(MONTHLY, dtstart=date_start, until=date_end):
             restaurant_ratings = self.get_restaurant_rating_data(
-                r_date, check_list_category_id=check_list_category_id)
+                r_date,
+                restaurant_network_id=restaurant_id.restaurant_network_id.id,
+                check_list_category_id=check_list_category_id)
             for idx, d in enumerate(restaurant_ratings):
                 if d[0] == restaurant_id.id:
                     restaurant_rating_per_month.append(idx+1)
@@ -287,7 +318,14 @@ class FaultRegistry(models.Model):
     @api.model
     def get_restaurant_rating_data(self, report_date,
                                    restaurant_network_id=None,
-                                   check_list_category_id=None):
+                                   restaurant_network_ids=None,
+                                   check_list_category_id=None,
+                                   check_list_category_ids=None):
+        if restaurant_network_ids is None:
+            restaurant_network_ids = []
+        if check_list_category_ids is None:
+            check_list_category_ids = []
+
         Restaurant = self.env["restaurant_management.restaurant"]
         FaultRegistry = self.env["restaurant_management.fault_registry"]
 
@@ -295,6 +333,11 @@ class FaultRegistry(models.Model):
         if restaurant_network_id:
             restaurant_domain = [
                 ("restaurant_network_id", "=", restaurant_network_id)
+            ]
+
+        if len(restaurant_network_ids):
+            restaurant_domain = [
+                ("restaurant_network_id", "in", restaurant_network_ids)
             ]
 
         res = []
@@ -310,6 +353,11 @@ class FaultRegistry(models.Model):
             if check_list_category_id:
                 domain = expression.AND([
                     [('check_list_category_id', '=', check_list_category_id)],
+                    domain
+                ])
+            if len(check_list_category_ids):
+                domain = expression.AND([
+                    [('check_list_category_id', 'in', check_list_category_ids)],
                     domain
                 ])
             domain = expression.AND([
@@ -330,7 +378,14 @@ class FaultRegistry(models.Model):
     @api.model
     def get_restaurant_rating_per_audit_data(self, report_date,
                                              restaurant_network_id=None,
-                                             check_list_category_id=None):
+                                             restaurant_network_ids=None,
+                                             check_list_category_id=None,
+                                             check_list_category_ids=None):
+        if restaurant_network_ids is None:
+            restaurant_network_ids = []
+        if check_list_category_ids is None:
+            check_list_category_ids = []
+
         Restaurant = self.env["restaurant_management.restaurant"]
         FaultRegistry = self.env["restaurant_management.fault_registry"]
         FaultAudit = self.env["restaurant_management.restaurant_audit"]
@@ -344,6 +399,10 @@ class FaultRegistry(models.Model):
         if restaurant_network_id:
             restaurant_domain = [
                 ("restaurant_network_id", "=", restaurant_network_id)]
+
+        if len(restaurant_network_ids):
+            restaurant_domain = [
+                ("restaurant_network_id", "in", restaurant_network_ids)]
         res = []
         for restaurant_id in Restaurant.search(restaurant_domain):
             domain = [
@@ -354,6 +413,11 @@ class FaultRegistry(models.Model):
             if check_list_category_id:
                 domain = expression.AND([
                     [('check_list_category_id', '=', check_list_category_id)],
+                    domain
+                ])
+            if len(check_list_category_ids):
+                domain = expression.AND([
+                    [('check_list_category_id', 'in', check_list_category_ids)],
                     domain
                 ])
             domain = expression.AND([
@@ -378,8 +442,18 @@ class FaultRegistry(models.Model):
     @api.model
     def get_top_faults(self, date_start, date_end,
                        check_list_category_id=None,
+                       check_list_category_ids=None,
                        restaurant_id=None,
-                       restaurant_network_id=None):
+                       restaurant_ids=None,
+                       restaurant_network_id=None,
+                       restaurant_network_ids=None):
+
+        if restaurant_network_ids is None:
+            restaurant_network_ids = []
+        if check_list_category_ids is None:
+            check_list_category_ids = []
+        if restaurant_ids is None:
+            restaurant_ids = []
 
         FaultRegistryModel = self.env["restaurant_management.fault_registry"]
         domain = [
@@ -403,6 +477,22 @@ class FaultRegistry(models.Model):
                 domain
             ])
 
+        if len(check_list_category_ids):
+            domain = expression.AND([
+                [("check_list_category_id", "in", check_list_category_ids)],
+                domain
+            ])
+        if len(restaurant_ids):
+            domain = expression.AND([
+                [("restaurant_id", "in", restaurant_ids)],
+                domain
+            ])
+        if len(restaurant_network_ids):
+            domain = expression.AND([
+                [("restaurant_id.restaurant_network_id", "in", restaurant_network_ids)],
+                domain
+            ])
+
         grouped_fault_count = FaultRegistryModel.read_group(
             domain=domain,
             fields=['fault_count'],
@@ -417,141 +507,87 @@ class FaultRegistry(models.Model):
 
         return fault_count_data
 
-    def get_director_comments_of_faults(self, date_start, date_end, check_list_id):
+    def get_director_comments_of_faults(self, date_start, date_end, check_list_id,
+                                        restaurant_id=None,
+                                        restaurant_ids=None,
+                                        restaurant_network_ids=None):
+
+        if restaurant_ids is None:
+            restaurant_ids = []
+
+        if restaurant_network_ids is None:
+            restaurant_network_ids = []
+
         FaultRegistryModel = self.env["restaurant_management.fault_registry"]
-        comments = FaultRegistryModel.search([
+        domain = [
             ("check_list_id", "=", check_list_id),
             ("fault_date", ">=", date_start),
             ("fault_date", "<=", date_end),
             ('state', '=', 'confirm')
-        ]).mapped("director_comment")
+        ]
+        if len(restaurant_network_ids):
+            domain = expression.AND([
+                [("restaurant_id.restaurant_network_id", "in", restaurant_network_ids)],
+                domain
+            ])
+
+        if len(restaurant_ids):
+            domain = expression.AND([
+                [("restaurant_id", "in", restaurant_ids)],
+                domain
+            ])
+
+        if restaurant_id:
+            domain = expression.AND([
+                [("restaurant_id", "=", restaurant_id)],
+                domain
+            ])
+
+        comments = FaultRegistryModel.search(domain).mapped("director_comment")
 
         return "<hr/>".join([c for c in comments if c])
 
-    def get_comments_of_faults(self, date_start, date_end, check_list_id):
+    def get_category_responsible_comments_of_faults(self, date_start, date_end, check_list_id,
+                                                    restaurant_network_ids=None):
+        if restaurant_network_ids is None:
+            restaurant_network_ids = []
+
         FaultRegistryModel = self.env["restaurant_management.fault_registry"]
-        comments = FaultRegistryModel.search([
+
+        domain = [
             ("check_list_id", "=", check_list_id),
             ("fault_date", ">=", date_start),
             ("fault_date", "<=", date_end),
             ('state', '=', 'confirm')
-        ]).mapped("comment")
+        ]
+        if len(restaurant_network_ids):
+            domain = expression.AND([
+                [("restaurant_id.restaurant_network_id", "in", restaurant_network_ids)],
+                domain
+            ])
+
+        comments = FaultRegistryModel.search(domain).mapped(
+            "check_list_category_responsible_comment")
 
         return "<hr/>".join([c for c in comments if c])
 
-    # @api.model
-    # def get_restaurant_rating_within_month_for_all_check_list_categories(
-    #     self,
-    #     year,
-    #     month,
-    #     restaurant_network_id=None
-    # ):
-    #     data = []
-    #     for check_list_category_id in self.env["restaurant_management.check_list_category"].search([]):
-    #         ordered_absolute_fault_count_per_restaurant = self.get_restaurant_absolute_rating_within_month_and_check_list_category(
-    #             year,
-    #             month,
-    #             check_list_category_id=check_list_category_id.id,
-    #             restaurant_network_id=restaurant_network_id
-    #         )
-    #         ordered_relative_fault_count_per_restaurant = self.get_restaurant_relative_rating_within_month_and_check_list_category(
-    #             year,
-    #             month,
-    #             check_list_category_id=check_list_category_id.id,
-    #             restaurant_network_id=restaurant_network_id
-    #         )
-    #         data.append({
-    #             "id": check_list_category_id.id,
-    #             "name": check_list_category_id.name,
-    #             "restaurants_absolute_rating": ordered_absolute_fault_count_per_restaurant,
-    #             "restaurants_relative_rating": ordered_relative_fault_count_per_restaurant
-    #         })
+    def get_comments_of_faults(self, date_start, date_end, check_list_id,
+                               restaurant_network_ids=None):
+        if restaurant_network_ids is None:
+            restaurant_network_ids = []
 
-    #     return data
+        FaultRegistryModel = self.env["restaurant_management.fault_registry"]
+        domain = [
+            ("check_list_id", "=", check_list_id),
+            ("fault_date", ">=", date_start),
+            ("fault_date", "<=", date_end),
+            ('state', '=', 'confirm')
+        ]
+        if len(restaurant_network_ids):
+            domain = expression.AND([
+                [("restaurant_id.restaurant_network_id", "in", restaurant_network_ids)],
+                domain
+            ])
+        comments = FaultRegistryModel.search(domain).mapped("comment")
 
-    # @api.model
-    # def get_restaurant_absolute_rating_within_month_and_check_list_category(
-    #     self,
-    #     year,
-    #     month,
-    #     check_list_category_id=None,
-    #     restaurant_network_id=None
-    # ):
-    #     domain = [
-    #         ("fault_date", ">=", date(year=year, month=month, day=1)),
-    #         ("fault_date", "<=", date(year=year, month=month, day=31)),
-    #     ]
-    #     if restaurant_network_id:
-    #         domain = expression.AND([
-    #             [("restaurant_id.restaurant_network_id", "=", restaurant_network_id)],
-    #             domain
-    #         ])
-    #     if check_list_category_id:
-    #         domain = expression.AND([
-    #             [("check_list_category_id", "=", check_list_category_id)],
-    #             domain
-    #         ])
-
-    #     fault_count_per_restaurant = self.env["restaurant_management.fault_registry"]\
-    #         .read_group(
-    #         domain=domain,
-    #         fields=['restaurant_id'],
-    #         groupby=['restaurant_id'],
-    #     )
-
-    #     res = [{
-    #         "id": r["restaurant_id"][0],
-    #         "name": self.env["restaurant_management.restaurant"].browse(r["restaurant_id"][0]).name,
-    #         "count": r["restaurant_id_count"]
-    #     } for r in fault_count_per_restaurant]
-
-    #     print("\n\n\n\n", "res:",
-    #           res)
-
-    #     res.sort(key=lambda r: r["count"])
-
-    #     return res
-
-    # def get_restaurant_relative_rating_within_month_and_check_list_category(
-    #     self,
-    #     year,
-    #     month,
-    #     check_list_category_id = None,
-    #     restaurant_network_id = None
-    # ):
-    #     domain=[
-    #         ("fault_date", ">=", date(year=year, month=month, day=1)),
-    #         ("fault_date", "<=", date(year=year, month=month, day=31)),
-    #     ]
-    #     if restaurant_network_id:
-    #         domain = expression.AND([
-    #             [("restaurant_id.restaurant_network_id", "=", restaurant_network_id)],
-    #             domain
-    #         ])
-    #     if check_list_category_id:
-    #         domain = expression.AND([
-    #             [("check_list_category_id", "=", check_list_category_id)],
-    #             domain
-    #         ])
-
-    #     fault_count_per_restaurant = self.env["restaurant_management.fault_registry"]\
-    #         .read_group(
-    #         domain=domain,
-    #         fields=['restaurant_id'],
-    #         groupby=['restaurant_id'],
-    #     )
-
-    #     res = [{
-    #         "id": r["restaurant_id"][0],
-    #         "name": self.env["restaurant_management.restaurant"].browse(r["restaurant_id"][0]).name,
-    #         "count": r["restaurant_id_count"]/self.env["restaurant_management.restaurant_audit"]
-    #         .search_count([
-    #             ('restaurant_id', '=', r["restaurant_id"][0]),
-    #             ("audit_date", ">=", date(year=year, month=month, day=1)),
-    #             ("audit_date", "<=", date(year=year, month=month, day=31)),
-    #         ])
-    #     } for r in fault_count_per_restaurant]
-
-    #     res.sort(key=lambda r: r["count"])
-
-    #     return res
+        return "<hr/>".join([c for c in comments if c])

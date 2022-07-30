@@ -2,6 +2,7 @@ from ..tools import short_date, get_multi_line_png
 from odoo import fields, models, api, _
 from datetime import date
 from calendar import monthrange
+from markupsafe import Markup
 from dateutil.rrule import rrule, MONTHLY
 
 
@@ -18,6 +19,11 @@ class RestaurantReport(models.AbstractModel):
         restaurant_id = data.get("restaurant_id")
         if isinstance(restaurant_id, int):
             restaurant_id = Restaurant.browse(restaurant_id)
+
+        check_list_category_ids = data.get("check_list_category_ids")
+        if len(check_list_category_ids) and isinstance(check_list_category_ids[0], int):
+            check_list_category_ids = FaultCategory.search(
+                [("id", "in", check_list_category_ids)])
 
         year = int(data.get("year"))
         month = int(data.get("month"))
@@ -39,6 +45,7 @@ class RestaurantReport(models.AbstractModel):
 
         dynamics_of_rating_png = self._get_rating_dynamics_png(
             restaurant_id,
+            check_list_category_ids,
             date_start, date_end,
             list(enumerate(months)))
 
@@ -56,10 +63,13 @@ class RestaurantReport(models.AbstractModel):
                 top_fault[0],
                 top_fault[1],
                 top_fault[2],
-                FaultRegistry.get_director_comments_of_faults(date(year=year, month=month, day=1), date(
-                    year=year, month=month, day=monthrange(year, month)[1]), top_fault[0]),
-                FaultRegistry.get_comments_of_faults(date(year=year, month=month, day=1), date(
-                    year=year, month=month, day=monthrange(year, month)[1]), top_fault[0]),
+                FaultRegistry.get_director_comments_of_faults(
+                    date(year=year, month=month, day=1),
+                    date(year=year, month=month, day=monthrange(
+                        year, month)[1]),
+                    top_fault[0],
+                    restaurant_id=restaurant_id.id
+                ),
             )
             for top_fault in top_faults
         ]
@@ -70,24 +80,25 @@ class RestaurantReport(models.AbstractModel):
             'dynamics_of_rating_png': dynamics_of_rating_png,
             'relative_fault_count_png': relative_fault_count_png,
 
-            'top_faults_with_comments': top_faults_with_comments[:5] if len(top_faults_with_comments) >= 5 else top_faults_with_comments,
+            'top_faults_with_comments': top_faults_with_comments,
 
             'months': months,
-            'counts_per_month': audit_counts_per_month
+            'counts_per_month': audit_counts_per_month,
+            'Markup': Markup
         }
 
-    def _get_rating_dynamics_png(self, restaurant_id, date_start, date_end, months):
+    def _get_rating_dynamics_png(self, restaurant_id, check_list_category_ids, date_start, date_end, months):
         FaultRegistry = self.env["restaurant_management.fault_registry"]
         CheckListCategory = self.env["restaurant_management.check_list_category"]
 
         data = FaultRegistry.get_restaurant_rating_monthly_data(
             date_start, date_end, restaurant_id)
-
         x_categ = months
         ys = [data]
         legend = [_('All')]
 
-        for category in CheckListCategory.search([]):
+        for category in check_list_category_ids:
+
             data = FaultRegistry.get_restaurant_rating_monthly_data(
                 date_start, date_end,
                 restaurant_id,

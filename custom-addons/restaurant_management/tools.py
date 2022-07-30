@@ -34,9 +34,13 @@ def get_double_y_axis_chart_png(x_cat, y1, y2, legend, legend_loc=None, legend_n
              color='#CCCCCC', linestyle=':', linewidth=1)
 
     l1 = ax1.plot(MONTHS, y1, color="red", marker="o", label=legend[0])
+
+    max_y1 = max(y1)
+    min_y1 = min(y1)
+    y1_range = max_y1 - min_y1
     for i, txt in enumerate(y1):
         ax1.annotate(txt, (MONTHS[i], y1[i]), xytext=(
-            MONTHS_INT[i]-0.35, y1[i]))
+            MONTHS_INT[i]-0.35, y1[i]-y1_range*0.04))
     l2 = ax2.plot(MONTHS, y2, color="orange", marker="o", label=legend[1])
     for i, txt in enumerate(y2):
         ax2.annotate(txt, (MONTHS[i], y2[i]), xytext=(

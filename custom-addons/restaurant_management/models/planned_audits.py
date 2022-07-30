@@ -73,7 +73,14 @@ class PlannedAudits(models.Model):
         default=4,
     )
 
-    def get_number_of_audits(self, date_start, date_end, restaurant_id=None, restaurant_network_id=None):
+    def get_number_of_audits(self, date_start, date_end,
+                             restaurant_id=None, restaurant_network_id=None,
+                             restaurant_ids=None, restaurant_network_ids=None):
+        if restaurant_ids is None:
+            restaurant_ids = []
+        if restaurant_network_ids is None:
+            restaurant_network_ids = []
+
         PlannedAudits = self.env["restaurant_management.planned_audits"]
         year_start = date_start.year
         month_start = date_start.month
@@ -89,6 +96,17 @@ class PlannedAudits(models.Model):
         if restaurant_network_id:
             domain = expression.AND([
                 [("restaurant_id.restaurant_network_id", "=", restaurant_network_id)],
+                domain
+            ])
+
+        if len(restaurant_ids):
+            domain = expression.AND([
+                [('restaurant_id', 'in', restaurant_ids)],
+                domain
+            ])
+        if len(restaurant_network_ids):
+            domain = expression.AND([
+                [("restaurant_id.restaurant_network_id", "in", restaurant_network_ids)],
                 domain
             ])
 

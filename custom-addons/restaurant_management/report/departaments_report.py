@@ -3,6 +3,7 @@ from odoo import fields, models, api, _
 from datetime import date
 from calendar import monthrange
 from dateutil.rrule import rrule, MONTHLY
+from markupsafe import Markup
 
 
 MONTHS = [
@@ -29,6 +30,7 @@ class DepartamentsReport(models.AbstractModel):
 
     def _get_report_values(self, docids, data=None):
         RestaurantAudit = self.env["restaurant_management.restaurant_audit"]
+        RestaurantNetwork = self.env["restaurant_management.restaurant_network"]
         FaultRegistry = self.env["restaurant_management.fault_registry"]
         FaultCategory = self.env["restaurant_management.check_list_category"]
 
@@ -39,6 +41,11 @@ class DepartamentsReport(models.AbstractModel):
         if isinstance(check_list_category_id, int):
             check_list_category_id = FaultCategory.browse(
                 check_list_category_id)
+
+        restaurant_network_ids = data.get('restaurant_network_ids')
+        if len(restaurant_network_ids) and isinstance(restaurant_network_ids[0], int):
+            restaurant_network_ids = RestaurantNetwork.browse(
+                restaurant_network_ids)
 
         year_start = int(data.get("year_start"))
         month_start = int(data.get("month_start"))
@@ -54,28 +61,44 @@ class DepartamentsReport(models.AbstractModel):
 
         dynamics_of_faults_png = self._get_dynamics_of_faults_png(
             date_start, date_end, list(enumerate(months)),
+            restaurant_network_ids=restaurant_network_ids.ids,
             check_list_category_id=check_list_category_id.id)
 
         restaurant_rating = FaultRegistry.get_restaurant_rating_data(
-            report_date, check_list_category_id=check_list_category_id.id)
+            report_date,
+            restaurant_network_ids=restaurant_network_ids.ids,
+            check_list_category_id=check_list_category_id.id)
 
         restaurant_rating_per_audit = FaultRegistry.get_restaurant_rating_per_audit_data(
-            report_date, check_list_category_id=check_list_category_id.id)
+            report_date,
+            restaurant_network_ids=restaurant_network_ids.ids,
+            check_list_category_id=check_list_category_id.id)
 
         top_faults = FaultRegistry.get_top_faults(
             date(year=year, month=month, day=1),
             date(year=year, month=month, day=monthrange(year, month)[1]),
-            check_list_category_id=check_list_category_id.id)
+            check_list_category_id=check_list_category_id.id,
+            restaurant_network_ids=restaurant_network_ids.ids)
 
         top_faults_with_comments = [
             (
                 top_fault[0],
                 top_fault[1],
                 top_fault[2],
-                FaultRegistry.get_director_comments_of_faults(date(year=year, month=month, day=1), date(
-                    year=year, month=month, day=monthrange(year, month)[1]), top_fault[0]),
-                FaultRegistry.get_comments_of_faults(date(year=year, month=month, day=1), date(
-                    year=year, month=month, day=monthrange(year, month)[1]), top_fault[0]),
+                FaultRegistry.get_category_responsible_comments_of_faults(
+                    date(year=year, month=month, day=1),
+                    date(year=year, month=month,
+                         day=monthrange(year, month)[1]),
+                    top_fault[0],
+                    # restaurant_network_ids=restaurant_network_ids.ids,
+                ),
+                FaultRegistry.get_comments_of_faults(
+                    date(year=year, month=month, day=1),
+                    date(year=year, month=month,
+                         day=monthrange(year, month)[1]),
+                    top_fault[0],
+                    # restaurant_network_ids=restaurant_network_ids.ids,
+                ),
             )
             for top_fault in top_faults
         ]
@@ -91,13 +114,17 @@ class DepartamentsReport(models.AbstractModel):
 
             'months': months,
 
-            'top_faults_with_comments': top_faults_with_comments
+            'top_faults_with_comments': top_faults_with_comments,
+            'Markup': Markup
         }
 
-    def _get_dynamics_of_faults_png(self, date_start, date_end, months, check_list_category_id=None):
+    def _get_dynamics_of_faults_png(self, date_start, date_end, months,
+                                    restaurant_network_ids=None,
+                                    check_list_category_id=None):
         data = self.env["restaurant_management.fault_registry"]\
             .get_fault_counts_per_month(
                 date_start, date_end,
+                restaurant_network_ids=restaurant_network_ids,
                 check_list_category_id=check_list_category_id)
 
         return get_double_y_axis_chart_png(

@@ -204,12 +204,31 @@ class RestaurantAudit(models.Model):
 
     @api.model
     def get_audit_counts_per_month(self, date_start, date_end,
-                                   restaurant_id=None, restaurant_network_id=None):
+                                   restaurant_id=None, restaurant_network_id=None,
+                                   restaurant_ids=None, restaurant_network_ids=None):
+
+        if restaurant_ids is None:
+            restaurant_ids = []
+        if restaurant_network_ids is None:
+            restaurant_network_ids = []
+
         RestaurantAudit = self.env["restaurant_management.restaurant_audit"]
         domain = [
             ('audit_date', '>=', date_start),
             ('audit_date', '<=', date_end),
         ]
+
+        if len(restaurant_ids):
+            domain = expression.AND([
+                [("restaurant_id", "in", restaurant_ids)],
+                domain
+            ])
+        if len(restaurant_network_ids):
+            domain = expression.AND([
+                [("restaurant_id.restaurant_network_id", "in", restaurant_network_ids)],
+                domain
+            ])
+
         if restaurant_id:
             domain = expression.AND([
                 [("restaurant_id", "=", restaurant_id)],
@@ -220,6 +239,7 @@ class RestaurantAudit(models.Model):
                 [("restaurant_id.restaurant_network_id", "=", restaurant_network_id)],
                 domain
             ])
+
         audit_count_per_month = RestaurantAudit.read_group(
             domain=domain,
             fields=['restaurant_id'],
@@ -239,7 +259,10 @@ class RestaurantAudit(models.Model):
         return {
             "actual": audit_counts,
             "planned": self.env["restaurant_management.planned_audits"].get_number_of_audits(
-                date_start, date_end, restaurant_id=restaurant_id,
-                restaurant_network_id=restaurant_network_id
+                date_start, date_end,
+                restaurant_id=restaurant_id,
+                restaurant_network_id=restaurant_network_id,
+                restaurant_ids=restaurant_ids,
+                restaurant_network_ids=restaurant_network_ids
             )
         }
