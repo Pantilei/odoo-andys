@@ -100,3 +100,28 @@
     }
 
 }
+
+.report-rating-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+
+    thead {
+        display: table-row-group;
+    }
+    
+    th, td {
+        text-align: left;
+        padding: 1mm;
+    }
+
+    th {
+        font-weight: bold;
+        border-bottom: #ddd;
+    }
+
+    & tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+}
