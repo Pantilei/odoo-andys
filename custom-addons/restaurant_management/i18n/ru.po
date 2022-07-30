@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-26 19:58+0000\n"
-"PO-Revision-Date: 2022-07-26 19:58+0000\n"
+"POT-Creation-Date: 2022-07-30 19:10+0000\n"
+"PO-Revision-Date: 2022-07-30 19:10+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -38,8 +38,13 @@ msgid "'Report'"
 msgstr "Отчёт"
 
 #. module: restaurant_management
-#: model_terms:ir.ui.view,arch_db:restaurant_management.departaments_report
-msgid "/ 1 проверка"
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurants_all_report
+msgid ". Динамика кол-ва ошибок по"
+msgstr ""
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurants_all_report
+msgid ". Рейтинг ресторанов по общему количеству ошибок."
 msgstr ""
 
 #. module: restaurant_management
@@ -68,6 +73,11 @@ msgstr ""
 #. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurants_all_report
 msgid "2. Динамика общего кол-ва ошибок."
+msgstr ""
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.departaments_report
+msgid "2. Рейтинг ресторанов компании по департаменту"
 msgstr ""
 
 #. module: restaurant_management
@@ -420,12 +430,12 @@ msgstr ""
 
 #. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.departaments_report
-msgid "3. Топ ошибок по департаменту"
+msgid "3. Топ"
 msgstr ""
 
 #. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_report
-msgid "4. Топ 5 ошибок за месяц."
+msgid "4. Топ"
 msgstr ""
 
 #. module: restaurant_management
@@ -524,7 +534,9 @@ msgid "All"
 msgstr "Все"
 
 #. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.departaments_report
 #: model_terms:ir.ui.view,arch_db:restaurant_management.layout_of_report
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_report
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurants_all_report
 msgid "Andy's Logo"
 msgstr ""
@@ -788,6 +800,11 @@ msgid "Department"
 msgstr "Департамент"
 
 #. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_reports_wizard__check_list_category_ids
+msgid "Departments"
+msgstr "Департаменты"
+
+#. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list__description
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant__description
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_network__description
@@ -933,7 +950,7 @@ msgstr "Общий отчет по проверкам ресторана"
 #. module: restaurant_management
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_reports_wizard__report__general_report_by_restaurant_department
 msgid "General Report by Restaurant Department"
-msgstr "Отчет по ошибкам по депортаменту"
+msgstr "Отчет по ошибкам по департаменту"
 
 #. module: restaurant_management
 #: model:ir.actions.server,name:restaurant_management.ir_cron_generate_check_list_data_ir_actions_server
@@ -1067,7 +1084,9 @@ msgid "June"
 msgstr "Июнь"
 
 #. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.departaments_report
 #: model_terms:ir.ui.view,arch_db:restaurant_management.layout_of_report
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_report
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurants_all_report
 msgid "La Placinte Logo"
 msgstr ""
@@ -1473,6 +1492,7 @@ msgid "Restaurant Network Manager"
 msgstr "Руководитель сети"
 
 #. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_reports_wizard__restaurant_network_ids
 #: model:ir.ui.menu,name:restaurant_management.restaurant_network
 msgid "Restaurant Networks"
 msgstr "Сеть Ресторанов"
@@ -1751,8 +1771,14 @@ msgstr ""
 
 #. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.departaments_report
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_report
-msgid "Кол-во ошибок"
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurants_all_report
+msgid "Кол-во"
+msgstr ""
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.departaments_report
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurants_all_report
+msgid "Кол-во/1 проверка"
 msgstr ""
 
 #. module: restaurant_management
@@ -1762,17 +1788,12 @@ msgstr ""
 
 #. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurants_all_report
-msgid "Общий отчет по проверкам ресторанов за месяц"
+msgid "Общий отчет по проверкам ресторанов за месяц."
 msgstr ""
 
 #. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.departaments_report
-msgid "Отчет по ошибкам по депортаменту"
-msgstr ""
-
-#. module: restaurant_management
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_report
-msgid "Ошибки по чек листу"
+msgid "Отчет по ошибкам по департаменту"
 msgstr ""
 
 #. module: restaurant_management
@@ -1783,23 +1804,7 @@ msgstr ""
 
 #. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.departaments_report
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_report
-msgid "Принятые меры директора ресторана"
-msgstr ""
-
-#. module: restaurant_management
-#: model_terms:ir.ui.view,arch_db:restaurant_management.departaments_report
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_report
-msgid "Принятые меры ответственного по департаменту"
-msgstr ""
-
-#. module: restaurant_management
-#: model_terms:ir.ui.view,arch_db:restaurant_management.departaments_report
-msgid "Рейтинг ресторанов по компании."
-msgstr ""
-
-#. module: restaurant_management
-#: model_terms:ir.ui.view,arch_db:restaurant_management.departaments_report
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurants_all_report
 msgid "Ресторан"
 msgstr ""
 
@@ -1814,4 +1819,14 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_report
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurants_all_report
 msgid "Фактическое"
+msgstr ""
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.departaments_report
+msgid "ошибок по департаменту - принятые меры ответственного по департаменту"
+msgstr ""
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_report
+msgid "ошибок по ресторану - принятые меры директора ресторана"
 msgstr ""
