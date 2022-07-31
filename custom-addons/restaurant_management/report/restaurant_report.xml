@@ -100,7 +100,7 @@
                             <div class="row section-name w-210mm">
                                 <h4>
                                     4. Топ
-                                    <t t-out="10 if len(top_faults_with_comments) &gt; 10 else len(top_faults_with_comments)" />
+                                    <t t-out="20 if len(top_faults_with_comments) &gt; 20 else len(top_faults_with_comments)" />
                                     ошибок по ресторану - принятые меры директора ресторана
                                 </h4>
                             </div>
@@ -108,7 +108,7 @@
                                 <div class="col-12">
                                     <table class="table-top-faults">
                                         <tbody>
-                                            <t t-foreach="top_faults_with_comments[:10] if len(top_faults_with_comments) &gt; 10 else top_faults_with_comments" t-as="top_fault">
+                                            <t t-foreach="top_faults_with_comments[:20] if len(top_faults_with_comments) &gt; 20 else top_faults_with_comments" t-as="top_fault">
                                                 <tr style="font-size: 4.5mm;">
                                                     <td>
                                                         <span style="color: white; background-color: red; padding: 0.5mm 2mm; font-size: 6mm; border-radius: 2mm; margin: 0 1mm 0 0;">

@@ -33,6 +33,8 @@
         'views/reports_action_views.xml',
 
         'wizards/reports.xml',
+        'wizards/departaments_reports.xml',
+        'wizards/restaurant_reports.xml',
 
         'views/menu_items.xml',
         'views/res_users.xml',
