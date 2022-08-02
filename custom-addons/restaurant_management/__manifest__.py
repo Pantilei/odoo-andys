@@ -30,7 +30,6 @@
         'views/check_list_views.xml',
         'views/check_list_category_views.xml',
         'views/fault_registry_views.xml',
-        'views/reports_action_views.xml',
 
         'wizards/reports.xml',
         'wizards/departaments_reports.xml',
