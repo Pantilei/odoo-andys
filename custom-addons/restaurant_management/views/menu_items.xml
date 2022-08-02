@@ -68,14 +68,14 @@
               sequence="15" />
     
     <menuitem id="departaments_report_menu" 
-              name="Departaments Report" 
+              name="Departament Reports" 
               parent="report_main_menu" 
               action="departaments_reports_wizard_action"
               groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager" 
               sequence="16" />
     
     <menuitem id="restaurant_reports_menu" 
-              name="Restaurant Report" 
+              name="Restaurant Reports" 
               parent="report_main_menu" 
               action="restaurant_reports_wizard_action"
               groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager" 
