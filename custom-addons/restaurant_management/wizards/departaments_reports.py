@@ -64,7 +64,9 @@ class DepartamentsReports(models.TransientModel):
         return str((date.today() + relativedelta(months=-2)).month)
 
     def _get_default_departaments(self):
-        return self.env["restaurant_management.check_list_category"].search([])
+        return self.env["restaurant_management.check_list_category"].search([
+            ("default_category", "=", True),
+        ])
 
     def _get_default_restaurant_networks(self):
         return self.env["restaurant_management.restaurant_network"].search([])
@@ -91,11 +93,6 @@ class DepartamentsReports(models.TransientModel):
     json_top_faults = fields.Text(
         compute="_compute_json_top_faults"
     )
-
-    # check_list_category_id = fields.Many2one(
-    #     comodel_name="restaurant_management.check_list_category",
-    #     string="Department"
-    # )
 
     check_list_category_ids = fields.Many2many(
         comodel_name="restaurant_management.check_list_category",

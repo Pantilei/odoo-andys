@@ -31,3 +31,8 @@ class CheckListCategory(models.Model):
             There you can find all chat_ids that this bot is currently used in.
         """
     )
+
+    default_category = fields.Boolean(
+        default=True,
+        string="Is this category in default list?"
+    )

@@ -19,6 +19,9 @@
                             <field name="identificator" />
                         </group>
                         <group>
+                            <field name="default_category" />
+                        </group>
+                        <group>
                             <field name="telegram_chat_id" groups="base.group_no_one" />
                         </group>
                     </sheet>
@@ -29,9 +32,12 @@
             <field name="name">check_list.view.tree</field>
             <field name="model">restaurant_management.check_list_category</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree editable="bottom">
                     <field name="sequence" widget="handle" />
+                    <field name="identificator" />
                     <field name="name" />
+                    <field name="default_category" />
+                    <field name="telegram_chat_id" groups="base.group_no_one" />
                 </tree>
             </field>
         </record>

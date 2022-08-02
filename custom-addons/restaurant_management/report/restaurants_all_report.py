@@ -46,6 +46,11 @@ class RestaurnatsAllReport(models.AbstractModel):
             restaurant_network_ids = RestaurantNetwork.browse(
                 restaurant_network_ids)
 
+        check_list_category_ids = data.get("check_list_category_ids")
+        if len(check_list_category_ids) and isinstance(check_list_category_ids[0], int):
+            check_list_category_ids = FaultCategory.browse(
+                check_list_category_ids)
+
         report_date = date(year=year, month=month, day=1)
         date_start = date(year=year_start, month=month_start, day=1)
         date_end = date(year=year_end, month=month_end,
@@ -57,24 +62,32 @@ class RestaurnatsAllReport(models.AbstractModel):
             date_start, date_end, restaurant_network_ids=restaurant_network_ids.ids)
 
         dynamics_of_faults_png = self._get_dynamics_of_faults_png(
-            date_start, date_end, list(enumerate(months)), restaurant_network_ids=restaurant_network_ids.ids)
+            date_start, date_end, list(enumerate(months)),
+            restaurant_network_ids=restaurant_network_ids.ids,
+            check_list_category_ids=check_list_category_ids.ids
+        )
 
-        fault_category_ids = FaultCategory.search([])
         fault_category_data = [
             (
-                fault_category_id.name,
+                check_list_category_id.name,
                 self._get_dynamics_of_faults_png(
                     date_start, date_end, list(enumerate(months)),
                     restaurant_network_ids=restaurant_network_ids.ids,
-                    check_list_category_ids=fault_category_id.ids),
-            ) for fault_category_id in fault_category_ids
+                    check_list_category_ids=check_list_category_id.ids),
+            ) for check_list_category_id in check_list_category_ids
         ]
 
         restaurant_rating = FaultRegistry.get_restaurant_rating_data(
-            report_date, restaurant_network_ids=restaurant_network_ids.ids)
+            report_date,
+            restaurant_network_ids=restaurant_network_ids.ids,
+            check_list_category_ids=check_list_category_ids.ids
+        )
 
         restaurant_rating_per_audit = FaultRegistry.get_restaurant_rating_per_audit_data(
-            report_date, restaurant_network_ids=restaurant_network_ids.ids)
+            report_date,
+            restaurant_network_ids=restaurant_network_ids.ids,
+            check_list_category_ids=check_list_category_ids.ids
+        )
 
         return {
             'report_date': report_date.strftime('%m/%Y'),

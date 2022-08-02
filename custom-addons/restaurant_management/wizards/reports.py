@@ -109,8 +109,13 @@ class Reports(models.TransientModel):
     def _on_report_change(self):
         if self.report == "general_report_by_audit_of_restaurant":
             self.check_list_category_ids = self.env["restaurant_management.check_list_category"]\
-                .search([])
+                .search([("default_category", "=", True)])
         if self.report == "general_report_by_audit_of_all_restaurants":
+            self.restaurant_network_ids = self.env["restaurant_management.restaurant_network"]\
+                .search([])
+            self.check_list_category_ids = self.env["restaurant_management.check_list_category"]\
+                .search([("default_category", "=", True)])
+        if self.report == "general_report_by_restaurant_department":
             self.restaurant_network_ids = self.env["restaurant_management.restaurant_network"]\
                 .search([])
 
@@ -124,6 +129,7 @@ class Reports(models.TransientModel):
                 "month_start": self.month_start,
                 "month_end": self.month_end,
                 "restaurant_network_ids": self.restaurant_network_ids.ids,
+                "check_list_category_ids": self.check_list_category_ids.ids
             }
             return self.sudo().env.ref("restaurant_management.action_restaurants_all_report")\
                 .report_action(self, data=data)

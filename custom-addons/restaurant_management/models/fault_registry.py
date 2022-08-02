@@ -426,8 +426,10 @@ class FaultRegistry(models.Model):
 
             fault_count = sum(restaurant_faults.mapped("fault_count"))
 
-            actual_count_of_audits = FaultAudit\
-                .get_audit_counts_per_month(date_start, date_end, restaurant_id=restaurant_id.id)["actual"][0]
+            actual_count_of_audits = FaultAudit.get_audit_counts_per_month(
+                date_start, date_end,
+                restaurant_id=restaurant_id.id
+            )["actual"][0]
 
             res.append(
                 [restaurant_id.id, restaurant_id.name, round(fault_count/actual_count_of_audits, 2) if actual_count_of_audits else 0])
