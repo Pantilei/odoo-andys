@@ -58,6 +58,7 @@
         'web.assets_backend': [
             'restaurant_management/static/src/js/many2many_binary_preview.js',
             'web/static/lib/Chart/Chart.js',
+            'restaurant_management/static/src/libs/chartjs-plugin-datalabels.js',
 
             'restaurant_management/static/src/scss/variables/derived_variables.scss',
             'restaurant_management/static/src/scss/document_viewer.scss',
@@ -66,6 +67,11 @@
             'restaurant_management/static/src/js/documnet_viewer_legacy.js',
             'restaurant_management/static/src/js/many2one_selection_owl_widget.js',
             'restaurant_management/static/src/js/reports_action.js',
+
+            'restaurant_management/static/src/js/json_to_chart_widget.js',
+
+            'restaurant_management/static/src/js/json_to_table_widget.js',
+            'restaurant_management/static/src/scss/json_to_table_widget.scss',
         ],
         'web.assets_frontend': [],
         'web.assets_tests': [],
@@ -78,6 +84,8 @@
             'restaurant_management/static/src/xml/document_viewer_legacy.xml',
             'restaurant_management/static/src/xml/many2one_selection_owl_widget.xml',
             'restaurant_management/static/src/xml/reports_action.xml',
+            'restaurant_management/static/src/xml/json_to_chart_widget.xml',
+            'restaurant_management/static/src/xml/json_to_table_widget.xml',
         ],
     },
     'license': 'LGPL-3',

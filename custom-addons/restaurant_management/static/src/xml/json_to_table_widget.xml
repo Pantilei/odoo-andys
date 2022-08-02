@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+
+    <t t-name="JsonToTopFaults" owl="1">
+        <table class="top-faults-table">
+            <tbody>
+                <t t-foreach="topFaultsWithComments" t-as="topFault" t-key="topFault[0]">
+                    <tr style="font-size: 16px;">
+                        <td>
+                            <span style="color: white; background-color: red; padding: 0.5mm 2mm; font-size: 6mm; border-radius: 2mm; margin: 0 1mm 0 0;">
+                                <t t-esc="topFault[2]" />
+                            </span>
+                            <span style="vertical-align:bottom;">
+                                <t t-esc="topFault[1]" />
+                            </span>
+                            <hr />
+                            <t t-raw="topFault[3]" />
+                            <!-- <t t-out="Markup(topFault[3])" /> -->
+                        </td>
+                    </tr>
+                </t>
+            </tbody>
+        </table>
+    </t>
+
+</templates>

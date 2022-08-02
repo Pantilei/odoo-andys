@@ -218,7 +218,6 @@ class FaultRegistry(models.Model):
                                    check_list_category_ids=None,
                                    restaurant_ids=None,
                                    restaurant_network_ids=None):
-
         if check_list_category_ids is None:
             check_list_category_ids = []
 
@@ -265,7 +264,6 @@ class FaultRegistry(models.Model):
                 [("restaurant_id.restaurant_network_id", "in", restaurant_network_ids)],
                 domain
             ])
-
         fault_count_per_month = FaultRegistryModel.read_group(
             domain=domain,
             fields=['fault_count'],
