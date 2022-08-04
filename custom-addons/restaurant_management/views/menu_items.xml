@@ -60,13 +60,6 @@
               groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager" 
               sequence="10" />
     
-    <menuitem id="reports_library_menu" 
-              name="Reports" 
-              parent="report_main_menu" 
-              action="reports_library_client_action"
-              groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager" 
-              sequence="15" />
-    
     <menuitem id="departaments_report_menu" 
               name="Departament Reports" 
               parent="report_main_menu" 

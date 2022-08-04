@@ -4,7 +4,7 @@
     <t t-name="JsonToTopFaults" owl="1">
         <table class="top-faults-table">
             <tbody>
-                <t t-foreach="topFaultsWithComments" t-as="topFault" t-key="topFault[0]">
+                <t t-foreach="state.fieldValue" t-as="topFault" t-key="topFault[0]">
                     <tr style="font-size: 16px;">
                         <td>
                             <span style="color: white; background-color: red; padding: 0.5mm 2mm; font-size: 6mm; border-radius: 2mm; margin: 0 1mm 0 0;">
@@ -15,7 +15,6 @@
                             </span>
                             <hr />
                             <t t-raw="topFault[3]" />
-                            <!-- <t t-out="Markup(topFault[3])" /> -->
                         </td>
                     </tr>
                 </t>

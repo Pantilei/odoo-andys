@@ -68,6 +68,12 @@ class DepartamentsReports(models.TransientModel):
             ("default_category", "=", True),
         ])
 
+    def _get_default_check_list_category(self):
+        check_list_category_id = self.env["restaurant_management.check_list_category"].search([
+            ("default_category", "=", True),
+        ])
+        return check_list_category_id[0] if len(check_list_category_id) else False
+
     def _get_default_restaurant_networks(self):
         return self.env["restaurant_management.restaurant_network"].search([])
 
@@ -77,12 +83,11 @@ class DepartamentsReports(models.TransientModel):
     )
 
     report = fields.Selection(selection=[
+        ("restaurant_rating", "Restaurant Rating"),
         ("fault_count_dynamics", "Fault Count Dynamics"),
         ("top_10_faults", "Top 10 Faults"),
-        ("general_report_by_audit_of_restaurant",
-         "General Report by Audit of Restaurant."),
     ],
-        default="fault_count_dynamics",
+        default="restaurant_rating",
         required=True
     )
 
@@ -92,6 +97,17 @@ class DepartamentsReports(models.TransientModel):
 
     json_top_faults = fields.Text(
         compute="_compute_json_top_faults"
+    )
+
+    json_restaurant_rating = fields.Text(
+        compute="_compute_json_restaurant_rating"
+    )
+
+    check_list_category_id = fields.Many2one(
+        comodel_name="restaurant_management.check_list_category",
+        string="Department",
+        default=_get_default_check_list_category,
+        required=True
     )
 
     check_list_category_ids = fields.Many2many(
@@ -153,57 +169,34 @@ class DepartamentsReports(models.TransientModel):
         string="Month End"
     )
 
-    # @api.onchange("report")
-    # def _on_report_change(self):
-    #     if self.report == "general_report_by_audit_of_restaurant":
-    #         self.check_list_category_ids = self.env["restaurant_management.check_list_category"]\
-    #             .search([])
-    #     if self.report == "general_report_by_audit_of_all_restaurants":
-    #         self.restaurant_network_ids = self.env["restaurant_management.restaurant_network"]\
-    #             .search([])
+    @api.depends("report", "restaurant_network_ids", "check_list_category_id", "year", "month")
+    def _compute_json_restaurant_rating(self):
+        RestaurantNetwork = self.env["restaurant_management.restaurant_network"]
+        FaultRegistry = self.env["restaurant_management.fault_registry"]
+        FaultCategory = self.env["restaurant_management.check_list_category"]
+        for record in self:
+            report_date = date(
+                year=int(record.year),
+                month=int(record.month),
+                day=1
+            )
 
-    # def print_report(self):
-    #     if self.report == "general_report_by_audit_of_all_restaurants":
-    #         data = {
-    #             "year": self.year,
-    #             "month": self.month,
-    #             "year_start": self.year_start,
-    #             "year_end": self.year_end,
-    #             "month_start": self.month_start,
-    #             "month_end": self.month_end,
-    #             "restaurant_network_ids": self.restaurant_network_ids.ids,
-    #         }
-    #         return self.sudo().env.ref("restaurant_management.action_restaurants_all_report")\
-    #             .report_action(self, data=data)
+            restaurant_rating = FaultRegistry.get_restaurant_rating_data(
+                report_date,
+                restaurant_network_ids=record.restaurant_network_ids.ids,
+                check_list_category_id=record.check_list_category_id.id)
 
-    #     if self.report == "general_report_by_restaurant_department":
-    #         data = {
-    #             "year": self.year,
-    #             "month": self.month,
-    #             "year_start": self.year_start,
-    #             "year_end": self.year_end,
-    #             "month_start": self.month_start,
-    #             "month_end": self.month_end,
-    #             "check_list_category_id": self.check_list_category_id.id,
-    #             "restaurant_network_ids": self.restaurant_network_ids.ids,
-    #         }
-    #         return self.sudo().env.ref("restaurant_management.action_departaments_report")\
-    #             .report_action(self, data=data)
+            restaurant_rating_per_audit = FaultRegistry.get_restaurant_rating_per_audit_data(
+                report_date,
+                restaurant_network_ids=record.restaurant_network_ids.ids,
+                check_list_category_id=record.check_list_category_id.id)
 
-    #     if self.report == "general_report_by_audit_of_restaurant":
-    #         data = {
-    #             "year": self.year,
-    #             "month": self.month,
-    #             "year_start": self.year_start,
-    #             "year_end": self.year_end,
-    #             "month_start": self.month_start,
-    #             "month_end": self.month_end,
-    #             "restaurant_id": self.restaurant_id.id,
-    #             "check_list_category_ids": self.check_list_category_ids.ids,
-    #         }
-    #         return self.sudo().env.ref("restaurant_management.action_restaurant_report")\
-    #             .report_action(self, data=data)
-    @api.depends("report", "restaurant_network_ids", "check_list_category_ids")
+            record.json_restaurant_rating = json.dumps({
+                "restaurant_rating": restaurant_rating,
+                "restaurant_rating_per_audit": restaurant_rating_per_audit
+            })
+
+    @api.depends("report", "restaurant_network_ids", "check_list_category_ids", "year", "month")
     def _compute_json_top_faults(self):
         RestaurantNetwork = self.env["restaurant_management.restaurant_network"]
         FaultRegistry = self.env["restaurant_management.fault_registry"]

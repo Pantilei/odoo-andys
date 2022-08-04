@@ -165,19 +165,19 @@ class FaultRegistry(models.Model):
     def onchange_check_list_category(self):
         self.check_list_id = False
 
-    @api.depends("restaurant_audit_id")
+    @api.depends("restaurant_audit_id.responsible_id")
     def _compute_responsible(self):
         for record in self:
             if record.restaurant_audit_id:
                 record.responsible_id = record.restaurant_audit_id.responsible_id.id
 
-    @api.depends("restaurant_audit_id")
+    @api.depends("restaurant_audit_id.restaurant_id")
     def _compute_restaurant(self):
         for record in self:
             if record.restaurant_audit_id:
                 record.restaurant_id = record.restaurant_audit_id.restaurant_id.id
 
-    @api.depends("restaurant_audit_id")
+    @api.depends("restaurant_audit_id.audit_date")
     def _compute_fault_date(self):
         for record in self:
             if record.restaurant_audit_id:

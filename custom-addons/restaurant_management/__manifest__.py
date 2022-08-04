@@ -69,8 +69,10 @@
 
             'restaurant_management/static/src/js/json_to_chart_widget.js',
 
-            'restaurant_management/static/src/js/json_to_table_widget.js',
-            'restaurant_management/static/src/scss/json_to_table_widget.scss',
+            'restaurant_management/static/src/js/json_to_top_faults_widget.js',
+            'restaurant_management/static/src/scss/json_to_top_faults_widget.scss',
+
+            'restaurant_management/static/src/js/json_to_restaurant_rating_widget.js',
         ],
         'web.assets_frontend': [],
         'web.assets_tests': [],
@@ -84,7 +86,8 @@
             'restaurant_management/static/src/xml/many2one_selection_owl_widget.xml',
             'restaurant_management/static/src/xml/reports_action.xml',
             'restaurant_management/static/src/xml/json_to_chart_widget.xml',
-            'restaurant_management/static/src/xml/json_to_table_widget.xml',
+            'restaurant_management/static/src/xml/json_to_top_faults_widget.xml',
+            'restaurant_management/static/src/xml/json_to_restaurant_rating_widget.xml',
         ],
     },
     'license': 'LGPL-3',

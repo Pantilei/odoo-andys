@@ -6,7 +6,7 @@ import { Markup } from "web.utils";
 
 const { useState, onWillUpdateProps, onMounted, useRef } = owl.hooks;
 
-export default class JsonToTopFaults extends AbstractFieldOwl {
+export default class JsonToRestaurantRating extends AbstractFieldOwl {
   constructor(...args) {
     super(...args);
   }
@@ -15,15 +15,21 @@ export default class JsonToTopFaults extends AbstractFieldOwl {
     super.setup();
     console.log("THIS: ", this);
 
+    this.state = useState({
+      fieldValue: JSON.parse(this.value),
+    });
+
     this.topFaultsWithComments = JSON.parse(this.value);
     this.Markup = Markup;
-    onWillUpdateProps(async (nextProps) => {});
+    onWillUpdateProps(async (nextProps) => {
+      this.state.fieldValue = JSON.parse(this.value);
+    });
 
     onMounted(() => {});
   }
 }
 
-JsonToTopFaults.template = "JsonToTopFaults";
-JsonToTopFaults.components = {};
+JsonToRestaurantRating.template = "JsonToRestaurantRating";
+JsonToRestaurantRating.components = {};
 
-fieldRegistryOwl.add("json_to_top_faults", JsonToTopFaults);
+fieldRegistryOwl.add("json_to_restaurant_rating", JsonToRestaurantRating);
