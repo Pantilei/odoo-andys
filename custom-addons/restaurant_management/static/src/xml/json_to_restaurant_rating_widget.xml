@@ -12,7 +12,7 @@
                 </thead>
                 <tbody>
                     <t t-foreach="state.fieldValue['restaurant_rating']" t-as="line" t-key="line[0]">
-                        <tr>
+                        <tr t-attf-style="color: {{ line_index &gt; state.mediumIndex ? 'red' : 'green'}}; {{state.highlightRowId &amp;&amp; state.highlightRowId == line[0] ? 'background-color: rgb(244,171,70,0.5)' : ''}}">
                             <td>
                                 <t t-esc="line[1]" />
                             </td>
@@ -33,7 +33,7 @@
                 </thead>
                 <tbody>
                     <t t-foreach="state.fieldValue['restaurant_rating_per_audit']" t-as="line" t-key="line[0]">
-                        <tr>
+                        <tr t-attf-style="color: {{ line_index &gt; state.mediumIndex ? 'red' : 'green'}}; {{state.highlightRowId &amp;&amp; state.highlightRowId == line[0] ? 'background-color: rgb(244,171,70,0.5)' : ''}}">
                             <td>
                                 <t t-esc="line[1]" />
                             </td>

@@ -8,7 +8,6 @@ from calendar import monthrange
 import json
 import itertools
 
-
 from ..tools import short_date
 
 
@@ -63,11 +62,6 @@ class DepartamentsReports(models.TransientModel):
     def _default_month_start(self):
         return str((date.today() + relativedelta(months=-2)).month)
 
-    def _get_default_departaments(self):
-        return self.env["restaurant_management.check_list_category"].search([
-            ("default_category", "=", True),
-        ])
-
     def _get_default_check_list_category(self):
         check_list_category_id = self.env["restaurant_management.check_list_category"].search([
             ("default_category", "=", True),
@@ -85,7 +79,7 @@ class DepartamentsReports(models.TransientModel):
     report = fields.Selection(selection=[
         ("restaurant_rating", "Restaurant Rating"),
         ("fault_count_dynamics", "Fault Count Dynamics"),
-        ("top_10_faults", "Top 10 Faults"),
+        ("top_faults", "Top Faults"),
     ],
         default="restaurant_rating",
         required=True
@@ -109,19 +103,6 @@ class DepartamentsReports(models.TransientModel):
         default=_get_default_check_list_category,
         required=True
     )
-
-    check_list_category_ids = fields.Many2many(
-        comodel_name="restaurant_management.check_list_category",
-        relation="restaurant_management_cl_cat_dprt_rprts_wizard_rel",
-        string="Departments",
-        default=_get_default_departaments,
-        required=True
-    )
-
-    # restaurant_id = fields.Many2one(
-    #     comodel_name="restaurant_management.restaurant",
-    #     string="Restaurant"
-    # )
 
     restaurant_network_ids = fields.Many2many(
         comodel_name="restaurant_management.restaurant_network",
@@ -175,6 +156,15 @@ class DepartamentsReports(models.TransientModel):
         FaultRegistry = self.env["restaurant_management.fault_registry"]
         FaultCategory = self.env["restaurant_management.check_list_category"]
         for record in self:
+            if not record.report or not record.year or \
+                    not record.month or not record.restaurant_network_ids or \
+                    not record.check_list_category_id:
+
+                record.json_restaurant_rating = json.dumps({
+                    "restaurant_rating": [],
+                    "restaurant_rating_per_audit": []
+                })
+                return
             report_date = date(
                 year=int(record.year),
                 month=int(record.month),
@@ -196,31 +186,38 @@ class DepartamentsReports(models.TransientModel):
                 "restaurant_rating_per_audit": restaurant_rating_per_audit
             })
 
-    @api.depends("report", "restaurant_network_ids", "check_list_category_ids", "year", "month")
+    @api.depends("report", "restaurant_network_ids", "check_list_category_id", "year", "month")
     def _compute_json_top_faults(self):
         RestaurantNetwork = self.env["restaurant_management.restaurant_network"]
         FaultRegistry = self.env["restaurant_management.fault_registry"]
         FaultCategory = self.env["restaurant_management.check_list_category"]
         for record in self:
+            if not record.report or not record.year or \
+                    not record.month or not record.restaurant_network_ids or \
+                    not record.check_list_category_id:
+
+                record.json_top_faults = json.dumps([])
+                return
+
             date_start = date(
-                year=int(self.year),
-                month=int(self.month),
+                year=int(record.year),
+                month=int(record.month),
                 day=1
             )
             date_end = date(
-                year=int(self.year),
-                month=int(self.month),
-                day=monthrange(year=int(self.year),
-                               month=int(self.month))[1]
+                year=int(record.year),
+                month=int(record.month),
+                day=monthrange(year=int(record.year),
+                               month=int(record.month))[1]
             )
             res = self.env['restaurant_management.fault_registry'].get_top_faults(
                 date_start, date_end,
-                check_list_category_id=None,
-                check_list_category_ids=self.check_list_category_ids.ids,
+                check_list_category_id=record.check_list_category_id.id,
+                check_list_category_ids=None,
                 restaurant_id=None,
                 restaurant_ids=None,
                 restaurant_network_id=None,
-                restaurant_network_ids=self.restaurant_network_ids.ids
+                restaurant_network_ids=record.restaurant_network_ids.ids
             )
             rows = res[:20] if len(res) >= 20 else res
             top_faults_with_comments = []
@@ -233,41 +230,60 @@ class DepartamentsReports(models.TransientModel):
                         date_start,
                         date_end,
                         top_fault[0],
-                        restaurant_network_ids=self.restaurant_network_ids.ids,
+                        restaurant_network_ids=record.restaurant_network_ids.ids,
                     )
                 ))
 
             record.json_top_faults = json.dumps(top_faults_with_comments)
 
     @api.depends("report", "year_start", "year_end", "month_start", "month_end",
-                 "restaurant_network_ids", "check_list_category_ids")
+                 "restaurant_network_ids", "check_list_category_id")
     def _compute_json_chart(self):
         for record in self:
+            if not record.report or not record.year_start or \
+                    not record.year_end or not record.month_start or \
+                    not record.month_end or not record.restaurant_network_ids or \
+                    not record.check_list_category_id:
+
+                record.json_chart = json.dumps({
+                    'type': 'bar',
+                    'data': {
+                        'labels': 0,
+                        'datasets': [{
+                            'type': 'bar',
+                            'label': 0,
+                            'data': [0],
+                            'borderColor': next(COLORS),
+                            'backgroundColor': next(COLORS),
+                        }]
+                    },
+                    'options': record._get_chart_options(0),
+                })
+                return
+
             date_start = date(
-                year=int(self.year_start),
-                month=int(self.month_start),
+                year=int(record.year_start),
+                month=int(record.month_start),
                 day=1
             )
             date_end = date(
-                year=int(self.year_end),
-                month=int(self.month_end),
-                day=monthrange(year=int(self.year_end),
-                               month=int(self.month_end))[1]
+                year=int(record.year_end),
+                month=int(record.month_end),
+                day=monthrange(year=int(record.year_end),
+                               month=int(record.month_end))[1]
             )
 
-            data = {
-                'labels': self._get_month_range(date_start, date_end),
-                'datasets': self._get_chart_data(date_start, date_end),
-            }
+            chart_data = record._get_chart_data(
+                date_start, date_end, record.check_list_category_id)
             configs = {
                 'type': 'bar',
-                'data': data,
-                'options': self._get_chart_options(),
+                'data': chart_data["data"],
+                'options': record._get_chart_options(chart_data["mean_value"]),
             }
 
             record.json_chart = json.dumps(configs)
 
-    def _get_chart_options(self):
+    def _get_chart_options(self, mean_value):
         return {
             'responsive': True,
             'plugins': {
@@ -286,32 +302,59 @@ class DepartamentsReports(models.TransientModel):
                         'suggestedMin': 0,
                     }
                 }]
-            }
+            },
+            'annotation': {
+                'annotations': [{
+                    'drawTime': 'afterDraw',
+                    'id': 'a-line-1',
+                    'type': 'line',
+                    'mode': 'horizontal',
+                    'scaleID': 'y-axis-0',
+                    'value': round(mean_value, 2),
+                    'borderColor': 'red',
+                    'borderWidth': 5,
+                    'label': {
+                        'enabled': True,
+                        'position': "center",
+                        'content': round(mean_value, 2),
+                    }
+                }]
+            },
         }
 
     def _get_month_range(self, date_start, date_end):
         return [short_date(r) for r in rrule(MONTHLY, dtstart=date_start, until=date_end)]
 
-    def _get_chart_data(self, date_start, date_end):
-        CheckListCategory = self.env["restaurant_management.check_list_category"]
+    def _get_chart_data(self, date_start, date_end, check_list_category_id):
+        Restaurant = self.env["restaurant_management.restaurant"]
         data = []
-        for check_list_category_id in CheckListCategory.browse(self.check_list_category_ids.ids):
-            # print(check_list_category_id.id)
+        labels = []
+        for restaurant_id in Restaurant.search([("restaurant_network_id", "in", self.restaurant_network_ids.ids)]):
             res = self.env['restaurant_management.fault_registry']\
                 .get_fault_counts_per_month(
                     date_start,
                     date_end,
                     check_list_category_id=check_list_category_id.id,
-                    restaurant_id=None,
+                    restaurant_id=restaurant_id.id,
                     restaurant_network_id=None,
                     check_list_category_ids=None,
                     restaurant_ids=None,
                     restaurant_network_ids=self.restaurant_network_ids.ids
             )
-            data.append({
-                'label': check_list_category_id.name,
-                'data': res.get('fault_counts', []),
-                'borderColor': next(COLORS),
-                'backgroundColor': next(COLORS),
-            })
-        return data
+            data.append(res.get('fault_per_audit', []))
+            labels.append(restaurant_id.name)
+        mean_value = sum([sum(r) for r in data])/sum([len(r) for r in data])
+        month_range = self._get_month_range(date_start, date_end)
+        return {
+            "mean_value": mean_value,
+            "data": {
+                'labels': labels,
+                'datasets': [{
+                    'type': 'bar',
+                    'label': month_range[i],
+                    'data': r,
+                    'borderColor': next(COLORS),
+                    'backgroundColor': next(COLORS),
+                } for i, r in enumerate(zip(*data))],
+            }
+        }
