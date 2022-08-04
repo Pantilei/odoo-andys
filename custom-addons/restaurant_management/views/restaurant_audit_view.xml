@@ -31,8 +31,12 @@
                                 <field name="responsible_id" invisible="1" />
                                 <field name="restaurant_id" invisible="1" />
                                 <field name="check_list_category_id" attrs="{'readonly': [('id', '!=', False)]}" force_save="1" />
-                                <field name="check_list_id" domain="[('category_id', '=', check_list_category_id)]" attrs="{'readonly': [('id', '!=', False)]}" force_save="1" style="word-break: break-word; white-space: normal;" />
-                                <field name="state" widget="badge" decoration-success="state == 'confirm'" decoration-muted="state == 'cancel'" />
+                                <field name="check_list_id" domain="[('category_id', '=', check_list_category_id)]" attrs="{'readonly': [('id', '!=', False)]}" force_save="1" style="word-break: break-word; white-space: normal;" optional="hide" />
+                                <field name="fault_count" />
+                                <field name="comment" optional="show" widget="html" />
+                                <field name="director_comment" optional="hide" widget="html" />
+                                <field name="check_list_category_responsible_comment" optional="hide" widget="html" />
+                                <field name="state" widget="badge" decoration-success="state == 'confirm'" decoration-muted="state == 'cancel'" optional="hide" />
                             </tree>
                             <form>
                                 <header>
@@ -101,8 +105,12 @@
                             <field name="responsible_id" invisible="1" />
                             <field name="restaurant_id" invisible="1" />
                             <field name="check_list_category_id" readonly="1" />
-                            <field name="check_list_id" domain="[('category_id', '=', check_list_category_id)]" readonly="1" />
-                            <field name="state" widget="badge" decoration-success="state == 'confirm'" decoration-muted="state == 'cancel'" />
+                            <field name="check_list_id" domain="[('category_id', '=', check_list_category_id)]" readonly="1" optional="hide" />
+                            <field name="fault_count" />
+                            <field name="comment" optional="show" widget="html" />
+                            <field name="director_comment" optional="hide" widget="html" />
+                            <field name="check_list_category_responsible_comment" optional="hide" widget="html" />
+                            <field name="state" widget="badge" decoration-success="state == 'confirm'" decoration-muted="state == 'cancel'" optional="hide" />
                         </tree>
                         <form>
                             <header>
@@ -163,8 +171,12 @@
                             <field name="responsible_id" invisible="1" />
                             <field name="restaurant_id" invisible="1" />
                             <field name="check_list_category_id" readonly="1" />
-                            <field name="check_list_id" domain="[('category_id', '=', check_list_category_id)]" readonly="1" />
-                            <field name="state" widget="badge" decoration-success="state == 'confirm'" decoration-muted="state == 'cancel'" />
+                            <field name="check_list_id" domain="[('category_id', '=', check_list_category_id)]" readonly="1" optional="hide" />
+                            <field name="fault_count" />
+                            <field name="comment" optional="show" widget="html" />
+                            <field name="director_comment" optional="hide" widget="html" />
+                            <field name="check_list_category_responsible_comment" optional="hide" widget="html" />
+                            <field name="state" widget="badge" decoration-success="state == 'confirm'" decoration-muted="state == 'cancel'" optional="hide" />
                         </tree>
                         <form>
                             <header>
@@ -225,8 +237,12 @@
                             <field name="responsible_id" invisible="1" />
                             <field name="restaurant_id" invisible="1" />
                             <field name="check_list_category_id" readonly="1" />
-                            <field name="check_list_id" domain="[('category_id', '=', check_list_category_id)]" readonly="1" />
-                            <field name="state" widget="badge" decoration-success="state == 'confirm'" decoration-muted="state == 'cancel'" />
+                            <field name="check_list_id" domain="[('category_id', '=', check_list_category_id)]" readonly="1" optional="hide" />
+                            <field name="fault_count" />
+                            <field name="comment" optional="show" widget="html" />
+                            <field name="director_comment" optional="hide" widget="html" />
+                            <field name="check_list_category_responsible_comment" optional="hide" widget="html" />
+                            <field name="state" widget="badge" decoration-success="state == 'confirm'" decoration-muted="state == 'cancel'" optional="hide" />
                         </tree>
                         <form>
                             <header>
@@ -289,8 +305,12 @@
                             <field name="responsible_id" invisible="1" />
                             <field name="restaurant_id" invisible="1" />
                             <field name="check_list_category_id" readonly="1" force_save="1" />
-                            <field name="check_list_id" domain="[('category_id', '=', check_list_category_id)]" readonly="1" force_save="1" />
-                            <field name="state" widget="badge" decoration-success="state == 'confirm'" decoration-muted="state == 'cancel'" />
+                            <field name="check_list_id" domain="[('category_id', '=', check_list_category_id)]" readonly="1" force_save="1" optional="hide" />
+                            <field name="fault_count" />
+                            <field name="comment" optional="show" widget="html" />
+                            <field name="director_comment" optional="hide" widget="html" />
+                            <field name="check_list_category_responsible_comment" optional="hide" widget="html" />
+                            <field name="state" widget="badge" decoration-success="state == 'confirm'" decoration-muted="state == 'cancel'" optional="hide" />
                         </tree>
                         <form>
                             <header>
