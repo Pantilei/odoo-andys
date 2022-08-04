@@ -52,13 +52,6 @@
               action="registered_grouped_faults_action"
               groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager" 
               sequence="5" />
-
-    <menuitem id="report_registered_faults_per_restaurant_menu" 
-              name="Registered Faults' Graphs" 
-              parent="report_main_menu" 
-              action="registered_faults_per_restaurant_graphs_report_action"
-              groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager" 
-              sequence="10" />
     
     <menuitem id="departaments_report_menu" 
               name="Departament Reports" 
