@@ -107,6 +107,12 @@ class FaultRegistry(models.Model):
         comodel_name="restaurant_management.check_list",
         string="Check List"
     )
+
+    check_check_list_identificator = fields.Char(
+        related="check_list_id.full_identificator",
+        string="Identificator"
+    )
+
     responsible_id = fields.Many2one(
         comodel_name="res.users",
         compute="_compute_responsible",

@@ -30,7 +30,8 @@
                                 <field name="id" invisible="1" />
                                 <field name="responsible_id" invisible="1" />
                                 <field name="restaurant_id" invisible="1" />
-                                <field name="check_list_category_id" attrs="{'readonly': [('id', '!=', False)]}" force_save="1" />
+                                <field name="check_check_list_identificator" optional="show" />
+                                <field name="check_list_category_id" attrs="{'readonly': [('id', '!=', False)]}" force_save="1" optional="hide" />
                                 <field name="check_list_id" domain="[('category_id', '=', check_list_category_id)]" attrs="{'readonly': [('id', '!=', False)]}" force_save="1" style="word-break: break-word; white-space: normal;" optional="hide" />
                                 <field name="fault_count" />
                                 <field name="comment" optional="show" widget="html" />
@@ -104,7 +105,8 @@
                             <field name="id" invisible="1" />
                             <field name="responsible_id" invisible="1" />
                             <field name="restaurant_id" invisible="1" />
-                            <field name="check_list_category_id" readonly="1" />
+                            <field name="check_check_list_identificator" optional="show" />
+                            <field name="check_list_category_id" readonly="1" optional="hide" />
                             <field name="check_list_id" domain="[('category_id', '=', check_list_category_id)]" readonly="1" optional="hide" />
                             <field name="fault_count" />
                             <field name="comment" optional="show" widget="html" />
@@ -170,7 +172,8 @@
                             <field name="id" invisible="1" />
                             <field name="responsible_id" invisible="1" />
                             <field name="restaurant_id" invisible="1" />
-                            <field name="check_list_category_id" readonly="1" />
+                            <field name="check_check_list_identificator" optional="show" />
+                            <field name="check_list_category_id" readonly="1" optional="hide" />
                             <field name="check_list_id" domain="[('category_id', '=', check_list_category_id)]" readonly="1" optional="hide" />
                             <field name="fault_count" />
                             <field name="comment" optional="show" widget="html" />
@@ -236,7 +239,8 @@
                             <field name="id" invisible="1" />
                             <field name="responsible_id" invisible="1" />
                             <field name="restaurant_id" invisible="1" />
-                            <field name="check_list_category_id" readonly="1" />
+                            <field name="check_check_list_identificator" optional="show" />
+                            <field name="check_list_category_id" readonly="1" optional="hide" />
                             <field name="check_list_id" domain="[('category_id', '=', check_list_category_id)]" readonly="1" optional="hide" />
                             <field name="fault_count" />
                             <field name="comment" optional="show" widget="html" />
@@ -304,7 +308,8 @@
                             <field name="id" invisible="1" />
                             <field name="responsible_id" invisible="1" />
                             <field name="restaurant_id" invisible="1" />
-                            <field name="check_list_category_id" readonly="1" force_save="1" />
+                            <field name="check_check_list_identificator" optional="show" />
+                            <field name="check_list_category_id" readonly="1" force_save="1" optional="hide" />
                             <field name="check_list_id" domain="[('category_id', '=', check_list_category_id)]" readonly="1" force_save="1" optional="hide" />
                             <field name="fault_count" />
                             <field name="comment" optional="show" widget="html" />

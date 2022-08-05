@@ -42,6 +42,16 @@
             </field>
         </record>
 
+        <record id="check_list_category_view_search" model="ir.ui.view">
+            <field name="name">check_list_category.view.search</field>
+            <field name="model">restaurant_management.check_list_category</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" string="Check List Category" />
+                </search>
+            </field>
+        </record>
+
         <!-- actions opening views on models -->
         <record id="check_list_category_action" model="ir.actions.act_window">
             <field name="name">Check List Category</field>

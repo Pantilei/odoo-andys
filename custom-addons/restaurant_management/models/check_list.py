@@ -1,4 +1,5 @@
 from odoo import models, fields, api
+from odoo.osv import expression
 import pandas as pd
 import os
 
@@ -6,7 +7,7 @@ import os
 class CheckList(models.Model):
     _name = "restaurant_management.check_list"
     _description = "Check List"
-    _rec_name = "description"
+    # _rec_name = "description"
     _order = "sequence"
 
     @api.depends("identificator", "category_id.identificator")
@@ -19,15 +20,21 @@ class CheckList(models.Model):
             else:
                 record.full_identificator = ""
 
+    name = fields.Text(
+        compute="_compute_name",
+        store=True
+    )
+
     description = fields.Text()
 
     identificator = fields.Integer(
-        string="Itentificator within category"
+        string="Itentificator within category",
     )
 
     full_identificator = fields.Char(
         compute="_compute_full_identificator",
-        string="Identificator"
+        string="Identificator",
+        store=True
     )
 
     sequence = fields.Integer(
@@ -39,13 +46,40 @@ class CheckList(models.Model):
         required=True
     )
 
-    def name_get(self):
-        result = []
-        for record in self:
-            name = record.full_identificator + ' ' + record.description
-            result.append((record.id, name))
-        return result
+    @api.onchange("category_id")
+    def _on_category_change(self):
+        if self.category_id:
+            self.identificator = max(self.search(
+                [("category_id", "=", self.category_id.id)]).mapped("identificator"))+1
 
+    @api.depends("full_identificator", "description")
+    def _compute_name(self):
+        for record in self:
+            if record.description and record.full_identificator:
+                record.name = record.full_identificator + ' ' + record.description
+            else:
+                record.name = ''
+
+    # def name_get(self):
+    #     result = []
+    #     for record in self:
+    #         name = record.full_identificator + ' ' + record.description
+    #         result.append((record.id, name))
+    #     return result
+
+    # @api.model
+    # def _name_search(self, name, args=None, operator='ilike', limit=100, name_get_uid=None):
+    #     args = args or []
+    #     domain = []
+    #     if name:
+    #         domain = ['|',
+    #                   ('full_identificator', '=', name.split(' ')[0]),
+    #                   ('name', operator, name)
+    #                   ]
+    #     print(domain)
+    #     return self._search(expression.AND([domain, args]), limit=limit, access_rights_uid=name_get_uid)
+
+    # Temporary methods, remove when not needed
     @api.model
     def _create_check_lists_and_categories(self):
         path = os.path.join(os.path.dirname(os.path.abspath(__file__)))

@@ -227,6 +227,7 @@
                 <tree>
                     <field name="restaurant_id" />
                     <field name="fault_date" />
+                    <field name="check_check_list_identificator" optional="show" />
                     <field name="check_list_category_id" optional="hide" />
                     <field name="responsible_id" widget="many2one_avatar_user" optional="hide" />
                     <field name="fault_count" />
