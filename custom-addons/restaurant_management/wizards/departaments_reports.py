@@ -286,6 +286,7 @@ class DepartamentsReports(models.TransientModel):
     def _get_chart_options(self, mean_value):
         return {
             'responsive': True,
+            'maintainAspectRatio': False,
             'plugins': {
                 'legend': {
                     'position': 'top',

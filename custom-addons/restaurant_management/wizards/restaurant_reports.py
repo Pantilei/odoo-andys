@@ -277,6 +277,7 @@ class RestaurantReports(models.TransientModel):
     def _get_chart_options(self):
         return {
             'responsive': True,
+            'maintainAspectRatio': False,
             'plugins': {
                 'legend': {
                     'position': 'top',
