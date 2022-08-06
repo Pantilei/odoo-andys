@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-04 19:47+0000\n"
-"PO-Revision-Date: 2022-08-04 19:47+0000\n"
+"POT-Creation-Date: 2022-08-06 13:21+0000\n"
+"PO-Revision-Date: 2022-08-06 13:21+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -957,6 +957,7 @@ msgstr "Категория"
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__check_list_id
 #: model:ir.ui.menu,name:restaurant_management.check_list_menu
 #: model_terms:ir.ui.view,arch_db:restaurant_management.check_list_view_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.check_list_view_search
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
 msgid "Check List"
 msgstr "Чек Лист"
@@ -967,6 +968,7 @@ msgstr "Чек Лист"
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__check_list_category_id
 #: model:ir.ui.menu,name:restaurant_management.check_list_category_menu
 #: model_terms:ir.ui.view,arch_db:restaurant_management.check_list_category_view_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.check_list_category_view_search
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
 msgid "Check List Category"
 msgstr "Категория Чек Листа"
@@ -1210,13 +1212,6 @@ msgid "Expert DKK"
 msgstr "Эксперт ДКК"
 
 #. module: restaurant_management
-#: model:ir.actions.server,name:restaurant_management.ir_cron_extract_identificator_data_ir_actions_server
-#: model:ir.cron,cron_name:restaurant_management.ir_cron_extract_identificator_data
-#: model:ir.cron,name:restaurant_management.ir_cron_extract_identificator_data
-msgid "Extract Identificators"
-msgstr "Извлечь идентификаторы"
-
-#. module: restaurant_management
 #. openerp-web
 #: code:addons/restaurant_management/static/src/xml/json_to_restaurant_rating_widget.xml:0
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__fault_count
@@ -1329,13 +1324,6 @@ msgid "General Report by Restaurant Department"
 msgstr "Отчет по ошибкам по департаменту"
 
 #. module: restaurant_management
-#: model:ir.actions.server,name:restaurant_management.ir_cron_generate_check_list_data_ir_actions_server
-#: model:ir.cron,cron_name:restaurant_management.ir_cron_generate_check_list_data
-#: model:ir.cron,name:restaurant_management.ir_cron_generate_check_list_data
-msgid "Generate Check List Data"
-msgstr ""
-
-#. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_search
 msgid "Group By"
@@ -1363,6 +1351,7 @@ msgstr ""
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list__full_identificator
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__identificator
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__check_check_list_identificator
 msgid "Identificator"
 msgstr "Идентификатор"
 
@@ -1375,11 +1364,11 @@ msgid "Image"
 msgstr "Фотографии"
 
 #. module: restaurant_management
-#: model:ir.actions.server,name:restaurant_management.ir_cron_import_check_list_data_ir_actions_server
-#: model:ir.cron,cron_name:restaurant_management.ir_cron_import_check_list_data
-#: model:ir.cron,name:restaurant_management.ir_cron_import_check_list_data
-msgid "Import Check List Data"
-msgstr "Импортировать данные Чек Листа"
+#: model:ir.actions.server,name:restaurant_management.ir_cron_import_faults_data_ir_actions_server
+#: model:ir.cron,cron_name:restaurant_management.ir_cron_import_faults_data
+#: model:ir.cron,name:restaurant_management.ir_cron_import_faults_data
+msgid "Import Faults Data"
+msgstr ""
 
 #. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.check_list_category_view_form
@@ -1642,6 +1631,7 @@ msgid "Month of Report"
 msgstr "Месяц Отчета"
 
 #. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list__name
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__name
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_departaments_reports_wizard__name
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_reports_wizard__name
@@ -1836,11 +1826,6 @@ msgstr "Распечатать Отчёты"
 #: model:ir.ui.menu,name:restaurant_management.registered_grouped_faults_menu
 msgid "Registered Faults"
 msgstr "Ошибки"
-
-#. module: restaurant_management
-#: model:ir.ui.menu,name:restaurant_management.report_registered_faults_per_restaurant_menu
-msgid "Registered Faults' Graphs"
-msgstr "Графики ошибок"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_departaments_reports_wizard__report

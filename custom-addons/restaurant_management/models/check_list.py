@@ -130,7 +130,6 @@ class CheckList(models.Model):
             audit_id = record['Проверка']
 
         RestaurantAudit.create(audits)
-        self.env.cr.rollback()
 
     def _get_restaurant(self, name):
         Restaurant = self.env["restaurant_management.restaurant"]
