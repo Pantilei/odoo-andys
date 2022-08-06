@@ -1,6 +1,9 @@
 from odoo import models, fields, api
 from odoo.osv import expression
+from odoo.exceptions import UserError
+from datetime import datetime, date
 import pandas as pd
+import numpy as np
 import os
 
 
@@ -80,51 +83,75 @@ class CheckList(models.Model):
     #     return self._search(expression.AND([domain, args]), limit=limit, access_rights_uid=name_get_uid)
 
     # Temporary methods, remove when not needed
+
     @api.model
-    def _create_check_lists_and_categories(self):
+    def _import_faults_data(self):
+        RestaurantAudit = self.env["restaurant_management.restaurant_audit"]
+        RestaurantFaultRegistry = self.env["restaurant_management.fault_registry"]
+
         path = os.path.join(os.path.dirname(os.path.abspath(__file__)))
-        df_category = pd.read_csv(os.path.join(
-            path, '../data/check_list_category.csv'))
-        df_check_list = pd.read_csv(
-            os.path.join(path, '../data/check_list.csv'))
+        df_faults = pd.read_csv(os.path.join(
+            path, '../data/may_june_faults.csv')).replace({np.nan: None})
 
-        result_categ = [self.create_categs(name)
-                        for name in df_category['name']]
-        result_check_list = [self.create_check_list(categ_name, description)
-                             for categ_name, description in zip(df_check_list["category_id"], df_check_list["description"])]
+        audits = []
+        audit_id = 0
+        for record in df_faults.to_dict("records"):
+            # print("\n\n", record)
+            if not record['Категория Чек Листа'] or not record['Чек Лист']:
+                continue
+            restaurant_id = self._get_restaurant(record["Ресторан"])
+            responsible_id = self._get_responsible(record["Эксперт ДКК"])
+            check_list_category_id = self._get_check_list_category(
+                record['Категория Чек Листа'][:-2])
+            check_list_id = self._get_check_list(
+                record['Чек Лист'][:-2], check_list_category_id)
+            if not all([restaurant_id, responsible_id,
+                        check_list_category_id, check_list_id]):
+                raise UserError(" ".join(record["Ресторан"], ": ", record["Эксперт ДКК"], ": ",
+                                         record['Категория Чек Листа'], ": ", record['Чек Лист'], ": ", restaurant_id, ": ", responsible_id,
+                                         ": ", check_list_category_id, ": ", check_list_id))
 
-    def create_categs(self, name):
-        Category = self.env["restaurant_management.check_list_category"]
-        categ_id = Category.search([('name', '=', name)])
-        if categ_id:
-            return
-        Category.create({
-            "name": name
-        })
-        self.env.cr.commit()
+            if record['Проверка'] != audit_id:
+                audits.append({
+                    "restaurant_id": restaurant_id,
+                    "responsible_id": responsible_id,
+                    "audit_date": datetime.strptime(record['Дата Проверки'], '%d/%m/%Y'),
+                    "fault_registry_ids": []
+                })
+            audits[-1]["fault_registry_ids"].append((0, 0, {
+                "check_list_category_id": check_list_category_id,
+                "check_list_id": check_list_id,
+                "fault_count": int(record['Количество Ошибок'] or 0),
+                "severe": record['Грубая ошибка'] or False,
+                "comment": record['Принятые меры Эксперт ДКК'] or False,
+                "director_comment": record['Принятые меры Директор Ресторана'] or False,
+                "check_list_category_responsible_comment": record['Принятые меры Ответственные по департаменту'] or False
+            }))
+            audit_id = record['Проверка']
 
-    def create_check_list(self, category_name, description):
-        print(category_name, description, "\n\n\n\n")
-        category_id = self.env["restaurant_management.check_list_category"].search([
-            ('name', '=', category_name)
-        ], limit=1).id
-        print(category_id, "\n\n")
+        RestaurantAudit.create(audits)
+        self.env.cr.rollback()
+
+    def _get_restaurant(self, name):
+        Restaurant = self.env["restaurant_management.restaurant"]
+        return Restaurant.search([("name", "=", name)], limit=1).id
+
+    def _get_responsible(self, name):
+        ResUsers = self.env["res.users"]
+        return ResUsers.search([("name", "=", name)], limit=1).id
+
+    def _get_check_list_category(self, name):
+        CheckListCategory = self.env["restaurant_management.check_list_category"]
+        mod_name = name.strip()
+        check_list_category_id = CheckListCategory.search(
+            [("name", "ilike", mod_name)], limit=1)
+
+        return check_list_category_id.id
+
+    def _get_check_list(self, name, check_list_category_id):
         CheckList = self.env["restaurant_management.check_list"]
-        check_list = CheckList.search(
-            [("description", "=", description), ("category_id.name", "=", category_name)])
-        if check_list:
-            return
-        CheckList.create({
-            "description": description,
-            "category_id": self.env["restaurant_management.check_list_category"].search([
-                ('name', 'ilike', category_name)], limit=1).id
-        })
+        mod_name = name.strip()
+        check_list_id = CheckList.search(
+            [("name", "ilike", mod_name), ('category_id', '=', check_list_category_id)], limit=1)
 
-    @api.model
-    def _extract_identificator(self):
-        for record in self.search([]):
-            ident, desc = record.description.split(" ", 1)
-            print(int(ident.split(".", 1)[1]))
-            print(desc)
-            record.identificator = int(ident.split(".", 1)[1])
-            record.description = desc
+        return check_list_id.id

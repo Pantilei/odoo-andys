@@ -18,7 +18,7 @@ _logger = logging.getLogger(__name__)
 class RestaurantAudit(models.Model):
     _name = 'restaurant_management.restaurant_audit'
     _description = 'Restaurant Audit'
-    _order = "id desc"
+    _order = "audit_date desc"
 
     @api.depends("restaurant_id", "audit_date")
     def _compute_name(self):

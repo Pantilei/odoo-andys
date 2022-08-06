@@ -20,7 +20,7 @@ _logger = logging.getLogger(__name__)
 class FaultRegistry(models.Model):
     _name = 'restaurant_management.fault_registry'
     _description = 'Fault Registry'
-    _order = "id desc"
+    _order = "fault_date desc"
     _rec_name = "check_list_id"
 
     @api.depends('check_list_category_id')
