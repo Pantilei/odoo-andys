@@ -1,6 +1,9 @@
 /** @odoo-module **/
 
 import ListRenderer from "web.ListRenderer";
+import core from "web.core";
+
+var _t = core._t;
 
 ListRenderer.include({
   _renderGroupRow: function (group, groupLevel) {

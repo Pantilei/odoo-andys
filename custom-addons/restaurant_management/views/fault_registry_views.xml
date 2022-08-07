@@ -224,7 +224,7 @@
             <field name="name">fault_registry.view.tree</field>
             <field name="model">restaurant_management.fault_registry</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree default_order="fault_date desc">
                     <field name="restaurant_id" />
                     <field name="fault_date" />
                     <field name="check_check_list_identificator" optional="show" />

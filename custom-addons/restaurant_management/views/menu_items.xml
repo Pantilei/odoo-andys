@@ -43,35 +43,35 @@
     <menuitem id="report_main_menu" 
               name="Reporting" 
               parent="menu_root" 
-              groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager" 
+              groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_restaurant_director,restaurant_management.group_restaurant_management_audit_controller,restaurant_management.group_restaurant_management_dkk_manager" 
               sequence="100" />
 
     <menuitem id="registered_grouped_faults_menu" 
               name="Registered Faults" 
               parent="report_main_menu" 
               action="registered_grouped_faults_action"
-              groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager" 
+              groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_dkk_manager" 
               sequence="5" />
     
     <menuitem id="departaments_report_menu" 
               name="Departament Reports" 
               parent="report_main_menu" 
               action="departaments_reports_wizard_action"
-              groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager" 
+              groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_audit_controller,restaurant_management.group_restaurant_management_dkk_manager" 
               sequence="16" />
     
     <menuitem id="restaurant_reports_menu" 
               name="Restaurant Reports" 
               parent="report_main_menu" 
               action="restaurant_reports_wizard_action"
-              groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager" 
+              groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_restaurant_director,restaurant_management.group_restaurant_management_dkk_manager" 
               sequence="17" />
     
     <menuitem id="print_reports_menu" 
               name="Print Reports" 
               parent="report_main_menu" 
               action="reports_wizard_action"
-              groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager" 
+              groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_dkk_manager" 
               sequence="20" />
     
 
