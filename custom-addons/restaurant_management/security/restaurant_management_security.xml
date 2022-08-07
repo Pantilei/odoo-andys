@@ -55,6 +55,8 @@
         <field name="model_id" ref="model_restaurant_management_restaurant_audit" />
         <field name="domain_force">['|', ('responsible_id', '=', user.id), ('responsible_id', '=', False)]</field>
         <field name="groups" eval="[(4, ref('group_restaurant_management_auditer'))]" />
+        <!-- Temporary disable this rule -->
+        <field name="active" eval="False" />
     </record>
 
     <record id="restaurant_audit_restaurant_director_restaurant_rule" model="ir.rule">
@@ -79,6 +81,8 @@
         <field name="model_id" ref="model_restaurant_management_fault_registry" />
         <field name="domain_force">['|', ('responsible_id', '=', user.id), ('responsible_id', '=', False)]</field>
         <field name="groups" eval="[(4, ref('group_restaurant_management_auditer'))]" />
+        <!-- Temporary disable this rule -->
+        <field name="active" eval="False" />
     </record>
 
     <record id="fault_registry_restaurant_director_restaurant_rule" model="ir.rule">
