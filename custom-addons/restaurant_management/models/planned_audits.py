@@ -1,5 +1,7 @@
 from odoo import api, models, fields, _
 from odoo.osv import expression
+from odoo.exceptions import ValidationError
+
 from datetime import date
 
 
@@ -72,6 +74,13 @@ class PlannedAudits(models.Model):
         string="December",
         default=4,
     )
+
+    @api.constrains('jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec')
+    def _check_max_min_values(self):
+        for record in self:
+            if not all([getattr(record, f) >= 0 and getattr(record, f) <= 10 for f in ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec']]):
+                raise ValidationError(
+                    _('Max and min values for audit counts are 0 and 10 correspondingly!'))
 
     def get_number_of_audits(self, date_start, date_end,
                              restaurant_id=None, restaurant_network_id=None,
