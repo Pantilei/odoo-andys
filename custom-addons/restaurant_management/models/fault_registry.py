@@ -70,12 +70,15 @@ class FaultRegistry(models.Model):
 
     restaurant_id = fields.Many2one(
         comodel_name="restaurant_management.restaurant",
+        index=True,
         string="Restaurant",
         compute="_compute_restaurant",
-        store=True
+        store=True,
+        # group_operator=False
     )
     restaurant_network_id = fields.Many2one(
         comodel_name="restaurant_management.restaurant_network",
+        index=True,
         string="Restaurant Network",
         related="restaurant_id.restaurant_network_id",
         readonly=False,
@@ -97,6 +100,7 @@ class FaultRegistry(models.Model):
     )
     check_list_category_id = fields.Many2one(
         comodel_name="restaurant_management.check_list_category",
+        index=True,
         required=True,
         string="Check List Category"
     )
@@ -105,6 +109,7 @@ class FaultRegistry(models.Model):
     )
     check_list_id = fields.Many2one(
         comodel_name="restaurant_management.check_list",
+        index=True,
         string="Check List"
     )
 
@@ -199,6 +204,7 @@ class FaultRegistry(models.Model):
             "state": "confirm"
         })
 
+    # Data provide methods
     @api.model
     def get_fault_counts_per_month_rpc(self):
         today = date.today()

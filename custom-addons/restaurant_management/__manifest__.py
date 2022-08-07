@@ -55,6 +55,8 @@
     'assets': {
         'web._assets_primary_variables': [],
         'web.assets_backend': [
+            'restaurant_management/static/src/js/tree_view_renderer.js',
+
             'restaurant_management/static/src/js/many2many_binary_preview.js',
             'web/static/lib/Chart/Chart.js',
             'restaurant_management/static/src/libs/chart-js-plugin-annotations.js',

@@ -244,7 +244,7 @@
             <field name="model">restaurant_management.fault_registry</field>
             <field name="arch" type="xml">
                 <graph string="Faults" type="line" sample="1">
-                    <field name="fault_date" interval="day" />
+                    <field name="fault_date" interval="month" />
                     <field name="restaurant_id" />
                 </graph>
             </field>
@@ -255,7 +255,7 @@
             <field name="model">restaurant_management.fault_registry</field>
             <field name="arch" type="xml">
                 <pivot string="Faults" disable_linking="true">
-                    <field name="fault_date" type="col" interval="day" />
+                    <field name="fault_date" type="col" interval="month" />
                     <field name="restaurant_id" type="row" />
                 </pivot>
             </field>
@@ -271,6 +271,7 @@
                     <field name="responsible_id" />
                     <field name="check_list_category_id" />
                     <field name="check_list_id" />
+                    <field name="check_check_list_identificator" string="Check List Identificator" filter_domain="[('check_check_list_identificator', '=', self)]" />
                     <field name="guilty_person_id" />
 
                     <separator />
@@ -312,7 +313,7 @@
             <field name="res_model">restaurant_management.fault_registry</field>
             <field name="view_mode">tree,form,graph,pivot</field>
             <field name="target">current</field>
-            <field name="context">{'create': 0}</field>
+            <field name="context">{'create': 0, 'hide_grouped_count': True}</field>
         </record>
 
         <record id="registered_faults_per_restaurant_graphs_report_action" model="ir.actions.act_window">

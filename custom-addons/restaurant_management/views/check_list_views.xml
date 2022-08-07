@@ -39,6 +39,7 @@
             <field name="arch" type="xml">
                 <search>
                     <field name="name" string="Check List" />
+                    <field name="full_identificator" string="Identificator" filter_domain="[('full_identificator', '=', self)]" />
                 </search>
             </field>
         </record>
