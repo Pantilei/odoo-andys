@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-06 13:21+0000\n"
-"PO-Revision-Date: 2022-08-06 13:21+0000\n"
+"POT-Creation-Date: 2022-08-07 12:16+0000\n"
+"PO-Revision-Date: 2022-08-07 12:16+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -871,10 +871,20 @@ msgid "Attachment"
 msgstr "Вложение"
 
 #. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_audit_distribution__audit_date
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__audit_date
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_distribution_view_search
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_search
 msgid "Audit Date"
 msgstr "Дата Проверки"
+
+#. module: restaurant_management
+#: model:ir.actions.act_window,name:restaurant_management.audit_distribution_action
+#: model:ir.model,name:restaurant_management.model_restaurant_management_audit_distribution
+#: model:ir.ui.menu,name:restaurant_management.audit_distribution
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_distribution_form
+msgid "Audit Distribution"
+msgstr "Распределение Проверок"
 
 #. module: restaurant_management
 #: model:ir.actions.act_window,name:restaurant_management.restaurant_audit_action
@@ -974,6 +984,11 @@ msgid "Check List Category"
 msgstr "Категория Чек Листа"
 
 #. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
+msgid "Check List Identificator"
+msgstr "Идентификатор Чек Листа"
+
+#. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form
 msgid "Check date and time"
 msgstr "Дата и Время проверки"
@@ -1026,6 +1041,13 @@ msgid "Country"
 msgstr "Страна"
 
 #. module: restaurant_management
+#: model:ir.actions.server,name:restaurant_management.ir_cron_create_audits_of_restaurants_ir_actions_server
+#: model:ir.cron,cron_name:restaurant_management.ir_cron_create_audits_of_restaurants
+#: model:ir.cron,name:restaurant_management.ir_cron_create_audits_of_restaurants
+msgid "Create audits of restaurants"
+msgstr "Создать проверки рексторанов"
+
+#. module: restaurant_management
 #: model:ir.actions.server,name:restaurant_management.ir_cron_create_planned_audits_of_restaurants_ir_actions_server
 #: model:ir.cron,cron_name:restaurant_management.ir_cron_create_planned_audits_of_restaurants
 #: model:ir.cron,name:restaurant_management.ir_cron_create_planned_audits_of_restaurants
@@ -1033,6 +1055,7 @@ msgid "Create planned audit amount of restaurants"
 msgstr ""
 
 #. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_audit_distribution__create_uid
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list__create_uid
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__create_uid
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_departaments_reports_wizard__create_uid
@@ -1047,6 +1070,7 @@ msgid "Created by"
 msgstr "Создано Пользователем"
 
 #. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_audit_distribution__create_date
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list__create_date
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__create_date
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_departaments_reports_wizard__create_date
@@ -1059,11 +1083,6 @@ msgstr "Создано Пользователем"
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_reports_wizard__create_date
 msgid "Created on"
 msgstr "Дата создания"
-
-#. module: restaurant_management
-#: model:res.groups,name:restaurant_management.group_restaurant_management_dkk_manager
-msgid "DCC Manager"
-msgstr "Руководитель ДКК"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_departaments_reports_wizard__year_end
@@ -1160,6 +1179,7 @@ msgid "Description"
 msgstr "Описание"
 
 #. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_audit_distribution__display_name
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list__display_name
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__display_name
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_departaments_reports_wizard__display_name
@@ -1187,7 +1207,6 @@ msgstr "Загрузить"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__responsible_id
-#: model:res.groups,name:restaurant_management.group_restaurant_management_auditer
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_audit_controller
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_auditer
@@ -1209,6 +1228,13 @@ msgstr "Комментарий Эксперта ДКК"
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__responsible_id
 msgid "Expert DKK"
+msgstr "Эксперт ДКК"
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_audit_distribution__user_id
+#: model:res.groups,name:restaurant_management.group_restaurant_management_auditer
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_distribution_view_search
+msgid "Expert QCD"
 msgstr "Эксперт ДКК"
 
 #. module: restaurant_management
@@ -1324,6 +1350,7 @@ msgid "General Report by Restaurant Department"
 msgstr "Отчет по ошибкам по департаменту"
 
 #. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_distribution_view_search
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_search
 msgid "Group By"
@@ -1335,6 +1362,7 @@ msgid "Helps to manage Restaurant Management."
 msgstr "Помогает управлять рестораном."
 
 #. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_audit_distribution__id
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list__id
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__id
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_departaments_reports_wizard__id
@@ -1352,6 +1380,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list__full_identificator
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__identificator
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__check_check_list_identificator
+#: model_terms:ir.ui.view,arch_db:restaurant_management.check_list_view_search
 msgid "Identificator"
 msgstr "Идентификатор"
 
@@ -1506,6 +1535,7 @@ msgid "La Placinte Logo"
 msgstr ""
 
 #. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_audit_distribution____last_update
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list____last_update
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category____last_update
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_departaments_reports_wizard____last_update
@@ -1520,6 +1550,7 @@ msgid "Last Modified on"
 msgstr "Дата последнего обновления"
 
 #. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_audit_distribution__write_uid
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list__write_uid
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__write_uid
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_departaments_reports_wizard__write_uid
@@ -1534,6 +1565,7 @@ msgid "Last Updated by"
 msgstr "Последнее обновление пользователем"
 
 #. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_audit_distribution__write_date
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list__write_date
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__write_date
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_departaments_reports_wizard__write_date
@@ -1578,6 +1610,12 @@ msgstr "Март"
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_planned_audits__mar
 msgid "March"
 msgstr "Март"
+
+#. module: restaurant_management
+#: code:addons/restaurant_management/models/planned_audits.py:0
+#, python-format
+msgid "Max and min values for audit counts are 0 and 10 correspondingly!"
+msgstr "Максимальное и минимальное значение количества проверок 0 и 10 соответственно!"
 
 #. module: restaurant_management
 #: code:addons/restaurant_management/report/departaments_report.py:0
@@ -1823,6 +1861,11 @@ msgid "Print Reports"
 msgstr "Распечатать Отчёты"
 
 #. module: restaurant_management
+#: model:res.groups,name:restaurant_management.group_restaurant_management_dkk_manager
+msgid "QCD Manager"
+msgstr "Руководитель ДКК"
+
+#. module: restaurant_management
 #: model:ir.ui.menu,name:restaurant_management.registered_grouped_faults_menu
 msgid "Registered Faults"
 msgstr "Ошибки"
@@ -1885,6 +1928,7 @@ msgstr "Ответственные по департаменту"
 #: code:addons/restaurant_management/static/src/xml/json_to_restaurant_rating_widget.xml:0
 #: code:addons/restaurant_management/static/src/xml/json_to_restaurant_rating_widget.xml:0
 #: model:ir.actions.act_window,name:restaurant_management.restaurant_action
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_audit_distribution__restaurant_id
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__restaurant_id
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_planned_audits__restaurant_id
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_reports_wizard__restaurant_id
@@ -1903,11 +1947,6 @@ msgstr "Ресторан"
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_search
 msgid "Restaurant Audit"
 msgstr "Проверка Ресторана"
-
-#. module: restaurant_management
-#: model:ir.module.category,name:restaurant_management.module_category_restaurant_management
-msgid "Restaurant DCC"
-msgstr "ДКК Ресторана"
 
 #. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form
@@ -1958,6 +1997,11 @@ msgstr "Руководитель сети"
 #: model:ir.ui.menu,name:restaurant_management.restaurant_network
 msgid "Restaurant Networks"
 msgstr "Сеть Ресторанов"
+
+#. module: restaurant_management
+#: model:ir.module.category,name:restaurant_management.module_category_restaurant_management
+msgid "Restaurant QCD"
+msgstr "ДКК Ресторана"
 
 #. module: restaurant_management
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__report__restaurant_rating
@@ -2127,6 +2171,14 @@ msgstr "Топ Ошибок"
 
 #. module: restaurant_management
 #. openerp-web
+#: code:addons/restaurant_management/static/src/js/tree_view_renderer.js:0
+#: code:addons/restaurant_management/static/src/js/tree_view_renderer.js:0
+#, python-format
+msgid "Undefined"
+msgstr "Неопределено"
+
+#. module: restaurant_management
+#. openerp-web
 #: code:addons/restaurant_management/static/src/xml/many2many_binary_preview.xml:0
 #: code:addons/restaurant_management/static/src/xml/many2many_binary_preview.xml:0
 #, python-format
@@ -2149,7 +2201,7 @@ msgstr "Ошибка загрузки"
 
 #. module: restaurant_management
 #: model:res.groups,comment:restaurant_management.group_restaurant_management_dkk_manager
-msgid "User under this group are DKK managers"
+msgid "User under this group are QCD managers"
 msgstr "Юзер этой группы является руководителем ДКК"
 
 #. module: restaurant_management
@@ -2174,7 +2226,7 @@ msgstr ""
 #. module: restaurant_management
 #: model:res.groups,comment:restaurant_management.group_restaurant_management_audit_controller
 msgid ""
-"User under this group are allowed to view and cancel the expert DKK "
+"User under this group are allowed to view and cancel the expert QCD "
 "registered faults"
 msgstr ""
 
