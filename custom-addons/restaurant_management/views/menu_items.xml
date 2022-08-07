@@ -40,6 +40,13 @@
               action="restaurant_network_action" 
               sequence="10" />
 
+    <menuitem id="audit_distribution" 
+              name="Audit Distribution" 
+              parent="menu_root" 
+              groups="restaurant_management.group_restaurant_management_manager" 
+              action="audit_distribution_action"
+              sequence="60" />
+
     <menuitem id="report_main_menu" 
               name="Reporting" 
               parent="menu_root" 

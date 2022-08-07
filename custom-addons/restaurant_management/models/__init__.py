@@ -8,3 +8,4 @@ from . import fault_registry
 from . import restaurant_audit
 from . import ir_attachment
 from . import planned_audits
+from . import audit_distribution
