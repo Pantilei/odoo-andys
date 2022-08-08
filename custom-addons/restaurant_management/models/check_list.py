@@ -97,8 +97,8 @@ class CheckList(models.Model):
         audit_id = 0
         for record in df_faults.to_dict("records"):
             # print("\n\n", record)
-            if not record['Категория Чек Листа'] or not record['Чек Лист']:
-                continue
+            # if not record['Категория Чек Листа'] or not record['Чек Лист']:
+            #     continue
 
             restaurant_id = self._get_restaurant(record["Ресторан"])
             responsible_id = self._get_responsible(record["Эксперт ДКК"])
@@ -115,16 +115,15 @@ class CheckList(models.Model):
                 record['Категория Чек Листа'])
             check_list_id = self._get_check_list(
                 record['Чек Лист'], check_list_category_id)
-            if not all([restaurant_id, responsible_id,
-                        check_list_category_id, check_list_id]):
+            if not all([restaurant_id, responsible_id]):
                 print("\n\n")
                 print([restaurant_id, responsible_id,
                        check_list_category_id, check_list_id])
                 print(record["Ресторан"], record["Эксперт ДКК"], record[
                       'Категория Чек Листа'], record['Чек Лист'])
-                # raise UserError(" ".join(record["Ресторан"], ": ", record["Эксперт ДКК"], ": ",
-                #                          record['Категория Чек Листа'], ": ", record['Чек Лист'], ": ", restaurant_id, ": ", responsible_id,
-                #                          ": ", check_list_category_id, ": ", check_list_id))
+                raise UserError(" ".join([record["Ресторан"], ": ", record["Эксперт ДКК"], ": ",
+                                         record['Категория Чек Листа'], ": ", record['Чек Лист'], ": ", restaurant_id, ": ", responsible_id,
+                                         ": ", check_list_category_id, ": ", check_list_id]))
 
             if check_list_category_id or check_list_id:
                 audits[-1]["fault_registry_ids"].append((0, 0, {
