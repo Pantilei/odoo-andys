@@ -99,17 +99,9 @@ class CheckList(models.Model):
             # print("\n\n", record)
             if not record['Категория Чек Листа'] or not record['Чек Лист']:
                 continue
+
             restaurant_id = self._get_restaurant(record["Ресторан"])
             responsible_id = self._get_responsible(record["Эксперт ДКК"])
-            check_list_category_id = self._get_check_list_category(
-                record['Категория Чек Листа'][:-2])
-            check_list_id = self._get_check_list(
-                record['Чек Лист'][:-2], check_list_category_id)
-            if not all([restaurant_id, responsible_id,
-                        check_list_category_id, check_list_id]):
-                raise UserError(" ".join(record["Ресторан"], ": ", record["Эксперт ДКК"], ": ",
-                                         record['Категория Чек Листа'], ": ", record['Чек Лист'], ": ", restaurant_id, ": ", responsible_id,
-                                         ": ", check_list_category_id, ": ", check_list_id))
 
             if record['Проверка'] != audit_id:
                 audits.append({
@@ -118,15 +110,32 @@ class CheckList(models.Model):
                     "audit_date": datetime.strptime(record['Дата Проверки'], '%d/%m/%Y'),
                     "fault_registry_ids": []
                 })
-            audits[-1]["fault_registry_ids"].append((0, 0, {
-                "check_list_category_id": check_list_category_id,
-                "check_list_id": check_list_id,
-                "fault_count": int(record['Количество Ошибок'] or 0),
-                "severe": record['Грубая ошибка'] or False,
-                "comment": record['Принятые меры Эксперт ДКК'] or False,
-                "director_comment": record['Принятые меры Директор Ресторана'] or False,
-                "check_list_category_responsible_comment": record['Принятые меры Ответственные по департаменту'] or False
-            }))
+
+            check_list_category_id = self._get_check_list_category(
+                record['Категория Чек Листа'])
+            check_list_id = self._get_check_list(
+                record['Чек Лист'], check_list_category_id)
+            if not all([restaurant_id, responsible_id,
+                        check_list_category_id, check_list_id]):
+                print("\n\n")
+                print([restaurant_id, responsible_id,
+                       check_list_category_id, check_list_id])
+                print(record["Ресторан"], record["Эксперт ДКК"], record[
+                      'Категория Чек Листа'], record['Чек Лист'])
+                # raise UserError(" ".join(record["Ресторан"], ": ", record["Эксперт ДКК"], ": ",
+                #                          record['Категория Чек Листа'], ": ", record['Чек Лист'], ": ", restaurant_id, ": ", responsible_id,
+                #                          ": ", check_list_category_id, ": ", check_list_id))
+
+            if check_list_category_id or check_list_id:
+                audits[-1]["fault_registry_ids"].append((0, 0, {
+                    "check_list_category_id": check_list_category_id,
+                    "check_list_id": check_list_id,
+                    "fault_count": int(record['Количество Ошибок'] or 0),
+                    "severe": record['Грубая ошибка'] or False,
+                    "comment": record['Принятые меры Эксперт ДКК'] or False,
+                    "director_comment": record['Принятые меры Директор Ресторана'] or False,
+                    "check_list_category_responsible_comment": record['Принятые меры Ответственные по департаменту'] or False
+                }))
             audit_id = record['Проверка']
 
         RestaurantAudit.create(audits)
@@ -140,17 +149,23 @@ class CheckList(models.Model):
         return ResUsers.search([("name", "=", name)], limit=1).id
 
     def _get_check_list_category(self, name):
+        if not name:
+            return False
         CheckListCategory = self.env["restaurant_management.check_list_category"]
-        mod_name = name.strip()
+        mod_name = name.strip()[:-2]
         check_list_category_id = CheckListCategory.search(
             [("name", "ilike", mod_name)], limit=1)
 
         return check_list_category_id.id
 
     def _get_check_list(self, name, check_list_category_id):
+        if not name:
+            return False
         CheckList = self.env["restaurant_management.check_list"]
-        mod_name = name.strip()
+        mod_name = name[4:-2].strip()
         check_list_id = CheckList.search(
             [("name", "ilike", mod_name), ('category_id', '=', check_list_category_id)], limit=1)
+        # check_list_id = CheckList.search(
+        #     [("full_identificator", "=", mod_name.split(" ")[0]), ('category_id', '=', check_list_category_id)], limit=1)
 
         return check_list_id.id
