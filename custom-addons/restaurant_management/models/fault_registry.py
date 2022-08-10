@@ -143,7 +143,8 @@ class FaultRegistry(models.Model):
 
     check_check_list_identificator = fields.Char(
         related="check_list_id.full_identificator",
-        string="Identificator"
+        string="Identificator",
+        store=True
     )
 
     responsible_id = fields.Many2one(

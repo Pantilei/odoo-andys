@@ -232,8 +232,8 @@
                     <field name="responsible_id" widget="many2one_avatar_user" optional="hide" />
                     <field name="fault_count" />
                     <field name="comment" optional="show" widget="html" />
-                    <field name="director_comment" optional="hide" widget="html" />
-                    <field name="check_list_category_responsible_comment" optional="hide" widget="html" />
+                    <field name="director_comment" optional="show" widget="html" />
+                    <field name="check_list_category_responsible_comment" optional="show" widget="html" />
                     <field name="state" optional="hide" widget="badge" decoration-success="state == 'confirm'" decoration-muted="state == 'cancel'" />
                 </tree>
             </field>
