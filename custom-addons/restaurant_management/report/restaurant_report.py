@@ -51,12 +51,14 @@ class RestaurantReport(models.AbstractModel):
 
         relative_fault_count_png = self._get_relative_fault_count_png(
             restaurant_id,
+            check_list_category_ids,
             date_start, date_end,
             list(enumerate(months)))
 
         top_faults = FaultRegistry.get_top_faults(
             date(year=year, month=month, day=1),
             date(year=year, month=month, day=monthrange(year, month)[1]),
+            check_list_category_ids=check_list_category_ids.ids,
             restaurant_id=restaurant_id.id)
         top_faults_with_comments = [
             (
@@ -116,23 +118,24 @@ class RestaurantReport(models.AbstractModel):
             legend,
         )
 
-    def _get_relative_fault_count_png(self, restaurant_id, date_start, date_end, months):
+    def _get_relative_fault_count_png(self,
+                                      restaurant_id, check_list_category_ids, date_start, date_end, months):
         FaultRegistry = self.env["restaurant_management.fault_registry"]
         fault_counts_per_month_of_restaurant = FaultRegistry.get_fault_counts_per_month(
             date_start, date_end,
-            check_list_category_id=None,
+            check_list_category_ids=check_list_category_ids.ids,
             restaurant_id=restaurant_id.id)['fault_per_audit']
 
         fault_counts_per_month_of_restaurant_network = FaultRegistry.get_fault_counts_per_month(
             date_start, date_end,
-            check_list_category_id=None,
+            check_list_category_ids=check_list_category_ids.ids,
             restaurant_network_id=restaurant_id.restaurant_network_id.id)['fault_per_audit']
 
         x_categ = months
         ys = [fault_counts_per_month_of_restaurant,
               fault_counts_per_month_of_restaurant_network]
-        legend = [
-            f"{restaurant_id.restaurant_network_id.name} ({_('medium value')})", restaurant_id.name]
+        legend = [restaurant_id.name,
+                  f"{restaurant_id.restaurant_network_id.name} ({'среднее'})"]
 
         return get_multi_line_png(
             x_categ,
