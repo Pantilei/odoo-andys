@@ -7,6 +7,7 @@ from ..tools import short_date
 import requests
 import logging
 import traceback
+import lxml
 from datetime import datetime, timedelta, date
 from dateutil.rrule import rrule, MONTHLY
 from calendar import monthrange
@@ -38,6 +39,33 @@ class FaultRegistry(models.Model):
                 record.restaurant_director_ids = record.restaurant_id.director_ids.ids
             else:
                 record.restaurant_director_ids = False
+
+    @api.depends("comment")
+    def _compute_comment_no_html(self):
+        for record in self:
+            if record.comment:
+                record.comment_no_html = lxml.html.fromstring(
+                    record.comment).text
+            else:
+                record.comment_no_html = ""
+
+    @api.depends("director_comment")
+    def _compute_director_comment_no_html(self):
+        for record in self:
+            if record.director_comment:
+                record.director_comment_no_html = lxml.html.fromstring(
+                    record.director_comment).text
+            else:
+                record.director_comment_no_html = ""
+
+    @api.depends("check_list_category_responsible_comment")
+    def _compute_check_list_category_responsible_comment_no_html(self):
+        for record in self:
+            if record.check_list_category_responsible_comment:
+                record.check_list_category_responsible_comment_no_html = lxml.html.fromstring(
+                    record.check_list_category_responsible_comment).text
+            else:
+                record.check_list_category_responsible_comment_no_html = ""
 
     state = fields.Selection(selection=[
         ('confirm', 'Confirmed'),
@@ -135,6 +163,21 @@ class FaultRegistry(models.Model):
 
     check_list_category_responsible_comment = fields.Text(
         string="Taken Measures by Responsible within Department "
+    )
+
+    comment_no_html = fields.Text(
+        string="Expert DCC comment (No HTML)",
+        compute="_compute_comment_no_html"
+    )
+
+    director_comment_no_html = fields.Text(
+        string="Taken Measures by Restaurant Director (No HTML)",
+        compute="_compute_director_comment_no_html"
+    )
+
+    check_list_category_responsible_comment_no_html = fields.Text(
+        string="Taken Measures by Responsible within Department (No HTML)",
+        compute="_compute_check_list_category_responsible_comment_no_html"
     )
 
     attachment_ids = fields.Many2many(
