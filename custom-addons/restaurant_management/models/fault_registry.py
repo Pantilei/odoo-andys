@@ -309,7 +309,7 @@ class FaultRegistry(models.Model):
 
     @api.model
     def get_restaurant_rating_monthly_data(self, date_start, date_end,
-                                           restaurant_id, check_list_category_id=None):
+                                           restaurant_id, check_list_category_id=None, check_list_category_ids=None):
         Restaurant = self.env["restaurant_management.restaurant"]
         if isinstance(restaurant_id, int):
             restaurant_id = Restaurant.browse(restaurant_id)
@@ -318,11 +318,12 @@ class FaultRegistry(models.Model):
             restaurant_ratings = self.get_restaurant_rating_data(
                 r_date,
                 restaurant_network_id=restaurant_id.restaurant_network_id.id,
-                check_list_category_id=check_list_category_id)
+                check_list_category_id=check_list_category_id,
+                check_list_category_ids=check_list_category_ids,
+            )
             for idx, d in enumerate(restaurant_ratings):
                 if d[0] == restaurant_id.id:
                     restaurant_rating_per_month.append(idx+1)
-
         return restaurant_rating_per_month
 
     @api.model

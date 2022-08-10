@@ -92,7 +92,11 @@ class RestaurantReport(models.AbstractModel):
         CheckListCategory = self.env["restaurant_management.check_list_category"]
 
         data = FaultRegistry.get_restaurant_rating_monthly_data(
-            date_start, date_end, restaurant_id)
+            date_start,
+            date_end,
+            restaurant_id,
+            check_list_category_ids=check_list_category_ids.ids,
+        )
         x_categ = months
         ys = [data]
         legend = [_('All')]
