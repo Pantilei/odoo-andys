@@ -44,8 +44,8 @@ class FaultRegistry(models.Model):
     def _compute_comment_no_html(self):
         for record in self:
             if record.comment:
-                record.comment_no_html = lxml.html.fromstring(
-                    record.comment).text
+                record.comment_no_html = lxml.html.document_fromstring(
+                    record.comment).text_content()
             else:
                 record.comment_no_html = ""
 
@@ -53,8 +53,8 @@ class FaultRegistry(models.Model):
     def _compute_director_comment_no_html(self):
         for record in self:
             if record.director_comment:
-                record.director_comment_no_html = lxml.html.fromstring(
-                    record.director_comment).text
+                record.director_comment_no_html = lxml.html.document_fromstring(
+                    record.director_comment).text_content()
             else:
                 record.director_comment_no_html = ""
 
@@ -62,8 +62,8 @@ class FaultRegistry(models.Model):
     def _compute_check_list_category_responsible_comment_no_html(self):
         for record in self:
             if record.check_list_category_responsible_comment:
-                record.check_list_category_responsible_comment_no_html = lxml.html.fromstring(
-                    record.check_list_category_responsible_comment).text
+                record.check_list_category_responsible_comment_no_html = lxml.html.document_fromstring(
+                    record.check_list_category_responsible_comment).text_content()
             else:
                 record.check_list_category_responsible_comment_no_html = ""
 
