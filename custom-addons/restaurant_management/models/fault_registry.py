@@ -102,7 +102,7 @@ class FaultRegistry(models.Model):
         string="Restaurant",
         compute="_compute_restaurant",
         store=True,
-        # group_operator=False
+        ondelete="restrict"
     )
     restaurant_network_id = fields.Many2one(
         comodel_name="restaurant_management.restaurant_network",
@@ -110,7 +110,8 @@ class FaultRegistry(models.Model):
         string="Restaurant Network",
         related="restaurant_id.restaurant_network_id",
         readonly=False,
-        store=True
+        store=True,
+        ondelete="restrict"
     )
 
     restaurant_director_ids = fields.Many2many(
@@ -120,7 +121,8 @@ class FaultRegistry(models.Model):
     )
     fault_date = fields.Date(
         compute="_compute_fault_date",
-        store=True
+        store=True,
+        index=True
     )
     restaurant_audit_id = fields.Many2one(
         comodel_name="restaurant_management.restaurant_audit",
@@ -130,7 +132,8 @@ class FaultRegistry(models.Model):
         comodel_name="restaurant_management.check_list_category",
         index=True,
         required=True,
-        string="Check List Category"
+        string="Check List Category",
+        ondelete="restrict"
     )
     no_fault_check_list_category = fields.Boolean(
         compute="_compute_no_fault_check_list_category"
@@ -138,7 +141,8 @@ class FaultRegistry(models.Model):
     check_list_id = fields.Many2one(
         comodel_name="restaurant_management.check_list",
         index=True,
-        string="Check List"
+        string="Check List",
+        ondelete="restrict"
     )
 
     check_check_list_identificator = fields.Char(

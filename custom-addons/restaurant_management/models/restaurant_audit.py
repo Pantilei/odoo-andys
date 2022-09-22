@@ -39,19 +39,23 @@ class RestaurantAudit(models.Model):
     )
     restaurant_id = fields.Many2one(
         comodel_name="restaurant_management.restaurant",
-        string="Restaurant"
+        string="Restaurant",
+        ondelete="restrict",
+        index=True
     )
     restaurant_network_id = fields.Many2one(
         comodel_name="restaurant_management.restaurant_network",
         string="Restaurant Network",
         related="restaurant_id.restaurant_network_id",
         readonly=False,
-        store=True
+        store=True,
+        ondelete="restrict",
+        index=True
     )
     restaurant_director_ids = fields.Many2many(
         comodel_name="res.users",
         string="Restaurant Directors",
-        compute="_compute_restaurant_directors"
+        compute="_compute_restaurant_directors",
     )
 
     responsible_id = fields.Many2one(
@@ -63,6 +67,7 @@ class RestaurantAudit(models.Model):
 
     audit_date = fields.Date(
         default=lambda self: fields.Datetime.today(),
+        index=True
     )
     audit_start_time = fields.Float(
         string="From",
