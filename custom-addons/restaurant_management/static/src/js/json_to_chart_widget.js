@@ -31,7 +31,10 @@ export default class JsonToChart extends AbstractFieldOwl {
       this.chart.destroy();
     }
     let chartConfigs = JSON.parse(this.value);
-    this.chart = new Chart(this.graphCanvasRef.el, chartConfigs);
+    this.chart = new Chart(this.graphCanvasRef.el, {
+      ...chartConfigs,
+      plugins: [ChartDataLabels],
+    });
   }
 }
 

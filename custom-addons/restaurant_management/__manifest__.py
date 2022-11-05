@@ -61,6 +61,7 @@
             'restaurant_management/static/src/js/many2many_binary_preview.js',
             'web/static/lib/Chart/Chart.js',
             'restaurant_management/static/src/libs/chart-js-plugin-annotations.js',
+            'restaurant_management/static/src/libs/chartjs-plugin-datalabels.js',
 
             'restaurant_management/static/src/scss/variables/derived_variables.scss',
             'restaurant_management/static/src/scss/document_viewer.scss',

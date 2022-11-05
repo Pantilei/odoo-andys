@@ -357,7 +357,9 @@ class FaultRegistry(models.Model):
 
     @api.model
     def get_restaurant_rating_monthly_data(self, date_start, date_end,
-                                           restaurant_id, check_list_category_id=None, check_list_category_ids=None):
+                                           restaurant_id,
+                                           check_list_category_id=None,
+                                           check_list_category_ids=None):
         Restaurant = self.env["restaurant_management.restaurant"]
         if isinstance(restaurant_id, int):
             restaurant_id = Restaurant.browse(restaurant_id)

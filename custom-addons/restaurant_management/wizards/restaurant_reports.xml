@@ -15,11 +15,11 @@
                         <!-- <field name="restaurant_network_ids" options="{'no_create': True}" attrs="{'invisible': [('report', 'not in', ['general_report_by_audit_of_all_restaurants', 'general_report_by_restaurant_department'])], 'required': [('report', 'in', ['general_report_by_audit_of_all_restaurants', 'general_report_by_restaurant_department'])]}" widget="many2many_tags" /> -->
                         <field name="check_list_category_ids" options="{'no_create': True}" widget="many2many_tags" />
                     </group>
-                    <group string="Date of report" attrs="{'invisible': [('report', '=', 'fault_count_dynamics')]}">
+                    <group string="Date of report" attrs="{'invisible': [('report', 'in', ['fault_count_dynamics', 'restaurant_rating_graph'])]}">
                         <field name="year" required="1" />
                         <field name="month" required="1" />
                     </group>
-                    <group string="Date range for dynamics" attrs="{'invisible': [('report', '!=', 'fault_count_dynamics')]}">
+                    <group string="Date range for dynamics" attrs="{'invisible': [('report', 'not in', ['fault_count_dynamics', 'restaurant_rating_graph'])]}">
                         <group>
                             <field name="year_start" required="1" />
                             <field name="month_start" required="1" />
@@ -31,6 +31,7 @@
                     </group>
                     <div class="d-flex justify-content-center w-100">
                         <field name="json_chart" widget="json_to_chart" attrs="{'invisible': [('report', '!=', 'fault_count_dynamics')]}" />
+                        <field name="json_restaurant_rating_chart" widget="json_to_chart" attrs="{'invisible': [('report', '!=', 'restaurant_rating_graph')]}" />
                         <field name="json_top_faults" widget="json_to_top_faults" attrs="{'invisible': [('report', '!=', 'top_faults')]}" />
                         <field name="json_restaurant_rating" widget="json_to_restaurant_rating" attrs="{'invisible': [('report', '!=', 'restaurant_rating')]}" />
                     </div>

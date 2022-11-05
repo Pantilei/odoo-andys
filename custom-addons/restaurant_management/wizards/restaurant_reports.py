@@ -17,8 +17,8 @@ COLORS = itertools.cycle((
     'rgb(255, 99, 132, 0.5)',
     'rgb(96, 186, 125)',
     'rgb(96, 186, 125, 0.5)',
-    'rgb(232, 110, 188)',
-    'rgb(232, 110, 188, 0.5)',
+    'rgb(202, 110, 188)',
+    'rgb(202, 110, 188, 0.5)',
     'rgb(12, 13, 14)',
     'rgb(12, 13, 14, 0.5)',
     'rgb(56, 84, 153)',
@@ -57,10 +57,10 @@ class RestaurantReports(models.TransientModel):
     _description = "Wizard to print the restaurant reports"
 
     def _default_month_end(self):
-        return str((date.today() + relativedelta(months=+1)).month)
+        return str(date.today().month)
 
     def _default_month_start(self):
-        return str((date.today() + relativedelta(months=-1)).month)
+        return str((date.today() + relativedelta(months=-2)).month)
 
     def _get_default_departaments(self):
         return self.env["restaurant_management.check_list_category"].search([
@@ -83,6 +83,7 @@ class RestaurantReports(models.TransientModel):
 
     report = fields.Selection(selection=[
         ("restaurant_rating", "Restaurant Rating"),
+        ("restaurant_rating_graph", "Restaurant Rating (Graph)"),
         ("fault_count_dynamics", "Fault count dynamics"),
         ("top_faults", "Top Faults"),
     ],
@@ -160,6 +161,98 @@ class RestaurantReports(models.TransientModel):
     json_restaurant_rating = fields.Text(
         compute="_compute_json_restaurant_rating"
     )
+
+    json_restaurant_rating_chart = fields.Text(
+        compute="_compute_json_restaurant_rating_chart"
+    )
+
+    @api.depends("report", "restaurant_id", "check_list_category_ids", "year_start", "month_start", "year_end", "month_end")
+    def _compute_json_restaurant_rating_chart(self):
+        RestaurantNetwork = self.env["restaurant_management.restaurant_network"]
+        FaultRegistry = self.env["restaurant_management.fault_registry"]
+        FaultCategory = self.env["restaurant_management.check_list_category"]
+        for record in self:
+            date_start = date(
+                year=int(record.year_start),
+                month=int(record.month_start),
+                day=1
+            )
+            date_end = date(
+                year=int(record.year_end),
+                month=int(record.month_end),
+                day=monthrange(year=int(record.year_end),
+                               month=int(record.month_end))[1]
+            )
+            dataset = []
+            for check_list_category_id in record.check_list_category_ids:
+                color = next(COLORS)
+                dataset.append({
+                    "data": FaultRegistry.get_restaurant_rating_monthly_data(
+                        date_start,
+                        date_end,
+                        record.restaurant_id.id,
+                        check_list_category_id=check_list_category_id.id.origin,
+                    ),
+                    "label": check_list_category_id.name,
+                    "borderColor": color,
+                    "cubicInterpolationMode": 'monotone',
+                    "tension": 0.4,
+                    'pointRadius': 5,
+                    'pointHoverRadius': 8,
+                    'fill': False,
+                    'datalabels': {
+                        'color': color,
+                        'anchor': 'bottom',
+                        'align': 'top',
+                        # 'formatter': 'Math.round',
+                        'font': {
+                            'weight': 'bold',
+                            'size': 16
+                        }
+                    }
+                })
+            data = {
+                'labels': record._get_month_range(date_start, date_end),
+                'datasets': dataset,
+            }
+            options = {
+                'responsive': True,
+                'maintainAspectRatio': False,
+                'title': {
+                    'display': True,
+                    'text': _('Restaurant Rating')
+                },
+                'legend': {
+                    'display': True,
+                    # 'labels': {
+                    #     'fontColor': 'rgb(255, 99, 132)'
+                    # }
+                },
+                'scales': {
+                    'yAxes': [{
+                        'scaleLabel': {
+                            'display': True,
+                            'labelString': _("Rating")
+                        },
+                        'ticks': {
+                            'suggestedMin': 0,
+                        }
+                    }],
+                    'xAxes': [{
+                        'scaleLabel': {
+                            'display': True,
+                            'labelString': _('Months')
+                        },
+                    }],
+                }
+            }
+            configs = {
+                'type': 'line',
+                'data': data,
+                'options': options,
+            }
+
+            record.json_restaurant_rating_chart = json.dumps(configs)
 
     @api.depends("report", "restaurant_id", "check_list_category_ids", "year", "month")
     def _compute_json_restaurant_rating(self):

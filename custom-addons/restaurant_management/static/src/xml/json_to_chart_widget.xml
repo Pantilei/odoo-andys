@@ -5,7 +5,7 @@
         <div>
             <!-- <t t-esc="value" /> -->
             <div class="o_graph_container">
-                <div class="o_graph_canvas_container" style="position: relative; height:50vh; width:80vw">
+                <div class="o_graph_canvas_container" style="position: relative; height:70vh; width:80vw">
                     <canvas t-ref="graphCanvasRef" />
                 </div>
             </div>
