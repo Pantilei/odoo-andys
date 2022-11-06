@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-06 12:41+0000\n"
-"PO-Revision-Date: 2022-11-06 12:41+0000\n"
+"POT-Creation-Date: 2022-11-06 12:48+0000\n"
+"PO-Revision-Date: 2022-11-06 12:48+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1262,6 +1262,13 @@ msgid "Fault Count"
 msgstr "Количество Ошибок"
 
 #. module: restaurant_management
+#: code:addons/restaurant_management/wizards/departaments_reports.py:0
+#: code:addons/restaurant_management/wizards/restaurant_reports.py:0
+#, python-format
+msgid "Fault Count / Audit"
+msgstr "Кол-во Ошибок / Проверка"
+
+#. module: restaurant_management
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__report__fault_count_dynamics
 msgid "Fault Count Dynamics"
 msgstr "Динамика Количества Ошибок"
@@ -1272,13 +1279,6 @@ msgstr "Динамика Количества Ошибок"
 #, python-format
 msgid "Fault Count/1 Audit"
 msgstr "Кол-во Ошибок/1 Проверка"
-
-#. module: restaurant_management
-#: code:addons/restaurant_management/wizards/departaments_reports.py:0
-#: code:addons/restaurant_management/wizards/restaurant_reports.py:0
-#, python-format
-msgid "Fault Count/Audit"
-msgstr "Количество Ошибок/Проверка"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__fault_date
@@ -1711,7 +1711,6 @@ msgid "Month of Report"
 msgstr "Месяц Отчета"
 
 #. module: restaurant_management
-#: code:addons/restaurant_management/wizards/departaments_reports.py:0
 #: code:addons/restaurant_management/wizards/restaurant_reports.py:0
 #: code:addons/restaurant_management/wizards/restaurant_reports.py:0
 #, python-format
@@ -2093,9 +2092,11 @@ msgid "Restaurant director"
 msgstr "Директор Ресторана"
 
 #. module: restaurant_management
+#: code:addons/restaurant_management/wizards/departaments_reports.py:0
 #: model:ir.model,name:restaurant_management.model_restaurant_management_restaurant
 #: model:ir.ui.menu,name:restaurant_management.restaurant
 #: model:ir.ui.menu,name:restaurant_management.restaurant_parent
+#, python-format
 msgid "Restaurants"
 msgstr "Рестораны"
 
