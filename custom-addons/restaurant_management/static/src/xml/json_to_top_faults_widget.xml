@@ -5,12 +5,12 @@
         <div class="container">
             <div class="row border border-dark">
                 <div class="col-10">
-                    <span style="font-size: 24px;">
-                        Fault
+                    <span class="mx-auto d-block" style="font-size: 24px;">
+                        Ошибки из чек листа эксперта ДКК
                     </span>
                 </div>
-                <div class="col-2">
-                    <span style="font-size: 24px;">
+                <div class="col-2 border-left border-dark">
+                    <span class="mx-auto d-block" style="font-size: 24px;">
                         Count
                     </span>
                 </div>
@@ -23,8 +23,8 @@
                                 <t t-esc="topFault[1]" />
                             </span>
                         </div>
-                        <div class="col-2">
-                            <span style="color: white; background-color: red; padding: 0.5mm 2mm; font-size: 6mm; margin: 0 1mm 0 0;">
+                        <div class="col-2 border-left border-dark">
+                            <span class="badge badge-pill d-block mx-auto my-auto" style="font-size: 16px;">
                                 <t t-esc="topFault[2]" />
                             </span>
                         </div>

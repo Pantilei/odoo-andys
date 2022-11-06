@@ -239,7 +239,7 @@ class RestaurantReports(models.TransientModel):
                 'maintainAspectRatio': False,
                 'title': {
                     'display': True,
-                    'text': _('Restaurant Rating')
+                    'text': _('Restaurant Rating Dynamics within Department')
                 },
                 'legend': {
                     'display': True,
@@ -395,15 +395,6 @@ class RestaurantReports(models.TransientModel):
             options = {
                 'responsive': True,
                 'maintainAspectRatio': False,
-                'plugins': {
-                    'legend': {
-                        'position': 'top',
-                    },
-                    'title': {
-                        'display': True,
-                        'text': 'Chart.js Bar Chart'
-                    }
-                },
                 'title': {
                     'display': True,
                     'text': _('Fault counts within departments')
@@ -474,4 +465,4 @@ class RestaurantReports(models.TransientModel):
                     }
                 }
             })
-        return data, max(all_data)
+        return data, max(all_data) if len(all_data) else 2

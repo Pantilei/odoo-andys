@@ -74,6 +74,13 @@
         groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_restaurant_director,restaurant_management.group_restaurant_management_dkk_manager"
         sequence="17" />
 
+    <menuitem id="all_restaurants_reports_menu"
+        name="Faults Reports"
+        parent="report_main_menu"
+        action="all_restaurants_report_wizard_action"
+        groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_restaurant_director,restaurant_management.group_restaurant_management_dkk_manager"
+        sequence="18" />
+
     <!-- <menuitem id="print_reports_menu" 
               name="Print Reports" 
               parent="report_main_menu" 

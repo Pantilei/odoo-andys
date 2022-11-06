@@ -35,6 +35,7 @@
         'wizards/reports.xml',
         'wizards/departaments_reports.xml',
         'wizards/restaurant_reports.xml',
+        'wizards/all_restaurants_report.xml',
 
         'views/menu_items.xml',
         'views/res_users.xml',

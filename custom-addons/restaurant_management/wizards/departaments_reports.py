@@ -312,7 +312,7 @@ class DepartamentsReports(models.TransientModel):
             data.append(res.get('fault_per_audit', []))
             labels.append(restaurant_id.name)
             all_values = [*all_values, *res.get('fault_per_audit', [])]
-        max_value = max(all_values)
+        max_value = max(all_values) if len(all_values) else 2
         mean_value = sum(all_values)/len(all_values)
         month_range = self._get_month_range(date_start, date_end)
         datasets = []
@@ -348,7 +348,7 @@ class DepartamentsReports(models.TransientModel):
             'responsive': True,
             'maintainAspectRatio': False,
             'title': {
-                'display': True,
+                'display': False,
                 'text': _('Fault counts within restaurants')
             },
             'legend': {
@@ -382,11 +382,16 @@ class DepartamentsReports(models.TransientModel):
                     'scaleID': 'y-axis-0',
                     'value': round(mean_value, 2),
                     'borderColor': 'red',
-                    'borderWidth': 5,
+                    'borderWidth': 1,
                     'label': {
                         'enabled': True,
                         'position': "center",
                         'content': round(mean_value, 2),
+                        'font': {
+                            'weight': 'normal',
+                            'fontSize': 10
+                        },
+
                     }
                 }]
             },
