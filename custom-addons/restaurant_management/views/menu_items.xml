@@ -1,104 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <menuitem id="menu_root" 
-              name="Restaurant Management" 
-              web_icon="crm,static/description/icon.png" 
-              sequence="25" />
+    <menuitem id="menu_root"
+        name="Restaurant Management"
+        web_icon="crm,static/description/icon.png"
+        sequence="25" />
 
-    <menuitem id="restaurant_audit" 
-              name="Audit of Expert DKK" 
-              parent="menu_root" 
-              action="restaurant_audit_action"
-              groups="restaurant_management.group_restaurant_management_audit_controller,restaurant_management.group_restaurant_management_dkk_manager,restaurant_management.group_restaurant_management_auditer,restaurant_management.group_restaurant_management_restaurant_director,restaurant_management.group_restaurant_management_manager" 
-              sequence="1" />
+    <menuitem id="restaurant_audit"
+        name="Audit of Expert DKK"
+        parent="menu_root"
+        action="restaurant_audit_action"
+        groups="restaurant_management.group_restaurant_management_audit_controller,restaurant_management.group_restaurant_management_dkk_manager,restaurant_management.group_restaurant_management_auditer,restaurant_management.group_restaurant_management_restaurant_director,restaurant_management.group_restaurant_management_manager"
+        sequence="1" />
 
-    <menuitem id="fault_registry" 
-              name="Fault Registry" 
-              parent="menu_root" 
-              action="fault_registry_action"
-              groups="restaurant_management.group_restaurant_management_audit_controller,restaurant_management.group_restaurant_management_dkk_manager,restaurant_management.group_restaurant_management_restaurant_director,restaurant_management.group_restaurant_management_manager" 
-              sequence="10" />
+    <menuitem id="fault_registry"
+        name="Fault Registry"
+        parent="menu_root"
+        action="fault_registry_action"
+        groups="restaurant_management.group_restaurant_management_audit_controller,restaurant_management.group_restaurant_management_dkk_manager,restaurant_management.group_restaurant_management_restaurant_director,restaurant_management.group_restaurant_management_manager"
+        sequence="10" />
 
-    <menuitem id="restaurant_parent" 
-              name="Restaurants" 
-              parent="menu_root" 
-              groups="restaurant_management.group_restaurant_management_manager" 
-              sequence="50" />
+    <menuitem id="restaurant_parent"
+        name="Restaurants"
+        parent="menu_root"
+        groups="restaurant_management.group_restaurant_management_manager"
+        sequence="50" />
 
-    <menuitem id="restaurant" 
-              name="Restaurants" 
-              parent="restaurant_parent" 
-              groups="restaurant_management.group_restaurant_management_manager" 
-              action="restaurant_action" 
-              sequence="1" />
+    <menuitem id="restaurant"
+        name="Restaurants"
+        parent="restaurant_parent"
+        groups="restaurant_management.group_restaurant_management_manager"
+        action="restaurant_action"
+        sequence="1" />
 
-    <menuitem id="restaurant_network" 
-              name="Restaurant Networks" 
-              parent="restaurant_parent" 
-              groups="restaurant_management.group_restaurant_management_manager" 
-              action="restaurant_network_action" 
-              sequence="10" />
+    <menuitem id="restaurant_network"
+        name="Restaurant Networks"
+        parent="restaurant_parent"
+        groups="restaurant_management.group_restaurant_management_manager"
+        action="restaurant_network_action"
+        sequence="10" />
 
-    <menuitem id="audit_distribution" 
-              name="Audit Distribution" 
-              parent="menu_root" 
-              groups="restaurant_management.group_restaurant_management_manager" 
-              action="audit_distribution_action"
-              sequence="60" />
+    <menuitem id="audit_distribution"
+        name="Audit Distribution"
+        parent="menu_root"
+        groups="restaurant_management.group_restaurant_management_manager"
+        action="audit_distribution_action"
+        sequence="60" />
 
-    <menuitem id="report_main_menu" 
-              name="Reporting" 
-              parent="menu_root" 
-              groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_restaurant_director,restaurant_management.group_restaurant_management_audit_controller,restaurant_management.group_restaurant_management_dkk_manager" 
-              sequence="100" />
+    <menuitem id="report_main_menu"
+        name="Reporting"
+        parent="menu_root"
+        groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_restaurant_director,restaurant_management.group_restaurant_management_audit_controller,restaurant_management.group_restaurant_management_dkk_manager"
+        sequence="100" />
 
-    <menuitem id="registered_grouped_faults_menu" 
-              name="Registered Faults" 
-              parent="report_main_menu" 
-              action="registered_grouped_faults_action"
-              groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_dkk_manager" 
-              sequence="5" />
-    
-    <menuitem id="departaments_report_menu" 
-              name="Departament Reports" 
-              parent="report_main_menu" 
-              action="departaments_reports_wizard_action"
-              groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_audit_controller,restaurant_management.group_restaurant_management_dkk_manager" 
-              sequence="16" />
-    
-    <menuitem id="restaurant_reports_menu" 
-              name="Restaurant Reports" 
-              parent="report_main_menu" 
-              action="restaurant_reports_wizard_action"
-              groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_restaurant_director,restaurant_management.group_restaurant_management_dkk_manager" 
-              sequence="17" />
-    
-    <menuitem id="print_reports_menu" 
+    <menuitem id="registered_grouped_faults_menu"
+        name="Registered Faults"
+        parent="report_main_menu"
+        action="registered_grouped_faults_action"
+        groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_dkk_manager"
+        sequence="5" />
+
+    <menuitem id="departaments_report_menu"
+        name="Departament Reports"
+        parent="report_main_menu"
+        action="departaments_reports_wizard_action"
+        groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_audit_controller,restaurant_management.group_restaurant_management_dkk_manager"
+        sequence="16" />
+
+    <menuitem id="restaurant_reports_menu"
+        name="Restaurant Reports"
+        parent="report_main_menu"
+        action="restaurant_reports_wizard_action"
+        groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_restaurant_director,restaurant_management.group_restaurant_management_dkk_manager"
+        sequence="17" />
+
+    <!-- <menuitem id="print_reports_menu" 
               name="Print Reports" 
               parent="report_main_menu" 
               action="reports_wizard_action"
               groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_dkk_manager" 
-              sequence="20" />
-    
+              sequence="20" /> -->
 
-    <menuitem id="configuration_menu" 
-              name="Configurations" 
-              parent="menu_root" 
-              groups="restaurant_management.group_restaurant_management_manager" 
-              sequence="1000" />
 
-    <menuitem id="check_list_menu" 
-              name="Check List" 
-              parent="configuration_menu" 
-              action="check_list_action"
-              groups="restaurant_management.group_restaurant_management_manager" 
-              sequence="5" />
-    <menuitem id="check_list_category_menu" 
-              name="Check List Category" 
-              parent="configuration_menu" 
-              action="check_list_category_action" 
-              groups="restaurant_management.group_restaurant_management_manager" 
-              sequence="10" />
+    <menuitem id="configuration_menu"
+        name="Configurations"
+        parent="menu_root"
+        groups="restaurant_management.group_restaurant_management_manager"
+        sequence="1000" />
+
+    <menuitem id="check_list_menu"
+        name="Check List"
+        parent="configuration_menu"
+        action="check_list_action"
+        groups="restaurant_management.group_restaurant_management_manager"
+        sequence="5" />
+    <menuitem id="check_list_category_menu"
+        name="Check List Category"
+        parent="configuration_menu"
+        action="check_list_category_action"
+        groups="restaurant_management.group_restaurant_management_manager"
+        sequence="10" />
 
 </odoo>
