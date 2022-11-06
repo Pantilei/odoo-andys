@@ -415,7 +415,7 @@ class RestaurantReports(models.TransientModel):
                     'yAxes': [{
                         'scaleLabel': {
                             'display': True,
-                            'labelString': _("Fault Count/Audit")
+                            'labelString': _("Fault Count / Audit")
                         },
                         'ticks': {
                             'suggestedMin': 0,

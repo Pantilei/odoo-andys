@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-10 18:17+0000\n"
-"PO-Revision-Date: 2022-08-10 18:17+0000\n"
+"POT-Creation-Date: 2022-11-06 12:41+0000\n"
+"PO-Revision-Date: 2022-11-06 12:41+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1035,6 +1035,13 @@ msgid "Cook"
 msgstr "Повар"
 
 #. module: restaurant_management
+#. openerp-web
+#: code:addons/restaurant_management/static/src/xml/json_to_top_faults_widget.xml:0
+#, python-format
+msgid "Count"
+msgstr "Количество"
+
+#. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant__country_id
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_view_form
 msgid "Country"
@@ -1244,9 +1251,13 @@ msgstr "Эксперт ДКК"
 
 #. module: restaurant_management
 #. openerp-web
-#: code:addons/restaurant_management/static/src/xml/json_to_restaurant_rating_widget.xml:0
-#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__fault_count
+#: code:addons/restaurant_management/static/src/xml/json_to_top_faults_widget.xml:0
 #, python-format
+msgid "Fault"
+msgstr "Ошибка"
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__fault_count
 msgid "Fault Count"
 msgstr "Количество Ошибок"
 
@@ -1261,6 +1272,13 @@ msgstr "Динамика Количества Ошибок"
 #, python-format
 msgid "Fault Count/1 Audit"
 msgstr "Кол-во Ошибок/1 Проверка"
+
+#. module: restaurant_management
+#: code:addons/restaurant_management/wizards/departaments_reports.py:0
+#: code:addons/restaurant_management/wizards/restaurant_reports.py:0
+#, python-format
+msgid "Fault Count/Audit"
+msgstr "Количество Ошибок/Проверка"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__fault_date
@@ -1297,6 +1315,18 @@ msgstr "Отчётность ошибок"
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_restaurant_reports_wizard__report__fault_count_dynamics
 msgid "Fault count dynamics"
 msgstr "Динамика количества ошибок"
+
+#. module: restaurant_management
+#: code:addons/restaurant_management/wizards/restaurant_reports.py:0
+#, python-format
+msgid "Fault counts within departments"
+msgstr "Количество Ошибок в Департаменте"
+
+#. module: restaurant_management
+#: code:addons/restaurant_management/wizards/departaments_reports.py:0
+#, python-format
+msgid "Fault counts within restaurants"
+msgstr "Количество Ошибок в Ресторанах"
 
 #. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_graph_view
@@ -1475,6 +1505,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_departaments_reports_wizard__json_restaurant_rating
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_reports_wizard__json_restaurant_rating
 msgid "Json Restaurant Rating"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_reports_wizard__json_restaurant_rating_chart
+msgid "Json Restaurant Rating Chart"
 msgstr ""
 
 #. module: restaurant_management
@@ -1676,6 +1711,14 @@ msgid "Month of Report"
 msgstr "Месяц Отчета"
 
 #. module: restaurant_management
+#: code:addons/restaurant_management/wizards/departaments_reports.py:0
+#: code:addons/restaurant_management/wizards/restaurant_reports.py:0
+#: code:addons/restaurant_management/wizards/restaurant_reports.py:0
+#, python-format
+msgid "Months"
+msgstr "Месяц"
+
+#. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list__name
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__name
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_departaments_reports_wizard__name
@@ -1709,6 +1752,13 @@ msgstr "Ф.И.О."
 #, python-format
 msgid "Next"
 msgstr "Следующее"
+
+#. module: restaurant_management
+#. openerp-web
+#: code:addons/restaurant_management/static/src/xml/json_to_top_faults_widget.xml:0
+#, python-format
+msgid "No Data"
+msgstr "Нет Данных"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__no_fault_category
@@ -1863,14 +1913,17 @@ msgid "Print Report"
 msgstr "Распечатать Отчёт"
 
 #. module: restaurant_management
-#: model:ir.ui.menu,name:restaurant_management.print_reports_menu
-msgid "Print Reports"
-msgstr "Распечатать Отчёты"
-
-#. module: restaurant_management
 #: model:res.groups,name:restaurant_management.group_restaurant_management_dkk_manager
 msgid "QCD Manager"
 msgstr "Руководитель ДКК"
+
+#. module: restaurant_management
+#. openerp-web
+#: code:addons/restaurant_management/static/src/xml/json_to_restaurant_rating_widget.xml:0
+#: code:addons/restaurant_management/wizards/restaurant_reports.py:0
+#, python-format
+msgid "Rating"
+msgstr "Рейтинг"
 
 #. module: restaurant_management
 #: model:ir.ui.menu,name:restaurant_management.registered_grouped_faults_menu
@@ -1932,7 +1985,6 @@ msgstr "Ответственные по департаменту"
 
 #. module: restaurant_management
 #. openerp-web
-#: code:addons/restaurant_management/static/src/xml/json_to_restaurant_rating_widget.xml:0
 #: code:addons/restaurant_management/static/src/xml/json_to_restaurant_rating_widget.xml:0
 #: model:ir.actions.act_window,name:restaurant_management.restaurant_action
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_audit_distribution__restaurant_id
@@ -2011,10 +2063,17 @@ msgid "Restaurant QCD"
 msgstr "ДКК Ресторана"
 
 #. module: restaurant_management
+#: code:addons/restaurant_management/wizards/restaurant_reports.py:0
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__report__restaurant_rating
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_restaurant_reports_wizard__report__restaurant_rating
+#, python-format
 msgid "Restaurant Rating"
 msgstr "Рейтинг Ресторанов"
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_restaurant_reports_wizard__report__restaurant_rating_graph
+msgid "Restaurant Rating (Graph)"
+msgstr "Рейтинг Ресторанов (Графики)"
 
 #. module: restaurant_management
 #: model:ir.actions.report,name:restaurant_management.action_restaurant_report
