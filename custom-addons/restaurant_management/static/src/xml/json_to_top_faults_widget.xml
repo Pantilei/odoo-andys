@@ -2,24 +2,44 @@
 <templates>
 
     <t t-name="JsonToTopFaults" owl="1">
-        <table class="top-faults-table">
-            <tbody>
+        <div class="container">
+            <div class="row border border-dark">
+                <div class="col-10">
+                    <span style="font-size: 24px;">
+                        Fault
+                    </span>
+                </div>
+                <div class="col-2">
+                    <span style="font-size: 24px;">
+                        Count
+                    </span>
+                </div>
+            </div>
+            <t t-if="state.fieldValue.length!==0">
                 <t t-foreach="state.fieldValue" t-as="topFault" t-key="topFault[0]">
-                    <tr style="font-size: 16px;">
-                        <td>
-                            <span style="color: white; background-color: red; padding: 0.5mm 2mm; font-size: 6mm; border-radius: 2mm; margin: 0 1mm 0 0;">
-                                <t t-esc="topFault[2]" />
-                            </span>
+                    <div class="row border border-dark">
+                        <div class="col-10">
                             <span style="vertical-align:bottom;">
                                 <t t-esc="topFault[1]" />
                             </span>
-                            <hr />
-                            <t t-raw="topFault[3]" />
-                        </td>
-                    </tr>
+                        </div>
+                        <div class="col-2">
+                            <span style="color: white; background-color: red; padding: 0.5mm 2mm; font-size: 6mm; margin: 0 1mm 0 0;">
+                                <t t-esc="topFault[2]" />
+                            </span>
+                        </div>
+                    </div>
                 </t>
-            </tbody>
-        </table>
+            </t>
+            <t t-if="state.fieldValue.length==0">
+                <div class="row border border-dark">
+                    <div class="col-5"></div>
+                    <div class="col-2">No Data</div>
+                    <div class="col-5"></div>
+                </div>
+            </t>
+
+        </div>
     </t>
 
 </templates>

@@ -161,8 +161,7 @@ class DepartamentsReports(models.TransientModel):
                     not record.check_list_category_id:
 
                 record.json_restaurant_rating = json.dumps({
-                    "restaurant_rating": [],
-                    "restaurant_rating_per_audit": []
+                    "grouped_restaurant_rating_per_audit": [],
                 })
                 return
             report_date = date(
@@ -171,19 +170,26 @@ class DepartamentsReports(models.TransientModel):
                 day=1
             )
 
-            restaurant_rating = FaultRegistry.get_restaurant_rating_data(
-                report_date,
-                restaurant_network_ids=record.restaurant_network_ids.ids,
-                check_list_category_id=record.check_list_category_id.id)
-
             restaurant_rating_per_audit = FaultRegistry.get_restaurant_rating_per_audit_data(
                 report_date,
                 restaurant_network_ids=record.restaurant_network_ids.ids,
                 check_list_category_id=record.check_list_category_id.id)
 
+            grouped_restaurant_rating_per_audit = []
+            for r in restaurant_rating_per_audit:
+                if not len(grouped_restaurant_rating_per_audit):
+                    grouped_restaurant_rating_per_audit.append(
+                        [[r[0]], [r[1]], r[2]])
+                    continue
+                if r[2] == grouped_restaurant_rating_per_audit[-1][2]:
+                    grouped_restaurant_rating_per_audit[-1][0].append(r[0])
+                    grouped_restaurant_rating_per_audit[-1][1].append(r[1])
+                else:
+                    grouped_restaurant_rating_per_audit.append(
+                        [[r[0]], [r[1]], r[2]])
+
             record.json_restaurant_rating = json.dumps({
-                "restaurant_rating": restaurant_rating,
-                "restaurant_rating_per_audit": restaurant_rating_per_audit
+                "grouped_restaurant_rating_per_audit": grouped_restaurant_rating_per_audit,
             })
 
     @api.depends("report", "restaurant_network_ids", "check_list_category_id", "year", "month")
@@ -244,7 +250,6 @@ class DepartamentsReports(models.TransientModel):
                     not record.year_end or not record.month_start or \
                     not record.month_end or not record.restaurant_network_ids or \
                     not record.check_list_category_id:
-
                 record.json_chart = json.dumps({
                     'type': 'bar',
                     'data': {
@@ -252,9 +257,7 @@ class DepartamentsReports(models.TransientModel):
                         'datasets': [{
                             'type': 'bar',
                             'label': 0,
-                            'data': [0],
-                            'borderColor': next(COLORS),
-                            'backgroundColor': next(COLORS),
+                            'data': [0]
                         }]
                     },
                     'options': record._get_chart_options(0),
@@ -275,35 +278,101 @@ class DepartamentsReports(models.TransientModel):
 
             chart_data = record._get_chart_data(
                 date_start, date_end, record.check_list_category_id)
+
+            options = record._get_chart_options(
+                chart_data["mean_value"], chart_data["max_value"])
             configs = {
                 'type': 'bar',
                 'data': chart_data["data"],
-                'options': record._get_chart_options(chart_data["mean_value"]),
+                'options': options,
             }
 
             record.json_chart = json.dumps(configs)
 
-    def _get_chart_options(self, mean_value):
+    def _get_month_range(self, date_start, date_end):
+        return [short_date(r) for r in rrule(MONTHLY, dtstart=date_start, until=date_end)]
+
+    def _get_chart_data(self, date_start, date_end, check_list_category_id):
+        Restaurant = self.env["restaurant_management.restaurant"]
+        data = []
+        labels = []
+        all_values = []
+        for restaurant_id in Restaurant.search([("restaurant_network_id", "in", self.restaurant_network_ids.ids)]):
+            res = self.env['restaurant_management.fault_registry']\
+                .get_fault_counts_per_month(
+                    date_start,
+                    date_end,
+                    check_list_category_id=check_list_category_id.id,
+                    restaurant_id=restaurant_id.id,
+                    restaurant_network_id=None,
+                    check_list_category_ids=None,
+                    restaurant_ids=None,
+                    restaurant_network_ids=self.restaurant_network_ids.ids
+            )
+            data.append(res.get('fault_per_audit', []))
+            labels.append(restaurant_id.name)
+            all_values = [*all_values, *res.get('fault_per_audit', [])]
+        max_value = max(all_values)
+        mean_value = sum(all_values)/len(all_values)
+        month_range = self._get_month_range(date_start, date_end)
+        datasets = []
+        for i, r in enumerate(zip(*data)):
+            color = next(COLORS)
+            datasets.append({
+                'type': 'bar',
+                'label': month_range[i],
+                'data': r,
+                'backgroundColor': next(COLORS),
+                'borderColor': color,
+                'datalabels': {
+                    'color': color,
+                    'anchor': 'end',
+                    'align': 'top',
+                    'font': {
+                        'weight': 'bold',
+                        'size': 10
+                    }
+                }
+            })
+        return {
+            "mean_value": mean_value,
+            "max_value": max_value,
+            "data": {
+                'labels': labels,
+                'datasets': datasets,
+            }
+        }
+
+    def _get_chart_options(self, mean_value, max_value):
         return {
             'responsive': True,
             'maintainAspectRatio': False,
-            'plugins': {
-                'legend': {
-                    'position': 'top',
-                },
-                'title': {
-                    'display': True,
-                    'text': 'Chart.js Bar Chart'
-                }
+            'title': {
+                'display': True,
+                'text': _('Fault counts within restaurants')
+            },
+            'legend': {
+                'display': True,
             },
             'scales': {
                 'yAxes': [{
-                    'display': True,
+                    'scaleLabel': {
+                        'display': True,
+                        'labelString': _("Fault Count/Audit")
+                    },
                     'ticks': {
                         'suggestedMin': 0,
+                        'suggestedMax': max_value + 1,
                     }
-                }]
+                }],
+                'xAxes': [{
+                    'scaleLabel': {
+                        'display': True,
+                        'labelString': _('Months')
+                    },
+                }],
             },
+
             'annotation': {
                 'annotations': [{
                     'drawTime': 'afterDraw',
@@ -321,41 +390,4 @@ class DepartamentsReports(models.TransientModel):
                     }
                 }]
             },
-        }
-
-    def _get_month_range(self, date_start, date_end):
-        return [short_date(r) for r in rrule(MONTHLY, dtstart=date_start, until=date_end)]
-
-    def _get_chart_data(self, date_start, date_end, check_list_category_id):
-        Restaurant = self.env["restaurant_management.restaurant"]
-        data = []
-        labels = []
-        for restaurant_id in Restaurant.search([("restaurant_network_id", "in", self.restaurant_network_ids.ids)]):
-            res = self.env['restaurant_management.fault_registry']\
-                .get_fault_counts_per_month(
-                    date_start,
-                    date_end,
-                    check_list_category_id=check_list_category_id.id,
-                    restaurant_id=restaurant_id.id,
-                    restaurant_network_id=None,
-                    check_list_category_ids=None,
-                    restaurant_ids=None,
-                    restaurant_network_ids=self.restaurant_network_ids.ids
-            )
-            data.append(res.get('fault_per_audit', []))
-            labels.append(restaurant_id.name)
-        mean_value = sum([sum(r) for r in data])/sum([len(r) for r in data])
-        month_range = self._get_month_range(date_start, date_end)
-        return {
-            "mean_value": mean_value,
-            "data": {
-                'labels': labels,
-                'datasets': [{
-                    'type': 'bar',
-                    'label': month_range[i],
-                    'data': r,
-                    'borderColor': next(COLORS),
-                    'backgroundColor': next(COLORS),
-                } for i, r in enumerate(zip(*data))],
-            }
         }

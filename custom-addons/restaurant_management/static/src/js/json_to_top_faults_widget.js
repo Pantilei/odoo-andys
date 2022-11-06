@@ -13,7 +13,6 @@ export default class JsonToTopFaults extends AbstractFieldOwl {
 
   setup() {
     super.setup();
-    console.log("THIS: ", this);
 
     this.state = useState({
       fieldValue: JSON.parse(this.value),

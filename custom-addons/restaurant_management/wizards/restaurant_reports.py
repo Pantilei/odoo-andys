@@ -285,8 +285,8 @@ class RestaurantReports(models.TransientModel):
                     not record.check_list_category_ids:
 
                 record.json_restaurant_rating = json.dumps({
-                    "restaurant_rating": [],
-                    "restaurant_rating_per_audit": []
+                    "grouped_restaurant_rating_per_audit": [],
+                    "restaurant_id": False
                 })
                 return
             report_date = date(
@@ -386,41 +386,57 @@ class RestaurantReports(models.TransientModel):
                 day=monthrange(year=int(self.year_end),
                                month=int(self.month_end))[1]
             )
-
+            dataset, maximum = self._get_chart_data(date_start, date_end)
             data = {
                 'labels': self._get_month_range(date_start, date_end),
-                'datasets': self._get_chart_data(date_start, date_end),
+                'datasets': dataset,
+            }
+
+            options = {
+                'responsive': True,
+                'maintainAspectRatio': False,
+                'plugins': {
+                    'legend': {
+                        'position': 'top',
+                    },
+                    'title': {
+                        'display': True,
+                        'text': 'Chart.js Bar Chart'
+                    }
+                },
+                'title': {
+                    'display': True,
+                    'text': _('Fault counts within departments')
+                },
+                'legend': {
+                    'display': True,
+                },
+                'scales': {
+                    'yAxes': [{
+                        'scaleLabel': {
+                            'display': True,
+                            'labelString': _("Fault Count/Audit")
+                        },
+                        'ticks': {
+                            'suggestedMin': 0,
+                            'suggestedMax': maximum + 1,
+                        }
+                    }],
+                    'xAxes': [{
+                        'scaleLabel': {
+                            'display': True,
+                            'labelString': _('Months')
+                        },
+                    }],
+                }
             }
             configs = {
                 'type': 'bar',
                 'data': data,
-                'options': self._get_chart_options(),
+                'options': options,
             }
 
             record.json_chart = json.dumps(configs)
-
-    def _get_chart_options(self):
-        return {
-            'responsive': True,
-            'maintainAspectRatio': False,
-            'plugins': {
-                'legend': {
-                    'position': 'top',
-                },
-                'title': {
-                    'display': True,
-                    'text': 'Chart.js Bar Chart'
-                }
-            },
-            'scales': {
-                'yAxes': [{
-                    'display': True,
-                    'ticks': {
-                        'suggestedMin': 0,
-                    }
-                }]
-            }
-        }
 
     def _get_month_range(self, date_start, date_end):
         return [short_date(r) for r in rrule(MONTHLY, dtstart=date_start, until=date_end)]
@@ -428,6 +444,7 @@ class RestaurantReports(models.TransientModel):
     def _get_chart_data(self, date_start, date_end):
         CheckListCategory = self.env["restaurant_management.check_list_category"]
         data = []
+        all_data = []
         for check_list_category_id in CheckListCategory.browse(self.check_list_category_ids.ids):
             res = self.env['restaurant_management.fault_registry']\
                 .get_fault_counts_per_month(
@@ -440,10 +457,21 @@ class RestaurantReports(models.TransientModel):
                     restaurant_ids=None,
                     restaurant_network_ids=None
             )
+            all_data = [*all_data, *res.get('fault_per_audit', [])]
+            color = next(COLORS)
             data.append({
                 'label': check_list_category_id.name,
-                'data': res.get('fault_counts', []),
-                'borderColor': next(COLORS),
+                'data': res.get('fault_per_audit', []),
+                'borderColor': color,
                 'backgroundColor': next(COLORS),
+                'datalabels': {
+                    'color': color,
+                    'anchor': 'end',
+                    'align': 'top',
+                    'font': {
+                        'weight': 'bold',
+                        'size': 16
+                    }
+                }
             })
-        return data
+        return data, max(all_data)
