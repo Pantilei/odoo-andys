@@ -15,8 +15,10 @@ export default class JsonToRestaurantRating extends AbstractFieldOwl {
     const value = JSON.parse(this.value);
     this.state = useState({
       fieldValue: value,
-      mediumIndex: Math.round(value["restaurant_rating"].length / 2),
-      highlightRowId: value.restaurant_id || false,
+      mediumIndex: Math.round(
+        value["grouped_restaurant_rating_per_audit"].length / 2
+      ),
+      highlightRestaurantId: value.restaurant_id || false,
     });
 
     this.topFaultsWithComments = JSON.parse(this.value);
@@ -24,9 +26,9 @@ export default class JsonToRestaurantRating extends AbstractFieldOwl {
       const value = JSON.parse(this.value);
       this.state.fieldValue = value;
       this.state.mediumIndex = Math.round(
-        value["restaurant_rating"].length / 2
+        value["grouped_restaurant_rating_per_audit"].length / 2
       );
-      this.state.highlightRowId = value.restaurant_id || false;
+      this.state.highlightRestaurantId = value.restaurant_id || false;
     });
 
     onMounted(() => {});

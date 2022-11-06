@@ -35,6 +35,22 @@ COLORS = itertools.cycle((
     'rgb(90, 179, 138, 0.5)',
 ))
 
+LINE_COLORS = itertools.cycle((
+    'rgb(54, 162, 235)',
+    'rgb(255, 99, 132)',
+    'rgb(96, 186, 125)',
+    'rgb(202, 110, 188)',
+    'rgb(12, 13, 14)',
+    'rgb(56, 84, 153)',
+    'rgb(246, 203, 66)',
+    'rgb(108, 97, 206)',
+    'rgb(59, 117, 213)',
+    'rgb(163, 164, 182)',
+    'rgb(90, 179, 138)',
+    'rgb(50, 129, 108)',
+    'rgb(10, 109, 108)',
+))
+
 
 MONTHS = [
     ("1", _("Jan")),
@@ -184,15 +200,18 @@ class RestaurantReports(models.TransientModel):
                                month=int(record.month_end))[1]
             )
             dataset = []
+            all_data = []
             for check_list_category_id in record.check_list_category_ids:
-                color = next(COLORS)
+                color = next(LINE_COLORS)
+                dataset_data = FaultRegistry.get_restaurant_rating_monthly_data(
+                    date_start,
+                    date_end,
+                    record.restaurant_id.id,
+                    check_list_category_ids=check_list_category_id.ids,
+                )
+                all_data = [*all_data, *dataset_data]
                 dataset.append({
-                    "data": FaultRegistry.get_restaurant_rating_monthly_data(
-                        date_start,
-                        date_end,
-                        record.restaurant_id.id,
-                        check_list_category_id=check_list_category_id.id.origin,
-                    ),
+                    "data": dataset_data,
                     "label": check_list_category_id.name,
                     "borderColor": color,
                     "cubicInterpolationMode": 'monotone',
@@ -236,6 +255,7 @@ class RestaurantReports(models.TransientModel):
                         },
                         'ticks': {
                             'suggestedMin': 0,
+                            'suggestedMax': max(all_data) + 1,
                         }
                     }],
                     'xAxes': [{
@@ -275,19 +295,31 @@ class RestaurantReports(models.TransientModel):
                 day=1
             )
 
-            restaurant_rating = FaultRegistry.get_restaurant_rating_data(
-                report_date,
-                restaurant_network_id=record.restaurant_id.restaurant_network_id.id,
-                check_list_category_ids=record.check_list_category_ids.ids)
+            # restaurant_rating = FaultRegistry.get_restaurant_rating_data(
+            #     report_date,
+            #     restaurant_network_id=record.restaurant_id.restaurant_network_id.id,
+            #     check_list_category_ids=record.check_list_category_ids.ids)
 
             restaurant_rating_per_audit = FaultRegistry.get_restaurant_rating_per_audit_data(
                 report_date,
                 restaurant_network_id=record.restaurant_id.restaurant_network_id.id,
                 check_list_category_ids=record.check_list_category_ids.ids)
 
+            grouped_restaurant_rating_per_audit = []
+            for r in restaurant_rating_per_audit:
+                if not len(grouped_restaurant_rating_per_audit):
+                    grouped_restaurant_rating_per_audit.append(
+                        [[r[0]], [r[1]], r[2]])
+                    continue
+                if r[2] == grouped_restaurant_rating_per_audit[-1][2]:
+                    grouped_restaurant_rating_per_audit[-1][0].append(r[0])
+                    grouped_restaurant_rating_per_audit[-1][1].append(r[1])
+                else:
+                    grouped_restaurant_rating_per_audit.append(
+                        [[r[0]], [r[1]], r[2]])
+
             record.json_restaurant_rating = json.dumps({
-                "restaurant_rating": restaurant_rating,
-                "restaurant_rating_per_audit": restaurant_rating_per_audit,
+                "grouped_restaurant_rating_per_audit": grouped_restaurant_rating_per_audit,
                 "restaurant_id": record.restaurant_id.id
             })
 

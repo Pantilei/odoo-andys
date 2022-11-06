@@ -365,15 +365,17 @@ class FaultRegistry(models.Model):
             restaurant_id = Restaurant.browse(restaurant_id)
         restaurant_rating_per_month = []
         for r_date in rrule(MONTHLY, dtstart=date_start, until=date_end):
-            restaurant_ratings = self.get_restaurant_rating_data(
+            restaurant_ratings = self.get_restaurant_rating_per_audit_data(
                 r_date,
                 restaurant_network_id=restaurant_id.restaurant_network_id.id,
                 check_list_category_id=check_list_category_id,
                 check_list_category_ids=check_list_category_ids,
             )
-            for idx, d in enumerate(restaurant_ratings):
-                if d[0] == restaurant_id.id:
-                    restaurant_rating_per_month.append(idx+1)
+
+            restaurant_rating_per_month.extend(
+                d[3] for d in restaurant_ratings if d[0] == restaurant_id.id
+            )
+
         return restaurant_rating_per_month
 
     @api.model
@@ -382,6 +384,10 @@ class FaultRegistry(models.Model):
                                    restaurant_network_ids=None,
                                    check_list_category_id=None,
                                    check_list_category_ids=None):
+        """
+        Returns the rating in form of:
+        list([restaurant_id, restaurant_name, fault_count, rating])
+        """
         if restaurant_network_ids is None:
             restaurant_network_ids = []
         if check_list_category_ids is None:
@@ -429,10 +435,22 @@ class FaultRegistry(models.Model):
 
             fault_count = sum(restaurant_faults.mapped("fault_count"))
 
-            res.append([restaurant_id.id, restaurant_id.name, fault_count])
+            res.append([restaurant_id.id, restaurant_id.name, fault_count, 1])
 
         if len(res) > 1:
             res.sort(key=lambda r: r[2])
+            res_with_rating = []
+            rating = 1
+            fault_count = res[0][2]
+            for r in res:
+                if not len(res_with_rating) or fault_count == r[2]:
+                    res_with_rating.append([*r[:-1], rating])
+                    continue
+                rating += 1
+                res_with_rating.append([*r[:-1], rating])
+                fault_count = r[2]
+
+            return res_with_rating
 
         return res
 
@@ -442,6 +460,10 @@ class FaultRegistry(models.Model):
                                              restaurant_network_ids=None,
                                              check_list_category_id=None,
                                              check_list_category_ids=None):
+        """
+        Returns the rating in form of:
+        list([restaurant_id, restaurant_name, relative_fault_count, rating])
+        """
         if restaurant_network_ids is None:
             restaurant_network_ids = []
         if check_list_category_ids is None:
@@ -495,10 +517,21 @@ class FaultRegistry(models.Model):
             )["actual"][0]
 
             res.append(
-                [restaurant_id.id, restaurant_id.name, round(fault_count/actual_count_of_audits, 2) if actual_count_of_audits else 0])
+                [restaurant_id.id, restaurant_id.name, round(fault_count/actual_count_of_audits, 2) if actual_count_of_audits else 0, 1])
 
         if len(res) > 1:
             res.sort(key=lambda r: r[2])
+            res_with_rating = []
+            rating = 1
+            relative_fault_count = res[0][2]
+            for r in res:
+                if not len(res_with_rating) or relative_fault_count == r[2]:
+                    res_with_rating.append([*r[:-1], rating])
+                    continue
+                rating += 1
+                res_with_rating.append([*r[:-1], rating])
+                relative_fault_count = r[2]
+            return res_with_rating
 
         return res
 
