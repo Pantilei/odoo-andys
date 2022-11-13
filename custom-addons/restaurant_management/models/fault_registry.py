@@ -687,3 +687,13 @@ class FaultRegistry(models.Model):
         comments = FaultRegistryModel.search(domain).mapped("comment")
 
         return "<hr/>".join([c for c in comments if c])
+
+    # Crons
+    @api.model
+    def clear_old_attachments(self):
+        old_faults = self.env['restaurant_management.fault_registry'].search([
+            ("fault_date", "<", datetime.now()-timedelta(weeks=20))
+        ])
+        attachment_ids = old_faults.mapped("attachment_ids")
+        _logger.info("Number of attachments deleted: %s", len(attachment_ids))
+        attachment_ids.unlink()
