@@ -36,6 +36,7 @@
         'wizards/departaments_reports.xml',
         'wizards/restaurant_reports.xml',
         'wizards/all_restaurants_report.xml',
+        'wizards/audit_reports.xml',
 
         'views/menu_items.xml',
         'views/res_users.xml',
@@ -78,6 +79,8 @@
             'restaurant_management/static/src/scss/json_to_top_faults_widget.scss',
 
             'restaurant_management/static/src/js/json_to_restaurant_rating_widget.js',
+            'restaurant_management/static/src/js/json_to_audit_tables.js',
+
         ],
         'web.assets_frontend': [],
         'web.assets_tests': [],
@@ -93,6 +96,7 @@
             'restaurant_management/static/src/xml/json_to_chart_widget.xml',
             'restaurant_management/static/src/xml/json_to_top_faults_widget.xml',
             'restaurant_management/static/src/xml/json_to_restaurant_rating_widget.xml',
+            'restaurant_management/static/src/xml/json_to_audit_tables.xml',
         ],
     },
     'license': 'LGPL-3',

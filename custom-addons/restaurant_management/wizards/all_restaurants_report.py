@@ -166,13 +166,13 @@ class AllRestaurantsReports(models.TransientModel):
                     'offset': 10,
                     'font': {
                         'weight': 'bold',
-                        'size': 16
+                        'size': 20
                     }
                 }
             }, {
                 "data": fault_per_audit,
                 "label": _("Fault per Audit"),
-                "borderColor": "rgb(255, 99, 132, 0.4)",
+                "borderColor": "rgb(255, 99, 132, 0.5)",
                 "cubicInterpolationMode": 'monotone',
                 "tension": 0.4,
                 'pointRadius': 5,
@@ -186,7 +186,7 @@ class AllRestaurantsReports(models.TransientModel):
                     'offset': 10,
                     'font': {
                         'weight': 'bold',
-                        'size': 16
+                        'size': 20
                     }
                 }
             }]
@@ -204,6 +204,9 @@ class AllRestaurantsReports(models.TransientModel):
                 },
                 'legend': {
                     'display': True,
+                    'labels': {
+                        'fontSize': 20,
+                    }
                 },
                 'scales': {
                     'yAxes': [{
@@ -211,29 +214,37 @@ class AllRestaurantsReports(models.TransientModel):
                         'position': 'left',
                         'scaleLabel': {
                             'display': True,
-                            'labelString': _("Fault Count")
+                            'labelString': _("Fault Count"),
+                            'fontSize': 25,
                         },
                         'ticks': {
                             'suggestedMin': 0,
                             'suggestedMax': max(fault_counts)*1.1,
+                            'fontSize': 20,
                         }
                     }, {
                         'id': 'y2',
                         'position': 'right',
                         'scaleLabel': {
                             'display': True,
-                            'labelString': _("Fault Count / Audit")
+                            'labelString': _("Fault Count / Audit"),
+                            'fontSize': 25,
                         },
                         'ticks': {
                             'suggestedMin': 0,
                             'suggestedMax': max(fault_per_audit)*1.1,
+                            'fontSize': 20,
                         }
                     }],
                     'xAxes': [{
                         'scaleLabel': {
                             'display': True,
-                            'labelString': _('Months')
+                            'labelString': _('Months'),
+                            'fontSize': 25,
                         },
+                        'ticks': {
+                            'fontSize': 20,
+                        }
                     }],
                 }
             }

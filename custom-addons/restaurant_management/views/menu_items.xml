@@ -81,6 +81,13 @@
         groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_restaurant_director,restaurant_management.group_restaurant_management_dkk_manager"
         sequence="18" />
 
+    <menuitem id="audit_reports_menu"
+        name="Audit Reports"
+        parent="report_main_menu"
+        action="audit_reports_action"
+        groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_restaurant_director,restaurant_management.group_restaurant_management_dkk_manager"
+        sequence="19" />
+
     <!-- <menuitem id="print_reports_menu" 
               name="Print Reports" 
               parent="report_main_menu" 

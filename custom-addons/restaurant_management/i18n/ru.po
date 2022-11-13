@@ -1436,7 +1436,7 @@ msgstr "Количество Ошибок"
 #: code:addons/restaurant_management/wizards/restaurant_reports.py:0
 #, python-format
 msgid "Fault Count / Audit"
-msgstr "Кол-во Ошибок / Проверка"
+msgstr "Кол-во ошибок / ед. проверки"
 
 #. module: restaurant_management
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__report__fault_count_dynamics
@@ -1448,7 +1448,7 @@ msgstr "Динамика Количества Ошибок"
 #: code:addons/restaurant_management/static/src/xml/json_to_restaurant_rating_widget.xml:0
 #, python-format
 msgid "Fault Count/1 Audit"
-msgstr "Кол-во Ошибок/1 Проверка"
+msgstr "Кол-во Ошибок / ед. проверки"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__fault_date
