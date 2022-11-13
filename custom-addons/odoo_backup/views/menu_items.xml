@@ -1,0 +1,8 @@
+<odoo>
+    <menuitem id="odoo_backup_menu"
+              name="Back-ups"
+              sequence="20"
+              action="action_backup"
+              groups="odoo_backup.group_manager"
+              parent="base.menu_administration"/>
+</odoo>

@@ -1,0 +1,140 @@
+<odoo>
+    <record id="view_backup_config_form" model="ir.ui.view">
+        <field name="name">odoo_backup.backup.form</field>
+        <field name="model">odoo_backup.backup</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Back-up view">
+                <header>
+                    <button type="object" name="perform_backup" string="Perform Backup" class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group name="configuration">
+                            <field name="host" colspan="2"/>
+                            <field name="name"/>
+                            <field name="port"/>
+                            <field name="backup_type"/>
+                            <field name="cron_id" />
+                            <field name="notify_user_ids" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="sftp_write"/>
+                            <field name="is_google_drive_upload"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page name="local" string="Local Backup">
+                            <group name="configuration">
+                                <field name="folder"/>
+                                <field name="autoremove"/>
+                                <field name="days_to_keep" attrs="{'invisible': [('autoremove','=',False)]}"/>
+                            </group>
+                        </page>
+                        <page name="sftp" string="SFTP" attrs="{'invisible': [('sftp_write', '=', False)]}">
+                            <group>
+                                <field name="sftp_host"
+                                   attrs="{'invisible':[('sftp_write', '=', False)],'required':[('sftp_write', '=', True)]}"/>
+                                <field name="sftp_port"
+                                       attrs="{'invisible':[('sftp_write', '=', False)],'required':[('sftp_write', '=', True)]}"/>
+                                <field name="sftp_user"
+                                       attrs="{'invisible':[('sftp_write', '=', False)], 'required':[('sftp_write', '=', True)]}"/>
+                                <field name="sftp_password"
+                                       attrs="{'invisible':[('sftp_write', '=', False)],'required': [('sftp_write', '=', True)]}"
+                                       password="True"/>
+                                <field name="sftp_path"
+                                       attrs="{'invisible':[('sftp_write', '==', False)],'required':[('sftp_write', '==', True)]}"
+                                       placeholder="For example: /odoo/backups/"/>
+                                <field name="days_to_keep_sftp"
+                                       attrs="{'invisible': [('sftp_write', '=', False)], 'required': [('sftp_write', '=', True)]}"/>
+                                <field name="send_mail_sftp_fail" attrs="{'invisible': [('sftp_write','=',False)]}"/>
+                                <button name="test_sftp_connection" type="object"
+                                        attrs="{'invisible': [('sftp_write','=',False)]}" string="Test SFTP Connection"/>
+                            </group>
+                        </page>
+                        <page name="google_drive" string="Google Drive"  attrs="{'invisible': [('is_google_drive_upload', '=', False)]}">
+                            <group col="12" name="config_google">
+                                <group colspan="6">
+                                    <field name="google_redirect_uri"
+                                           readonly="1"
+                                           attrs="{'invisible':[('is_google_drive_upload', '=', False)]}"/>
+                                    <field name="google_client_id"
+                                           attrs="{'invisible':[('is_google_drive_upload', '=', False)],'required':[('is_google_drive_upload', '=', True)]}"/>
+                                    <field name="google_client_secret"
+                                           attrs="{'invisible':[('is_google_drive_upload', '=', False)],'required':[('is_google_drive_upload', '=', True)]}"/>
+                                </group>
+                                <group colspan="6" col="12">
+                                    <group colspan="12">
+                                        <field name="google_uri"
+                                           widget="url"
+                                           attrs="{'invisible':[('is_google_drive_upload', '=', False)]}"
+                                           class="fa fa-arrow-right mt-1"
+                                           text="Get Authorization Code/Refresh Token/Access Token" nolabel="1"/>
+                                    </group>
+                                    <group colspan="12">
+                                        <p>
+                                            You must create or use an existing Google App with OAuth2 Credentials!
+                                        </p>
+                                    </group>
+                                </group>
+
+                                <group colspan="12">
+                                    <field name="google_authorization_code_hidden"
+                                           password="True"
+                                           readonly="1"
+                                           string="Authorization Code"
+                                           attrs="{'invisible':[('is_google_drive_upload', '=', False)]}"/>
+                                    <field name="google_refresh_token_hidden"
+                                           password="True"
+                                           readonly="1"
+                                           string="Refresh Token"
+                                           attrs="{'invisible':[('is_google_drive_upload', '=', False)]}"/>
+                                    <field name="google_access_token_hidden"
+                                           password="True"
+                                           readonly="1"
+                                           string="Access Token"
+                                           attrs="{'invisible':[('is_google_drive_upload', '=', False)]}"/>
+                                    <field name="google_access_token_expire_datetime"
+                                           readonly="1"
+                                           attrs="{'invisible':[('is_google_drive_upload', '=', False)]}"/>
+                                </group>
+                                <group colspan="12">
+                                    <field name="drive_folder_id"
+                                           attrs="{'invisible':[('is_google_drive_upload', '=', False)],'required':[('is_google_drive_upload', '=', True)]}"/>
+                                    <field name="drive_autoremove"
+                                           attrs="{'invisible':[('is_google_drive_upload', '=', False)]}"/>
+                                    <field name="drive_to_remove"
+                                           attrs="{'invisible': [('drive_autoremove','=',False)],'required':[('drive_autoremove', '=', True)]}"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_backup_config_tree" model="ir.ui.view">
+        <field name="name">odoo_backup.backup.tree</field>
+        <field name="model">odoo_backup.backup</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name='host'/>
+                <field name='port'/>
+                <field name='name'/>
+                <field name='folder'/>
+                <field name="autoremove"/>
+                <field name="sftp_host"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_backup" model="ir.actions.act_window">
+        <field name="name">Configure back-ups</field>
+        <field name="res_model">odoo_backup.backup</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_backup_config_tree"/>
+    </record>
+</odoo>
