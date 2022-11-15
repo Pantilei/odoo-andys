@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-13 21:05+0000\n"
-"PO-Revision-Date: 2022-11-13 21:05+0000\n"
+"POT-Creation-Date: 2022-11-15 22:36+0000\n"
+"PO-Revision-Date: 2022-11-15 22:36+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1147,7 +1147,7 @@ msgstr "Распределение Проверок"
 #: model:ir.actions.act_window,name:restaurant_management.audit_reports_action
 #: model:ir.ui.menu,name:restaurant_management.audit_reports_menu
 msgid "Audit Reports"
-msgstr "Отчёты по Проверкам"
+msgstr "Отчёт по Проверкам"
 
 #. module: restaurant_management
 #: model:ir.actions.act_window,name:restaurant_management.restaurant_audit_action
@@ -1275,6 +1275,13 @@ msgid "City"
 msgstr "Город"
 
 #. module: restaurant_management
+#: model:ir.actions.server,name:restaurant_management.ir_cron_clear_old_attachments_of_restaurants_ir_actions_server
+#: model:ir.cron,cron_name:restaurant_management.ir_cron_clear_old_attachments_of_restaurants
+#: model:ir.cron,name:restaurant_management.ir_cron_clear_old_attachments_of_restaurants
+msgid "Clear old audit attachments"
+msgstr ""
+
+#. module: restaurant_management
 #. openerp-web
 #: code:addons/restaurant_management/static/src/xml/document_viewer_legacy.xml:0
 #: code:addons/restaurant_management/static/src/xml/document_viewer_legacy.xml:0
@@ -1385,6 +1392,7 @@ msgid "Date End"
 msgstr "Дата начала"
 
 #. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.all_restaurants_report_wizard_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.departaments_reports_wizard_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.reports_wizard_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_reports_wizard_view_form
@@ -1573,6 +1581,7 @@ msgid "Fault Count / Audit"
 msgstr "Кол-во ошибок / ед. проверки"
 
 #. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__report__fault_count_dynamics
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__report__fault_count_dynamics
 msgid "Fault Count Dynamics"
 msgstr "Динамика Количества Ошибок"
@@ -2317,6 +2326,22 @@ msgid "Registered Faults"
 msgstr "Ошибки"
 
 #. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__report__relative_faults_distribution
+msgid "Relative Faults Distribution"
+msgstr "Относительное Распределение Ошибок"
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_all_restaurants_report_wizard__relative_faults_distribution_month_range_json
+msgid "Relative Faults Distribution Month Range Json"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_all_restaurants_report_wizard__relative_faults_distribution_one_month_json
+msgid "Relative Faults Distribution One Month Json"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_all_restaurants_report_wizard__report
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_departaments_reports_wizard__report
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_reports_wizard__report
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_reports_wizard__report
