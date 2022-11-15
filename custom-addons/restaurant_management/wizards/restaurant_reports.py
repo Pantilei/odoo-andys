@@ -11,44 +11,17 @@ from ..tools import short_date
 
 
 COLORS = itertools.cycle((
-    'rgb(54, 162, 235)',
-    'rgb(54, 162, 235, 0.5)',
-    'rgb(255, 99, 132)',
-    'rgb(255, 99, 132, 0.5)',
-    'rgb(96, 186, 125)',
-    'rgb(96, 186, 125, 0.5)',
-    'rgb(202, 110, 188)',
-    'rgb(202, 110, 188, 0.5)',
-    'rgb(12, 13, 14)',
-    'rgb(12, 13, 14, 0.5)',
-    'rgb(56, 84, 153)',
-    'rgb(56, 84, 153, 0.5)',
-    'rgb(246, 203, 66)',
-    'rgb(246, 203, 66, 0.5)',
-    'rgb(108, 97, 206)',
-    'rgb(108, 97, 206, 0.5)',
-    'rgb(59, 117, 213)',
-    'rgb(59, 117, 213, 0.5)',
-    'rgb(163, 164, 182)',
-    'rgb(163, 164, 182, 0.5)',
-    'rgb(90, 179, 138)',
-    'rgb(90, 179, 138, 0.5)',
-))
-
-LINE_COLORS = itertools.cycle((
-    'rgb(54, 162, 235)',
-    'rgb(255, 99, 132)',
-    'rgb(96, 186, 125)',
-    'rgb(202, 110, 188)',
-    'rgb(12, 13, 14)',
-    'rgb(56, 84, 153)',
-    'rgb(246, 203, 66)',
-    'rgb(108, 97, 206)',
-    'rgb(59, 117, 213)',
-    'rgb(163, 164, 182)',
-    'rgb(90, 179, 138)',
-    'rgb(50, 129, 108)',
-    'rgb(10, 109, 108)',
+    ['54', '162', '235'],
+    ['255', '99', '132'],
+    ['96', '186', '125'],
+    ['232', '110', '188'],
+    ['12', '13', '14'],
+    ['56', '84', '153'],
+    ['246', '203', '66'],
+    ['108', '97', '206'],
+    ['59', '117', '213'],
+    ['163', '164', '182'],
+    ['90', '179', '138'],
 ))
 
 
@@ -202,7 +175,7 @@ class RestaurantReports(models.TransientModel):
             dataset = []
             all_data = []
             for check_list_category_id in record.check_list_category_ids:
-                color = next(LINE_COLORS)
+                color = ",".join(next(COLORS))
                 dataset_data = FaultRegistry.get_restaurant_rating_monthly_data(
                     date_start,
                     date_end,
@@ -213,17 +186,20 @@ class RestaurantReports(models.TransientModel):
                 dataset.append({
                     "data": dataset_data,
                     "label": check_list_category_id.name,
-                    "borderColor": color,
                     "cubicInterpolationMode": 'monotone',
                     "tension": 0.4,
                     'pointRadius': 5,
                     'pointHoverRadius': 8,
+
                     'fill': False,
+                    'backgroundColor': f'rgb({color}, 0.8)',
+                    'labelBackgroundColor': f'rgb({color}, 0.2)',
+                    "borderColor": f'rgb({color}, 0.5)',
+                    "labelColor": f'rgb({color})',
+
                     'datalabels': {
-                        'color': color,
                         'anchor': 'bottom',
                         'align': 'top',
-                        # 'formatter': 'Math.round',
                         'font': {
                             'weight': 'bold',
                             'size': 16
@@ -239,29 +215,36 @@ class RestaurantReports(models.TransientModel):
                 'maintainAspectRatio': False,
                 'title': {
                     'display': True,
-                    'text': _('Restaurant Rating Dynamics within Department')
+                    'text': _('Restaurant Rating Dynamics within Department'),
+                    'fontSize': 25,
                 },
                 'legend': {
                     'display': True,
-                    # 'labels': {
-                    #     'fontColor': 'rgb(255, 99, 132)'
-                    # }
+                    'labels': {
+                        'fontSize': 20,
+                    }
                 },
                 'scales': {
                     'yAxes': [{
                         'scaleLabel': {
                             'display': True,
-                            'labelString': _("Rating")
+                            'labelString': _("Rating"),
+                            'fontSize': 25,
                         },
                         'ticks': {
                             'suggestedMin': 0,
                             'suggestedMax': max(all_data) + 1,
+                            'fontSize': 18,
                         }
                     }],
                     'xAxes': [{
                         'scaleLabel': {
                             'display': True,
-                            'labelString': _('Months')
+                            'labelString': _('Months'),
+                            'fontSize': 25,
+                        },
+                        'ticks': {
+                            'fontSize': 18,
                         },
                     }],
                 }
@@ -397,27 +380,37 @@ class RestaurantReports(models.TransientModel):
                 'maintainAspectRatio': False,
                 'title': {
                     'display': True,
-                    'text': _('Fault counts within departments')
+                    'text': _('Fault counts within departments'),
+                    'fontSize': 25,
                 },
                 'legend': {
                     'display': True,
+                    'labels': {
+                        'fontSize': 20,
+                    }
                 },
                 'scales': {
                     'yAxes': [{
                         'scaleLabel': {
                             'display': True,
-                            'labelString': _("Fault Count / Audit")
+                            'labelString': _("Fault Count / Audit"),
+                            'fontSize': 25,
                         },
                         'ticks': {
                             'suggestedMin': 0,
                             'suggestedMax': maximum + 1,
+                            'fontSize': 18,
                         }
                     }],
                     'xAxes': [{
                         'scaleLabel': {
                             'display': True,
-                            'labelString': _('Months')
+                            'labelString': _('Months'),
+                            'fontSize': 25,
                         },
+                        'ticks': {
+                            'fontSize': 18,
+                        }
                     }],
                 }
             }
@@ -450,13 +443,18 @@ class RestaurantReports(models.TransientModel):
             )
             all_data = [*all_data, *res.get('fault_per_audit', [])]
             color = next(COLORS)
+            color = ",".join(next(COLORS))
             data.append({
                 'label': check_list_category_id.name,
                 'data': res.get('fault_per_audit', []),
-                'borderColor': color,
-                'backgroundColor': next(COLORS),
+
+                'fill': False,
+                'backgroundColor': f'rgb({color}, 0.8)',
+                'labelBackgroundColor': f'rgb({color}, 0.2)',
+                "borderColor": f'rgb({color}, 0.5)',
+                "labelColor": f'rgb({color})',
+
                 'datalabels': {
-                    'color': color,
                     'anchor': 'end',
                     'align': 'top',
                     'font': {

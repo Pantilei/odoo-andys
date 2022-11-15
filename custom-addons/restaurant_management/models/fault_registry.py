@@ -356,6 +356,46 @@ class FaultRegistry(models.Model):
         }
 
     @api.model
+    def get_fault_counts(self, date_start, date_end,
+                         check_list_category_ids=None,
+                         restaurant_ids=None,
+                         restaurant_network_ids=None):
+        if check_list_category_ids is None:
+            check_list_category_ids = []
+
+        if restaurant_ids is None:
+            restaurant_ids = []
+
+        if restaurant_network_ids is None:
+            restaurant_network_ids = []
+
+        FaultRegistryModel = self.env["restaurant_management.fault_registry"]
+        domain = [
+            ('fault_date', '>=', date_start),
+            ('fault_date', '<=', date_end),
+            ('state', '=', 'confirm')
+        ]
+
+        if len(check_list_category_ids):
+            domain = expression.AND([
+                [("check_list_category_id", "in", check_list_category_ids)],
+                domain
+            ])
+        if len(restaurant_ids):
+            domain = expression.AND([
+                [("restaurant_id", "in", restaurant_ids)],
+                domain
+            ])
+        if len(restaurant_network_ids):
+            domain = expression.AND([
+                [("restaurant_id.restaurant_network_id", "in", restaurant_network_ids)],
+                domain
+            ])
+        fault_count = FaultRegistryModel.search_count(domain)
+
+        return fault_count
+
+    @api.model
     def get_restaurant_rating_monthly_data(self, date_start, date_end,
                                            restaurant_id,
                                            check_list_category_id=None,

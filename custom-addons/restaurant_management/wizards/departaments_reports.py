@@ -12,28 +12,17 @@ from ..tools import short_date
 
 
 COLORS = itertools.cycle((
-    'rgb(54, 162, 235)',
-    'rgb(54, 162, 235, 0.5)',
-    'rgb(255, 99, 132)',
-    'rgb(255, 99, 132, 0.5)',
-    'rgb(96, 186, 125)',
-    'rgb(96, 186, 125, 0.5)',
-    'rgb(232, 110, 188)',
-    'rgb(232, 110, 188, 0.5)',
-    'rgb(12, 13, 14)',
-    'rgb(12, 13, 14, 0.5)',
-    'rgb(56, 84, 153)',
-    'rgb(56, 84, 153, 0.5)',
-    'rgb(246, 203, 66)',
-    'rgb(246, 203, 66, 0.5)',
-    'rgb(108, 97, 206)',
-    'rgb(108, 97, 206, 0.5)',
-    'rgb(59, 117, 213)',
-    'rgb(59, 117, 213, 0.5)',
-    'rgb(163, 164, 182)',
-    'rgb(163, 164, 182, 0.5)',
-    'rgb(90, 179, 138)',
-    'rgb(90, 179, 138, 0.5)',
+    ['54', '162', '235'],
+    ['255', '99', '132'],
+    ['96', '186', '125'],
+    ['232', '110', '188'],
+    ['12', '13', '14'],
+    ['56', '84', '153'],
+    ['246', '203', '66'],
+    ['108', '97', '206'],
+    ['59', '117', '213'],
+    ['163', '164', '182'],
+    ['90', '179', '138'],
 ))
 
 MONTHS = [
@@ -317,20 +306,24 @@ class DepartamentsReports(models.TransientModel):
         month_range = self._get_month_range(date_start, date_end)
         datasets = []
         for i, r in enumerate(zip(*data)):
-            color = next(COLORS)
+            color = ",".join(next(COLORS))
             datasets.append({
                 'type': 'bar',
                 'label': month_range[i],
                 'data': r,
-                'backgroundColor': next(COLORS),
-                'borderColor': color,
+
+                'fill': False,
+                'backgroundColor': f'rgb({color}, 0.8)',
+                'labelBackgroundColor': f'rgb({color}, 0.2)',
+                "borderColor": f'rgb({color}, 0.5)',
+                "labelColor": f'rgb({color})',
+
                 'datalabels': {
-                    'color': color,
                     'anchor': 'end',
                     'align': 'top',
                     'font': {
                         'weight': 'bold',
-                        'size': 10
+                        'size': 12
                     }
                 }
             })
@@ -353,23 +346,32 @@ class DepartamentsReports(models.TransientModel):
             },
             'legend': {
                 'display': True,
+                'labels': {
+                    'fontSize': 20,
+                }
             },
             'scales': {
                 'yAxes': [{
                     'scaleLabel': {
                         'display': True,
-                        'labelString': _("Fault Count / Audit")
+                        'labelString': _("Fault Count / Audit"),
+                        'fontSize': 25,
                     },
                     'ticks': {
                         'suggestedMin': 0,
                         'suggestedMax': max_value + 1,
+                        'fontSize': 18,
                     }
                 }],
                 'xAxes': [{
                     'scaleLabel': {
                         'display': True,
-                        'labelString': _('Restaurants')
+                        'labelString': _('Restaurants'),
+                        'fontSize': 25,
                     },
+                    'ticks': {
+                        'fontSize': 16,
+                    }
                 }],
             },
 

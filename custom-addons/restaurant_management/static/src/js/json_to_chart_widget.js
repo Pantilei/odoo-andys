@@ -12,7 +12,6 @@ export default class JsonToChart extends AbstractFieldOwl {
 
   setup() {
     super.setup();
-    console.log("THIS: ", this);
     this.chart = null;
 
     this.graphCanvasRef = useRef("graphCanvasRef");
@@ -31,10 +30,46 @@ export default class JsonToChart extends AbstractFieldOwl {
       this.chart.destroy();
     }
     let chartConfigs = JSON.parse(this.value);
-    this.chart = new Chart(this.graphCanvasRef.el, {
+    let options = {
+      ...chartConfigs.options,
+      plugins: {
+        datalabels: {
+          align: function (context) {
+            var index = context.dataIndex;
+            var datasets = context.chart.data.datasets;
+            var v0 = datasets[0].data[index];
+            var v1 = datasets[1].data[index];
+            var invert = v0 - v1 > 0;
+            return context.datasetIndex === 0
+              ? invert
+                ? "end"
+                : "start"
+              : invert
+              ? "start"
+              : "end";
+          },
+          backgroundColor: function (context) {
+            return context.dataset.labelBackgroundColor;
+          },
+          borderRadius: 3,
+          color: function (context) {
+            return context.dataset.labelColor;
+          },
+          font: {
+            weight: "bold",
+          },
+          offset: 4,
+          padding: 2,
+          // formatter: Math.round,
+        },
+      },
+    };
+    let configs = {
       ...chartConfigs,
       plugins: [ChartDataLabels],
-    });
+      options,
+    };
+    this.chart = new Chart(this.graphCanvasRef.el, configs);
   }
 }
 
