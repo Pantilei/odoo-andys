@@ -51,11 +51,10 @@ class DepartamentsReports(models.TransientModel):
     def _default_month_start(self):
         return str((date.today() + relativedelta(months=-2)).month)
 
-    def _get_default_check_list_category(self):
-        check_list_category_id = self.env["restaurant_management.check_list_category"].search([
+    def _get_default_departaments(self):
+        return self.env["restaurant_management.check_list_category"].search([
             ("default_category", "=", True),
         ])
-        return check_list_category_id[0] if len(check_list_category_id) else False
 
     def _get_default_restaurant_networks(self):
         return self.env["restaurant_management.restaurant_network"].search([])
@@ -86,10 +85,11 @@ class DepartamentsReports(models.TransientModel):
         compute="_compute_json_restaurant_rating"
     )
 
-    check_list_category_id = fields.Many2one(
+    check_list_category_ids = fields.Many2many(
         comodel_name="restaurant_management.check_list_category",
-        string="Department",
-        default=_get_default_check_list_category,
+        relation="restaurant_management_clc_dprtm_wizard_rel",
+        string="Departments",
+        default=_get_default_departaments,
         required=True
     )
 
@@ -139,7 +139,7 @@ class DepartamentsReports(models.TransientModel):
         string="Month End"
     )
 
-    @api.depends("report", "restaurant_network_ids", "check_list_category_id", "year", "month")
+    @api.depends("report", "restaurant_network_ids", "check_list_category_ids", "year", "month")
     def _compute_json_restaurant_rating(self):
         RestaurantNetwork = self.env["restaurant_management.restaurant_network"]
         FaultRegistry = self.env["restaurant_management.fault_registry"]
@@ -147,7 +147,7 @@ class DepartamentsReports(models.TransientModel):
         for record in self:
             if not record.report or not record.year or \
                     not record.month or not record.restaurant_network_ids or \
-                    not record.check_list_category_id:
+                    not record.check_list_category_ids:
 
                 record.json_restaurant_rating = json.dumps({
                     "grouped_restaurant_rating_per_audit": [],
@@ -162,7 +162,7 @@ class DepartamentsReports(models.TransientModel):
             restaurant_rating_per_audit = FaultRegistry.get_restaurant_rating_per_audit_data(
                 report_date,
                 restaurant_network_ids=record.restaurant_network_ids.ids,
-                check_list_category_id=record.check_list_category_id.id)
+                check_list_category_ids=record.check_list_category_ids.ids)
 
             grouped_restaurant_rating_per_audit = []
             for r in restaurant_rating_per_audit:
@@ -181,7 +181,7 @@ class DepartamentsReports(models.TransientModel):
                 "grouped_restaurant_rating_per_audit": grouped_restaurant_rating_per_audit,
             })
 
-    @api.depends("report", "restaurant_network_ids", "check_list_category_id", "year", "month")
+    @api.depends("report", "restaurant_network_ids", "check_list_category_ids", "year", "month")
     def _compute_json_top_faults(self):
         RestaurantNetwork = self.env["restaurant_management.restaurant_network"]
         FaultRegistry = self.env["restaurant_management.fault_registry"]
@@ -189,7 +189,7 @@ class DepartamentsReports(models.TransientModel):
         for record in self:
             if not record.report or not record.year or \
                     not record.month or not record.restaurant_network_ids or \
-                    not record.check_list_category_id:
+                    not record.check_list_category_ids:
 
                 record.json_top_faults = json.dumps([])
                 return
@@ -207,8 +207,8 @@ class DepartamentsReports(models.TransientModel):
             )
             res = self.env['restaurant_management.fault_registry'].get_top_faults(
                 date_start, date_end,
-                check_list_category_id=record.check_list_category_id.id,
-                check_list_category_ids=None,
+                check_list_category_id=None,
+                check_list_category_ids=record.check_list_category_ids.ids,
                 restaurant_id=None,
                 restaurant_ids=None,
                 restaurant_network_id=None,
@@ -232,13 +232,13 @@ class DepartamentsReports(models.TransientModel):
             record.json_top_faults = json.dumps(top_faults_with_comments)
 
     @api.depends("report", "year_start", "year_end", "month_start", "month_end",
-                 "restaurant_network_ids", "check_list_category_id")
+                 "restaurant_network_ids", "check_list_category_ids")
     def _compute_json_chart(self):
         for record in self:
             if not record.report or not record.year_start or \
                     not record.year_end or not record.month_start or \
                     not record.month_end or not record.restaurant_network_ids or \
-                    not record.check_list_category_id:
+                    not record.check_list_category_ids:
                 record.json_chart = json.dumps({
                     'type': 'bar',
                     'data': {
@@ -249,7 +249,7 @@ class DepartamentsReports(models.TransientModel):
                             'data': [0]
                         }]
                     },
-                    'options': record._get_chart_options(0),
+                    'options': record._get_chart_options(0, 5),
                 })
                 return
 
@@ -266,7 +266,7 @@ class DepartamentsReports(models.TransientModel):
             )
 
             chart_data = record._get_chart_data(
-                date_start, date_end, record.check_list_category_id)
+                date_start, date_end, record.check_list_category_ids)
 
             options = record._get_chart_options(
                 chart_data["mean_value"], chart_data["max_value"])
@@ -281,7 +281,7 @@ class DepartamentsReports(models.TransientModel):
     def _get_month_range(self, date_start, date_end):
         return [short_date(r) for r in rrule(MONTHLY, dtstart=date_start, until=date_end)]
 
-    def _get_chart_data(self, date_start, date_end, check_list_category_id):
+    def _get_chart_data(self, date_start, date_end, check_list_category_ids):
         Restaurant = self.env["restaurant_management.restaurant"]
         data = []
         labels = []
@@ -291,10 +291,10 @@ class DepartamentsReports(models.TransientModel):
                 .get_fault_counts_per_month(
                     date_start,
                     date_end,
-                    check_list_category_id=check_list_category_id.id,
+                    check_list_category_id=None,
                     restaurant_id=restaurant_id.id,
                     restaurant_network_id=None,
-                    check_list_category_ids=None,
+                    check_list_category_ids=check_list_category_ids.ids,
                     restaurant_ids=None,
                     restaurant_network_ids=self.restaurant_network_ids.ids
             )

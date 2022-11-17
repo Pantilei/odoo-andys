@@ -11,7 +11,7 @@
                         <field name="report" required="1" />
                     </group>
                     <group>
-                        <field name="check_list_category_id" options="{'no_create': True}" />
+                        <field name="check_list_category_ids" options="{'no_create': True}" widget="many2many_tags" />
                         <field name="restaurant_network_ids" options="{'no_create': True}" widget="many2many_tags" />
                     </group>
                     <group string="Date of report" attrs="{'invisible': [('report', 'not in', ['top_faults', 'restaurant_rating'])]}">

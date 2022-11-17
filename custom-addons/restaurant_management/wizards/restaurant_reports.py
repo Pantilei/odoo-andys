@@ -233,7 +233,7 @@ class RestaurantReports(models.TransientModel):
                         },
                         'ticks': {
                             'suggestedMin': 0,
-                            'suggestedMax': max(all_data) + 1,
+                            'suggestedMax': max(all_data or [0]) + 1,
                             'fontSize': 18,
                         }
                     }],

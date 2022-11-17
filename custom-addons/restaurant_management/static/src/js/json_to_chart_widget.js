@@ -37,8 +37,8 @@ export default class JsonToChart extends AbstractFieldOwl {
           align: function (context) {
             var index = context.dataIndex;
             var datasets = context.chart.data.datasets;
-            var v0 = datasets[0].data[index];
-            var v1 = datasets[1].data[index];
+            var v0 = datasets[0]?.data[index];
+            var v1 = datasets[1]?.data[index];
             var invert = v0 - v1 > 0;
             return context.datasetIndex === 0
               ? invert
