@@ -56,7 +56,7 @@
                                         <field name="severe" widget="boolean_toggle" />
                                     </group>
 
-                                    <group string="Involved Worker">
+                                    <group string="Involved Worker/Department Manager">
                                         <field name="fault_type" string="Position" />
                                         <field name="guilty_person_id" string="Name/Family Name" />
                                     </group>
@@ -127,7 +127,7 @@
                                     <field name="severe" readonly="1" widget="boolean_toggle" />
                                 </group>
 
-                                <group string="Involved Worker">
+                                <group string="Involved Worker/Department Manager">
                                     <field name="fault_type" string="Position" />
                                     <field name="guilty_person_id" string="Name/Family Name" />
                                 </group>
@@ -194,7 +194,7 @@
                                     <field name="severe" readonly="1" widget="boolean_toggle" />
                                 </group>
 
-                                <group string="Involved Worker">
+                                <group string="Involved Worker/Department Manager">
                                     <field name="fault_type" readonly="1" string="Position" />
                                     <field name="guilty_person_id" readonly="1" string="Name/Family Name" />
                                 </group>
@@ -263,7 +263,7 @@
                                     <field name="severe" widget="boolean_toggle" />
                                 </group>
 
-                                <group string="Involved Worker">
+                                <group string="Involved Worker/Department Manager">
                                     <field name="fault_type" readonly="1" string="Position" />
                                     <field name="guilty_person_id" readonly="1" string="Name/Family Name" />
                                 </group>
@@ -332,9 +332,9 @@
                                     <field name="severe" widget="boolean_toggle" attrs="{'readonly': [('parent.available_for_edit', '=', False)]}" />
                                 </group>
 
-                                <group string="Involved Worker">
-                                    <field name="fault_type" readonly="1" string="Position" />
-                                    <field name="guilty_person_id" readonly="1" string="Name/Family Name" />
+                                <group string="Involved Worker/Department Manager">
+                                    <field name="fault_type" string="Position" />
+                                    <field name="guilty_person_id" string="Name/Family Name" />
                                 </group>
 
                                 <group string="Measures Taken">

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-17 19:21+0000\n"
-"PO-Revision-Date: 2022-11-17 19:21+0000\n"
+"POT-Creation-Date: 2023-01-29 11:00+0000\n"
+"PO-Revision-Date: 2023-01-29 11:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1458,6 +1458,11 @@ msgid "Delivery"
 msgstr "Доставка"
 
 #. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_fault_registry__fault_type__delivery_department_manager
+msgid "Delivery Department Manager"
+msgstr "Руководитель отдела Доставки"
+
+#. module: restaurant_management
 #: model:ir.ui.menu,name:restaurant_management.departaments_report_menu
 msgid "Departament Reports"
 msgstr "Отчёты по Департаментам"
@@ -1563,6 +1568,11 @@ msgstr "Эксперт ДКК"
 #: model_terms:ir.ui.view,arch_db:restaurant_management.audit_distribution_view_search
 msgid "Expert QCD"
 msgstr "Эксперт ДКК"
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_fault_registry__fault_type__factory_director
+msgid "Factory Director"
+msgstr "Директор Фабрики"
 
 #. module: restaurant_management
 #: code:addons/restaurant_management/wizards/all_restaurants_report.py:0
@@ -1745,6 +1755,11 @@ msgid "ID"
 msgstr ""
 
 #. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_fault_registry__fault_type__it_department_manager
+msgid "IT Department Manager"
+msgstr "Руководитель отдела IT"
+
+#. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list__full_identificator
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__identificator
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__check_check_list_identificator
@@ -1768,19 +1783,14 @@ msgid "Import Faults Data"
 msgstr ""
 
 #. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_fault_registry__fault_type__interier_department_manager
+msgid "Interier Department Manager"
+msgstr "Руководитель отдела Интерьер"
+
+#. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.check_list_category_view_form
 msgid "Interior"
 msgstr "Интерьер"
-
-#. module: restaurant_management
-#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_audit_controller
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_auditer
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_dkk_manager
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_restaurant_director
-msgid "Involved Worker"
-msgstr "Причастный Работник"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__guilty_person_id
@@ -1793,6 +1803,16 @@ msgstr "Ф.И.О. Причастного работника"
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
 msgid "Involved Worker Position"
 msgstr "Должность Причастного работника"
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_audit_controller
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_auditer
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_dkk_manager
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_restaurant_director
+msgid "Involved Worker/Department Manager"
+msgstr "Причастный Работник/Руководитель отдела"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__default_category
@@ -2019,6 +2039,11 @@ msgid "March"
 msgstr "Март"
 
 #. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_fault_registry__fault_type__marketing_department_manager
+msgid "Marketing Departemnt Manager"
+msgstr "Руководитель отдела Маркетинг"
+
+#. module: restaurant_management
 #: code:addons/restaurant_management/models/planned_audits.py:0
 #, python-format
 msgid "Max and min values for audit counts are 0 and 10 correspondingly!"
@@ -2114,7 +2139,6 @@ msgstr "Название"
 
 #. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form
-#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_audit_controller
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_auditer
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_dkk_manager
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_restaurant_director
@@ -2274,7 +2298,6 @@ msgstr "Плановые проверки"
 
 #. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form
-#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_audit_controller
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_auditer
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_dkk_manager
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_restaurant_director
@@ -2419,6 +2442,7 @@ msgid "Restaurant Audit"
 msgstr "Проверка Ресторана"
 
 #. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_fault_registry__fault_type__restaurant_director
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_audit_controller
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_auditer
@@ -2621,6 +2645,11 @@ msgid "Suchif"
 msgstr "Сушеф"
 
 #. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_fault_registry__fault_type__supplier_department_manager
+msgid "Supplier Department Manager"
+msgstr "Руководитель отдела Снабжения"
+
+#. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__check_list_category_responsible_comment
 msgid "Taken Measures by Responsible within Department "
 msgstr "Принятые меры Ответственного по Департаменту"
@@ -2645,6 +2674,11 @@ msgstr "Принятые меры Директором Ресторана (Бе�
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
 msgid "Tech Personal"
 msgstr "Тех-персонал"
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_fault_registry__fault_type__technical_department_manager
+msgid "Technical Department Manager"
+msgstr "Руководитель Технологического отдела"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__telegram_chat_id
@@ -2756,7 +2790,12 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_fault_registry__fault_type__waiter
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
 msgid "Waiter"
-msgstr "Оффициант"
+msgstr "Официант"
+
+#. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_fault_registry__fault_type__waiter_department_manager
+msgid "Waiter Department Manager"
+msgstr "Руководитель отдела Официантов"
 
 #. module: restaurant_management
 #: model:ir.model,name:restaurant_management.model_restaurant_management_all_restaurants_report_wizard

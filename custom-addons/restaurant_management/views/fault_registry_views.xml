@@ -33,7 +33,7 @@
                             <field name="severe" widget="boolean_toggle" />
                         </group>
 
-                        <group string="Involved Worker">
+                        <group string="Involved Worker/Department Manager">
                             <field name="fault_type" string="Position" />
                             <field name="guilty_person_id" string="Name/Family Name" />
                         </group>
@@ -118,12 +118,12 @@
                 <xpath expr="//field[@name='fault_count']" position="replace">
                     <field name="fault_count" readonly="1" />
                 </xpath>
-                <xpath expr="//field[@name='fault_type']" position="replace">
+                <!-- <xpath expr="//field[@name='fault_type']" position="replace">
                     <field name="fault_type" readonly="1" string="Position" />
                 </xpath>
                 <xpath expr="//field[@name='guilty_person_id']" position="replace">
                     <field name="guilty_person_id" string="Name/Family Name" readonly="1" />
-                </xpath>
+                </xpath> -->
                 <xpath expr="//field[@name='severe']" position="replace">
                     <field name="severe" readonly="1" widget="boolean_toggle" />
                 </xpath>

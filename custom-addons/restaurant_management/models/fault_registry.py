@@ -1,17 +1,18 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api, _
+import logging
+import traceback
+from calendar import monthrange
+from datetime import date, datetime, timedelta
+
+import lxml
+import requests
+from dateutil.rrule import MONTHLY, rrule
+
+from odoo import _, api, fields, models
 from odoo.osv import expression
 
 from ..tools import short_date
-import requests
-import logging
-import traceback
-import lxml
-from datetime import datetime, timedelta, date
-from dateutil.rrule import rrule, MONTHLY
-from calendar import monthrange
-
 
 requests.packages.urllib3.util.connection.HAS_IPV6 = False
 
@@ -79,7 +80,16 @@ class FaultRegistry(models.Model):
         ("tech_personal", "Tech Personal"),
         ("barman", "Barman"),
         ("delivery", "Delivery"),
-    ], string="Involved Worker Position")
+        ("restaurant_director", "Restaurant Director"),
+        ("delivery_department_manager", "Delivery Department Manager"),
+        ("interier_department_manager", "Interier Department Manager"),
+        ("marketing_department_manager", "Marketing Departemnt Manager"),
+        ("waiter_department_manager", "Waiter Department Manager"),
+        ("it_department_manager", "IT Department Manager"),
+        ("supplier_department_manager", "Supplier Department Manager"),
+        ("technical_department_manager", "Technical Department Manager"),
+        ("factory_director", "Factory Director")
+    ], string="Involved Worker Position", index=True)
 
     guilty_person_id = fields.Many2one(
         comodel_name="res.partner",
