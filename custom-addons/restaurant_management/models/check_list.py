@@ -1,10 +1,12 @@
-from odoo import models, fields, api
-from odoo.osv import expression
-from odoo.exceptions import UserError
-from datetime import datetime, date
-import pandas as pd
-import numpy as np
 import os
+from datetime import date, datetime
+
+import numpy as np
+import pandas as pd
+
+from odoo import api, fields, models
+from odoo.exceptions import UserError
+from odoo.osv import expression
 
 
 class CheckList(models.Model):
@@ -52,8 +54,9 @@ class CheckList(models.Model):
     @api.onchange("category_id")
     def _on_category_change(self):
         if self.category_id:
-            self.identificator = max(self.search(
-                [("category_id", "=", self.category_id.id)]).mapped("identificator"))+1
+            identificators = self.env["restaurant_management.check_list"].search(
+                [("category_id", "=", self.category_id.id)]).mapped("identificator")
+            self.identificator = max(identificators) + 1 if identificators else 1
 
     @api.depends("full_identificator", "description")
     def _compute_name(self):
