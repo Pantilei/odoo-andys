@@ -36,3 +36,9 @@ class CheckListCategory(models.Model):
         default=True,
         string="Is this category in default list?"
     )
+
+    check_list_ids = fields.One2many(
+        comodel_name="restaurant_management.check_list",
+        inverse_name = "category_id",
+        string="Check List"
+    )

@@ -128,8 +128,8 @@
                                 </group>
 
                                 <group string="Involved Worker/Department Manager">
-                                    <field name="fault_type" string="Position" />
-                                    <field name="guilty_person_id" string="Name/Family Name" />
+                                    <field name="fault_type" string="Position" readonly="1"/>
+                                    <field name="guilty_person_id" string="Name/Family Name" readonly="1"/>
                                 </group>
 
                                 <group string="Measures Taken">
