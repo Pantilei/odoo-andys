@@ -47,6 +47,7 @@
                     <field name="identificator" />
                     <field name="name" />
                     <field name="default_category" />
+                    <field name="no_fault_category" />
                     <field name="telegram_chat_id" groups="base.group_no_one" />
                 </tree>
             </field>

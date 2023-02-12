@@ -2168,7 +2168,7 @@ msgstr "Нет Данных"
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__no_fault_category
 msgid "No Fault Category"
-msgstr "Нет категории ошибок"
+msgstr "Нет ошибок в категории"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__no_fault_check_list_category
