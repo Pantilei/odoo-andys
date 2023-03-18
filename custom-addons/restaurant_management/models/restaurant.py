@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from datetime import datetime, timedelta
 from odoo import models, fields, api
 
 
@@ -39,3 +40,17 @@ class Restaurant(models.Model):
         inverse_name="restaurant_id",
         string="Planned Audits"
     )
+
+    audit_temp_link_ids = fields.One2many(
+        comodel_name="restaurant_management.audit_temp_links",
+        inverse_name="restaurant_id",
+        string="Links"
+    )
+
+    def generate_temp_audit_link(self):
+        AuditTempLinks = self.env["restaurant_management.audit_temp_links"]
+        AuditTempLinks.create({
+            "restaurant_id": self.id,
+            "access_token": AuditTempLinks.generate_access_token(),
+            "valid_until": datetime.utcnow() + timedelta(days=1)
+        })
