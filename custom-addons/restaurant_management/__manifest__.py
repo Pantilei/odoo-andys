@@ -23,10 +23,14 @@
         'security/ir.model.access.csv',
 
         'data/cron.xml',
+        'data/check_list_type.xml',
 
         'views/restaurant_views.xml',
         'views/restaurant_network_views.xml',
         'views/restaurant_audit_view.xml',
+        'views/restaurant_audit_video_surveillance_view.xml',
+        'views/restaurant_audit_secret_guest_view.xml',
+
         'views/check_list_views.xml',
         'views/check_list_category_views.xml',
         'views/fault_registry_views.xml',
@@ -41,6 +45,8 @@
         'views/menu_items.xml',
         'views/res_users.xml',
         'views/res_users_preference.xml',
+
+        'views/templates.xml',
 
         'report/layout.xml',
         'report/paper_format.xml',
@@ -101,6 +107,10 @@
             'restaurant_management/static/src/xml/json_to_audit_tables.xml',
             'restaurant_management/static/src/xml/json_to_pie_chart_widget.xml',
         ],
+
+        'restaurant_management.secret_guest_audit': [
+            'restaurant_management/static/src/js/secret_guest_audit.js',
+        ]
     },
     'license': 'LGPL-3',
 }

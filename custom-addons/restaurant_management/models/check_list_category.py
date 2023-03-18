@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import api, fields, models
 
 
 class CheckListCategory(models.Model):
@@ -12,6 +12,17 @@ class CheckListCategory(models.Model):
 
     sequence = fields.Integer(
         string="Sequence"
+    )
+
+    active = fields.Boolean(
+        string="Archived",
+        default=True
+    )
+
+    check_list_type_id = fields.Many2one(
+        comodel_name="restaurant_management.check_list_type",
+        default=lambda self: self.env.ref("restaurant_management.qcd_check_list_type").id,
+        string="Check List Type"
     )
 
     no_fault_category = fields.Boolean(

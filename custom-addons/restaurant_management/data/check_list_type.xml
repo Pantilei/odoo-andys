@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="qcd_check_list_type" model="restaurant_management.check_list_type">
+        <field name="name">QCD</field>
+    </record>
+    <record id="video_surveillance_check_list_type" model="restaurant_management.check_list_type">
+        <field name="name">Video Surveillance</field>
+    </record>
+    <record id="secret_guest_check_list_type" model="restaurant_management.check_list_type">
+        <field name="name">Secret Guest</field>
+    </record>
+
+</odoo>

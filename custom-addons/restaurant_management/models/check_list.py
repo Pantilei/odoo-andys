@@ -51,6 +51,11 @@ class CheckList(models.Model):
         required=True
     )
 
+    active = fields.Boolean(
+        string="Archived",
+        related='category_id.active'
+    )
+
     @api.onchange("category_id")
     def _on_category_change(self):
         if self.category_id:

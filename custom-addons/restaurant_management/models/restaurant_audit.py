@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 
 import enum
-from odoo import models, fields, api, _, registry
-from odoo.osv import expression
-
-from datetime import datetime, timedelta, date
-from dateutil.rrule import rrule, MONTHLY
-
-import requests
-import traceback
 import logging
 import threading
+import traceback
+from datetime import date, datetime, timedelta
+
+import requests
+from dateutil.rrule import MONTHLY, rrule
+
+from odoo import _, api, fields, models, registry
+from odoo.osv import expression
 
 _logger = logging.getLogger(__name__)
 
@@ -86,6 +86,12 @@ class RestaurantAudit(models.Model):
     available_for_edit = fields.Boolean(
         compute="_compute_available_for_edit",
         string="Availabe for Change"
+    )
+
+    check_list_type_id = fields.Many2one(
+        comodel_name="restaurant_management.check_list_type",
+        default=lambda self: self.env.ref("restaurant_management.qcd_check_list_type").id,
+        string="Check List Type"
     )
 
     @api.depends("create_date")

@@ -5,36 +5,38 @@
             <field name="model">restaurant_management.check_list_category</field>
             <field name="arch" type="xml">
                 <form string="Check List Category">
-                    <sheet>
-                        <div class="oe_title">
-                            <label for="name" string="Name" />
-                            <h1>
-                                <field class="o_text_overflow" name="name" placeholder="Interior" />
-                            </h1>
-                        </div>
-                        <group>
-                            <field name="no_fault_category" />
-                        </group>
+                    <!-- <sheet> -->
+                    <div class="oe_title">
+                        <label for="name" string="Name" />
+                        <h1>
+                            <field class="o_text_overflow" name="name" placeholder="Interior" />
+                        </h1>
+                    </div>
+                    <group>
                         <group>
                             <field name="identificator" />
+                            <field name="check_list_type_id" />
                         </group>
                         <group>
                             <field name="default_category" />
+                            <field name="no_fault_category" />
                         </group>
-                        <!-- <group string="Check List">
-                            <field name="check_list_ids" nolabel="1">
-                                <tree editable="bottom">
-                                    <field name="sequence" widget="handle" />
-                                    <field name="full_identificator" />
-                                    <field name="identificator" />
-                                    <field name="description" />
-                                </tree>
-                            </field>
-                        </group> -->
-                        <group>
-                            <field name="telegram_chat_id" groups="base.group_no_one" />
-                        </group>
-                    </sheet>
+                    </group>
+                    <group string="Check List"
+                        attrs="{'invisible': [('no_fault_category', '=', True)]}">
+                        <field name="check_list_ids" nolabel="1">
+                            <tree editable="bottom">
+                                <field name="sequence" widget="handle" />
+                                <field name="full_identificator" />
+                                <field name="identificator" />
+                                <field name="description" />
+                            </tree>
+                        </field>
+                    </group>
+                    <group>
+                        <field name="telegram_chat_id" groups="base.group_no_one" />
+                    </group>
+                    <!-- </sheet> -->
                 </form>
             </field>
         </record>
@@ -42,10 +44,11 @@
             <field name="name">check_list.view.tree</field>
             <field name="model">restaurant_management.check_list_category</field>
             <field name="arch" type="xml">
-                <tree editable="bottom">
+                <tree>
                     <field name="sequence" widget="handle" />
                     <field name="identificator" />
                     <field name="name" />
+                    <field name="check_list_type_id" />
                     <field name="default_category" />
                     <field name="no_fault_category" />
                     <field name="telegram_chat_id" groups="base.group_no_one" />
@@ -59,6 +62,10 @@
             <field name="arch" type="xml">
                 <search>
                     <field name="name" string="Check List Category" />
+                    <filter name="active" string="Archived" domain="[('active', '=', False)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Category Type" name="group_by_check_list_type_id" context="{'group_by': 'check_list_type_id'}" domain="[]" />
+                    </group>
                 </search>
             </field>
         </record>

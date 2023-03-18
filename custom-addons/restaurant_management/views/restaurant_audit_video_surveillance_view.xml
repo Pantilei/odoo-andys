@@ -1,10 +1,10 @@
 <odoo>
     <data>
-        <record id="restaurant_audit_view_form" model="ir.ui.view">
-            <field name="name">restaurant_audit.view.form</field>
+        <record id="restaurant_audit_video_surveillance_form" model="ir.ui.view">
+            <field name="name">restaurant_audit_video_surveillance.view.form</field>
             <field name="model">restaurant_management.restaurant_audit</field>
             <field name="arch" type="xml">
-                <form string="Audit of Expert DKK" duplicate="0">
+                <form string="Audit of Video Surveillance" duplicate="0">
                     <field name="available_for_edit" invisible="1" />
                     <field name="create_date" invisible="1" />
                     <field name="check_list_type_id" invisible="1" />
@@ -63,9 +63,7 @@
                                 </header>
                                 <sheet>
                                     <group>
-                                        <field name="check_list_category_id" 
-                                                domain="[('check_list_type_id', '=', check_list_type_id)]"
-                                                widget="selection" />
+                                        <field name="check_list_category_id" widget="selection" />
                                         <field name="check_list_id" widget="selection"
                                             domain="[('category_id', '=', check_list_category_id)]"
                                             attrs="{'required': [('no_fault_check_list_category', '=', False)], 'invisible': [('no_fault_check_list_category', '=', True)], 'readonly': [('check_list_category_id', '=', False)]}" />
@@ -80,7 +78,7 @@
                                     </group>
 
                                     <group string="Measures Taken">
-                                        <field name="comment" widget="html" string="Expert DCC" />
+                                        <field name="comment" widget="html" string="Video Operator" />
                                         <field name="director_comment" widget="html"
                                             string="Restaurant Director" />
                                         <field name="check_list_category_responsible_comment"
@@ -100,12 +98,13 @@
             </field>
         </record>
 
-        <record id="restaurant_audit_view_form_group_restaurant_management_restaurant_director"
+        <record
+            id="restaurant_audit_video_surveillance_form_group_restaurant_management_restaurant_director"
             model="ir.ui.view">
             <field name="name">
-                restaurant_audit.view.form.group_restaurant_management_restaurant_director</field>
+                restaurant_audit_video_surveillance.view.form.group_restaurant_management_restaurant_director</field>
             <field name="model">restaurant_management.restaurant_audit</field>
-            <field name="inherit_id" ref="restaurant_audit_view_form" />
+            <field name="inherit_id" ref="restaurant_audit_video_surveillance_form" />
             <field name="groups_id"
                 eval="[(6, 0, [ref('group_restaurant_management_restaurant_director')])]" />
             <field name="arch" type="xml">
@@ -169,7 +168,7 @@
 
                                 <group string="Measures Taken">
                                     <field name="comment" readonly="1" widget="html"
-                                        string="Expert DCC" />
+                                        string="Video Operator" />
                                     <field name="director_comment" widget="html"
                                         string="Restaurant Director" />
                                     <field name="check_list_category_responsible_comment"
@@ -189,12 +188,13 @@
             </field>
         </record>
 
-        <record id="restaurant_audit_view_form_group_restaurant_management_audit_controller"
+        <record
+            id="restaurant_audit_video_surveillance_form_group_restaurant_management_audit_controller"
             model="ir.ui.view">
             <field name="name">
-                restaurant_audit.view.form.group_restaurant_management_audit_controller</field>
+                restaurant_audit_video_surveillance_view.view.form.group_restaurant_management_audit_controller</field>
             <field name="model">restaurant_management.restaurant_audit</field>
-            <field name="inherit_id" ref="restaurant_audit_view_form" />
+            <field name="inherit_id" ref="restaurant_audit_video_surveillance_form" />
             <field name="groups_id"
                 eval="[(6, 0, [ref('group_restaurant_management_audit_controller')])]" />
             <field name="arch" type="xml">
@@ -254,7 +254,7 @@
 
                                 <group string="Measures Taken">
                                     <field name="comment" readonly="1" widget="html"
-                                        string="Expert DCC" />
+                                        string="Video Operator" />
                                     <field name="director_comment" readonly="1" widget="html"
                                         string="Restaurant Director" />
                                     <field name="check_list_category_responsible_comment"
@@ -273,11 +273,13 @@
             </field>
         </record>
 
-        <record id="restaurant_audit_view_form_group_restaurant_management_dkk_manager"
+        <record
+            id="restaurant_audit_video_surveillance_form_group_restaurant_management_dkk_manager"
             model="ir.ui.view">
-            <field name="name">restaurant_audit.view.form.group_restaurant_management_dkk_manager</field>
+            <field name="name">
+                restaurant_audit_video_surveillance.view.form.group_restaurant_management_dkk_manager</field>
             <field name="model">restaurant_management.restaurant_audit</field>
-            <field name="inherit_id" ref="restaurant_audit_view_form" />
+            <field name="inherit_id" ref="restaurant_audit_video_surveillance_form" />
             <field name="groups_id"
                 eval="[(6, 0, [ref('group_restaurant_management_dkk_manager')])]" />
             <field name="arch" type="xml">
@@ -341,7 +343,7 @@
 
                                 <group string="Measures Taken">
                                     <field name="comment" widget="html" readonly="1"
-                                        string="Expert DCC" />
+                                        string="Video Operator" />
                                     <field name="director_comment" widget="html" readonly="1"
                                         string="Restaurant Director" />
                                     <field name="check_list_category_responsible_comment"
@@ -360,12 +362,15 @@
             </field>
         </record>
 
-        <record id="restaurant_audit_view_form_group_restaurant_management_auditer"
+        <record
+            id="restaurant_audit_video_surveillance_form_group_restaurant_management_video_operator"
             model="ir.ui.view">
-            <field name="name">restaurant_audit.view.form.group_restaurant_management_auditer</field>
+            <field name="name">
+                restaurant_audit_video_surveillance.view.form.group_restaurant_management_video_operator</field>
             <field name="model">restaurant_management.restaurant_audit</field>
-            <field name="inherit_id" ref="restaurant_audit_view_form" />
-            <field name="groups_id" eval="[(6, 0, [ref('group_restaurant_management_auditer')])]" />
+            <field name="inherit_id" ref="restaurant_audit_video_surveillance_form" />
+            <field name="groups_id"
+                eval="[(6, 0, [ref('group_restaurant_management_video_operator')])]" />
             <field name="arch" type="xml">
                 <field name="restaurant_id" position="replace">
                     <field name="restaurant_id" required="1" widget="selection"
@@ -432,7 +437,7 @@
                                 </group>
 
                                 <group string="Measures Taken">
-                                    <field name="comment" widget="html" string="Expert DCC"
+                                    <field name="comment" widget="html" string="Video Operator"
                                         attrs="{'readonly': [('parent.available_for_edit', '=', False)]}" />
                                     <field name="director_comment" widget="html" readonly="1"
                                         string="Restaurant Director" />
@@ -453,11 +458,11 @@
             </field>
         </record>
 
-        <record id="restaurant_audit_tree_view" model="ir.ui.view">
-            <field name="name">restaurant_audit.view.tree</field>
+        <record id="restaurant_audit_video_surveillance_tree_view" model="ir.ui.view">
+            <field name="name">restaurant_audit_video_surveillance.view.tree</field>
             <field name="model">restaurant_management.restaurant_audit</field>
             <field name="arch" type="xml">
-                <tree string="Audit of Expert DKK" default_order="audit_date desc">
+                <tree string="Audit of Video Surveillance" default_order="audit_date desc">
                     <field name="name" />
                     <field name="restaurant_id" />
                     <field name="responsible_id" />
@@ -468,8 +473,8 @@
             </field>
         </record>
 
-        <record id="restaurant_audit_view_search" model="ir.ui.view">
-            <field name="name">restaurant_audit.view.search</field>
+        <record id="restaurant_audit_video_surveillance_search" model="ir.ui.view">
+            <field name="name">restaurant_audit_video_surveillance.view.search</field>
             <field name="model">restaurant_management.restaurant_audit</field>
             <field name="arch" type="xml">
                 <search string="Restaurant Audit">
@@ -493,17 +498,18 @@
         </record>
 
         <!-- actions opening views on models -->
-        <record id="restaurant_audit_action" model="ir.actions.act_window">
-            <field name="name">Audit of Expert DKK</field>
+        <record id="restaurant_audit_video_surveillance_action" model="ir.actions.act_window">
+            <field name="name">Audit of Video Surveillance</field>
             <field name="res_model">restaurant_management.restaurant_audit</field>
             <field name="view_mode">tree,form</field>
             <field name="view_ids"
                 eval="[(5, 0, 0),
-                        (0, 0, {'view_mode': 'tree', 'view_id': ref('restaurant_audit_tree_view')}),
-                        (0, 0, {'view_mode': 'form', 'view_id': ref('restaurant_audit_view_form')})]" />
+                        (0, 0, {'view_mode': 'tree', 'view_id': ref('restaurant_audit_video_surveillance_tree_view')}),
+                        (0, 0, {'view_mode': 'form', 'view_id': ref('restaurant_audit_video_surveillance_form')})]" />
             <field name="context"
-                eval="{'default_check_list_type_id': ref('qcd_check_list_type')}" />
-            <field name="domain" eval="[('check_list_type_id', '=', ref('qcd_check_list_type'))]" />
+                eval="{'default_check_list_type_id': ref('video_surveillance_check_list_type')}" />
+            <field name="domain"
+                eval="[('check_list_type_id', '=', ref('video_surveillance_check_list_type'))]" />
         </record>
 
     </data>
