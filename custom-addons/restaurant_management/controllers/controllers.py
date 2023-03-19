@@ -24,8 +24,24 @@ class SecretGuest(http.Controller):
         if not audit_temp_link_id or not audit_temp_link_id.is_active:
             return werkzeug.exceptions.NotFound()
 
+        check_list_type_id = request.env.ref("restaurant_management.secret_guest_check_list_type")
+        check_list_category_ids = request.env["restaurant_management.check_list_category"].sudo().search([
+            ("check_list_type_id", "=", check_list_type_id.id)
+        ])
+        check_list_data = [{
+            "id": category_id.id,
+            "name": category_id.name,
+            "response_type": category_id.response_type,
+            "check_lists": [{
+                "id": check_list_id.id,
+                "description": check_list_id.description,
+                "photo_required": check_list_id.photo_required,
+                "comment_required": check_list_id.comment_required,
+            } for check_list_id in category_id.check_list_ids]
+        } for category_id in check_list_category_ids]
         return request.render("restaurant_management.secret_guest_audit_main_page", {
-            "title": "TITLE"
+            "title": "TITLE",
+            "check_list_data": check_list_data
         })
 
     @http.route('/audits/<string:access_token>/handle', type='json', auth="public")

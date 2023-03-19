@@ -2,7 +2,8 @@
 <odoo>
     <data>
         <!-- Main layout -->
-        <template id="restaurant_management.secret_guest_audit_layout" name="Secret Guest Audit Layout"
+        <template id="restaurant_management.secret_guest_audit_layout"
+            name="Secret Guest Audit Layout"
             inherit_id="web.layout" primary="True">
             <xpath expr="//head/meta[last()]" position="after">
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -26,9 +27,10 @@
             <xpath expr="//t[@t-out='0']" position="replace">
                 <div id="wrapwrap" t-attf-class="#{pageName or ''}">
                     <header t-if="not no_header" id="top"></header>
-                    <main class="o_main_container">
+                    <main class="o_main_container m-auto" style="width: 90%">
                         <!-- <span class="oe_img_bg_review"
-                            t-attf-style="background-image:  linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('{{bg_image}}')" /> -->
+                            t-attf-style="background-image:  linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+                        url('{{bg_image}}')" /> -->
                         <t t-out="0" />
                     </main>
                     <footer t-if="not no_footer" id="bottom" t-attf-class="bg-light o_footer">
@@ -41,7 +43,7 @@
         <!-- Main survey template -->
         <template id="secret_guest_audit_main_page" name="Secret Guest Audit main page">
             <t t-call="restaurant_management.secret_guest_audit_layout">
-                <section class="title">
+                <section class="title bg-light mb-5 p-3">
                     <div class="container">
                         <div class="row">
                             <h1 class="col-9">
@@ -51,22 +53,77 @@
                     </div>
                 </section>
                 <section class="o_form_main">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-8 mt-2 mt-lg-0">
-                                <h3>
-                                    Section 2
-                                </h3>
+                    <form>
+                        <t t-foreach="check_list_data" t-as="category">
+                            <div class="bg-light mb-3">
+                                <p class="h2">
+                                    <u>
+                                        <t t-esc="category['name']" />
+                                    </u>
+                                </p>
+                                <div>
+                                    <t t-foreach="category['check_lists']" t-as="check_list">
+                                        <div class="form-group d-flex justify-content-between">
+                                            <p class="h4">
+                                                <label
+                                                    t-attf-for="check_list_{{check_list['id']}}">
+                                                    <t t-esc="check_list['description']" />
+                                                </label>
+                                            </p>
+                                            <span t-if="category['response_type'] == 'yes_no'">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                        t-attf-name="check_list_{{check_list['id']}}"
+                                                        t-attf-id="check_list_{{check_list['id']}}_yes"
+                                                        value="yes" />
+                                                    <label class="form-check-label"
+                                                        t-attf-for="check_list_{{check_list['id']}}_yes">
+                                                        Yes
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                        t-attf-name="check_list_{{check_list['id']}}"
+                                                        t-attf-id="check_list_{{check_list['id']}}_no"
+                                                        value="no" />
+                                                    <label class="form-check-label"
+                                                        t-attf-for="check_list_{{check_list['id']}}_no">
+                                                        No
+                                                    </label>
+                                                </div>
+                                            </span>
 
+                                            <span t-if="category['response_type'] == 'notes'">
+                                                <t t-foreach="[1, 2, 3, 4, 5]" t-as="note">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio"
+                                                            t-attf-name="check_list_{{check_list['id']}}"
+                                                            t-attf-id="check_list_{{check_list['id']}}_{{note}}"
+                                                            t-attf-value="{{note}}" />
+                                                        <label class="form-check-label"
+                                                            t-attf-for="check_list_{{check_list['id']}}_{{note}}">
+                                                            <t t-esc="note" />
+                                                        </label>
+                                                    </div>
+                                                </t>
+                                            </span>
+
+                                        </div>
+                                        <t t-if="check_list['comment_required']">
+                                            <div class="form-group">
+                                                <label
+                                                    for="check_list_comment_{{check_list['id']}}">
+                                                    Comment</label>
+                                                <textarea class="form-control"
+                                                    id="check_list_comment_{{check_list['id']}}"
+                                                    rows="3"></textarea>
+                                            </div>
+                                        </t>
+                                    </t>
+                                </div>
                             </div>
-                            <!-- <div class="col-lg-4 mt-4 mt-lg-0">
-                                <t t-call="reviews.reviews_company_data">
-                                    <t t-set="company_support_phone" t-value="company_support_phone" />
-                                    <t t-set="company_support_email" t-value="company_support_email" />
-                                </t>
-                            </div> -->
-                        </div>
-                    </div>
+                        </t>
+                    </form>
                 </section>
             </t>
         </template>

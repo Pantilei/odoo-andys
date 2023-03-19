@@ -6,7 +6,8 @@
             <field name="arch" type="xml">
                 <form string="Restaurant">
                     <header>
-                        <button string="Generate Access Link" name="generate_temp_audit_link" type="object" class="oe_highlight"/>
+                        <button string="Generate Secret Guest Link" name="generate_temp_audit_link"
+                            type="object" class="oe_highlight" />
                     </header>
                     <sheet>
                         <group>
@@ -32,12 +33,24 @@
                         </group>
                         <group string="Secret Guest Audit Links">
                             <field name="audit_temp_link_ids" readonly="1" nolabel="1">
-                                <tree default_order="valid_until desc" limit="5">
-                                    <field name="link" widget="CopyClipboardChar"/>
-                                    <field name="access_token" invisible="1"/>
+                                <tree default_order="valid_until desc"
+                                    decoration-success="is_active == True"
+                                    limit="5">
+                                    <field name="access_token" invisible="1" />
                                     <field name="valid_until" />
                                     <field name="is_active" />
+                                    <field name="link" widget="url" />
+                                    <!-- <field name="link" widget="CopyClipboardChar"/> -->
                                 </tree>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                            <field name="valid_until" />
+                                            <field name="is_active" />
+                                            <field name="link" widget="CopyClipboardChar" />
+                                        </group>
+                                    </sheet>
+                                </form>
                             </field>
                         </group>
                         <group string="Planned Audits">

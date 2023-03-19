@@ -2,13 +2,13 @@
 <odoo>
 
     <record id="qcd_check_list_type" model="restaurant_management.check_list_type">
-        <field name="name">QCD</field>
+        <field name="name">ДКК</field>
     </record>
     <record id="video_surveillance_check_list_type" model="restaurant_management.check_list_type">
-        <field name="name">Video Surveillance</field>
+        <field name="name">Видео Наблюдение</field>
     </record>
     <record id="secret_guest_check_list_type" model="restaurant_management.check_list_type">
-        <field name="name">Secret Guest</field>
+        <field name="name">Секретный Гость</field>
     </record>
 
 </odoo>

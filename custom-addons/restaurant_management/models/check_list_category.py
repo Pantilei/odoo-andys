@@ -53,3 +53,29 @@ class CheckListCategory(models.Model):
         inverse_name = "category_id",
         string="Check List"
     )
+
+    response_type = fields.Selection(
+        selection=[
+            ("yes_no", "Yes/No"),
+            ("notes", "Notes")
+        ],
+        default="yes_no",
+        string="Response Type"
+    )
+
+    is_secret_guest_type = fields.Boolean(
+        compute="_compute_is_secret_guest_type"
+    )
+
+    @api.depends("check_list_type_id")
+    def _compute_is_secret_guest_type(self):
+        for record in self:
+            record.is_secret_guest_type = record.check_list_type_id == self.env.ref("restaurant_management.secret_guest_check_list_type")
+
+    def archive_record(self):
+        for record in self:
+            record.active = False
+    
+    def unarchive_record(self):
+        for record in self:
+            record.active = True

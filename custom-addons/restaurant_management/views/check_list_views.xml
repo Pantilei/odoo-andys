@@ -12,6 +12,8 @@
                         <group>
                             <field name="identificator" />
                             <field name="full_identificator" />
+                            <field name="photo_required" />
+                            <field name="comment_required" />
                         </group>
                         <group>
                             <field name="description" />

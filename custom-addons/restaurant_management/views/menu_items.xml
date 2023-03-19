@@ -17,7 +17,7 @@
         name="Audit of Video Surveillance"
         parent="menu_root"
         action="restaurant_audit_video_surveillance_action"
-        groups="restaurant_management.group_restaurant_management_audit_controller,restaurant_management.group_restaurant_management_dkk_manager,group_restaurant_management_video_operator,restaurant_management.group_restaurant_management_restaurant_director,restaurant_management.group_restaurant_management_manager"
+        groups="restaurant_management.group_restaurant_management_audit_controller,restaurant_management.group_restaurant_management_dkk_manager,restaurant_management.group_restaurant_management_video_operator,restaurant_management.group_restaurant_management_restaurant_director,restaurant_management.group_restaurant_management_manager"
         sequence="2" />
 
     <menuitem id="restaurant_audit_secret_guest"

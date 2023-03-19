@@ -34,6 +34,7 @@
                                 <field name="restaurant_id" invisible="1" />
                                 <field name="check_check_list_identificator" optional="show" />
                                 <field name="check_list_category_id"
+                                    domain="[('check_list_type_id', '=', parent.check_list_type_id)]"
                                     attrs="{'readonly': [('id', '!=', False)]}" force_save="1"
                                     optional="hide" />
                                 <field name="check_list_id"
@@ -63,9 +64,9 @@
                                 </header>
                                 <sheet>
                                     <group>
-                                        <field name="check_list_category_id" 
-                                                domain="[('check_list_type_id', '=', check_list_type_id)]"
-                                                widget="selection" />
+                                        <field name="check_list_category_id"
+                                            domain="[('check_list_type_id', '=', parent.check_list_type_id)]"
+                                            widget="selection" />
                                         <field name="check_list_id" widget="selection"
                                             domain="[('category_id', '=', check_list_category_id)]"
                                             attrs="{'required': [('no_fault_check_list_category', '=', False)], 'invisible': [('no_fault_check_list_category', '=', True)], 'readonly': [('check_list_category_id', '=', False)]}" />
@@ -133,7 +134,9 @@
                             <field name="responsible_id" invisible="1" />
                             <field name="restaurant_id" invisible="1" />
                             <field name="check_check_list_identificator" optional="show" />
-                            <field name="check_list_category_id" readonly="1" optional="hide" />
+                            <field name="check_list_category_id"
+                                domain="[('check_list_type_id', '=', parent.check_list_type_id)]"
+                                readonly="1" optional="hide" />
                             <field name="check_list_id"
                                 domain="[('category_id', '=', check_list_category_id)]" readonly="1"
                                 optional="hide" />
@@ -152,7 +155,9 @@
                             </header>
                             <sheet>
                                 <group>
-                                    <field name="check_list_category_id" widget="selection"
+                                    <field name="check_list_category_id"
+                                        domain="[('check_list_type_id', '=', parent.check_list_type_id)]"
+                                        widget="selection"
                                         readonly="1" />
                                     <field name="check_list_id" widget="selection" readonly="1"
                                         domain="[('category_id', '=', check_list_category_id)]" />
@@ -218,7 +223,9 @@
                             <field name="responsible_id" invisible="1" />
                             <field name="restaurant_id" invisible="1" />
                             <field name="check_check_list_identificator" optional="show" />
-                            <field name="check_list_category_id" readonly="1" optional="hide" />
+                            <field name="check_list_category_id"
+                                domain="[('check_list_type_id', '=', parent.check_list_type_id)]"
+                                readonly="1" optional="hide" />
                             <field name="check_list_id"
                                 domain="[('category_id', '=', check_list_category_id)]" readonly="1"
                                 optional="hide" />
@@ -238,6 +245,7 @@
                             <sheet>
                                 <group>
                                     <field name="check_list_category_id" widget="selection"
+                                        domain="[('check_list_type_id', '=', parent.check_list_type_id)]"
                                         readonly="1" />
                                     <field name="check_list_id" widget="selection" readonly="1"
                                         domain="[('category_id', '=', check_list_category_id)]" />
@@ -301,7 +309,9 @@
                             <field name="responsible_id" invisible="1" />
                             <field name="restaurant_id" invisible="1" />
                             <field name="check_check_list_identificator" optional="show" />
-                            <field name="check_list_category_id" readonly="1" optional="hide" />
+                            <field name="check_list_category_id" 
+                                domain="[('check_list_type_id', '=', parent.check_list_type_id)]" 
+                                readonly="1" optional="hide" />
                             <field name="check_list_id"
                                 domain="[('category_id', '=', check_list_category_id)]" readonly="1"
                                 optional="hide" />
@@ -325,6 +335,7 @@
                             <sheet>
                                 <group>
                                     <field name="check_list_category_id" widget="selection"
+                                        domain="[('check_list_type_id', '=', parent.check_list_type_id)]" 
                                         readonly="1" />
                                     <field name="check_list_id" widget="selection" readonly="1"
                                         domain="[('category_id', '=', check_list_category_id)]" />
@@ -392,7 +403,9 @@
                             <field name="responsible_id" invisible="1" />
                             <field name="restaurant_id" invisible="1" />
                             <field name="check_check_list_identificator" optional="show" />
-                            <field name="check_list_category_id" readonly="1" force_save="1"
+                            <field name="check_list_category_id" 
+                                domain="[('check_list_type_id', '=', parent.check_list_type_id)]" 
+                                readonly="1" force_save="1"
                                 optional="hide" />
                             <field name="check_list_id"
                                 domain="[('category_id', '=', check_list_category_id)]" readonly="1"
@@ -415,6 +428,7 @@
                             <sheet>
                                 <group>
                                     <field name="check_list_category_id" widget="selection"
+                                        domain="[('check_list_type_id', '=', parent.check_list_type_id)]" 
                                         attrs="{'readonly': [('parent.available_for_edit', '=', False)]}" />
                                     <field name="check_list_id" widget="selection"
                                         domain="[('category_id', '=', check_list_category_id)]"

@@ -22,7 +22,7 @@
     <record id="group_restaurant_management_video_operator" model="res.groups">
         <field name="name">Video Operator</field>
         <field name="category_id" ref="module_category_restaurant_management" />
-        <field name="comment">User under this group are allowed to manage video surveilance and
+        <field name="comment">User under this group are allowed to manage video surveillance and
             register faults</field>
     </record>
 

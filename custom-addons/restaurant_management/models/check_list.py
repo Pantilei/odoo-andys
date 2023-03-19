@@ -1,5 +1,5 @@
 import os
-from datetime import date, datetime
+from datetime import datetime
 
 import numpy as np
 import pandas as pd
@@ -51,9 +51,13 @@ class CheckList(models.Model):
         required=True
     )
 
-    active = fields.Boolean(
-        string="Archived",
-        related='category_id.active'
+    photo_required = fields.Boolean(
+        string="Photo",
+        default=False
+    )
+    comment_required = fields.Boolean(
+        string="Comment",
+        default=False
     )
 
     @api.onchange("category_id")

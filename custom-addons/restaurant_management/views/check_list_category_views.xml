@@ -5,37 +5,58 @@
             <field name="model">restaurant_management.check_list_category</field>
             <field name="arch" type="xml">
                 <form string="Check List Category">
+                    <header>
+                        <button string="Archive" name="archive_record"
+                            attrs="{'invisible': [('active', '=', False)]}"
+                            type="object" />
+                        <button string="Unarchive" name="unarchive_record"
+                            attrs="{'invisible': [('active', '=', True)]}"
+                            type="object" />
+                    </header>
+                    <field name="active" invisible="1" />
+                    <field name="is_secret_guest_type" invisible="1" />
                     <!-- <sheet> -->
-                    <div class="oe_title">
-                        <label for="name" string="Name" />
-                        <h1>
-                            <field class="o_text_overflow" name="name" placeholder="Interior" />
-                        </h1>
-                    </div>
-                    <group>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                            attrs="{'invisible': [('active', '=', True)]}" />
+
+                        <div class="oe_title">
+                            <label for="name" string="Name" />
+                            <h1>
+                                <field class="o_text_overflow" name="name" placeholder="Interior" />
+                            </h1>
+                        </div>
                         <group>
-                            <field name="identificator" />
-                            <field name="check_list_type_id" />
-                        </group>
-                        <group>
-                            <field name="default_category" />
-                            <field name="no_fault_category" />
-                        </group>
-                    </group>
-                    <group string="Check List"
-                        attrs="{'invisible': [('no_fault_category', '=', True)]}">
-                        <field name="check_list_ids" nolabel="1">
-                            <tree editable="bottom">
-                                <field name="sequence" widget="handle" />
-                                <field name="full_identificator" />
+                            <group>
                                 <field name="identificator" />
-                                <field name="description" />
-                            </tree>
-                        </field>
-                    </group>
-                    <group>
-                        <field name="telegram_chat_id" groups="base.group_no_one" />
-                    </group>
+                                <field name="check_list_type_id" />
+                                <field name="response_type"
+                                    attrs="{'invisible': [('is_secret_guest_type', '=', False)]}" />
+                            </group>
+                            <group>
+                                <field name="default_category" />
+                                <field name="no_fault_category" />
+                            </group>
+
+                        </group>
+                        <group string="Check List"
+                            attrs="{'invisible': [('no_fault_category', '=', True)]}">
+                            <field name="check_list_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle" />
+                                    <field name="full_identificator" />
+                                    <field name="identificator" />
+                                    <field name="description" />
+
+                                    <field name="photo_required"
+                                        attrs="{'column_invisible': [('parent.is_secret_guest_type', '=', False)]}" />
+                                    <field name="comment_required"
+                                        attrs="{'column_invisible': [('parent.is_secret_guest_type', '=', False)]}" />
+                                </tree>
+                            </field>
+                        </group>
+                        <group>
+                            <field name="telegram_chat_id" groups="base.group_no_one" />
+                        </group>
                     <!-- </sheet> -->
                 </form>
             </field>
@@ -62,9 +83,11 @@
             <field name="arch" type="xml">
                 <search>
                     <field name="name" string="Check List Category" />
-                    <filter name="active" string="Archived" domain="[('active', '=', False)]"/>
+                    <field name="check_list_type_id" string="Category Type" />
+                    <filter name="active" string="Archived" domain="[('active', '=', False)]" />
                     <group expand="0" string="Group By">
-                        <filter string="Category Type" name="group_by_check_list_type_id" context="{'group_by': 'check_list_type_id'}" domain="[]" />
+                        <filter string="Category Type" name="group_by_check_list_type_id"
+                            context="{'group_by': 'check_list_type_id'}" domain="[]" />
                     </group>
                 </search>
             </field>
