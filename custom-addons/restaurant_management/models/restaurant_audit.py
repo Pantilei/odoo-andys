@@ -90,7 +90,7 @@ class RestaurantAudit(models.Model):
 
     check_list_type_id = fields.Many2one(
         comodel_name="restaurant_management.check_list_type",
-        default=lambda self: self.env.ref("restaurant_management.qcd_check_list_type").id,
+        # default=lambda self: self.env.ref("restaurant_management.qcd_check_list_type").id,
         string="Check List Type"
     )
 
