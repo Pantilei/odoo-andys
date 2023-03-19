@@ -52,5 +52,5 @@ class Restaurant(models.Model):
         AuditTempLinks.create({
             "restaurant_id": self.id,
             "access_token": AuditTempLinks.generate_access_token(),
-            "valid_until": datetime.utcnow() + timedelta(days=1)
+            "valid_until": datetime.utcnow() + timedelta(hours=10)
         })
