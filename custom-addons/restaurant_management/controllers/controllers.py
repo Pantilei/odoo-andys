@@ -40,7 +40,25 @@ class SecretGuest(http.Controller):
             } for check_list_id in category_id.check_list_ids]
         } for category_id in check_list_category_ids]
         return request.render("restaurant_management.secret_guest_audit_main_page", {
-            "title": "TITLE",
+            "title": _("Check List of Secret Guest"),
+            "restaurant": {
+                "id": audit_temp_link_id.restaurant_id.id,
+                "display_name": audit_temp_link_id.restaurant_id.display_name
+            },
+            "loading_level": [
+                {
+                    "id": "low",
+                    "value": _("Low level: up to 40%")
+                },
+                {
+                    "id": "medium",
+                    "value": _("Medium level: 30%-80%")
+                },
+                {
+                    "id": "high",
+                    "value": _("High level: from 80%")
+                }
+            ],
             "check_list_data": check_list_data
         })
 

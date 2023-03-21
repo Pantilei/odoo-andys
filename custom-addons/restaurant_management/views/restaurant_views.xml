@@ -12,6 +12,7 @@
                     <sheet>
                         <group>
                             <field name="name" />
+                            <field name="display_name" />
                         </group>
                         <group>
                             <field name="restaurant_network_id" />
@@ -82,6 +83,7 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="name" />
+                    <field name="display_name" />
                 </tree>
             </field>
         </record>

@@ -43,87 +43,400 @@
         <!-- Main survey template -->
         <template id="secret_guest_audit_main_page" name="Secret Guest Audit main page">
             <t t-call="restaurant_management.secret_guest_audit_layout">
-                <section class="title bg-light mb-5 p-3">
-                    <div class="container">
-                        <div class="row">
-                            <h1 class="col-9">
-                                <t t-esc="title" />
-                            </h1>
-                        </div>
+                <section class="container bg-light">
+                    <!-- Start Header form -->
+                    <div class="text-center pt-5">
+                        <img src="https://i.ibb.co/8cDgdFX/Logo.png" alt="network-logo" width="72"
+                            height="72" />
+                        <h2>
+                            <t t-esc="title" />
+                        </h2>
                     </div>
-                </section>
-                <section class="o_form_main">
-                    <form>
-                        <t t-foreach="check_list_data" t-as="category">
-                            <div class="bg-light mb-3">
-                                <p class="h2">
-                                    <u>
-                                        <t t-esc="category['name']" />
-                                    </u>
-                                </p>
-                                <div>
-                                    <t t-foreach="category['check_lists']" t-as="check_list">
-                                        <div class="form-group d-flex justify-content-between">
-                                            <p class="h4">
-                                                <label
-                                                    t-attf-for="check_list_{{check_list['id']}}">
-                                                    <t t-esc="check_list['description']" />
-                                                </label>
-                                            </p>
-                                            <span t-if="category['response_type'] == 'yes_no'">
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio"
-                                                        t-attf-name="check_list_{{check_list['id']}}"
-                                                        t-attf-id="check_list_{{check_list['id']}}_yes"
-                                                        value="yes" />
-                                                    <label class="form-check-label"
-                                                        t-attf-for="check_list_{{check_list['id']}}_yes">
-                                                        Yes
-                                                    </label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio"
-                                                        t-attf-name="check_list_{{check_list['id']}}"
-                                                        t-attf-id="check_list_{{check_list['id']}}_no"
-                                                        value="no" />
-                                                    <label class="form-check-label"
-                                                        t-attf-for="check_list_{{check_list['id']}}_no">
-                                                        No
-                                                    </label>
-                                                </div>
-                                            </span>
+                    <!-- End Header form -->
 
-                                            <span t-if="category['response_type'] == 'notes'">
-                                                <t t-foreach="[1, 2, 3, 4, 5]" t-as="note">
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio"
-                                                            t-attf-name="check_list_{{check_list['id']}}"
-                                                            t-attf-id="check_list_{{check_list['id']}}_{{note}}"
-                                                            t-attf-value="{{note}}" />
-                                                        <label class="form-check-label"
-                                                            t-attf-for="check_list_{{check_list['id']}}_{{note}}">
-                                                            <t t-esc="note" />
-                                                        </label>
+                    <!-- Start Card -->
+                    <div class="card">
+                        <!-- Start Card Body -->
+                        <div class="card-body">
+                            <!-- Start Form -->
+                            <form id="user_form" action="#" method="" class="needs-validation"
+                                novalidate="1"
+                                autocomplete="off">
+                                <!-- Restaurant -->
+                                <div class="form-group">
+                                    <label>Restaurant</label>
+                                    <div
+                                        class="d-flex flex-row justify-content-between align-items-center">
+                                        <select class="form-control mr-1" id="restaurant"
+                                            name="restaurant" required="true" disabled="true">
+                                            <option t-attf-value="{{restaurant['id']}}"
+                                                selected="true">
+                                                <t t-esc="restaurant['display_name']" />
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- End Restaurant -->
+
+                                <!-- Start Input Email -->
+                                <div class="form-group">
+                                    <label for="inputEmail">Email</label>
+                                    <input type="email" class="form-control" id="inputEmail"
+                                        name="email" placeholder="an*******@gmail.com"
+                                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                                        required="1" />
+                                    <small class="form-text text-muted">We'll never share your email
+                                        with anyone else.</small>
+                                </div>
+                                <!-- End Input Email -->
+
+                                <!-- Start Input Date , Start Time and End Time -->
+                                <div class="form-row">
+                                    <!-- Start Input Date -->
+                                    <div class="form-group col-md-4">
+                                        <label for="audit_date">Audit Date</label>
+                                        <input type="date" class="form-control" id="audit_date"
+                                            name="date" required="true" />
+                                        <small class="form-text text-muted">Please choose date and
+                                            time for audit.</small>
+                                    </div>
+                                    <!-- End Input Date -->
+
+                                    <!-- Start Input Start Time -->
+                                    <div class="form-group col-md-4">
+                                        <label>Start Time</label>
+                                        <div
+                                            class="d-flex flex-row justify-content-between align-items-center">
+                                            <select class="form-control mr-1"
+                                                id="start_time_hour" name="start_hour"
+                                                required="1">
+                                                <option value="" disabled="1" selected="1">Hour</option>
+                                                <t t-foreach="range(1,24,1)" t-as="hour">
+                                                    <option t-attf-value="{{hour}}">
+                                                        <t t-esc="hour" />
+                                                    </option>
+                                                </t>
+                                            </select>
+                                            <div class="pl-1 pr-2">:</div>
+                                            <select class="form-control" id="start_time_minute"
+                                                name="start_minute" required="1">
+                                                <option value="" disabled="1" selected="1">Min</option>
+                                                <option value="0">00</option>
+                                                <option value="15">15</option>
+                                                <option value="30">30</option>
+                                                <option value="45">45</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- End Input Start Time -->
+
+                                    <!-- Start Input End Time -->
+                                    <div class="form-group col-md-4">
+                                        <label>End Time</label>
+                                        <div
+                                            class="d-flex flex-row justify-content-between align-items-center">
+                                            <select class="form-control mr-1" id="end_time_hour"
+                                                name="end_hour" required="true">
+                                                <option value="" disabled="true" selected="1">Hour</option>
+                                                <t t-foreach="range(1,24,1)" t-as="hour">
+                                                    <option t-attf-value="{{hour}}">
+                                                        <t t-esc="hour" />
+                                                    </option>
+                                                </t>
+                                            </select>
+                                            <div class="pl-1 pr-2">:</div>
+                                            <select class="form-control" id="end_time_minute"
+                                                name="end_minute" required="1">
+                                                <option value="" disabled="1" selected="1">Min</option>
+                                                <option value="0">00</option>
+                                                <option value="15">15</option>
+                                                <option value="30">30</option>
+                                                <option value="45">45</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- End Input End Time -->
+                                </div>
+                                <!-- End Input Date , Start Time and End Time -->
+
+                                <!-- Waiter name -->
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Waiter Name</label>
+                                        <div
+                                            class="d-flex flex-row justify-content-between align-items-center">
+                                            <input type="text" class="form-control"
+                                                id="waiter_name"
+                                                name="waiter_name" placeholder="Waiter name"
+                                                required="1" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label style="height: 15px;"></label>
+                                        <div
+                                            class="d-flex flex-row justify-content-between align-items-center">
+                                            <input type="text" class="form-control"
+                                                id="waiter_name_in_check"
+                                                name="waiter_name_in_check"
+                                                placeholder="Waiter name in check" required="1" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Waiter name -->
+
+                                <!-- Restaurant -->
+                                <div class="form-group">
+                                    <label>Load level of Restaurant</label>
+                                    <div
+                                        class="d-flex flex-row justify-content-between align-items-center">
+                                        <select class="form-control mr-1" id="restaurant"
+                                            name="restaurant" required="true">
+                                            <t t-foreach="loading_level" t-as="level">
+                                                <t t-if="level['id']=='low'">
+                                                    <option t-attf-value="{{level['id']}}"
+                                                        selected="true">
+                                                        <t t-esc="level['value']" />
+                                                    </option>
+                                                </t>
+                                                <t t-else="">
+                                                    <option t-attf-value="{{level['id']}}">
+                                                        <t t-esc="level['value']" />
+                                                    </option>
+                                                </t>
+
+                                            </t>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- End Restaurant -->
+
+                                <!-- Start Input Name -->
+                                <!-- <div class="form-group">
+                                    <label for="inputName">Name</label>
+                                    <input type="text" class="form-control" id="inputName"
+                                        name="name" placeholder="Your name" required="1" />
+                                    <small class="form-text text-muted">Please fill your name</small>
+                                </div> -->
+                                <!-- End Input Name -->
+
+
+                                <!-- Start Input Telephone -->
+                                <!-- <div class="form-group">
+                                    <label for="inputPhone">Phone</label>
+                                    <input type="tel" class="form-control" id="inputPhone"
+                                        name="phone" placeholder="099xxxxxxx"
+                                        pattern="\d{3}\d{3}\d{4}" required="0" />
+                                    <small class="form-text text-muted">We'll never share your phone
+                                        number with anyone else.</small>
+                                </div> -->
+                                <!-- End Input Telephone -->
+
+
+                                <!-- Start Check Room Type -->
+                                <!-- <div class="form-group">
+                                    <legend class="col-form-label pt-0">Choose a Room</legend>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" class="form-check-input"
+                                            id="inlineRadioType1" name="roomType" value="type1"
+                                            required="1" />
+                                        <label class="form-check-label" for="inlineRadioType1">Room
+                                            1 (10 People)</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" class="form-check-input"
+                                            id="inlineRadioType2" name="roomType" value="type2"
+                                            required="1" />
+                                        <label class="form-check-label" for="inlineRadioType2">Room
+                                            2 (20 People)</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" class="form-check-input"
+                                            id="inlineRadioType3" name="roomType" value="type3"
+                                            required="1" />
+                                        <label class="form-check-label" for="inlineRadioType3">Room
+                                            3 (30 People)</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" class="form-check-input"
+                                            id="inlineRadioType4" name="roomType" value="type4"
+                                            required="1" />
+                                        <label class="form-check-label" for="inlineRadioType4">Room
+                                            4 (40 People)</label>
+                                    </div>
+                                </div> -->
+                                <!-- End Check Room Type -->
+
+                                <!-- Start Check Snack Type -->
+                                <!-- <div class="form-row">
+                                    <legend class="col-form-label pb-3">Snack and Drink</legend>
+                                    <div class="row px-1">
+                                        <div class="form-group col-lg-2 col-md-3 col-sm-4 col-6">
+                                            <img src="https://i.ibb.co/k4tBpTp/snack-set-1.jpg"
+                                                alt="snack-box-set-1" class="img-thumbnail" />
+                                            <br />
+                                            <label for=" inputSnack1">Sandwich Set 1</label>
+                                            <input type="number" class="form-control"
+                                                id="inputSnack1" name="snack1" min="0" max="40" />
+                                            <small class="form-text text-muted">Crabstick Sandwich.</small>
+                                        </div>
+                                        <div class="form-group col-lg-2 col-md-3 col-sm-4 col-6">
+                                            <img src="https://i.ibb.co/DW0cv1s/snack-set-2.jpg"
+                                                alt="snack-box-set-2" class="img-thumbnail" />
+                                            <br />
+                                            <label for="inputSnack2">Sandwich Set 2</label>
+                                            <input type="number" class="form-control"
+                                                id="inputSnack2" name="snack2" min="0" max="40" />
+                                            <small class="form-text text-muted">Tuna Sandwich.</small>
+                                        </div>
+                                        <div class="form-group col-lg-2 col-md-3 col-sm-4 col-6">
+                                            <img src="https://i.ibb.co/YdZF2Q8/snack-set-3.jpg"
+                                                alt="snack-box-set-3" class="img-thumbnail" />
+                                            <br />
+                                            <label for="inputSnack3">Sandwich Set 3</label>
+                                            <input type="number" class="form-control"
+                                                id="inputSnack3" name="snack3" min="0" max="40" />
+                                            <small class="form-text text-muted">Crab Roll Sandwich.</small>
+                                        </div>
+                                        <div class="form-group col-lg-2 col-md-3 col-sm-4 col-6">
+                                            <img src="https://i.ibb.co/6mZ2zb0/snack-set-4.jpg"
+                                                alt="snack-box-set-4" class="img-thumbnail" />
+                                            <br />
+                                            <label for="inputSnack4">Sandwich Set 4</label>
+                                            <input type="number" class="form-control"
+                                                id="inputSnack4" name="snack4" min="0" max="40" />
+                                            <small class="form-text text-muted">Tuna Sandwich.</small>
+                                        </div>
+                                        <div class="form-group col-lg-2 col-md-3 col-sm-4 col-6">
+                                            <img src="https://i.ibb.co/1rsRBD1/snack-set-5.jpg"
+                                                alt="snack-box-set-5" class="img-thumbnail" />
+                                            <br />
+                                            <label for="inputSnack5">Sandwich Set 5</label>
+                                            <input type="number" class="form-control"
+                                                id="inputSnack5" name="snack5" min="0" max="40" />
+                                            <small class="form-text text-muted">Ham Sandwich.</small>
+                                        </div>
+                                        <div class="form-group col-lg-2 col-md-3 col-sm-4 col-6">
+                                            <img src="https://i.ibb.co/PhR8YDN/snack-set-6.jpg"
+                                                alt="snack-box-set-6" class="img-thumbnail" />
+                                            <br />
+                                            <label for="inputSnack5">Sandwich Set 6</label>
+                                            <input type="number" class="form-control"
+                                                id="inputSnack6" name="snack6" min="0" max="40" />
+                                            <small class="form-text text-muted">Roast Pork Bun.</small>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <!-- End Check Snack Type -->
+
+                                <!-- Start Input Remark -->
+                                <!-- <div class="form-group">
+                                    <label for="textAreaRemark">Notes</label>
+                                    <textarea class="form-control" name="remark" id="textAreaRemark"
+                                        rows="2" placeholder="Tell us you want more..."></textarea>
+                                </div> -->
+                                <!-- End Input Remark -->
+
+                                <!-- Start Submit Button -->
+                                <!-- <button class="btn btn-primary btn-block col-lg-2"
+                                type="submit">
+                                    Submit</button> -->
+                                <!-- End Submit Button -->
+                            </form>
+                            <!-- End Form -->
+
+                            <hr />
+
+                            <!-- Start Form -->
+                            <form id="check_list_form" action="#" method="" class="needs-validation"
+                                novalidate="1"
+                                autocomplete="off">
+                                <t t-foreach="check_list_data" t-as="category">
+                                    <div class="bg-light mb-3">
+                                        <p class="h2">
+                                            <u>
+                                                <t t-esc="category['name']" />
+                                            </u>
+                                        </p>
+                                        <div>
+                                            <t t-foreach="category['check_lists']" t-as="check_list">
+                                                <div
+                                                    class="form-group d-flex justify-content-between">
+
+                                                    <div class="form-group">
+                                                        <legend class="col-form-label pt-0">
+                                                            <t t-esc="check_list['description']" />
+                                                        </legend>
+                                                        <t
+                                                            t-if="category['response_type'] == 'yes_no'">
+                                                            <div
+                                                                class="form-check form-check-inline">
+                                                                <input type="radio"
+                                                                    class="form-check-input"
+                                                                    t-attf-id="check_list_{{check_list['id']}}_yes"
+                                                                    t-attf-name="check_list_{{check_list['id']}}"
+                                                                    value="yes"
+                                                                    required="1" />
+                                                                <label class="form-check-label"
+                                                                    t-attf-for="check_list_{{check_list['id']}}_yes">
+                                                                    Yes
+                                                                </label>
+                                                            </div>
+                                                            <div
+                                                                class="form-check form-check-inline">
+                                                                <input type="radio"
+                                                                    class="form-check-input"
+                                                                    t-attf-name="check_list_{{check_list['id']}}"
+                                                                    t-attf-id="check_list_{{check_list['id']}}_no"
+                                                                    value="no"
+                                                                    required="1" />
+                                                                <label class="form-check-label"
+                                                                    t-attf-for="check_list_{{check_list['id']}}_no">
+                                                                    No
+                                                                </label>
+                                                            </div>
+                                                        </t>
+
+                                                    </div>
+
+                                                    <t
+                                                        t-if="category['response_type'] == 'notes'">
+                                                        <t t-foreach="[1, 2, 3, 4, 5]" t-as="note">
+                                                            <div
+                                                                class="form-check form-check-inline">
+                                                                <input type="radio"
+                                                                    class="form-check-input"
+                                                                    t-attf-name="check_list_{{check_list['id']}}"
+                                                                    t-attf-id="check_list_{{check_list['id']}}_{{note}}"
+                                                                    t-attf-value="{{note}}"
+                                                                    required="1" />
+                                                                <label class="form-check-label"
+                                                                    t-attf-for="check_list_{{check_list['id']}}_{{note}}">
+                                                                    <t t-esc="note" />
+                                                                </label>
+                                                            </div>
+                                                        </t>
+                                                    </t>
+                                                </div>
+
+                                                <t t-if="check_list['comment_required']">
+                                                    <div class="form-group">
+                                                        <label
+                                                            for="check_list_comment_{{check_list['id']}}">
+                                                            Comment</label>
+                                                        <textarea class="form-control"
+                                                            id="check_list_comment_{{check_list['id']}}"
+                                                            rows="3"></textarea>
                                                     </div>
                                                 </t>
-                                            </span>
-
+                                            </t>
                                         </div>
-                                        <t t-if="check_list['comment_required']">
-                                            <div class="form-group">
-                                                <label
-                                                    for="check_list_comment_{{check_list['id']}}">
-                                                    Comment</label>
-                                                <textarea class="form-control"
-                                                    id="check_list_comment_{{check_list['id']}}"
-                                                    rows="3"></textarea>
-                                            </div>
-                                        </t>
-                                    </t>
-                                </div>
-                            </div>
-                        </t>
-                    </form>
+                                    </div>
+                                </t>
+
+                            </form>
+                        </div>
+                        <!-- End Card Body -->
+                    </div>
                 </section>
             </t>
         </template>

@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from datetime import datetime, timedelta
-from odoo import models, fields, api
+
+from odoo import api, fields, models
 
 
 class Restaurant(models.Model):
@@ -9,6 +10,9 @@ class Restaurant(models.Model):
     _description = 'Restaurants'
 
     name = fields.Char(
+        required=True
+    )
+    display_name = fields.Char(
         required=True
     )
     restaurant_network_id = fields.Many2one(
