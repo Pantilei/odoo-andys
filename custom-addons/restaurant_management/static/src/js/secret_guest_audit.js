@@ -29,7 +29,35 @@ odoo.define("restaurant_management.secret_guest_audit", function (require) {
      */
     start: function () {
       var self = this;
+
       return this._super.apply(this, arguments).then(function () {
+        FilePond.registerPlugin(
+          FilePondPluginImagePreview,
+          FilePondPluginFileValidateSize,
+          FilePondPluginFileValidateType
+        );
+        let ponds = [...document.querySelectorAll(".file_upload_input")].map(
+          function (element) {
+            return FilePond.create(element, {
+              // server: {
+              //   process: "/post-file",
+              //   revert: "/delete-file",
+              // },
+              allowMultiple: true,
+              allowFileEncode: true,
+              required: true,
+              labelIdle: _(
+                `Load files. <span class="filepond--label-action">Browse</span>.`
+              ),
+              maxFileSize: "100MB",
+              labelMaxFileSizeExceeded: _("File is too large"),
+              labelMaxFileSize: _(`Maximum file size is 100MB`),
+              acceptedFileTypes: ["image/png", "image/jpeg", "video/mp4"],
+            });
+          }
+        );
+        console.log("Ponds:", ponds);
+
         // self.$form = self.$("#review_form");
         // const queryParams = self._getQueryParams();
         // const lang = queryParams.lang;
@@ -68,10 +96,14 @@ odoo.define("restaurant_management.secret_guest_audit", function (require) {
     // -------------------------------------------------------------------------
 
     _onCheckListCheck: function (event) {
+      let comment_section = $(event.target).parent().parent().next();
+      console.log("comment_section: ", comment_section);
       if (event.target.value === "no") {
-        $(event.target).parent().parent().next().removeClass("d-none");
+        comment_section.removeClass("d-none");
+        comment_section.find("textarea").attr({ required: true });
       } else {
-        $(event.target).parent().parent().next().addClass("d-none");
+        comment_section.find("textarea").removeAttr("required");
+        comment_section.addClass("d-none");
       }
     },
 

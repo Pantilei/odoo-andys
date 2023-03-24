@@ -26,6 +26,24 @@
                 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
                     integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
                     crossorigin="anonymous"></script>
+
+                <!-- <link rel="stylesheet"
+                    href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css" />
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/dropzone.js"></script> -->
+
+                <link
+                    href="https://unpkg.com/filepond-plugin-image-preview@4.2.1/dist/filepond-plugin-image-preview.min.css"
+                    rel="stylesheet" />
+                <link href="https://unpkg.com/filepond@4.4.10/dist/filepond.css" rel="stylesheet" />
+                <script
+                    src="https://unpkg.com/filepond-plugin-image-preview@4.2.1/dist/filepond-plugin-image-preview.js"></script>
+                <script
+                    src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
+                <script
+                    src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
+                <script src="https://unpkg.com/filepond@4.4.10/dist/filepond.js"></script>
+
+
             </xpath>
             <xpath expr="//t[@t-out='0']" position="replace">
                 <div id="wrapwrap" t-attf-class="#{pageName or ''}">
@@ -294,7 +312,7 @@
                                                             for="check_list_comment_{{check_list['id']}}">
                                                             Comment</label> -->
                                                         <textarea class="form-control"
-                                                            id="check_list_comment_{{check_list['id']}}"
+                                                            t-attf-id="check_list_comment_{{check_list['id']}}"
                                                             placeholder="Comment"
                                                             required="true"
                                                             rows="3"></textarea>
@@ -303,11 +321,19 @@
                                                 <t t-else="">
                                                     <div class="form-group d-none">
                                                         <textarea class="form-control"
-                                                            id="check_list_comment_{{check_list['id']}}"
+                                                            t-attf-id="check_list_comment_{{check_list['id']}}"
                                                             placeholder="Comment"
                                                             rows="3"></textarea>
                                                     </div>
                                                 </t>
+                                                <t t-if="check_list['photo_required']">
+                                                    <div class="form-group">
+                                                        <input type="file" name='file'
+                                                            class='file_upload_input filepond'
+                                                            multiple="true" required="true" />
+                                                    </div>
+                                                </t>
+
                                                 <hr />
                                             </t>
                                         </div>

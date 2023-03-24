@@ -109,6 +109,7 @@
         ],
 
         'restaurant_management.secret_guest_audit': [
+            'restaurant_management/static/src/scss/file_pond_extra.scss',
             'restaurant_management/static/src/js/secret_guest_audit.js',
         ]
     },
