@@ -67,7 +67,7 @@
                 <section class="container bg-light">
                     <!-- Start Header form -->
                     <div class="text-center pt-5">
-                        <img src="https://i.ibb.co/8cDgdFX/Logo.png" alt="network-logo" width="72"
+                        <img src="/web/binary/company_logo" alt="network-logo" width="72"
                             height="72" />
                         <h2>
                             <t t-esc="title" />
@@ -117,7 +117,7 @@
                                     <div class="form-group col-md-4">
                                         <label for="audit_date">Audit Date</label>
                                         <input type="date" class="form-control" id="audit_date"
-                                            name="date" required="true" />
+                                            name="audit_date" required="true" />
                                         <small class="form-text text-muted">Please choose date and
                                             time for audit.</small>
                                     </div>
@@ -129,7 +129,7 @@
                                         <div
                                             class="d-flex flex-row justify-content-between align-items-center">
                                             <select class="form-control mr-1"
-                                                id="start_time_hour" name="start_hour"
+                                                id="start_time_hour" name="start_time_hour"
                                                 required="1">
                                                 <option value="" disabled="1" selected="1">Hour</option>
                                                 <t t-foreach="range(1,24,1)" t-as="hour">
@@ -140,7 +140,7 @@
                                             </select>
                                             <div class="pl-1 pr-2">:</div>
                                             <select class="form-control" id="start_time_minute"
-                                                name="start_minute" required="1">
+                                                name="start_time_minute" required="1">
                                                 <option value="" disabled="1" selected="1">Min</option>
                                                 <option value="0">00</option>
                                                 <option value="15">15</option>
@@ -157,7 +157,7 @@
                                         <div
                                             class="d-flex flex-row justify-content-between align-items-center">
                                             <select class="form-control mr-1" id="end_time_hour"
-                                                name="end_hour" required="true">
+                                                name="end_time_hour" required="true">
                                                 <option value="" disabled="true" selected="1">Hour</option>
                                                 <t t-foreach="range(1,24,1)" t-as="hour">
                                                     <option t-attf-value="{{hour}}">
@@ -167,7 +167,7 @@
                                             </select>
                                             <div class="pl-1 pr-2">:</div>
                                             <select class="form-control" id="end_time_minute"
-                                                name="end_minute" required="1">
+                                                name="end_time_minute" required="1">
                                                 <option value="" disabled="1" selected="1">Min</option>
                                                 <option value="0">00</option>
                                                 <option value="15">15</option>
@@ -210,8 +210,9 @@
                                     <label>Load level of Restaurant</label>
                                     <div
                                         class="d-flex flex-row justify-content-between align-items-center">
-                                        <select class="form-control mr-1" id="restaurant"
-                                            name="restaurant" required="true">
+                                        <select class="form-control mr-1"
+                                            id="load_level_of_restaurant"
+                                            name="load_level_of_restaurant" required="true">
                                             <t t-foreach="loading_level" t-as="level">
                                                 <t t-if="level['id']=='low'">
                                                     <option t-attf-value="{{level['id']}}"
@@ -292,7 +293,7 @@
                                                             <div
                                                                 class="form-check form-check-inline">
                                                                 <input type="radio"
-                                                                    class="form-check-input js_check_list_with_note"
+                                                                    class="form-check-input js_check_list"
                                                                     t-attf-name="check_list_{{check_list['id']}}"
                                                                     t-attf-id="check_list_{{check_list['id']}}_{{note}}"
                                                                     t-attf-value="{{note}}"
@@ -307,28 +308,29 @@
                                                 </div>
 
                                                 <t t-if="check_list['comment_required']">
-                                                    <div class="form-group">
-                                                        <!-- <label
-                                                            for="check_list_comment_{{check_list['id']}}">
-                                                            Comment</label> -->
+                                                    <div class="form-group comment_required">
                                                         <textarea class="form-control"
                                                             t-attf-id="check_list_comment_{{check_list['id']}}"
+                                                            t-attf-name="check_list_comment_{{check_list['id']}}"
                                                             placeholder="Comment"
                                                             required="true"
                                                             rows="3"></textarea>
                                                     </div>
                                                 </t>
                                                 <t t-else="">
-                                                    <div class="form-group d-none">
+                                                    <div class="form-group d-none comment_optional">
                                                         <textarea class="form-control"
                                                             t-attf-id="check_list_comment_{{check_list['id']}}"
+                                                            t-attf-name="check_list_comment_{{check_list['id']}}"
                                                             placeholder="Comment"
                                                             rows="3"></textarea>
                                                     </div>
                                                 </t>
+
                                                 <t t-if="check_list['photo_required']">
                                                     <div class="form-group">
-                                                        <input type="file" name='file'
+                                                        <input type="file"
+                                                            t-attf-name="check_list_file_{{check_list['id']}}[]"
                                                             class='file_upload_input filepond'
                                                             multiple="true" required="true" />
                                                     </div>
@@ -339,6 +341,20 @@
                                         </div>
                                     </div>
                                 </t>
+                                <div class="bg-light mb-3 p-2 rounded">
+                                    <p class="h2">
+                                        <u>
+                                            <t t-esc="category['name']" />
+                                        </u>
+                                    </p>
+                                    <textarea class="form-control"
+                                        id="general_comment"
+                                        name="general_comment"
+                                        required="true"
+                                        placeholder="Комментарий и общее впечатление от визита"
+                                        rows="5"></textarea>
+                                </div>
+
                                 <!-- Start Submit Button -->
                                 <button class="btn btn-primary btn-block col-lg-2 o_submit_button"
                                     type="submit">
@@ -347,16 +363,41 @@
                                 <!-- End Submit Button -->
 
                             </form>
-                            <!-- Start Submit Button -->
-                            <!-- <button class="btn btn-primary btn-block col-lg-2 o_submit_button"
-                                type="submit">
-                                Submit
-                            </button> -->
-                            <!-- End Submit Button -->
                         </div>
                         <!-- End Card Body -->
                     </div>
                 </section>
+            </t>
+        </template>
+
+        <template id="secret_guest_audit_thank_you_page" name="Secret Guest Audit Thank You page">
+            <t t-call="restaurant_management.secret_guest_audit_layout">
+                <div class="content">
+                    <div class="wrapper-1"
+                        style="width:100%; height:100vh; display: flex; flex-direction: column;">
+                        <div class="wrapper-2" style="padding: 30px; text-align:center;">
+                            <h1
+                                style="font-family: 'Kaushan Script', cursive;
+                                        font-size:4em;
+                                        letter-spacing:3px;
+                                        color:#5892FF ;
+                                        margin:0;
+                                        margin-bottom:20px;">
+                                <t t-esc="title" />
+                            </h1>
+                            <p
+                                sytle="margin:0;
+                                    font-size:1.3em;
+                                    color:#aaa;
+                                    font-family: 'Source Sans Pro', sans-serif;
+                                    letter-spacing:1px;">
+                                <t t-esc="message" />
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <link href="https://fonts.googleapis.com/css?family=Kaushan+Script|Source+Sans+Pro"
+                    rel="stylesheet" />
             </t>
         </template>
 

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import base64
+import io
 import json
 import logging
 from datetime import datetime, timedelta, timezone
@@ -8,7 +9,7 @@ from datetime import datetime, timedelta, timezone
 import werkzeug
 
 from odoo import _, http
-from odoo.http import request
+from odoo.http import Response, request
 
 _logger = logging.getLogger(__name__)
 
@@ -22,7 +23,7 @@ class SecretGuest(http.Controller):
             ("access_token", "=", access_token)
         ], limit=1)
         if not audit_temp_link_id or not audit_temp_link_id.is_active:
-            return werkzeug.exceptions.NotFound()
+            return werkzeug.exceptions.Unauthorized()
 
         check_list_type_id = request.env.ref("restaurant_management.secret_guest_check_list_type")
         check_list_category_ids = request.env["restaurant_management.check_list_category"].sudo().search([
@@ -61,44 +62,78 @@ class SecretGuest(http.Controller):
             ],
             "check_list_data": check_list_data
         })
+    
+    @http.route('/audits/<string:access_token>/file-upload', type='http', auth="public", methods=["POST"], csrf=False)
+    def secret_guest_audits_file_upload(self, access_token, **kw):
+        """ Secret Guest Audits File Upload"""
+        audit_temp_link_id = request.env["restaurant_management.audit_temp_links"].sudo().search([
+            ("access_token", "=", access_token)
+        ], limit=1)
+        if not audit_temp_link_id or not audit_temp_link_id.is_active:
+            return werkzeug.exceptions.Unauthorized()
+
+        files = list(kw.values())
+        if not files:
+            return Response(status=404)
+        file = files[0]
+        in_memory_file = io.BytesIO()
+        file.save(in_memory_file)
+        attachment_id = request.env["ir.attachment"].sudo().create({
+            'name': file.filename,
+            'datas': base64.encodebytes(in_memory_file.getvalue()),
+            'type': 'binary',
+            'description': file.filename,
+            'mimetype': file.mimetype
+        })
+        return Response(str(attachment_id.id), status=200)
+    
+    @http.route('/audits/<string:access_token>/file-remove', type='http', auth="public", methods=["DELETE"], csrf=False)
+    def secret_guest_audits_file_remove(self, access_token, **kw):
+        """ Secret Guest Audits File Remove"""
+        audit_temp_link_id = request.env["restaurant_management.audit_temp_links"].sudo().search([
+            ("access_token", "=", access_token)
+        ], limit=1)
+        if not audit_temp_link_id or not audit_temp_link_id.is_active:
+            return werkzeug.exceptions.Unauthorized()
+
+        attachment_id = request.env["ir.attachment"].sudo().search([("id", "=", int(request.httprequest.data))])
+        attachment_id.sudo().unlink()
+
+        return Response(status=204)
 
     @http.route('/audits/<string:access_token>/handle', type='json', auth="public")
     def secret_guests_audit_handle(self, access_token, **kw):
-        """ Reviews Handle"""
-        if not kw.get("name", None) or not kw.get("description", None):
-            return {
-                "success": False,
-                "message": "Name and review must be present!"
-            }
-        department_id = request.env["hr.department"].sudo().search([
-            ("uid", "=", access_token)
+        """ Audit Handle"""
+        audit_temp_link_id = request.env["restaurant_management.audit_temp_links"].sudo().search([
+            ("access_token", "=", access_token)
         ], limit=1)
-        if not department_id:
+        if not audit_temp_link_id or not audit_temp_link_id.is_active:
             return {
                 "success": False,
-                "message": "Department not found!"
+                "message": "Unauthorized!"
             }
-        request.env['reviews'].sudo().create({
-            "name": kw.get("name"),
-            "phone": kw.get("phone", False),
-            "email": kw.get("email_from", False),
-            "responsible_name": kw.get("name_of_responsible", False),
-            "description": kw.get("description"),
-            "department_id": department_id.id
-        })
+        print(f"{kw=}")
+       
+        # request.env['restaurant_management.restaurant_audit'].sudo().create({
+            
+        # })
         return {
             "success": True,
-            "message": ""
+            "message": "Successefully store!"
         }
-
-    @http.route('/audits/bg-img/<int:form_id>', type='http', auth="public")
-    def reviews_bg_image(self, form_id, **kw):
-        form_id = request.env["reviews.collection"].sudo().search([
-            ("id", "=", form_id)
-        ], limit=1)
-        if not form_id:
-            return werkzeug.exceptions.NotFound()
-        return request.env['ir.http'].sudo()._content_image(model='reviews.collection', res_id=form_id, field='bg_img')
 
     def _get_bg_image_base_url(self):
         return request.env["ir.config_parameter"].sudo().get_param("reviews.bg_image.url")
+    
+    @http.route('/audits/<string:access_token>/thank-you', type='http', auth="public")
+    def secret_guest_audits_thank_you(self, access_token, **kw):
+        """ Secret Guest Audits """
+        audit_temp_link_id = request.env["restaurant_management.audit_temp_links"].sudo().search([
+            ("access_token", "=", access_token)
+        ], limit=1)
+        if not audit_temp_link_id or not audit_temp_link_id.is_active:
+            return werkzeug.exceptions.Unauthorized()
+        return request.render("restaurant_management.secret_guest_audit_thank_you_page", {
+            "title": _("Thank you !"),
+            "message": _("Your audit data is sent!"),
+        })

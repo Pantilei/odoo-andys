@@ -15,8 +15,6 @@ odoo.define("restaurant_management.secret_guest_audit", function (require) {
     events: {
       "click .o_submit_button": "_onSubmit",
       "change .js_check_list": "_onCheckListCheck",
-      "change .js_check_list_with_note": "_onCheckListCheckWithNote",
-      // "submit .user_form,.check_list_form": "_onSubmitValidate"
     },
     custom_events: {},
 
@@ -36,13 +34,14 @@ odoo.define("restaurant_management.secret_guest_audit", function (require) {
           FilePondPluginFileValidateSize,
           FilePondPluginFileValidateType
         );
-        let ponds = [...document.querySelectorAll(".file_upload_input")].map(
+        self.ponds = [...document.querySelectorAll(".file_upload_input")].map(
           function (element) {
+            let access_token = window.location.pathname.replace("/audits/", "");
             return FilePond.create(element, {
-              // server: {
-              //   process: "/post-file",
-              //   revert: "/delete-file",
-              // },
+              server: {
+                process: `/audits/${access_token}/file-upload`,
+                revert: `/audits/${access_token}/file-remove`,
+              },
               allowMultiple: true,
               allowFileEncode: true,
               required: true,
@@ -50,34 +49,12 @@ odoo.define("restaurant_management.secret_guest_audit", function (require) {
                 `Load files. <span class="filepond--label-action">Browse</span>.`
               ),
               maxFileSize: "100MB",
-              labelMaxFileSizeExceeded: _("File is too large"),
-              labelMaxFileSize: _(`Maximum file size is 100MB`),
+              labelMaxFileSizeExceeded: _t("File is too large"),
+              labelMaxFileSize: _t(`Maximum file size is 100MB`),
               acceptedFileTypes: ["image/png", "image/jpeg", "video/mp4"],
             });
           }
         );
-        console.log("Ponds:", ponds);
-
-        // self.$form = self.$("#review_form");
-        // const queryParams = self._getQueryParams();
-        // const lang = queryParams.lang;
-        // self.$form.validate({
-        //   // Specify validation rules
-        //   rules: {
-        //     name: "required",
-        //     phone: "required",
-        //     email_from: {
-        //       required: false,
-        //       email: true,
-        //     },
-        //     description: {
-        //       required: true,
-        //       minlength: 5,
-        //     },
-        //   },
-        //   // Specify validation error messages
-        //   messages: self._validationMessagesTranslations(lang),
-        // });
       });
     },
 
@@ -98,48 +75,63 @@ odoo.define("restaurant_management.secret_guest_audit", function (require) {
     _onCheckListCheck: function (event) {
       let comment_section = $(event.target).parent().parent().next();
       console.log("comment_section: ", comment_section);
-      if (event.target.value === "no") {
-        comment_section.removeClass("d-none");
-        comment_section.find("textarea").attr({ required: true });
-      } else {
-        comment_section.find("textarea").removeAttr("required");
-        comment_section.addClass("d-none");
+      if (comment_section.hasClass("comment_optional")) {
+        if (["no", "1", "2", "3", "4"].includes(event.target.value)) {
+          comment_section.removeClass("d-none");
+          comment_section.find("textarea").attr({ required: true });
+        } else {
+          comment_section.find("textarea").removeAttr("required");
+          comment_section.addClass("d-none");
+        }
       }
     },
 
-    _onCheckListCheckWithNote: function (event) {
-      console.log(event.target.value);
-    },
-
     _onSubmit: function (event) {
-      let forms = this.$el.find(".form_with_validation");
-      [...forms].forEach((form) => {
-        if (form.checkValidity() === false) {
-          event.preventDefault();
-          event.stopPropagation();
-          // $(this).submit();
-        }
-        $(form).addClass("was-validated");
-      });
-      // if (this.$form.valid()) {
-      //   var formData = new FormData(this.$form[0]);
-      //   let dataToSend = {};
-      //   formData.forEach(function (value, key) {
-      //     dataToSend[key] = value;
-      //   });
+      event.preventDefault();
+      event.stopPropagation();
 
-      //   return this._rpc({
-      //     route: window.location.pathname + "/handle",
-      //     params: dataToSend,
-      //   }).then((r) => {
-      //     if (r.success) {
-      //       window.location.href =
-      //         window.location.pathname + `/thank-you?lang=${lang}`;
-      //     } else {
-      //       console.log(r.message);
-      //     }
-      //   });
-      // }
+      let forms = this.$el.find(".form_with_validation");
+      let are_valid_forms = [...forms].map(function (form) {
+        $(form).addClass("was-validated");
+        console.log($(form).serializeArray());
+
+        return form.checkValidity() == true;
+      });
+      console.log(are_valid_forms);
+      if (!are_valid_forms.every((valid_form) => valid_form)) {
+        return;
+      }
+
+      let dataToSend = {};
+      [...forms].forEach((form) => {
+        $(form)
+          .serializeArray()
+          .forEach(function (input) {
+            let name = input["name"];
+            let value = input["value"];
+            if (name in dataToSend) {
+              if (Array.isArray(dataToSend[name])) {
+                dataToSend[name].push(value);
+              } else {
+                dataToSend[name] = [dataToSend[name], value];
+              }
+            } else {
+              dataToSend[name] = value;
+            }
+          });
+      });
+      console.log("dataToSend: ", dataToSend);
+
+      this._rpc({
+        route: window.location.pathname + "/handle",
+        params: dataToSend,
+      }).then((r) => {
+        if (r.success) {
+          window.location.href = window.location.pathname + `/thank-you`;
+        } else {
+          console.log(r.message);
+        }
+      });
     },
   });
 
