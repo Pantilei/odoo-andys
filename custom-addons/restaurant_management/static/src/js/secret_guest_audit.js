@@ -101,8 +101,20 @@ odoo.define("restaurant_management.secret_guest_audit", function (require) {
       if (!are_valid_forms.every((valid_form) => valid_form)) {
         return;
       }
+      let dataToSend = {
+        email: "",
+        audit_date: "",
+        start_time_hour: "",
+        start_time_minute: "",
+        end_time_hour: "",
+        end_time_minute: "",
+        waiter_name: "",
+        waiter_name_in_check: "",
+        load_level_of_restaurant: "",
+        general_comment: "",
+        check_list: {},
+      };
 
-      let dataToSend = {};
       [...forms].forEach((form) => {
         $(form)
           .serializeArray()
@@ -110,14 +122,37 @@ odoo.define("restaurant_management.secret_guest_audit", function (require) {
             let name = input["name"];
             let value = input["value"];
             if (name in dataToSend) {
-              if (Array.isArray(dataToSend[name])) {
-                dataToSend[name].push(value);
-              } else {
-                dataToSend[name] = [dataToSend[name], value];
-              }
-            } else {
               dataToSend[name] = value;
+            } else {
+              if (name.startsWith("check_list_")) {
+                let _id = name
+                  .replace("check_list_", "")
+                  .replace("comment_", "")
+                  .replace("file_", "")
+                  .replace("[]", "");
+                if (name.includes("comment")) {
+                  dataToSend.check_list[_id].comment = value;
+                } else if (name.includes("file_")) {
+                  dataToSend.check_list[_id].files.push(value);
+                } else {
+                  dataToSend.check_list[_id] = {
+                    value: value,
+                    comment: "",
+                    files: [],
+                  };
+                }
+              }
             }
+
+            // if (name in dataToSend) {
+            //   if (Array.isArray(dataToSend[name])) {
+            //     dataToSend[name].push(value);
+            //   } else {
+            //     dataToSend[name] = [dataToSend[name], value];
+            //   }
+            // } else {
+            //   dataToSend[name] = value;
+            // }
           });
       });
       console.log("dataToSend: ", dataToSend);

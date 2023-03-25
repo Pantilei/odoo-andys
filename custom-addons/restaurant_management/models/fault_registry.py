@@ -69,6 +69,7 @@ class FaultRegistry(models.Model):
                 record.check_list_category_responsible_comment_no_html = ""
 
     state = fields.Selection(selection=[
+        ('pending', 'Pending'),
         ('confirm', 'Confirmed'),
         ('cancel', 'Cancel'),
     ], default="confirm", string="Status")
@@ -208,6 +209,26 @@ class FaultRegistry(models.Model):
     fault_occurrence_info = fields.Html(
         string="Fault Occurrence",
         compute="_compute_fault_occurance",
+    )
+
+    fault_present = fields.Selection(
+        selections=[
+            ("yes", "Yes"),
+            ("no", "No")
+        ],
+        string="Fault Present",
+        index=True
+    )
+    grade = fields.Selection(
+        selections=[
+            (1, "1"),
+            (2, "2"),
+            (3, "3"),
+            (4, "4"),
+            (5, "5"),
+        ],
+        string="Grade",
+        index=True
     )
 
     @api.depends("check_list_id", "restaurant_id", "fault_date")

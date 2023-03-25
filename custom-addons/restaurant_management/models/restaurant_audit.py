@@ -52,6 +52,13 @@ class RestaurantAudit(models.Model):
         ondelete="restrict",
         index=True
     )
+
+    state = fields.Selection(selection=[
+        ('pending', 'Pending'),
+        ('confirm', 'Confirmed'),
+        ('cancel', 'Cancel'),
+    ], default="confirm", string="Status")
+
     restaurant_director_ids = fields.Many2many(
         comodel_name="res.users",
         string="Restaurant Directors",
@@ -92,6 +99,27 @@ class RestaurantAudit(models.Model):
         comodel_name="restaurant_management.check_list_type",
         default=lambda self: self.env.ref("restaurant_management.qcd_check_list_type").id,
         string="Check List Type"
+    )
+
+    waiter_id = fields.Many2one(
+        comodel_name="res.partner",
+        string="Waiter"
+    )
+    waiter_name_in_check = fields.Char(
+        string="Waiter Name in Check"
+    )
+
+    load_level_of_restaurant = fields.Selection(
+        selections=[
+            ("low", "Low level: up to 40%"),
+            ("medium","Medium level: 30%-80%"),
+            ("high", "High level: from 80%"),
+        ],
+        string="Restaurant Load Level"
+    )
+
+    general_comment = fields.Text(
+        string="General Comment"
     )
 
     @api.depends("create_date")
@@ -136,6 +164,14 @@ class RestaurantAudit(models.Model):
         th.start()
 
         return recs
+    
+    def write(self, value):
+        res = super().write(value)
+        if "state" in value:
+            self.fault_registry_ids.write({
+                "state": value["state"]
+            })
+        return res
 
     def _send_telegram_message(self, rec_ids):
         cr = registry(self._cr.dbname).cursor()
