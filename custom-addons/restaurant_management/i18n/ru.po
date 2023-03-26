@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-19 20:24+0000\n"
-"PO-Revision-Date: 2023-03-19 20:24+0000\n"
+"POT-Creation-Date: 2023-03-26 11:23+0000\n"
+"PO-Revision-Date: 2023-03-26 11:23+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -48,6 +48,11 @@ msgid ". Рейтинг ресторанов по общему количест�
 msgstr ""
 
 #. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.secret_guest_audit_main_page
+msgid "00"
+msgstr ""
+
+#. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.departaments_report
 msgid "1. Динамика кол-ва ошибок по"
 msgstr ""
@@ -56,6 +61,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_report
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurants_all_report
 msgid "1. Количество проверок"
+msgstr ""
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.secret_guest_audit_main_page
+msgid "15"
 msgstr ""
 
 #. module: restaurant_management
@@ -984,8 +994,18 @@ msgid "3. Топ"
 msgstr ""
 
 #. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.secret_guest_audit_main_page
+msgid "30"
+msgstr ""
+
+#. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_report
 msgid "4. Топ"
+msgstr ""
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.secret_guest_audit_main_page
+msgid "45"
 msgstr ""
 
 #. module: restaurant_management
@@ -1020,6 +1040,22 @@ msgstr ""
 msgid ""
 "5.4 Необходимые медикаменты в аптечке присутствуют, сроки годности "
 "соблюдены."
+msgstr ""
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.secret_guest_audit_main_page
+msgid ""
+"<small class=\"form-text text-muted\">Please choose date and\n"
+"                                            time for audit.</small>"
+msgstr ""
+"<small class=\"form-text text-muted\">Пожалуйста, выберите время\n"
+"                                             и дату проверки.</small>"
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.secret_guest_audit_main_page
+msgid ""
+"<small class=\"form-text text-muted\">We'll never share your email\n"
+"                                        with anyone else.</small>"
 msgstr ""
 
 #. module: restaurant_management
@@ -1151,6 +1187,7 @@ msgstr "Вложение"
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_search
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_search
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_search
+#: model_terms:ir.ui.view,arch_db:restaurant_management.secret_guest_audit_main_page
 msgid "Audit Date"
 msgstr "Дата Проверки"
 
@@ -1260,6 +1297,7 @@ msgstr "По грубости"
 
 #. module: restaurant_management
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_fault_registry__state__cancel
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_restaurant_audit__state__cancel
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_audit_controller
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_auditer
@@ -1288,6 +1326,11 @@ msgstr "Категория"
 #: model_terms:ir.ui.view,arch_db:restaurant_management.check_list_category_view_search
 msgid "Category Type"
 msgstr "Тип Категории"
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form
+msgid "Chech List"
+msgstr "Чек Лист"
 
 #. module: restaurant_management
 #: model:ir.actions.act_window,name:restaurant_management.check_list_action
@@ -1324,6 +1367,12 @@ msgstr "Идентификатор Чек Листа"
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__check_list_type_id
 msgid "Check List Type"
 msgstr "Тип Чек Листа"
+
+#. module: restaurant_management
+#: code:addons/restaurant_management/controllers/controllers.py:0
+#, python-format
+msgid "Check List of Secret Guest"
+msgstr "Чек Лист Секретного Гостя"
 
 #. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form
@@ -1385,6 +1434,7 @@ msgstr "Подтвердить"
 
 #. module: restaurant_management
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_fault_registry__state__confirm
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_restaurant_audit__state__confirm
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
 msgid "Confirmed"
 msgstr "Потверждено"
@@ -1605,12 +1655,22 @@ msgstr "Показываемое имя"
 #: code:addons/restaurant_management/static/src/xml/many2many_binary_preview.xml:0
 #, python-format
 msgid "Download"
-msgstr "Загрузить"
+msgstr ""
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_all_restaurants_report_wizard__dynamics_of_faults_json
 msgid "Dynamics Of Faults Json"
 msgstr "Динамика Ошибок JSON"
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.secret_guest_audit_main_page
+msgid "Email"
+msgstr "Емайл"
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.secret_guest_audit_main_page
+msgid "End Time"
+msgstr "Время Окончания"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__responsible_id
@@ -1700,6 +1760,11 @@ msgid "Fault Occurrence"
 msgstr "Частота Ошибки"
 
 #. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__fault_present
+msgid "Fault Present"
+msgstr "Присутствие Ошибки"
+
+#. module: restaurant_management
 #: model:ir.actions.act_window,name:restaurant_management.fault_registry_action
 #: model:ir.model,name:restaurant_management.model_restaurant_management_fault_registry
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__fault_registry_ids
@@ -1783,9 +1848,21 @@ msgid "February"
 msgstr "Февраль"
 
 #. module: restaurant_management
+#. openerp-web
+#: code:addons/restaurant_management/static/src/js/secret_guest_audit.js:0
+#, python-format
+msgid "File is too large"
+msgstr "Файл слишком большой"
+
+#. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__audit_start_time
 msgid "From"
 msgstr "С"
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__general_comment
+msgid "General Comment"
+msgstr "Общий комментарий"
 
 #. module: restaurant_management
 #: model:ir.actions.report,name:restaurant_management.action_restaurants_all_report
@@ -1813,6 +1890,11 @@ msgid "Generate Secret Guest Link"
 msgstr "Генерировать Ссылку"
 
 #. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__grade
+msgid "Grade"
+msgstr "Оценка"
+
+#. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.audit_distribution_view_search
 #: model_terms:ir.ui.view,arch_db:restaurant_management.check_list_category_view_search
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
@@ -1826,6 +1908,18 @@ msgstr "Группировать по"
 #: model:ir.module.category,description:restaurant_management.module_category_restaurant_management
 msgid "Helps to manage Restaurant Management."
 msgstr "Помогает управлять рестораном."
+
+#. module: restaurant_management
+#: code:addons/restaurant_management/controllers/controllers.py:0
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_restaurant_audit__load_level_of_restaurant__high
+#, python-format
+msgid "High level: from 80%"
+msgstr "Высокая загруженность: более 80%"
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.secret_guest_audit_main_page
+msgid "Hour"
+msgstr "Час"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_all_restaurants_report_wizard__id
@@ -1897,6 +1991,7 @@ msgid "Involved Worker Position"
 msgstr "Должность Причастного работника"
 
 #. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_secret_guest_form_view
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form_group_restaurant_management_audit_controller
@@ -2127,12 +2222,24 @@ msgid "Links"
 msgstr "Ссылки"
 
 #. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.secret_guest_audit_main_page
+msgid "Load level of Restaurant"
+msgstr "Уровень загруженности Ресторана"
+
+#. module: restaurant_management
 #. openerp-web
 #: code:addons/restaurant_management/static/src/xml/document_viewer_legacy.xml:0
 #: code:addons/restaurant_management/static/src/xml/document_viewer_legacy.xml:0
 #, python-format
 msgid "Loading"
 msgstr "Загрузка"
+
+#. module: restaurant_management
+#: code:addons/restaurant_management/controllers/controllers.py:0
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_restaurant_audit__load_level_of_restaurant__low
+#, python-format
+msgid "Low level: up to 40%"
+msgstr "Низкая загруженность: до 40%"
 
 #. module: restaurant_management
 #: code:addons/restaurant_management/report/departaments_report.py:0
@@ -2179,6 +2286,13 @@ msgstr ""
 "соответственно!"
 
 #. module: restaurant_management
+#. openerp-web
+#: code:addons/restaurant_management/static/src/js/secret_guest_audit.js:0
+#, python-format
+msgid "Maximum file size is 100MB"
+msgstr "Максимальный размер файла 100MB"
+
+#. module: restaurant_management
 #: code:addons/restaurant_management/report/departaments_report.py:0
 #: code:addons/restaurant_management/report/restaurants_all_report.py:0
 #: code:addons/restaurant_management/wizards/all_restaurants_report.py:0
@@ -2206,6 +2320,7 @@ msgid "May"
 msgstr "Май"
 
 #. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_secret_guest_form_view
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form_group_restaurant_management_audit_controller
@@ -2223,6 +2338,18 @@ msgstr "Май"
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_restaurant_director
 msgid "Measures Taken"
 msgstr "Принятые меры"
+
+#. module: restaurant_management
+#: code:addons/restaurant_management/controllers/controllers.py:0
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_restaurant_audit__load_level_of_restaurant__medium
+#, python-format
+msgid "Medium level: 30%-80%"
+msgstr "Штатная загруженность: 30%-80%"
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.secret_guest_audit_main_page
+msgid "Min"
+msgstr "Мин"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_all_restaurants_report_wizard__month_end
@@ -2275,6 +2402,7 @@ msgid "Name"
 msgstr "Название"
 
 #. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_secret_guest_form_view
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_auditer
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_dkk_manager
@@ -2305,9 +2433,10 @@ msgid "Next"
 msgstr "Следующее"
 
 #. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_fault_registry__fault_present__no
 #: model_terms:ir.ui.view,arch_db:restaurant_management.secret_guest_audit_main_page
 msgid "No"
-msgstr ""
+msgstr "Нет"
 
 #. module: restaurant_management
 #. openerp-web
@@ -2404,6 +2533,13 @@ msgid "October"
 msgstr "Октябрь"
 
 #. module: restaurant_management
+#. openerp-web
+#: code:addons/restaurant_management/static/src/js/secret_guest_audit.js:0
+#, python-format
+msgid "Ok"
+msgstr "Ок"
+
+#. module: restaurant_management
 #: model:ir.model.constraint,message:restaurant_management.constraint_restaurant_management_planned_audits_restaurant_year_uniq
 msgid "One year definition per restaurant is allowed!"
 msgstr "Только один год можно присваивать к одному и томуже ресторану!"
@@ -2431,6 +2567,12 @@ msgid ""
 msgstr ""
 
 #. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_fault_registry__state__pending
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_restaurant_audit__state__pending
+msgid "Pending"
+msgstr "В ожидании"
+
+#. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list__photo_required
 #: model_terms:ir.ui.view,arch_db:restaurant_management.report_fault_list
 msgid "Photo"
@@ -2438,6 +2580,7 @@ msgstr "Фото"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__attachment_ids
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_secret_guest_form_view
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form_group_restaurant_management_audit_controller
@@ -2463,6 +2606,7 @@ msgid "Planned Audits"
 msgstr "Плановые проверки"
 
 #. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_secret_guest_form_view
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_auditer
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_dkk_manager
@@ -2586,6 +2730,7 @@ msgstr "Эксперт ДКК"
 
 #. module: restaurant_management
 #: model:res.groups,name:restaurant_management.group_restaurant_management_audit_controller
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_secret_guest_form_view
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_audit_controller
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_auditer
@@ -2624,6 +2769,7 @@ msgstr "Ответственные по департаменту"
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_search
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_search
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_view_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.secret_guest_audit_main_page
 #, python-format
 msgid "Restaurant"
 msgstr "Ресторан"
@@ -2639,6 +2785,7 @@ msgstr "Проверка Ресторана"
 
 #. module: restaurant_management
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_fault_registry__fault_type__restaurant_director
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_secret_guest_form_view
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_audit_controller
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_auditer
@@ -2667,6 +2814,11 @@ msgstr "Директор Ресторана"
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__restaurant_director_ids
 msgid "Restaurant Directors"
 msgstr "Директор ресторана"
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__load_level_of_restaurant
+msgid "Restaurant Load Level"
+msgstr "Уровень загруженности Ресторана"
 
 #. module: restaurant_management
 #: model:ir.ui.menu,name:restaurant_management.menu_root
@@ -2763,6 +2915,7 @@ msgid "Rotate"
 msgstr "Вращать"
 
 #. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_secret_guest_form_view
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form_group_restaurant_management_audit_controller
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form_group_restaurant_management_dkk_manager
@@ -2829,12 +2982,18 @@ msgid "Sorry, you are not allowed to access this document."
 msgstr "Извините, вы не имеете достум к этому документу"
 
 #. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.secret_guest_audit_main_page
+msgid "Start Time"
+msgstr "Время Начала"
+
+#. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
 msgid "State"
 msgstr "Статус"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__state
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__state
 msgid "Status"
 msgstr "Статус"
 
@@ -2857,6 +3016,16 @@ msgstr "Улица 2..."
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_view_form
 msgid "Street..."
 msgstr "Улица..."
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form
+msgid "Subjective view of secret guest"
+msgstr "Субъективный анализ тайного покупателя"
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.secret_guest_audit_main_page
+msgid "Submit"
+msgstr "Отправить"
 
 #. module: restaurant_management
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_fault_registry__fault_type__suchif
@@ -2904,6 +3073,12 @@ msgstr "Руководитель Технологического отдела"
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__telegram_chat_id
 msgid "Telegram Chat Id"
 msgstr "Чат Id Телеграм"
+
+#. module: restaurant_management
+#: code:addons/restaurant_management/controllers/controllers.py:0
+#, python-format
+msgid "Thank you !"
+msgstr "Спасибо !"
 
 #. module: restaurant_management
 #. openerp-web
@@ -3034,6 +3209,7 @@ msgid "Viewer"
 msgstr ""
 
 #. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__waiter_id
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_fault_registry__fault_type__waiter
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
 msgid "Waiter"
@@ -3043,6 +3219,38 @@ msgstr "Оффициант"
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_fault_registry__fault_type__waiter_department_manager
 msgid "Waiter Department Manager"
 msgstr "Руководитель отдела Официантов"
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form
+msgid "Waiter Info"
+msgstr "Информация о Официанте"
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.secret_guest_audit_main_page
+msgid "Waiter Name"
+msgstr "Имя Официанта"
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__waiter_name_in_check
+msgid "Waiter Name in Check"
+msgstr "Имя официанта на чеке"
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.secret_guest_audit_main_page
+msgid "Waiter name"
+msgstr "Имя официанта"
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.secret_guest_audit_main_page
+msgid "Waiter name in check"
+msgstr "Имя официанта на чеке"
+
+#. module: restaurant_management
+#. openerp-web
+#: code:addons/restaurant_management/static/src/js/secret_guest_audit.js:0
+#, python-format
+msgid "Warning!"
+msgstr "Внимание!"
 
 #. module: restaurant_management
 #: model:ir.model,name:restaurant_management.model_restaurant_management_all_restaurants_report_wizard
@@ -3092,6 +3300,7 @@ msgid "Year of Report"
 msgstr "Год Отчёта"
 
 #. module: restaurant_management
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_fault_registry__fault_present__yes
 #: model_terms:ir.ui.view,arch_db:restaurant_management.secret_guest_audit_main_page
 msgid "Yes"
 msgstr "Да"
@@ -3100,6 +3309,12 @@ msgstr "Да"
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_check_list_category__response_type__yes_no
 msgid "Yes/No"
 msgstr "Да/Нет"
+
+#. module: restaurant_management
+#: code:addons/restaurant_management/controllers/controllers.py:0
+#, python-format
+msgid "Your audit data is sent!"
+msgstr "Данные вашей проверки отправлены!"
 
 #. module: restaurant_management
 #. openerp-web
@@ -3118,8 +3333,18 @@ msgid "Zoom Out"
 msgstr "Увеличить"
 
 #. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.secret_guest_audit_main_page
+msgid "an*******@gmail.com"
+msgstr "an*******@gmail.com"
+
+#. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form
 msgid "fault_registry"
+msgstr ""
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.secret_guest_audit_main_page
+msgid "network-logo"
 msgstr ""
 
 #. module: restaurant_management
@@ -3150,6 +3375,11 @@ msgstr ""
 #: code:addons/restaurant_management/wizards/all_restaurants_report.py:0
 #, python-format
 msgid "Количество Ошибок"
+msgstr ""
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.secret_guest_audit_main_page
+msgid "Комментарий и общее впечатление от визита"
 msgstr ""
 
 #. module: restaurant_management
