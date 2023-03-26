@@ -46,8 +46,8 @@ odoo.define("restaurant_management.secret_guest_audit", function (require) {
               allowFileEncode: true,
               required: true,
               labelIdle: `${_(
-                "Load files."
-              )} <span class="filepond--label-action">${_("Browse")}</span>.`,
+                "Загрузить  файлы."
+              )} <span class="filepond--label-action">${_("Поиск")}</span>.`,
               maxFileSize: "100MB",
               labelMaxFileSizeExceeded: _t("File is too large"),
               labelMaxFileSize: _t(`Maximum file size is 100MB`),
