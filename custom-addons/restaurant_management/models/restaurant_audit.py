@@ -110,7 +110,7 @@ class RestaurantAudit(models.Model):
     )
 
     load_level_of_restaurant = fields.Selection(
-        selections=[
+        selection=[
             ("low", "Low level: up to 40%"),
             ("medium","Medium level: 30%-80%"),
             ("high", "High level: from 80%"),
@@ -172,6 +172,29 @@ class RestaurantAudit(models.Model):
                 "state": value["state"]
             })
         return res
+
+    def confirm(self):
+        self.write({
+            "state": "confirm"
+        })
+    
+    def cancel(self):
+        self.write({
+            "state": "cancel"
+        })
+
+    def action_view_check_list(self):
+        return {
+            "name": "Faults",
+            "type": "ir.actions.act_window",
+            "res_model": "restaurant_management.fault_registry",
+            "views": [
+                [self.env.ref('restaurant_management.fault_registry_secret_guest_tree_view').id, "tree"],
+                [self.env.ref('restaurant_management.fault_registry_secret_guest_form_view').id, "form"],
+            ],
+            "domain": [('id', 'in', self.fault_registry_ids.ids)],
+            "context": {"create": False, "edit": False},
+        }
 
     def _send_telegram_message(self, rec_ids):
         cr = registry(self._cr.dbname).cursor()

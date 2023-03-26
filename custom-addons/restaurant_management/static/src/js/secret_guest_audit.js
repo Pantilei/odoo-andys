@@ -74,7 +74,6 @@ odoo.define("restaurant_management.secret_guest_audit", function (require) {
 
     _onCheckListCheck: function (event) {
       let comment_section = $(event.target).parent().parent().next();
-      console.log("comment_section: ", comment_section);
       if (comment_section.hasClass("comment_optional")) {
         if (["no", "1", "2", "3", "4"].includes(event.target.value)) {
           comment_section.removeClass("d-none");
@@ -143,19 +142,8 @@ odoo.define("restaurant_management.secret_guest_audit", function (require) {
                 }
               }
             }
-
-            // if (name in dataToSend) {
-            //   if (Array.isArray(dataToSend[name])) {
-            //     dataToSend[name].push(value);
-            //   } else {
-            //     dataToSend[name] = [dataToSend[name], value];
-            //   }
-            // } else {
-            //   dataToSend[name] = value;
-            // }
           });
       });
-      console.log("dataToSend: ", dataToSend);
 
       this._rpc({
         route: window.location.pathname + "/handle",
@@ -164,7 +152,18 @@ odoo.define("restaurant_management.secret_guest_audit", function (require) {
         if (r.success) {
           window.location.href = window.location.pathname + `/thank-you`;
         } else {
-          console.log(r.message);
+          let $dialogContentMessage = $(`<h4>${r.message}</h4>`);
+          new Dialog(this, {
+            title: _t("Warning!"),
+            size: "medium",
+            $content: $("<div>").append($dialogContentMessage),
+            buttons: [
+              {
+                text: _t("Ok"),
+                close: true,
+              },
+            ],
+          }).open();
         }
       });
     },

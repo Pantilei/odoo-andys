@@ -9,8 +9,10 @@
                         <field name="available_for_edit" invisible="1" />
                         <field name="no_fault_check_list_category" invisible="1" />
 
-                        <button name="cancel" type="object" string="Cancel" attrs="{'invisible': [('state', 'in', ['cancel'])]}" />
-                        <button name="confirm" type="object" string="Confirm" attrs="{'invisible': [('state', 'in', ['confirm'])]}" />
+                        <button name="cancel" type="object" string="Cancel"
+                            attrs="{'invisible': [('state', 'in', ['cancel'])]}" />
+                        <button name="confirm" type="object" string="Confirm"
+                            attrs="{'invisible': [('state', 'in', ['confirm'])]}" />
                         <field name="state" widget="statusbar" statusbar_visible="confirm" />
                     </header>
                     <sheet>
@@ -27,7 +29,9 @@
 
                         <group>
                             <field name="check_list_category_id" widget="selection" />
-                            <field name="check_list_id" widget="selection" domain="[('category_id', '=', check_list_category_id)]" attrs="{'required': [('no_fault_check_list_category', '=', False)], 'invisible': [('no_fault_check_list_category', '=', True)], 'readonly': [('check_list_category_id', '=', False)]}" />
+                            <field name="check_list_id" widget="selection"
+                                domain="[('category_id', '=', check_list_category_id)]"
+                                attrs="{'required': [('no_fault_check_list_category', '=', False)], 'invisible': [('no_fault_check_list_category', '=', True)], 'readonly': [('check_list_category_id', '=', False)]}" />
                             <field name="fault_count" />
                             <field name="fault_occurrence_info" widget="html" />
                             <field name="severe" widget="boolean_toggle" />
@@ -40,23 +44,29 @@
 
                         <group string="Measures Taken">
                             <field name="comment" widget="html" string="Expert DCC" />
-                            <field name="director_comment" widget="html" string="Restaurant Director" />
-                            <field name="check_list_category_responsible_comment" widget="html" string="Responsible within Department" />
+                            <field name="director_comment" widget="html"
+                                string="Restaurant Director" />
+                            <field name="check_list_category_responsible_comment" widget="html"
+                                string="Responsible within Department" />
                         </group>
 
                         <group string="Photos">
-                            <field name="attachment_ids" nolabel="1" widget="many2many_binary_preview" accepted_file_extensions="image/*" />
+                            <field name="attachment_ids" nolabel="1"
+                                widget="many2many_binary_preview" accepted_file_extensions="image/*" />
                         </group>
                     </sheet>
                 </form>
             </field>
         </record>
 
-        <record id="fault_registry_view_form_group_restaurant_management_restaurant_director" model="ir.ui.view">
-            <field name="name">fault_registry.view.form.group_restaurant_management_restaurant_director</field>
+        <record id="fault_registry_view_form_group_restaurant_management_restaurant_director"
+            model="ir.ui.view">
+            <field name="name">
+                fault_registry.view.form.group_restaurant_management_restaurant_director</field>
             <field name="model">restaurant_management.fault_registry</field>
             <field name="inherit_id" ref="fault_registry_view_form" />
-            <field name="groups_id" eval="[(6, 0, [ref('group_restaurant_management_restaurant_director')])]" />
+            <field name="groups_id"
+                eval="[(6, 0, [ref('group_restaurant_management_restaurant_director')])]" />
             <field name="arch" type="xml">
                 <xpath expr="//button[@name='cancel']" position="replace">
                     <button name="cancel" type="object" string="Cancel" invisible="1" />
@@ -74,10 +84,12 @@
                     <field name="fault_count" readonly="1" />
                 </xpath>
                 <xpath expr="//field[@name='fault_type']" position="replace">
-                    <field name="fault_type" attrs="{'readonly': [('available_for_edit', '=', False)]}" string="Position" />
+                    <field name="fault_type"
+                        attrs="{'readonly': [('available_for_edit', '=', False)]}" string="Position" />
                 </xpath>
                 <xpath expr="//field[@name='guilty_person_id']" position="replace">
-                    <field name="guilty_person_id" string="Name/Family Name" attrs="{'readonly': [('available_for_edit', '=', False)]}" />
+                    <field name="guilty_person_id" string="Name/Family Name"
+                        attrs="{'readonly': [('available_for_edit', '=', False)]}" />
                 </xpath>
                 <xpath expr="//field[@name='severe']" position="replace">
                     <field name="severe" readonly="1" widget="boolean_toggle" />
@@ -86,22 +98,28 @@
                     <field name="comment" readonly="1" widget="html" string="Expert DCC" />
                 </xpath>
                 <xpath expr="//field[@name='director_comment']" position="replace">
-                    <field name="director_comment" string="Restaurant Director" attrs="{'readonly': [('available_for_edit', '=', False)]}" widget="html" />
+                    <field name="director_comment" string="Restaurant Director"
+                        attrs="{'readonly': [('available_for_edit', '=', False)]}" widget="html" />
                 </xpath>
-                <xpath expr="//field[@name='check_list_category_responsible_comment']" position="replace">
-                    <field name="check_list_category_responsible_comment" readonly="1" widget="html" string="Responsible within Department" />
+                <xpath expr="//field[@name='check_list_category_responsible_comment']"
+                    position="replace">
+                    <field name="check_list_category_responsible_comment" readonly="1" widget="html"
+                        string="Responsible within Department" />
                 </xpath>
                 <xpath expr="//field[@name='attachment_ids']" position="replace">
-                    <field name="attachment_ids" nolabel="1" readonly="1" widget="many2many_binary_preview" accepted_file_extensions="image/*" />
+                    <field name="attachment_ids" nolabel="1" readonly="1"
+                        widget="many2many_binary_preview" accepted_file_extensions="image/*" />
                 </xpath>
             </field>
         </record>
 
-        <record id="fault_registry_view_form_group_restaurant_management_audit_controller" model="ir.ui.view">
+        <record id="fault_registry_view_form_group_restaurant_management_audit_controller"
+            model="ir.ui.view">
             <field name="name">fault_registry.view.form.group_restaurant_management_audit_controller</field>
             <field name="model">restaurant_management.fault_registry</field>
             <field name="inherit_id" ref="fault_registry_view_form" />
-            <field name="groups_id" eval="[(6, 0, [ref('group_restaurant_management_audit_controller')])]" />
+            <field name="groups_id"
+                eval="[(6, 0, [ref('group_restaurant_management_audit_controller')])]" />
             <field name="arch" type="xml">
                 <xpath expr="//button[@name='cancel']" position="replace">
                     <button name="cancel" type="object" string="Cancel" invisible="1" />
@@ -131,22 +149,28 @@
                     <field name="comment" readonly="1" widget="html" string="Expert DCC" />
                 </xpath>
                 <xpath expr="//field[@name='director_comment']" position="replace">
-                    <field name="director_comment" string="Restaurant Director" readonly="1" widget="html" />
+                    <field name="director_comment" string="Restaurant Director" readonly="1"
+                        widget="html" />
                 </xpath>
-                <xpath expr="//field[@name='check_list_category_responsible_comment']" position="replace">
-                    <field name="check_list_category_responsible_comment" widget="html" string="Responsible within Department" />
+                <xpath expr="//field[@name='check_list_category_responsible_comment']"
+                    position="replace">
+                    <field name="check_list_category_responsible_comment" widget="html"
+                        string="Responsible within Department" />
                 </xpath>
                 <xpath expr="//field[@name='attachment_ids']" position="replace">
-                    <field name="attachment_ids" nolabel="1" readonly="1" widget="many2many_binary_preview" accepted_file_extensions="image/*" />
+                    <field name="attachment_ids" nolabel="1" readonly="1"
+                        widget="many2many_binary_preview" accepted_file_extensions="image/*" />
                 </xpath>
             </field>
         </record>
 
-        <record id="fault_registry_view_form_group_restaurant_management_dkk_manager" model="ir.ui.view">
+        <record id="fault_registry_view_form_group_restaurant_management_dkk_manager"
+            model="ir.ui.view">
             <field name="name">fault_registry.view.form.group_restaurant_management_dkk_manager</field>
             <field name="model">restaurant_management.fault_registry</field>
             <field name="inherit_id" ref="fault_registry_view_form" />
-            <field name="groups_id" eval="[(6, 0, [ref('group_restaurant_management_dkk_manager')])]" />
+            <field name="groups_id"
+                eval="[(6, 0, [ref('group_restaurant_management_dkk_manager')])]" />
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='check_list_category_id']" position="replace">
                     <field name="check_list_category_id" widget="selection" readonly="1" />
@@ -166,14 +190,18 @@
                 <xpath expr="//field[@name='comment']" position="replace">
                     <field name="comment" readonly="1" widget="html" string="Expert DCC" />
                 </xpath>
-                <xpath expr="//field[@name='check_list_category_responsible_comment']" position="replace">
-                    <field name="check_list_category_responsible_comment" widget="html" string="Responsible within Department" />
+                <xpath expr="//field[@name='check_list_category_responsible_comment']"
+                    position="replace">
+                    <field name="check_list_category_responsible_comment" widget="html"
+                        string="Responsible within Department" />
                 </xpath>
                 <xpath expr="//field[@name='director_comment']" position="replace">
-                    <field name="director_comment" string="Restaurant Director" readonly="1" widget="html" />
+                    <field name="director_comment" string="Restaurant Director" readonly="1"
+                        widget="html" />
                 </xpath>
                 <xpath expr="//field[@name='attachment_ids']" position="replace">
-                    <field name="attachment_ids" nolabel="1" readonly="1" widget="many2many_binary_preview" accepted_file_extensions="image/*" />
+                    <field name="attachment_ids" nolabel="1" readonly="1"
+                        widget="many2many_binary_preview" accepted_file_extensions="image/*" />
                 </xpath>
             </field>
         </record>
@@ -191,13 +219,17 @@
                     <button name="confirm" type="object" string="Confirm" invisible="1" />
                 </xpath>
                 <xpath expr="//field[@name='check_list_category_id']" position="replace">
-                    <field name="check_list_category_id" widget="selection" attrs="{'readonly': [('id', '!=', False)]}" />
+                    <field name="check_list_category_id" widget="selection"
+                        attrs="{'readonly': [('id', '!=', False)]}" />
                 </xpath>
                 <xpath expr="//field[@name='check_list_id']" position="replace">
-                    <field name="check_list_id" widget="selection" domain="[('category_id', '=', check_list_category_id)]" attrs="{'required': [('no_fault_check_list_category', '=', False)], 'invisible': [('no_fault_check_list_category', '=', True)], 'readonly': ['|', ('check_list_category_id', '=', False), ('id', '!=', False)]}" />
+                    <field name="check_list_id" widget="selection"
+                        domain="[('category_id', '=', check_list_category_id)]"
+                        attrs="{'required': [('no_fault_check_list_category', '=', False)], 'invisible': [('no_fault_check_list_category', '=', True)], 'readonly': ['|', ('check_list_category_id', '=', False), ('id', '!=', False)]}" />
                 </xpath>
                 <xpath expr="//field[@name='fault_count']" position="replace">
-                    <field name="fault_count" readonly="1" attrs="{'readonly': [('id', '!=', False)]}" />
+                    <field name="fault_count" readonly="1"
+                        attrs="{'readonly': [('id', '!=', False)]}" />
                 </xpath>
                 <xpath expr="//field[@name='fault_type']" position="replace">
                     <field name="fault_type" readonly="1" string="Position" />
@@ -206,16 +238,21 @@
                     <field name="guilty_person_id" string="Name/Family Name" readonly="1" />
                 </xpath>
                 <xpath expr="//field[@name='comment']" position="replace">
-                    <field name="comment" string="Expert DCC" attrs="{'readonly': [('available_for_edit', '=', False)]}" widget="html" />
+                    <field name="comment" string="Expert DCC"
+                        attrs="{'readonly': [('available_for_edit', '=', False)]}" widget="html" />
                 </xpath>
                 <xpath expr="//field[@name='director_comment']" position="replace">
-                    <field name="director_comment" string="Restaurant Director" readonly="1" widget="html" />
+                    <field name="director_comment" string="Restaurant Director" readonly="1"
+                        widget="html" />
                 </xpath>
-                <xpath expr="//field[@name='check_list_category_responsible_comment']" position="replace">
-                    <field name="check_list_category_responsible_comment" readonly="1" widget="html" string="Responsible within Department" />
+                <xpath expr="//field[@name='check_list_category_responsible_comment']"
+                    position="replace">
+                    <field name="check_list_category_responsible_comment" readonly="1" widget="html"
+                        string="Responsible within Department" />
                 </xpath>
                 <xpath expr="//field[@name='attachment_ids']" position="replace">
-                    <field name="attachment_ids" nolabel="1" widget="many2many_binary_preview" accepted_file_extensions="image/*" />
+                    <field name="attachment_ids" nolabel="1" widget="many2many_binary_preview"
+                        accepted_file_extensions="image/*" />
                 </xpath>
             </field>
         </record>
@@ -224,7 +261,7 @@
             <field name="name">fault_registry.view.tree</field>
             <field name="model">restaurant_management.fault_registry</field>
             <field name="arch" type="xml">
-                <tree default_order="fault_date desc">
+                <tree default_order="fault_date desc, check_check_list_identificator asc">
                     <field name="restaurant_id" />
                     <field name="fault_date" />
                     <field name="check_check_list_identificator" optional="show" />
@@ -233,8 +270,77 @@
                     <field name="fault_count" />
                     <field name="comment" optional="show" widget="html" />
                     <field name="director_comment" optional="show" widget="html" />
-                    <field name="check_list_category_responsible_comment" optional="show" widget="html" />
-                    <field name="state" optional="hide" widget="badge" decoration-success="state == 'confirm'" decoration-muted="state == 'cancel'" />
+                    <field name="check_list_category_responsible_comment" optional="show"
+                        widget="html" />
+                    <field name="state" optional="hide" widget="badge"
+                        decoration-success="state == 'confirm'" decoration-muted="state == 'cancel'" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="fault_registry_secret_guest_form_view" model="ir.ui.view">
+            <field name="name">fault_registry.secret_guest.view.form</field>
+            <field name="model">restaurant_management.fault_registry</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="no_fault_check_list_category" invisible="1" />
+                        <field name="state" widget="statusbar"
+                            statusbar_visible="confirm" />
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="check_list_category_id" widget="selection" />
+                            <field name="check_list_id" widget="selection"
+                                domain="[('category_id', '=', check_list_category_id)]"
+                                attrs="{'required': [('no_fault_check_list_category', '=', False)], 'invisible': [('no_fault_check_list_category', '=', True)], 'readonly': [('check_list_category_id', '=', False)]}" />
+                            <field name="fault_present" />
+                            <field name="grade" />
+                            <field name="fault_count" />
+                        </group>
+
+                        <group string="Involved Worker/Department Manager">
+                            <field name="fault_type" string="Position" />
+                            <field name="guilty_person_id" string="Name/Family Name" />
+                        </group>
+
+                        <group string="Measures Taken">
+                            <field name="comment" widget="html" string="Secret Guest" />
+                            <field name="director_comment" widget="html"
+                                string="Restaurant Director" />
+                            <field name="check_list_category_responsible_comment"
+                                widget="html" string="Responsible within Department" />
+                        </group>
+
+                        <group string="Photos">
+                            <field name="attachment_ids"
+                                widget="many2many_binary_preview" nolabel="1"
+                                accepted_file_extensions="image/*" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="fault_registry_secret_guest_tree_view" model="ir.ui.view">
+            <field name="name">fault_registry.secret_guest.view.tree</field>
+            <field name="model">restaurant_management.fault_registry</field>
+            <field name="arch" type="xml">
+                <tree default_order="fault_date desc, check_check_list_identificator asc">
+                    <field name="restaurant_id" />
+                    <field name="fault_date" />
+                    <field name="check_check_list_identificator" optional="show" />
+                    <field name="check_list_category_id" optional="hide" />
+                    <field name="responsible_id" widget="many2one_avatar_user" optional="hide" />
+                    <field name="fault_present" optional="show" />
+                    <field name="grade" optional="show" />
+                    <field name="fault_count" optional="show" />
+                    <field name="comment" optional="show" widget="html" />
+                    <field name="director_comment" optional="show" widget="html" />
+                    <field name="check_list_category_responsible_comment" optional="show"
+                        widget="html" />
+                    <field name="state" optional="hide" widget="badge"
+                        decoration-success="state == 'confirm'" decoration-muted="state == 'cancel'" />
                 </tree>
             </field>
         </record>
@@ -267,40 +373,63 @@
             <field name="arch" type="xml">
                 <search string="Fault Registry">
                     <field name="restaurant_id" filter_domain="[('restaurant_id', '=ilike', self)]" />
-                    <field name="restaurant_network_id" filter_domain="[('restaurant_network_id', '=ilike', self)]" />
+                    <field name="restaurant_network_id"
+                        filter_domain="[('restaurant_network_id', '=ilike', self)]" />
                     <field name="responsible_id" />
                     <field name="check_list_category_id" />
                     <field name="check_list_id" />
-                    <field name="check_check_list_identificator" string="Check List Identificator" filter_domain="[('check_check_list_identificator', '=', self)]" />
+                    <field name="check_check_list_identificator" string="Check List Identificator"
+                        filter_domain="[('check_check_list_identificator', '=', self)]" />
                     <field name="guilty_person_id" />
 
                     <separator />
-                    <filter string="Confirmed" name="confirm_state" domain="[('state', '=', 'confirm')]" />
-                    <filter string="Canceled" name="cancel_state" domain="[('state', '=', 'cancel')]" />
+                    <filter string="Confirmed" name="confirm_state"
+                        domain="[('state', '=', 'confirm')]" />
+                    <filter string="Canceled" name="cancel_state"
+                        domain="[('state', '=', 'cancel')]" />
 
                     <separator />
-                    <filter string="Cook" name="cook_fault_type" domain="[('fault_type', '=', 'cook')]" />
-                    <filter string="Suchif" name="suchif_fault_type" domain="[('fault_type', '=', 'suchif')]" />
-                    <filter string="Waiter" name="waiter_fault_type" domain="[('fault_type', '=', 'waiter')]" />
-                    <filter string="Tech Personal" name="tech_personal_fault_type" domain="[('fault_type', '=', 'tech_personal')]" />
-                    <filter string="Barman" name="barman_fault_type" domain="[('fault_type', '=', 'barman')]" />
-                    <filter string="Delivery" name="delivery_fault_type" domain="[('fault_type', '=', 'delivery')]" />
+                    <filter string="Cook" name="cook_fault_type"
+                        domain="[('fault_type', '=', 'cook')]" />
+                    <filter string="Suchif" name="suchif_fault_type"
+                        domain="[('fault_type', '=', 'suchif')]" />
+                    <filter string="Waiter" name="waiter_fault_type"
+                        domain="[('fault_type', '=', 'waiter')]" />
+                    <filter string="Tech Personal" name="tech_personal_fault_type"
+                        domain="[('fault_type', '=', 'tech_personal')]" />
+                    <filter string="Barman" name="barman_fault_type"
+                        domain="[('fault_type', '=', 'barman')]" />
+                    <filter string="Delivery" name="delivery_fault_type"
+                        domain="[('fault_type', '=', 'delivery')]" />
 
                     <separator />
-                    <filter string="Severe Faults" name="severe_faults" domain="[('severe', '=', True)]" />
-                    <filter string="None Severe Faults" name="none_severe_faults" domain="[('severe', '=', False)]" />
+                    <filter string="Severe Faults" name="severe_faults"
+                        domain="[('severe', '=', True)]" />
+                    <filter string="None Severe Faults" name="none_severe_faults"
+                        domain="[('severe', '=', False)]" />
 
                     <group expand="0" string="Group By">
-                        <filter string="Restaurant" name="group_by_restaurant_id" context="{'group_by': 'restaurant_id'}" domain="[]" />
-                        <filter string="Restaurant Network" name="group_by_restaurant_network_id" context="{'group_by': 'restaurant_network_id'}" domain="[]" />
-                        <filter string="Responsible" name="group_by_responsible_id" context="{'group_by': 'responsible_id'}" domain="[]" />
-                        <filter string="Fault Date" name="group_by_fault_date" context="{'group_by': 'fault_date:month'}" domain="[]" />
-                        <filter string="Check List Category" name="group_by_check_list_category_id" context="{'group_by': 'check_list_category_id'}" domain="[]" />
-                        <filter string="Check List" name="group_by_check_list_id" context="{'group_by': 'check_list_id'}" domain="[]" />
-                        <filter string="Involved Worker Name/Family Name" name="group_by_guilty_person_id" context="{'group_by': 'guilty_person_id'}" domain="[]" />
-                        <filter string="Involved Worker Position" name="group_by_fault_type" context="{'group_by': 'fault_type'}" domain="[]" />
-                        <filter string="State" name="group_by_state" context="{'group_by': 'state'}" domain="[]" />
-                        <filter string="By Severety" name="group_by_severe" context="{'group_by': 'severe'}" domain="[]" />
+                        <filter string="Restaurant" name="group_by_restaurant_id"
+                            context="{'group_by': 'restaurant_id'}" domain="[]" />
+                        <filter string="Restaurant Network" name="group_by_restaurant_network_id"
+                            context="{'group_by': 'restaurant_network_id'}" domain="[]" />
+                        <filter string="Responsible" name="group_by_responsible_id"
+                            context="{'group_by': 'responsible_id'}" domain="[]" />
+                        <filter string="Fault Date" name="group_by_fault_date"
+                            context="{'group_by': 'fault_date:month'}" domain="[]" />
+                        <filter string="Check List Category" name="group_by_check_list_category_id"
+                            context="{'group_by': 'check_list_category_id'}" domain="[]" />
+                        <filter string="Check List" name="group_by_check_list_id"
+                            context="{'group_by': 'check_list_id'}" domain="[]" />
+                        <filter string="Involved Worker Name/Family Name"
+                            name="group_by_guilty_person_id"
+                            context="{'group_by': 'guilty_person_id'}" domain="[]" />
+                        <filter string="Involved Worker Position" name="group_by_fault_type"
+                            context="{'group_by': 'fault_type'}" domain="[]" />
+                        <filter string="State" name="group_by_state" context="{'group_by': 'state'}"
+                            domain="[]" />
+                        <filter string="By Severety" name="group_by_severe"
+                            context="{'group_by': 'severe'}" domain="[]" />
                     </group>
 
                 </search>
@@ -316,7 +445,8 @@
             <field name="context">{'create': 0, 'hide_grouped_count': True}</field>
         </record>
 
-        <record id="registered_faults_per_restaurant_graphs_report_action" model="ir.actions.act_window">
+        <record id="registered_faults_per_restaurant_graphs_report_action"
+            model="ir.actions.act_window">
             <field name="name">Fault Registry Reporting</field>
             <field name="res_model">restaurant_management.fault_registry</field>
             <field name="view_mode">graph,pivot</field>
@@ -327,7 +457,8 @@
             <field name="name">Fault Registry Reporting</field>
             <field name="res_model">restaurant_management.fault_registry</field>
             <field name="view_mode">tree,form</field>
-            <field name="context">{'search_default_group_by_fault_date': 1, 'search_default_group_by_check_list_category_id': 1, 'edit': 0, 'create': 0}</field>
+            <field name="context">{'search_default_group_by_fault_date': 1,
+                'search_default_group_by_check_list_category_id': 1, 'edit': 0, 'create': 0}</field>
             <field name="target">current</field>
         </record>
 

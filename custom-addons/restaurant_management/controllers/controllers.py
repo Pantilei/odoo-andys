@@ -112,59 +112,71 @@ class SecretGuest(http.Controller):
                 "success": False,
                 "message": "Unauthorized!"
             }
-        print(f"{kw=}")
+        
         ResPartner = request.env["res.partner"].sudo()
         Users = request.env["res.users"].sudo()
         CheckList = request.env["restaurant_management.check_list"].sudo()
-        waiter_id = ResPartner.search([("name", "=", kw["waiter_name"])])
-        if not waiter_id:
-            waiter_id = ResPartner.create({
-                "name": kw["waiter_name"],
-            })
-        user_id = Users.with_context({"active_test": False}).search([
-            ("login", "=", kw["email"])], limit=1)
-        if not user_id:
-            user_id = Users.create({
-                "name": kw["email"],
-                "email": kw["email"],
-                "login": kw["email"],
-                "active": True,
-                "groups_id": [(6, 0, [self.env.ref("base.group_public").id])]
-            })
-        audit_id = request.env['restaurant_management.restaurant_audit'].sudo().create({
-            "state": "pending",
-            "check_list_type_id": request.env.ref("restaurant_management.secret_guest_check_list_type").id,
+        FaultRegistry = request.env["restaurant_management.fault_registry"].sudo()
+        try:
+            waiter_id = ResPartner.search([("name", "=", kw["waiter_name"])])
+            if not waiter_id:
+                waiter_id = ResPartner.create({
+                    "name": kw["waiter_name"],
+                })
+            user_id = Users.with_context({"active_test": False}).search([
+                ("login", "=", kw["email"])], limit=1)
+            if not user_id:
+                user_id = Users.create({
+                    "name": kw["email"],
+                    "email": kw["email"],
+                    "login": kw["email"],
+                    "active": True,
+                    "groups_id": [(6, 0, [request.env.ref("base.group_public").id])]
+                })
+            audit_id = request.env['restaurant_management.restaurant_audit'].sudo().create({
+                "state": "pending",
+                "check_list_type_id": request.env.ref("restaurant_management.secret_guest_check_list_type").id,
 
-            "restaurant_id": audit_temp_link_id.restaurant_id.id,
-            "responsible_id": user_id.id,
-            "audit_date": date.fromisoformat(kw["audit_date"]),
-            "audit_start_time": int(kw["start_time_hour"]) + int(kw["start_time_minute"])/60,
-            "audit_end_time": int(kw["end_time_hour"]) + int(kw["end_time_minute"])/60,
-            "waiter_id": waiter_id.id,
-            "waiter_name_in_check": kw["waiter_name_in_check"],
-            "load_level_of_restaurant": kw["load_level_of_restaurant"],
-            "general_comment": kw["general_comment"],
-        })
+                "restaurant_id": audit_temp_link_id.restaurant_id.id,
+                "responsible_id": user_id.id,
+                "audit_date": date.fromisoformat(kw["audit_date"]),
+                "audit_start_time": int(kw["start_time_hour"]) + int(kw["start_time_minute"])/60,
+                "audit_end_time": int(kw["end_time_hour"]) + int(kw["end_time_minute"])/60,
+                "waiter_id": waiter_id.id,
+                "waiter_name_in_check": kw["waiter_name_in_check"],
+                "load_level_of_restaurant": kw["load_level_of_restaurant"],
+                "general_comment": kw["general_comment"],
+            })
 
-        for check_list_id, check_list_data in kw["check_list"].items():
-            check_list_id = CheckList.search([("id", "=", int(check_list_id))])
-            create_data = {
-                "restaurant_audit_id": audit_id.id,
-                "check_list_category_id": check_list_id.category_id.id,
-                "check_list_id": check_list_id.id,
-                "comment": check_list_data["comment"],
-                "attachment_ids": [int(rec) for rec in check_list_data["files"]],
-                "fault_count": 1
+            bulk_create = []
+            for check_list_id, check_list_data in kw["check_list"].items():
+                check_list_id = CheckList.search([("id", "=", int(check_list_id))])
+                create_data = {
+                    "restaurant_audit_id": audit_id.id,
+                    "state": "pending",
+                    "check_list_category_id": check_list_id.category_id.id,
+                    "check_list_id": check_list_id.id,
+                    "comment": check_list_data["comment"],
+                    "attachment_ids": [int(rec) for rec in check_list_data["files"]],
+                    "fault_count": 1
+                }
+                if check_list_data["value"] in ["yes", "no"]:
+                    create_data["fault_present"] = check_list_data["value"]
+                elif check_list_data["value"] in ["1", "2", "3", "4", "5"]:
+                    create_data["grade"] = check_list_data["value"]
+                
+                if check_list_data["value"] in ["yes", "5"]:
+                    create_data["fault_count"] = 0
+                bulk_create.append(create_data)
+
+            FaultRegistry.create(bulk_create)
+        except (KeyError, ValueError) as error:
+            _logger.error(f"Key or value errror: {error}. With payload: {kw}")
+            return {
+                "success": False,
+                "message": "Validation Error."
             }
-            if check_list_data["value"] in ["yes", "no"]:
-                create_data["fault_present"] = check_list_data["value"]
-            elif check_list_data["value"] in ["1", "2", "3", "4", "5"]:
-                create_data["grade"] = check_list_data["value"]
-            
-            if check_list_data["value"] in ["yes", "5"]:
-                create_data["fault_count"] = 0
-
-            CheckList.create(create_data)
+        
         return {
             "success": True,
             "message": "Successefully stored!"

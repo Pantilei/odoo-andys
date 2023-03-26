@@ -212,21 +212,14 @@ class FaultRegistry(models.Model):
     )
 
     fault_present = fields.Selection(
-        selections=[
+        selection=[
             ("yes", "Yes"),
             ("no", "No")
         ],
         string="Fault Present",
         index=True
     )
-    grade = fields.Selection(
-        selections=[
-            (1, "1"),
-            (2, "2"),
-            (3, "3"),
-            (4, "4"),
-            (5, "5"),
-        ],
+    grade = fields.Integer(
         string="Grade",
         index=True
     )
