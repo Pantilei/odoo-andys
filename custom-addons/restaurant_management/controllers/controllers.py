@@ -36,6 +36,7 @@ class SecretGuest(http.Controller):
             "check_lists": [{
                 "id": check_list_id.id,
                 "description": check_list_id.description,
+                "info": check_list_id.info,
                 "photo_required": check_list_id.photo_required,
                 "comment_required": check_list_id.comment_required,
             } for check_list_id in category_id.check_list_ids]

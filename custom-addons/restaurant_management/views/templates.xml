@@ -106,8 +106,6 @@
                                         name="email" placeholder="an*******@gmail.com"
                                         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                                         required="true" />
-                                    <small class="form-text text-muted">We'll never share your email
-                                        with anyone else.</small>
                                 </div>
                                 <!-- End Input Email -->
 
@@ -251,7 +249,8 @@
                                         <div>
                                             <t t-foreach="category['check_lists']" t-as="check_list">
                                                 <div
-                                                    class="form-group d-flex justify-content-between">
+                                                    class="form-group d-flex justify-content-between"
+                                                    style="margin-bottom: 0px;">
 
                                                     <legend class="col-form-label pt-0">
                                                         <t t-esc="check_list['description']" />
@@ -306,6 +305,12 @@
                                                         </t>
                                                     </t>
                                                 </div>
+                                                <small
+                                                    t-attf-class="{{'' if check_list['info'] else 'd-none'}}"
+                                                    class="form-text text-muted">
+                                                    <strong>Примечание:</strong>
+                                                    <t t-esc="check_list['info']" />
+                                                </small>
 
                                                 <t t-if="check_list['comment_required']">
                                                     <div class="form-group comment_required">

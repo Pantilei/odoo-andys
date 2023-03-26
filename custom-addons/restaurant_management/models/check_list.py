@@ -31,6 +31,8 @@ class CheckList(models.Model):
     )
 
     description = fields.Text()
+    
+    info = fields.Text()
 
     identificator = fields.Integer(
         string="Itentificator within category",

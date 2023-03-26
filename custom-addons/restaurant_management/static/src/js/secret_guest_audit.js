@@ -73,7 +73,7 @@ odoo.define("restaurant_management.secret_guest_audit", function (require) {
     // -------------------------------------------------------------------------
 
     _onCheckListCheck: function (event) {
-      let comment_section = $(event.target).parent().parent().next();
+      let comment_section = $(event.target).parent().parent().next().next();
       if (comment_section.hasClass("comment_optional")) {
         if (["no", "1", "2", "3", "4"].includes(event.target.value)) {
           comment_section.removeClass("d-none");
