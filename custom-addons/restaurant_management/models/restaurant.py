@@ -9,12 +9,21 @@ class Restaurant(models.Model):
     _name = 'restaurant_management.restaurant'
     _description = 'Restaurants'
 
+    @api.depends("display_name")
+    def _compute_restaurant_display_name(self):
+        for record in self:
+            record.restaurant_display_name = record.display_name
+
     name = fields.Char(
         required=True
     )
-    display_name = fields.Char(
-        required=True
+    display_name = fields.Char()
+
+    restaurant_display_name = fields.Char(
+        compute="_compute_restaurant_display_name",
+        store=True
     )
+    
     restaurant_network_id = fields.Many2one(
         comodel_name="restaurant_management.restaurant_network",
         string="Restaurant Network"
