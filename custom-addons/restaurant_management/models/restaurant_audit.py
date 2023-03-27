@@ -69,7 +69,7 @@ class RestaurantAudit(models.Model):
         comodel_name="res.users",
         default=lambda self: self.env.user.id,
         readonly=True,
-        string="Expert DKK"
+        string="Auditer"
     )
 
     audit_date = fields.Date(

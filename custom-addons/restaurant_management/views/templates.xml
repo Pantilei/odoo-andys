@@ -92,7 +92,7 @@
                                             name="restaurant" required="true" disabled="true">
                                             <option t-attf-value="{{restaurant['id']}}"
                                                 selected="true">
-                                                <t t-esc="restaurant['display_name']" />
+                                                <t t-esc="restaurant['restaurant_display_name']" />
                                             </option>
                                         </select>
                                     </div>

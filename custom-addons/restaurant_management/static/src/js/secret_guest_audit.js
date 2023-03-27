@@ -100,6 +100,9 @@ odoo.define("restaurant_management.secret_guest_audit", function (require) {
       if (!are_valid_forms.every((valid_form) => valid_form)) {
         return;
       }
+
+      $(event.target).attr("disabled", true);
+
       let dataToSend = {
         email: "",
         audit_date: "",

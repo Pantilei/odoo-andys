@@ -19,6 +19,7 @@ class SecretGuest(http.Controller):
     @http.route('/audits/<string:access_token>', type='http', auth="public")
     def secret_guest_audits(self, access_token, **kw):
         """ Secret Guest Audits """
+        request.context = dict(request.context, lang='ru_RU')
         audit_temp_link_id = request.env["restaurant_management.audit_temp_links"].sudo().search([
             ("access_token", "=", access_token)
         ], limit=1)
@@ -45,7 +46,7 @@ class SecretGuest(http.Controller):
             "title": _("Check List of Secret Guest"),
             "restaurant": {
                 "id": audit_temp_link_id.restaurant_id.id,
-                "display_name": audit_temp_link_id.restaurant_id.display_name
+                "restaurant_display_name": audit_temp_link_id.restaurant_id.restaurant_display_name
             },
             "loading_level": [
                 {
@@ -67,6 +68,7 @@ class SecretGuest(http.Controller):
     @http.route('/audits/<string:access_token>/file-upload', type='http', auth="public", methods=["POST"], csrf=False)
     def secret_guest_audits_file_upload(self, access_token, **kw):
         """ Secret Guest Audits File Upload"""
+        request.context = dict(request.context, lang='ru_RU')
         audit_temp_link_id = request.env["restaurant_management.audit_temp_links"].sudo().search([
             ("access_token", "=", access_token)
         ], limit=1)
@@ -91,6 +93,7 @@ class SecretGuest(http.Controller):
     @http.route('/audits/<string:access_token>/file-remove', type='http', auth="public", methods=["DELETE"], csrf=False)
     def secret_guest_audits_file_remove(self, access_token, **kw):
         """ Secret Guest Audits File Remove"""
+        request.context = dict(request.context, lang='ru_RU')
         audit_temp_link_id = request.env["restaurant_management.audit_temp_links"].sudo().search([
             ("access_token", "=", access_token)
         ], limit=1)
@@ -105,6 +108,7 @@ class SecretGuest(http.Controller):
     @http.route('/audits/<string:access_token>/handle', type='json', auth="public")
     def secret_guests_audit_handle(self, access_token, **kw):
         """ Audit Handle"""
+        request.context = dict(request.context, lang='ru_RU')
         audit_temp_link_id = request.env["restaurant_management.audit_temp_links"].sudo().search([
             ("access_token", "=", access_token)
         ], limit=1)
@@ -189,6 +193,7 @@ class SecretGuest(http.Controller):
     @http.route('/audits/<string:access_token>/thank-you', type='http', auth="public")
     def secret_guest_audits_thank_you(self, access_token, **kw):
         """ Secret Guest Audits """
+        request.context = dict(request.context, lang='ru_RU')
         audit_temp_link_id = request.env["restaurant_management.audit_temp_links"].sudo().search([
             ("access_token", "=", access_token)
         ], limit=1)

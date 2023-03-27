@@ -166,11 +166,11 @@ class FaultRegistry(models.Model):
         comodel_name="res.users",
         compute="_compute_responsible",
         store=True,
-        string="Expert DCC"
+        string="Auditer"
     )
 
     comment = fields.Text(
-        string="Expert DCC comment"
+        string="Сomment"
     )
 
     director_comment = fields.Text(
@@ -182,7 +182,7 @@ class FaultRegistry(models.Model):
     )
 
     comment_no_html = fields.Text(
-        string="Expert DCC comment (No HTML)",
+        string="Сomment (No HTML)",
         compute="_compute_comment_no_html"
     )
 

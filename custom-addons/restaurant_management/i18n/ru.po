@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-26 12:29+0000\n"
-"PO-Revision-Date: 2023-03-26 12:29+0000\n"
+"POT-Creation-Date: 2023-03-27 20:19+0000\n"
+"PO-Revision-Date: 2023-03-27 20:19+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1237,6 +1237,12 @@ msgid "Audit of Video Surveillance"
 msgstr "Проверки Видео Наблюдения"
 
 #. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__responsible_id
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__responsible_id
+msgid "Auditer"
+msgstr "Аудитер"
+
+#. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_audit_reports__audits_table_json
 msgid "Audits Table Json"
 msgstr "Таблица Проверок JSON"
@@ -1671,7 +1677,6 @@ msgid "End Time"
 msgstr "Время Окончания"
 
 #. module: restaurant_management
-#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__responsible_id
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_audit_controller
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_auditer
@@ -1683,21 +1688,6 @@ msgstr "Время Окончания"
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_dkk_manager
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_restaurant_director
 msgid "Expert DCC"
-msgstr "Эксперт ДКК"
-
-#. module: restaurant_management
-#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__comment
-msgid "Expert DCC comment"
-msgstr "Комментарий Эксперта ДКК"
-
-#. module: restaurant_management
-#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__comment_no_html
-msgid "Expert DCC comment (No HTML)"
-msgstr "Комментарий Эксперта ДКК (Без HTML)"
-
-#. module: restaurant_management
-#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__responsible_id
-msgid "Expert DKK"
 msgstr "Эксперт ДКК"
 
 #. module: restaurant_management
@@ -2819,6 +2809,11 @@ msgid "Restaurant Directors"
 msgstr "Директор ресторана"
 
 #. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant__restaurant_display_name
+msgid "Restaurant Display Name"
+msgstr "Показываемое имя"
+
+#. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__load_level_of_restaurant
 msgid "Restaurant Load Level"
 msgstr "Уровень загруженности Ресторана"
@@ -3439,6 +3434,16 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurants_all_report
 msgid "Ресторан"
 msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__comment
+msgid "Сomment"
+msgstr "Комментарий"
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__comment_no_html
+msgid "Сomment (No HTML)"
+msgstr "Комментарий (Без HTML)"
 
 #. module: restaurant_management
 #. openerp-web
