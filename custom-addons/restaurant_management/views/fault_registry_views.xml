@@ -1,5 +1,73 @@
 <odoo>
     <data>
+        <record id="fault_registry_secret_guest_form_view" model="ir.ui.view">
+            <field name="name">fault_registry.secret_guest.view.form</field>
+            <field name="model">restaurant_management.fault_registry</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="no_fault_check_list_category" invisible="1" />
+                        <field name="check_list_type_id" invisible="1" />
+                        <field name="state" widget="statusbar"
+                            statusbar_visible="confirm" />
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="check_list_category_id" widget="selection" />
+                            <field name="check_list_id" widget="selection"
+                                domain="[('category_id', '=', check_list_category_id)]"
+                                attrs="{'required': [('no_fault_check_list_category', '=', False)], 'invisible': [('no_fault_check_list_category', '=', True)], 'readonly': [('check_list_category_id', '=', False)]}" />
+                            <field name="fault_present" />
+                            <field name="grade" />
+                            <field name="fault_count" />
+                        </group>
+
+                        <group string="Involved Worker/Department Manager">
+                            <field name="fault_type" string="Position" />
+                            <field name="guilty_person_id" string="Name/Family Name" />
+                        </group>
+
+                        <group string="Measures Taken">
+                            <field name="comment" widget="html" string="Secret Guest" />
+                            <field name="director_comment" widget="html"
+                                string="Restaurant Director" />
+                            <field name="check_list_category_responsible_comment"
+                                widget="html" string="Responsible within Department" />
+                        </group>
+
+                        <group string="Photos">
+                            <field name="attachment_ids"
+                                widget="many2many_binary_preview" nolabel="1"
+                                accepted_file_extensions="image/*" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="fault_registry_secret_guest_tree_view" model="ir.ui.view">
+            <field name="name">fault_registry.secret_guest.view.tree</field>
+            <field name="model">restaurant_management.fault_registry</field>
+            <field name="arch" type="xml">
+                <tree default_order="fault_date desc, check_check_list_identificator asc">
+                    <field name="restaurant_id" />
+                    <field name="fault_date" />
+                    <field name="check_check_list_identificator" optional="show" />
+                    <field name="check_list_category_id" optional="hide" />
+                    <field name="responsible_id" widget="many2one_avatar_user" optional="hide" />
+                    <field name="fault_present" optional="show" />
+                    <field name="grade" optional="show" />
+                    <field name="fault_count" optional="show" />
+                    <field name="comment" optional="show" widget="html" />
+                    <field name="director_comment" optional="show" widget="html" />
+                    <field name="check_list_category_responsible_comment" optional="show"
+                        widget="html" />
+                    <field name="state" optional="hide" widget="badge"
+                        decoration-success="state == 'confirm'" decoration-muted="state == 'cancel'" />
+                </tree>
+            </field>
+        </record>
+
         <record id="fault_registry_view_form" model="ir.ui.view">
             <field name="name">fault_registry.view.form</field>
             <field name="model">restaurant_management.fault_registry</field>
@@ -8,6 +76,7 @@
                     <header>
                         <field name="available_for_edit" invisible="1" />
                         <field name="no_fault_check_list_category" invisible="1" />
+                        <field name="check_list_type_id" invisible="1" />
 
                         <button name="cancel" type="object" string="Cancel"
                             attrs="{'invisible': [('state', 'in', ['cancel'])]}" />
@@ -43,7 +112,22 @@
                         </group>
 
                         <group string="Measures Taken">
-                            <field name="comment" widget="html" string="Expert DCC" />
+                            <field name="is_qcd_check_list_type" invisible="1" />
+                            <field name="is_video_surveillance_check_list_type" invisible="1" />
+                            <field name="is_secret_guest_check_list_type" invisible="1" />
+                            <field name="comment"
+                                widget="html"
+                                attrs="{'invisible': [('is_qcd_check_list_type', '=', False)]}"
+                                string="Expert DCC" />
+                            <field name="comment"
+                                widget="html"
+                                attrs="{'invisible': [('is_video_surveillance_check_list_type', '=', False)]}"
+                                string="Video Operator" />
+
+                            <field name="comment"
+                                widget="html"
+                                attrs="{'invisible': [('is_secret_guest_check_list_type', '=', False)]}"
+                                string="Secret Guest" />
                             <field name="director_comment" widget="html"
                                 string="Restaurant Director" />
                             <field name="check_list_category_responsible_comment" widget="html"
@@ -278,73 +362,6 @@
             </field>
         </record>
 
-        <record id="fault_registry_secret_guest_form_view" model="ir.ui.view">
-            <field name="name">fault_registry.secret_guest.view.form</field>
-            <field name="model">restaurant_management.fault_registry</field>
-            <field name="arch" type="xml">
-                <form>
-                    <header>
-                        <field name="no_fault_check_list_category" invisible="1" />
-                        <field name="state" widget="statusbar"
-                            statusbar_visible="confirm" />
-                    </header>
-                    <sheet>
-                        <group>
-                            <field name="check_list_category_id" widget="selection" />
-                            <field name="check_list_id" widget="selection"
-                                domain="[('category_id', '=', check_list_category_id)]"
-                                attrs="{'required': [('no_fault_check_list_category', '=', False)], 'invisible': [('no_fault_check_list_category', '=', True)], 'readonly': [('check_list_category_id', '=', False)]}" />
-                            <field name="fault_present" />
-                            <field name="grade" />
-                            <field name="fault_count" />
-                        </group>
-
-                        <group string="Involved Worker/Department Manager">
-                            <field name="fault_type" string="Position" />
-                            <field name="guilty_person_id" string="Name/Family Name" />
-                        </group>
-
-                        <group string="Measures Taken">
-                            <field name="comment" widget="html" string="Secret Guest" />
-                            <field name="director_comment" widget="html"
-                                string="Restaurant Director" />
-                            <field name="check_list_category_responsible_comment"
-                                widget="html" string="Responsible within Department" />
-                        </group>
-
-                        <group string="Photos">
-                            <field name="attachment_ids"
-                                widget="many2many_binary_preview" nolabel="1"
-                                accepted_file_extensions="image/*" />
-                        </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>
-
-        <record id="fault_registry_secret_guest_tree_view" model="ir.ui.view">
-            <field name="name">fault_registry.secret_guest.view.tree</field>
-            <field name="model">restaurant_management.fault_registry</field>
-            <field name="arch" type="xml">
-                <tree default_order="fault_date desc, check_check_list_identificator asc">
-                    <field name="restaurant_id" />
-                    <field name="fault_date" />
-                    <field name="check_check_list_identificator" optional="show" />
-                    <field name="check_list_category_id" optional="hide" />
-                    <field name="responsible_id" widget="many2one_avatar_user" optional="hide" />
-                    <field name="fault_present" optional="show" />
-                    <field name="grade" optional="show" />
-                    <field name="fault_count" optional="show" />
-                    <field name="comment" optional="show" widget="html" />
-                    <field name="director_comment" optional="show" widget="html" />
-                    <field name="check_list_category_responsible_comment" optional="show"
-                        widget="html" />
-                    <field name="state" optional="hide" widget="badge"
-                        decoration-success="state == 'confirm'" decoration-muted="state == 'cancel'" />
-                </tree>
-            </field>
-        </record>
-
         <record id="fault_registry_graph_view" model="ir.ui.view">
             <field name="name">fault_registry.view.graph</field>
             <field name="model">restaurant_management.fault_registry</field>
@@ -440,7 +457,12 @@
         <record id="fault_registry_action" model="ir.actions.act_window">
             <field name="name">Fault Registry</field>
             <field name="res_model">restaurant_management.fault_registry</field>
-            <field name="view_mode">tree,form,graph,pivot</field>
+            <field name="view_ids"
+                eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('fault_registry_tree_view')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('fault_registry_view_form')}),
+                (0, 0, {'view_mode': 'graph', 'view_id': ref('fault_registry_graph_view')}),
+                (0, 0, {'view_mode': 'pivot', 'view_id': ref('fault_registry_view_pivot')})]" />
             <field name="target">current</field>
             <field name="context">{'create': 0, 'hide_grouped_count': True}</field>
         </record>

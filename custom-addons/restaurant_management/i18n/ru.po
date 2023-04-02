@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-27 20:19+0000\n"
-"PO-Revision-Date: 2023-03-27 20:19+0000\n"
+"POT-Creation-Date: 2023-04-02 19:54+0000\n"
+"PO-Revision-Date: 2023-04-02 19:54+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1368,6 +1368,7 @@ msgstr "Идентификатор Чек Листа"
 #. module: restaurant_management
 #: model:ir.model,name:restaurant_management.model_restaurant_management_check_list_type
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__check_list_type_id
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__check_list_type_id
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__check_list_type_id
 msgid "Check List Type"
 msgstr "Тип Чек Листа"
@@ -2009,9 +2010,24 @@ msgid "Is Active"
 msgstr "Активный"
 
 #. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__is_qcd_check_list_type
+msgid "Is Qcd Check List Type"
+msgstr "ДКК Чек Лист"
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__is_secret_guest_check_list_type
+msgid "Is Secret Guest Check List Type"
+msgstr "Секретный Гость Чек Лист"
+
+#. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__is_secret_guest_type
 msgid "Is Secret Guest Type"
 msgstr "Секретный Гость"
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__is_video_surveillance_check_list_type
+msgid "Is Video Surveillance Check List Type"
+msgstr "Видеонаблюдение Чек Лист"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__default_category
@@ -2914,6 +2930,7 @@ msgstr "Вращать"
 
 #. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_secret_guest_form_view
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form_group_restaurant_management_audit_controller
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form_group_restaurant_management_dkk_manager
@@ -3191,6 +3208,7 @@ msgstr "Видео"
 
 #. module: restaurant_management
 #: model:res.groups,name:restaurant_management.group_restaurant_management_video_operator
+#: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form_group_restaurant_management_audit_controller
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form_group_restaurant_management_dkk_manager
@@ -3333,7 +3351,7 @@ msgstr "Увеличить"
 #. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.secret_guest_audit_main_page
 msgid "an*******@gmail.com"
-msgstr "an*******@gmail.com"
+msgstr ""
 
 #. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form

@@ -224,6 +224,33 @@ class FaultRegistry(models.Model):
         index=True
     )
 
+    check_list_type_id = fields.Many2one(
+        comodel_name="restaurant_management.check_list_type",
+        related="restaurant_audit_id.check_list_type_id",
+        string="Check List Type"
+    )
+
+    is_qcd_check_list_type = fields.Boolean(
+        compute="_compute_check_list_type"
+    )
+
+    is_video_surveillance_check_list_type = fields.Boolean(
+        compute="_compute_check_list_type"
+    )
+
+    is_secret_guest_check_list_type = fields.Boolean(
+        compute="_compute_check_list_type"
+    )
+
+    def _compute_check_list_type(self):
+        qcd_check_list_type = self.env.ref("restaurant_management.qcd_check_list_type")
+        video_surveillance_check_list_type = self.env.ref("restaurant_management.video_surveillance_check_list_type")
+        secret_guest_check_list_type = self.env.ref("restaurant_management.secret_guest_check_list_type")
+        for record in self:
+            record.is_qcd_check_list_type = record.check_list_type_id == qcd_check_list_type
+            record.is_video_surveillance_check_list_type = record.check_list_type_id == video_surveillance_check_list_type
+            record.is_secret_guest_check_list_type = record.check_list_type_id == secret_guest_check_list_type
+
     @api.depends("check_list_id", "restaurant_id", "fault_date")
     def _compute_fault_occurance(self):
         for record in self:
