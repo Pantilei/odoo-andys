@@ -408,11 +408,11 @@
                 <div class="content" style="background-color: #EEEEEE;">
                     <div class="wrapper-1"
                         style="width:100%; height:100vh; display: flex; flex-direction: column;">
-                        <img src="/restaurant_management/static/src/img/company_logo.svg"
+                        <img src="/restaurant_management/static/src/img/done.jpg"
                             style="margin: 20px auto 10px;"
                             alt="network-logo"
-                            width="120"
-                            height="120" />
+                            width="130"
+                            height="130" />
                         <div class="wrapper-2" style="padding: 0px 30px; text-align:center;">
                             <p class="thank_you-main">
                                 Данные вашего визита внесены.
