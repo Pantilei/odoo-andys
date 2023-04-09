@@ -48,7 +48,7 @@
             <xpath expr="//t[@t-out='0']" position="replace">
                 <div id="wrapwrap" t-attf-class="#{pageName or ''}">
                     <header t-if="not no_header" id="top"></header>
-                    <main class="o_main_container m-auto">
+                    <main class="o_main_container">
                         <!-- <span class="oe_img_bg_review"
                             t-attf-style="background-image:  linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
                         url('{{bg_image}}')" /> -->
@@ -113,11 +113,11 @@
                                 <div class="form-row">
                                     <!-- Start Input Date -->
                                     <div class="form-group col-md-4">
-                                        <label for="audit_date">Audit Date</label>
+                                        <label for="audit_date">Visit Date</label>
                                         <input type="date" class="form-control" id="audit_date"
                                             name="audit_date" required="true" />
                                         <small class="form-text text-muted">Please choose date and
-                                            time for audit.</small>
+                                            time for visit.</small>
                                     </div>
                                     <!-- End Input Date -->
 
@@ -186,7 +186,8 @@
                                             class="d-flex flex-row justify-content-between align-items-center">
                                             <input type="text" class="form-control"
                                                 id="waiter_name"
-                                                name="waiter_name" placeholder="Waiter name"
+                                                name="waiter_name"
+                                                placeholder="Waiter name in badge"
                                                 required="1" />
                                         </div>
                                     </div>
@@ -241,18 +242,40 @@
                                 autocomplete="off">
                                 <t t-foreach="check_list_data" t-as="category">
                                     <div class="bg-light mb-3 p-2 rounded">
-                                        <p class="h2">
-                                            <u>
-                                                <t t-esc="category['name']" />
-                                            </u>
-                                        </p>
+                                        <div class="d-flex flex-column">
+                                            <p class="h2">
+                                                <u>
+                                                    <t t-esc="category['name']" />
+                                                </u>
+                                            </p>
+                                            <div class="d-flex justify-content-between"
+                                                style="font-style: italic;"
+                                                t-if="category['response_type'] == 'notes'">
+                                                <p style="display: inline; font-size: 12px;"> Исходя
+                                                    из сегодняшнего
+                                                    опыта, оцените
+                                                    ваш
+                                                    визит по категориям от 1 до 5
+                                                </p>
+                                                <ul>
+                                                    <li
+                                                        style="display: inline-block; font-size: 12px;">1
+                                                        -
+                                                        не понравилось.</li>
+                                                    <li
+                                                        style="display: inline-block; font-size: 12px;">5
+                                                        -
+                                                        отлично.</li>
+                                                </ul>
+                                            </div>
+                                        </div>
                                         <div>
                                             <t t-foreach="category['check_lists']" t-as="check_list">
                                                 <div
                                                     class="form-group d-flex justify-content-between"
                                                     style="margin-bottom: 0px;">
 
-                                                    <legend class="col-form-label pt-0">
+                                                    <legend class="col-form-label pt-0 bullet">
                                                         <t t-esc="check_list['description']" />
                                                     </legend>
                                                     <t
@@ -307,8 +330,9 @@
                                                 </div>
                                                 <small
                                                     t-attf-class="{{'' if check_list['info'] else 'd-none'}}"
-                                                    class="form-text text-muted">
-                                                    <strong>Примечание:</strong>
+                                                    class="form-text text-muted"
+                                                    style="font-size: 12px;
+                                                    font-style: italic; color: #666666;">
                                                     <t t-esc="check_list['info']" />
                                                 </small>
 
@@ -317,7 +341,7 @@
                                                         <textarea class="form-control"
                                                             t-attf-id="check_list_comment_{{check_list['id']}}"
                                                             t-attf-name="check_list_comment_{{check_list['id']}}"
-                                                            placeholder="Comment"
+                                                            placeholder="Comment Required"
                                                             required="true"
                                                             rows="3"></textarea>
                                                     </div>
@@ -327,7 +351,7 @@
                                                         <textarea class="form-control"
                                                             t-attf-id="check_list_comment_{{check_list['id']}}"
                                                             t-attf-name="check_list_comment_{{check_list['id']}}"
-                                                            placeholder="Comment"
+                                                            placeholder="Comment Required"
                                                             rows="3"></textarea>
                                                     </div>
                                                 </t>
@@ -340,6 +364,15 @@
                                                             multiple="true" required="true" />
                                                     </div>
                                                 </t>
+                                                <t t-else="">
+                                                    <div
+                                                        class="form-group d-none optional-file-input">
+                                                        <input type="file"
+                                                            t-attf-name="check_list_file_{{check_list['id']}}[]"
+                                                            class='file_upload_input filepond'
+                                                            multiple="true" />
+                                                    </div>
+                                                </t>
 
                                                 <hr />
                                             </t>
@@ -347,11 +380,6 @@
                                     </div>
                                 </t>
                                 <div class="bg-light mb-3 p-2 rounded">
-                                    <p class="h2">
-                                        <u>
-                                            <t t-esc="category['name']" />
-                                        </u>
-                                    </p>
                                     <textarea class="form-control"
                                         id="general_comment"
                                         name="general_comment"
@@ -377,32 +405,35 @@
 
         <template id="secret_guest_audit_thank_you_page" name="Secret Guest Audit Thank You page">
             <t t-call="restaurant_management.secret_guest_audit_layout">
-                <div class="content">
+                <div class="content" style="background-color: #EEEEEE;">
                     <div class="wrapper-1"
                         style="width:100%; height:100vh; display: flex; flex-direction: column;">
-                        <div class="wrapper-2" style="padding: 30px; text-align:center;">
-                            <h1
-                                style="font-family: 'Kaushan Script', cursive;
-                                        font-size:4em;
-                                        letter-spacing:3px;
-                                        color:#5892FF ;
-                                        margin:0;
-                                        margin-bottom:20px;">
-                                <t t-esc="title" />
-                            </h1>
-                            <p
-                                sytle="margin:0;
-                                    font-size:1.3em;
-                                    color:#aaa;
-                                    font-family: 'Source Sans Pro', sans-serif;
-                                    letter-spacing:1px;">
-                                <t t-esc="message" />
+                        <img src="/restaurant_management/static/src/img/company_logo.svg"
+                            style="margin: 20px auto 10px;"
+                            alt="network-logo"
+                            width="120"
+                            height="120" />
+                        <div class="wrapper-2" style="padding: 0px 30px; text-align:center;">
+                            <p class="thank_you-main">
+                                Данные вашего визита внесены.
+                            </p>
+                            <p class="thank_you-main">
+                                Благодарим за участие.
+                            </p>
+                            <p class="thank_you-secondary mt-4">
+                                Куратор уже получил уведомление о том, что вы заполнили бланк
+                                визита.
+                            </p>
+                            <p class="thank_you-secondary">
+                                В течение 8 рабочих часов он с вами свяжется для дальнейших
+                                инструкций.
+                            </p>
+                            <p class="thank_you-secondary mt-3">
+                                С уважением, команда Andys Pizza и La Plăcinte.
                             </p>
                         </div>
                     </div>
                 </div>
-                <link href="https://fonts.googleapis.com/css?family=Kaushan+Script|Source+Sans+Pro"
-                    rel="stylesheet" />
             </t>
         </template>
 

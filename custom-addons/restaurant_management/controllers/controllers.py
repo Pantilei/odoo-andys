@@ -43,7 +43,7 @@ class SecretGuest(http.Controller):
             } for check_list_id in category_id.check_list_ids]
         } for category_id in check_list_category_ids]
         return request.render("restaurant_management.secret_guest_audit_main_page", {
-            "title": _("Check List of Secret Guest"),
+            "title": _("Check List of Secret Buyer"),
             "restaurant": {
                 "id": audit_temp_link_id.restaurant_id.id,
                 "restaurant_display_name": audit_temp_link_id.restaurant_id.restaurant_display_name
@@ -51,7 +51,7 @@ class SecretGuest(http.Controller):
             "loading_level": [
                 {
                     "id": "low",
-                    "value": _("Low level: up to 40%")
+                    "value": _("Low level: up to 30%")
                 },
                 {
                     "id": "medium",
@@ -200,6 +200,6 @@ class SecretGuest(http.Controller):
         if not audit_temp_link_id or not audit_temp_link_id.is_active:
             return werkzeug.exceptions.Unauthorized()
         return request.render("restaurant_management.secret_guest_audit_thank_you_page", {
-            "title": _("Thank you !"),
+            "title": _("Данные вашего визита внесены. Благодарим за участие.!"),
             "message": _("Your audit data is sent!"),
         })

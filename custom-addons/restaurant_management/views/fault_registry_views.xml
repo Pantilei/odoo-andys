@@ -406,6 +406,10 @@
                         domain="[('state', '=', 'cancel')]" />
 
                     <separator />
+                    <filter string="No Fault Count" name="no_fault_count"
+                        domain="[('fault_count', '!=', 0)]" />
+
+                    <separator />
                     <filter string="Cook" name="cook_fault_type"
                         domain="[('fault_type', '=', 'cook')]" />
                     <filter string="Suchif" name="suchif_fault_type"
@@ -464,7 +468,8 @@
                 (0, 0, {'view_mode': 'graph', 'view_id': ref('fault_registry_graph_view')}),
                 (0, 0, {'view_mode': 'pivot', 'view_id': ref('fault_registry_view_pivot')})]" />
             <field name="target">current</field>
-            <field name="context">{'create': 0, 'hide_grouped_count': True}</field>
+            <field name="context">{'create': 0, 'hide_grouped_count': True,
+                'search_default_no_fault_count': 1}</field>
         </record>
 
         <record id="registered_faults_per_restaurant_graphs_report_action"

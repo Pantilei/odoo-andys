@@ -41,7 +41,7 @@
                     <group string="Check List"
                         attrs="{'invisible': [('no_fault_category', '=', True)]}">
                         <field name="check_list_ids" nolabel="1">
-                            <tree>
+                            <tree class="category-check-list-tree">
                                 <field name="sequence" widget="handle" />
                                 <field name="full_identificator" />
                                 <field name="identificator" />

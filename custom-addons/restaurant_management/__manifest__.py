@@ -64,6 +64,8 @@
     'assets': {
         'web._assets_primary_variables': [],
         'web.assets_backend': [
+            'restaurant_management/static/src/scss/custom.scss',
+
             'restaurant_management/static/src/js/tree_view_renderer.js',
 
             'restaurant_management/static/src/js/many2many_binary_preview.js',
@@ -110,6 +112,7 @@
 
         'restaurant_management.secret_guest_audit': [
             'restaurant_management/static/src/scss/file_pond_extra.scss',
+            'restaurant_management/static/src/scss/secret_guest_audit.scss',
             'restaurant_management/static/src/js/secret_guest_audit.js',
         ]
     },

@@ -36,6 +36,10 @@ odoo.define("restaurant_management.secret_guest_audit", function (require) {
         );
         self.ponds = [...document.querySelectorAll(".file_upload_input")].map(
           function (element) {
+            let fileRequired = element.hasAttribute("required");
+            let labelText = fileRequired
+              ? _("Загрузить файлы (Обязательно!).")
+              : _("Загрузить файлы.");
             let access_token = window.location.pathname.replace("/audits/", "");
             return FilePond.create(element, {
               server: {
@@ -44,10 +48,10 @@ odoo.define("restaurant_management.secret_guest_audit", function (require) {
               },
               allowMultiple: true,
               allowFileEncode: true,
-              required: true,
-              labelIdle: `${_(
-                "Загрузить  файлы."
-              )} <span class="filepond--label-action">${_("Поиск")}</span>.`,
+              required: fileRequired,
+              labelIdle: `${labelText} <span class="filepond--label-action">${_(
+                "Поиск"
+              )}</span>.`,
               maxFileSize: "100MB",
               labelMaxFileSizeExceeded: _t("File is too large"),
               labelMaxFileSize: _t(`Maximum file size is 100MB`),
@@ -74,13 +78,16 @@ odoo.define("restaurant_management.secret_guest_audit", function (require) {
 
     _onCheckListCheck: function (event) {
       let comment_section = $(event.target).parent().parent().next().next();
+      let file_input = comment_section.next(".optional-file-input");
       if (comment_section.hasClass("comment_optional")) {
         if (["no", "1", "2", "3", "4"].includes(event.target.value)) {
           comment_section.removeClass("d-none");
           comment_section.find("textarea").attr({ required: true });
+          file_input.removeClass("d-none");
         } else {
           comment_section.find("textarea").removeAttr("required");
           comment_section.addClass("d-none");
+          file_input.addClass("d-none");
         }
       }
     },
@@ -96,7 +103,7 @@ odoo.define("restaurant_management.secret_guest_audit", function (require) {
 
         return form.checkValidity() == true;
       });
-      console.log(are_valid_forms);
+      console.log("are_valid_forms: ", are_valid_forms);
       if (!are_valid_forms.every((valid_form) => valid_form)) {
         return;
       }

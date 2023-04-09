@@ -111,7 +111,7 @@ class RestaurantAudit(models.Model):
 
     load_level_of_restaurant = fields.Selection(
         selection=[
-            ("low", "Low level: up to 40%"),
+            ("low", "Low level: up to 30%"),
             ("medium","Medium level: 30%-80%"),
             ("high", "High level: from 80%"),
         ],
