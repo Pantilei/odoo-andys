@@ -59,6 +59,17 @@ odoo.define("restaurant_management.secret_guest_audit", function (require) {
             });
           }
         );
+        [...document.querySelectorAll(".file_upload_input")].forEach((pond) => {
+          pond.addEventListener("FilePond:updatefiles", (ev) => {
+            if (!ev.detail.items.length && ev.detail.pond.required.get()) {
+              $(ev.target).parent().addClass("file-input-invalid");
+              $(ev.target).parent().removeClass("file-input-valid");
+            } else {
+              $(ev.target).parent().addClass("file-input-valid");
+              $(ev.target).parent().removeClass("file-input-invalid");
+            }
+          });
+        });
       });
     },
 
@@ -78,16 +89,11 @@ odoo.define("restaurant_management.secret_guest_audit", function (require) {
 
     _onCheckListCheck: function (event) {
       let comment_section = $(event.target).parent().parent().next().next();
-      let file_input = comment_section.next(".optional-file-input");
       if (comment_section.hasClass("comment_optional")) {
         if (["no", "1", "2", "3", "4"].includes(event.target.value)) {
-          comment_section.removeClass("d-none");
           comment_section.find("textarea").attr({ required: true });
-          file_input.removeClass("d-none");
         } else {
           comment_section.find("textarea").removeAttr("required");
-          comment_section.addClass("d-none");
-          file_input.addClass("d-none");
         }
       }
     },
@@ -96,14 +102,22 @@ odoo.define("restaurant_management.secret_guest_audit", function (require) {
       event.preventDefault();
       event.stopPropagation();
 
+      this.ponds.forEach((pond) => {
+        if (!pond.getFiles().length && pond.required) {
+          $(pond.element).parent().addClass("file-input-invalid");
+          $(pond.element).parent().removeClass("file-input-valid");
+        } else {
+          $(pond.element).parent().removeClass("file-input-invalid");
+          $(pond.element).parent().addClass("file-input-valid");
+        }
+      });
+
       let forms = this.$el.find(".form_with_validation");
       let are_valid_forms = [...forms].map(function (form) {
         $(form).addClass("was-validated");
-        console.log($(form).serializeArray());
 
         return form.checkValidity() == true;
       });
-      console.log("are_valid_forms: ", are_valid_forms);
       if (!are_valid_forms.every((valid_form) => valid_form)) {
         return;
       }

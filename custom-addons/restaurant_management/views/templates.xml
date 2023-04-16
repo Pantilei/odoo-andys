@@ -347,7 +347,7 @@
                                                     </div>
                                                 </t>
                                                 <t t-else="">
-                                                    <div class="form-group d-none comment_optional">
+                                                    <div class="form-group comment_optional">
                                                         <textarea class="form-control"
                                                             t-attf-id="check_list_comment_{{check_list['id']}}"
                                                             t-attf-name="check_list_comment_{{check_list['id']}}"
@@ -366,7 +366,7 @@
                                                 </t>
                                                 <t t-else="">
                                                     <div
-                                                        class="form-group d-none optional-file-input">
+                                                        class="form-group optional-file-input">
                                                         <input type="file"
                                                             t-attf-name="check_list_file_{{check_list['id']}}[]"
                                                             class='file_upload_input filepond'

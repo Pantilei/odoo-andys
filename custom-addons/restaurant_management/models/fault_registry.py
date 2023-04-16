@@ -201,6 +201,11 @@ class FaultRegistry(models.Model):
         string="Photos"
     )
 
+    attachment_exists = fields.Boolean(
+        string="Photos",
+        compute="_compute_attachment_exists"
+    )
+
     available_for_edit = fields.Boolean(
         compute="_compute_available_for_edit",
         string="Availabe for Edit"
@@ -241,6 +246,11 @@ class FaultRegistry(models.Model):
     is_secret_guest_check_list_type = fields.Boolean(
         compute="_compute_check_list_type"
     )
+
+    @api.depends("attachment_ids")
+    def _compute_attachment_exists(self):
+        for record in self:
+            record.attachment_exists = len(record.attachment_ids) != 0
 
     def _compute_check_list_type(self):
         qcd_check_list_type = self.env.ref("restaurant_management.qcd_check_list_type")

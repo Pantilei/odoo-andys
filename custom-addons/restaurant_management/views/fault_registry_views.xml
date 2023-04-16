@@ -57,6 +57,7 @@
                     <field name="responsible_id" widget="many2one_avatar_user" optional="hide" />
                     <field name="fault_present" optional="show" />
                     <field name="grade" optional="show" />
+                    <field name="attachment_exists" />
                     <field name="fault_count" optional="show" />
                     <field name="comment" optional="show" widget="html" />
                     <field name="director_comment" optional="show" widget="html" />
@@ -351,6 +352,7 @@
                     <field name="check_check_list_identificator" optional="show" />
                     <field name="check_list_category_id" optional="hide" />
                     <field name="responsible_id" widget="many2one_avatar_user" optional="hide" />
+                    <field name="attachment_exists" />
                     <field name="fault_count" />
                     <field name="comment" optional="show" widget="html" />
                     <field name="director_comment" optional="show" widget="html" />
