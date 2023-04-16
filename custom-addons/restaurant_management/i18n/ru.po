@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-09 19:00+0000\n"
-"PO-Revision-Date: 2023-04-09 19:00+0000\n"
+"POT-Creation-Date: 2023-04-16 20:46+0000\n"
+"PO-Revision-Date: 2023-04-16 20:46+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -2607,6 +2607,7 @@ msgid "Photo"
 msgstr "Фото"
 
 #. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__attachment_exists
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__attachment_ids
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_secret_guest_form_view
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form
