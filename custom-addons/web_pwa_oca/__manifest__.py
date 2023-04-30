@@ -15,7 +15,7 @@
     "license": "LGPL-3",
     "application": True,
     "installable": True,
-    "depends": ["web", "mail"],
+    "depends": ["web"],
     "data": ["templates/assets.xml", "views/res_config_settings_views.xml"],
     "assets": {
         "web.assets_backend": [
