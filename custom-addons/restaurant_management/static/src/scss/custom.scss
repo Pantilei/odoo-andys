@@ -1,24 +1,26 @@
-.category-check-list-tree {
-  & [data-name="info"] {
-    width: 40% !important;
+@media (min-width: 1024px) {
+  .category-check-list-tree {
+    & [data-name="info"] {
+      width: 40% !important;
+    }
+
+    & [data-name="description"] {
+      width: 40% !important;
+    }
   }
 
-  & [data-name="description"] {
-    width: 40% !important;
-  }
-}
-
-.audit-check-list-tree {
-  & [data-name="check_list_id"] {
-    width: 20% !important;
-  }
-  & [data-name="comment"] {
-    width: 25% !important;
-  }
-  & [data-name="director_comment"] {
-    width: 25% !important;
-  }
-  & [data-name="check_list_category_responsible_comment"] {
-    width: 25% !important;
+  .audit-check-list-tree {
+    & [data-name="check_list_id"] {
+      width: 20% !important;
+    }
+    & [data-name="comment"] {
+      width: 25% !important;
+    }
+    & [data-name="director_comment"] {
+      width: 25% !important;
+    }
+    & [data-name="check_list_category_responsible_comment"] {
+      width: 25% !important;
+    }
   }
 }
