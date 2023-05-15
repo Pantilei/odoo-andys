@@ -102,6 +102,13 @@
         groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_restaurant_director,restaurant_management.group_restaurant_management_dkk_manager"
         sequence="19" />
 
+    <menuitem id="departament_report_menu"
+        name="Departament Report"
+        parent="report_main_menu"
+        action="department_report_action"
+        groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_audit_controller,restaurant_management.group_restaurant_management_dkk_manager"
+        sequence="25" />
+
     <!-- <menuitem id="print_reports_menu" 
               name="Print Reports" 
               parent="report_main_menu" 

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="department_report_form_view_form" model="ir.ui.view">
+            <field name="name">department_report.view.form</field>
+            <field name="model">restaurant_management.department_report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="report-container">
+                        <div class="report-header">
+                            <div class="report-main-info">
+                                <h1>
+                                    Отчет по департаменту
+                                </h1>
+                                <div class="report-main-info__content">
+                                    <span class="report-main-info__department"> Департамет: <field
+                                            name="department_id"
+                                            options="{'no_create': True, 'no_open': True}" />
+                                    </span>
+                                    <span class="report-main-info__period"> Период: <field
+                                            name="report_month" /> <field
+                                            name="report_year" />
+                                    </span>
+                                    <span class="report-main-info__responsible"> Составил: <field
+                                            name="responsible_id"
+                                            options="{'no_create': True, 'no_open': True}" />
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="report-raiting">
+                                <div class="raiting__name">Позиция департамента в рейтинге компании</div>
+                                <div class="raiting__value">
+                                    <field name="department_rating" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="report-violations">
+                            <div class="report-section__header">
+                                <h2>Анализ нарушений по департаменту</h2>
+                            </div>
+                            <div class="report-violations__details">
+                                <div class="report-violations__total-faults">
+                                    <span>Кол-во нарушений</span>
+                                    <span>30</span>
+                                    <span>Это 6% из общего кол-ва нарушений по компании за месяц</span>
+                                </div>
+
+                                <div class="report-violations__relative-faults">
+                                    <span>Кол-во нарушений Ноябрь vs Октябрь</span>
+                                    <span>-6</span>
+                                    <field name="relative_fault_count_comment" />
+                                </div>
+
+                                <div class="report-violations__chart">
+                                    <field name="fault_count_chart" widget="plotly_chart"
+                                        nolabel="1" />
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="report-top-violations">
+                            <div class="report-section__header">
+                                <h2>Топ нарушений департамента</h2>
+                            </div>
+                            <div class="report-top-violations__chart">
+                                <field name="top_violations_chart" widget="plotly_chart"
+                                    nolabel="1" />
+                            </div>
+                        </div>
+
+                        <div class="report-rating-on-violations">
+
+                        </div>
+
+                        <div class="report-faults-taken-measures">
+
+                        </div>
+
+                        <div class="report-summary">
+
+                        </div>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="department_report_tree_view_form" model="ir.ui.view">
+            <field name="name">department_report.view.tree</field>
+            <field name="model">restaurant_management.department_report</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" />
+                    <field name="department_id" />
+                    <field name="report_year" />
+                    <field name="report_month" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="department_report_action" model="ir.actions.act_window">
+            <field name="name">Company Reports</field>
+            <field name="res_model">restaurant_management.department_report</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="target">current</field>
+        </record>
+
+    </data>
+</odoo>

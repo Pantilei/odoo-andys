@@ -15,7 +15,7 @@
     'version': '15.0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'web', 'muk_web_theme'],
+    'depends': ['base', 'web', 'muk_web_theme', 'web_widget_plotly_chart'],
 
     # always loaded
     'data': [
@@ -35,6 +35,8 @@
         'views/check_list_category_views.xml',
         'views/fault_registry_views.xml',
         'views/audit_distribution_views.xml',
+
+        'views/department_report.xml',
 
         'wizards/reports.xml',
         'wizards/departaments_reports.xml',
@@ -65,6 +67,7 @@
         'web._assets_primary_variables': [],
         'web.assets_backend': [
             'restaurant_management/static/src/scss/custom.scss',
+            'restaurant_management/static/src/scss/form-view-report-styles.scss',
 
             'restaurant_management/static/src/js/tree_view_renderer.js',
 
