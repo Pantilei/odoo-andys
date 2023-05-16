@@ -1,5 +1,6 @@
 import json
 from datetime import date
+from typing import cast
 
 import plotly
 import plotly.graph_objects as go
@@ -89,27 +90,121 @@ class DepartmentReport(models.Model):
         compute="_compute_top_violations_chart"
     )
 
-    @api.depends("report_year", "report_month", "department_id")
-    def _compute_top_violations_chart(self):
+    top_violations_data = fields.Text(
+        string="Top Violations",
+        compute="_compute_top_violations",
+        store=True
+    )
 
+    restaurant_rating_within_department_data = fields.Text(
+        compute="_compute_restaurant_rating_within_department",
+        store=True
+    )
+
+    @api.depends("report_year", "report_month", "department_id")
+    def _compute_restaurant_rating_within_department(self):
+        query = """
+            select 
+                coalesce(restaurant_rating.faults, 0) as faults,
+                restaurant_rating.restaurants as restaurants
+            from (
+                select 
+                    restaurant_name_to_fault_count.total_faults as faults,
+                    array_agg(restaurant_name_to_fault_count.restaurant_name) as restaurants 
+                from (
+                    select 
+                        rmr.name as restaurant_name,
+                        restaurant_to_fault_count.total_faults as total_faults
+                    from (
+                        SELECT 
+                            restaurant_id,
+                            SUM(fault_count) AS total_faults     
+                        FROM restaurant_management_fault_registry 
+                        WHERE
+                            state = 'confirm' and 
+                            fault_date >= %s and 
+                            fault_date <= %s and 
+                            check_list_category_id = %s
+                        GROUP BY restaurant_id 
+                    ) as restaurant_to_fault_count
+                    
+                    right join restaurant_management_restaurant rmr
+                    on restaurant_to_fault_count.restaurant_id = rmr.id
+                ) as restaurant_name_to_fault_count
+                group by total_faults
+            ) as restaurant_rating
+            order by faults asc;
+        """
+        for rec in self:
+            date_start = date(year=int(rec.report_year), month=int(rec.report_month), day=1)
+            date_end = date_start + relativedelta(months=1)
+            self.env.cr.execute(
+                query, 
+                [date_start.isoformat(), date_end.isoformat(), rec.department_id.id]
+            )
+            rec.restaurant_rating_within_department_data = json.dumps([{
+                    "faults": row[0],
+                    "restaurants": row[1],
+                } for row in self.env.cr.fetchall()
+            ])
+
+    @api.depends("report_year", "report_month", "department_id")
+    def _compute_top_violations(self):
+        query = """
+            select 
+                check_list_fault_count.check_list_id as id, 
+                rmcl.name as name,
+                check_list_fault_count.total_faults as total_faults
+            from (
+                SELECT 
+                    check_list_id,
+                    SUM(fault_count) AS total_faults     
+                FROM restaurant_management_fault_registry 
+                WHERE
+                    state = 'confirm' and 
+                    fault_date >= %s and 
+                    fault_date <= %s and 
+                    check_list_category_id = %s
+                GROUP BY check_list_id 
+            ) as check_list_fault_count
+
+            inner join restaurant_management_check_list rmcl 
+            on check_list_fault_count.check_list_id = rmcl.id
+            order by total_faults desc
+            limit 10;
+        """
+        for rec in self:
+            date_start = date(year=int(rec.report_year), month=int(rec.report_month), day=1)
+            date_end = date_start + relativedelta(months=1)
+            self.env.cr.execute(
+                query, 
+                [date_start.isoformat(), date_end.isoformat(), rec.department_id.id]
+            )
+            rec.top_violations_data = json.dumps([{
+                    "id": row[0],
+                    "name": row[1],
+                    "total_faults": row[2],
+                } for row in self.env.cr.fetchall()
+            ])
+
+    @api.depends("top_violations_data")
+    def _compute_top_violations_chart(self):
         for rec in self:
             # Define the data for the bar chart
-            data = [
-                {'category': 'Category A', 'value': 20},
-                {'category': 'Category B', 'value': 35},
-                {'category': 'Category C', 'value': 10},
-                {'category': 'Category D', 'value': 15},
-                {'category': 'Category E', 'value': 15},
-                {'category': 'Category F', 'value': 25},
-                {'category': 'Category G', 'value': 35},
-                {'category': 'Category K', 'value': 5},
-                {'category': 'Category L', 'value': 18},
-                {'category': 'Category M', 'value': 15},
-            ]
+            data = json.loads(rec.top_violations_data)
 
             # Extract the category names and values from the data
-            categories = [item['category'] for item in data]
-            values = [item['value'] for item in data]
+            max_len = max(len(item["name"]) for item in reversed(data))
+            step = round(max_len/2)
+            y = []
+            for item in reversed(data):
+                new_name = ""
+                for chunk in range(0, len(item["name"]), step):
+                    new_name += item["name"][chunk:chunk+step]
+                    new_name += "<br>"
+                y.append(new_name)
+
+            x = [item['total_faults'] for item in reversed(data)]
             layout = go.Layout(
                 # title='Double Line Chart',
                 xaxis=dict(
@@ -118,21 +213,27 @@ class DepartmentReport(models.Model):
                     showgrid=True,
                 ),
                 yaxis=dict(
-                    tickfont=dict(color='white'), 
+                    tickfont=dict(
+                        color='white',
+                        size=10,
+                    ), 
                     titlefont=dict(color='white'),
                 ),
                 autosize=True,
-                height=180,
+                height=350,
                 plot_bgcolor='rgba(0,0,0,0)',
                 paper_bgcolor='rgba(0,0,0,0)',
-                margin=dict(l=1, r=1, b=1, t=1, pad=1),
+                margin=dict(l=100, r=1, b=1, t=1, pad=1),
             )
 
             # Create the bar chart using plotly
             fig = go.Figure(data=go.Bar(
-                x=values,  # Use values as the x-axis values
-                y=categories,  # Use categories as the y-axis values
-                orientation='h'  # Set the orientation to horizontal
+                x=x,  # Use values as the x-axis values
+                y=y,  # Use categories as the y-axis values
+                orientation='h',  # Set the orientation to horizontal
+                marker={"color": ["#71EDF1" for _ in y]},
+                # texttemplate='%{y}',  # Use %{y} to display the category names as labels
+                # textposition='auto'  # Set the position of the labels
             ), layout=layout)
 
             config = {'displayModeBar': False}

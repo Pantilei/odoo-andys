@@ -71,7 +71,13 @@
                         </div>
 
                         <div class="report-rating-on-violations">
-
+                            <div class="report-section__header">
+                                <h2>Рейтинг ресторанов по нарушениям департамента</h2>
+                            </div>
+                            <div class="report-top-violations__chart">
+                                <field name="restaurant_rating_within_department_data"
+                                    nolabel="1" />
+                            </div>
                         </div>
 
                         <div class="report-faults-taken-measures">
