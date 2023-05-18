@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+
+    <t t-name="TopViolationsList" owl="1">
+        <div class="d-flex flex-column w-100" style="border: 2px solid white; color: white;">
+            <t t-foreach="state.fieldValue" t-as="row" t-key="row['id']">
+                <div class="d-flex flex-row mb-3">
+                    <div style="text-align: center; width: 5%; margin-right: 2px;">
+                        <t t-esc="row_index + 1" />
+                    </div>
+                    <div style="width: 90%;">
+                        <t t-esc="row['name']" />
+                    </div>
+                </div>
+            </t>
+        </div>
+    </t>
+
+</templates>

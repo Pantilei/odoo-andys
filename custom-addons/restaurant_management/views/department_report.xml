@@ -39,7 +39,7 @@
                             <div class="report-section__header">
                                 <h2>Анализ нарушений по департаменту</h2>
                             </div>
-                            <div class="report-violations__details">
+                            <div class="report-violations__content">
                                 <div class="report-violations__total-faults">
                                     <span>Кол-во нарушений</span>
                                     <span>30</span>
@@ -70,22 +70,59 @@
                             </div>
                         </div>
 
-                        <div class="report-rating-on-violations">
+                        <div class="report-restaurant-rating">
                             <div class="report-section__header">
                                 <h2>Рейтинг ресторанов по нарушениям департамента</h2>
                             </div>
-                            <div class="report-top-violations__chart">
-                                <field name="restaurant_rating_within_department_data"
-                                    nolabel="1" />
+                            <div class="report-restaurant-rating__content">
+                                <div class="report-restaurant-rating__table">
+                                    <field name="restaurant_rating_within_department_data"
+                                        nolabel="1" widget="restaurant_rating_table_widget" />
+                                </div>
+
+                                <div class="report-restaurant-rating__mean-faults-per-restaurant">
+                                    <span>Среднее кол-во нарушений на один ресторан</span>
+                                    <span>3,14</span>
+                                </div>
+
+                                <div class="report-restaurant-rating__mean-faults-per-audit">
+                                    <span>Среднее кол-во нарушений за одну проверку</span>
+                                    <span>1,57</span>
+                                </div>
+
                             </div>
                         </div>
 
                         <div class="report-faults-taken-measures">
 
+                            <div class="report-faults-taken-measures__header">
+                                <div class="report-section__header">
+                                    <h2>Ошибки</h2>
+                                </div>
+                                <div class="report-section__header">
+                                    <h2>Предпринятые меры</h2>
+                                </div>
+                            </div>
+
+                            <div class="report-faults-taken-measures__content">
+                                <div class="report-faults-taken-measures__faults">
+                                    <field name="top_violations_data"
+                                        widget="top_violations_list_widget" />
+                                </div>
+                                <div class="report-faults-taken-measures__measures">
+                                    <field name="taken_measures" />
+                                </div>
+                            </div>
+
                         </div>
 
                         <div class="report-summary">
-
+                            <div class="report-section__header">
+                                <h2>Выводы</h2>
+                            </div>
+                            <div class="report-summary__content">
+                                <field name="summary" />
+                            </div>
                         </div>
                     </div>
                 </form>

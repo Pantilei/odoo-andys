@@ -101,6 +101,11 @@ class DepartmentReport(models.Model):
         store=True
     )
 
+
+
+    taken_measures = fields.Text(string="Taken Measures")
+    summary = fields.Text(string="Summary")
+
     @api.depends("report_year", "report_month", "department_id")
     def _compute_restaurant_rating_within_department(self):
         query = """

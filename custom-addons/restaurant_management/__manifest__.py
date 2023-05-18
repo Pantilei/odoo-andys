@@ -93,6 +93,8 @@
             'restaurant_management/static/src/js/json_to_restaurant_rating_widget.js',
             'restaurant_management/static/src/js/json_to_audit_tables.js',
             'restaurant_management/static/src/js/json_to_pie_chart_widget.js',
+            'restaurant_management/static/src/js/restaurant_rating_table_widget.js',
+            'restaurant_management/static/src/js/top_violations_list_widget.js',
 
         ],
         'web.assets_frontend': [],
@@ -111,6 +113,8 @@
             'restaurant_management/static/src/xml/json_to_restaurant_rating_widget.xml',
             'restaurant_management/static/src/xml/json_to_audit_tables.xml',
             'restaurant_management/static/src/xml/json_to_pie_chart_widget.xml',
+            'restaurant_management/static/src/xml/restaurant_rating_table_widget.xml',
+            'restaurant_management/static/src/xml/top_violations_list_widget.xml',
         ],
 
         'restaurant_management.secret_guest_audit': [

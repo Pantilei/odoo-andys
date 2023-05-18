@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+
+    <t t-name="RestaurantRatingTable" owl="1">
+        <div class="d-flex flex-column w-100" style="border: 2px solid white; color: white;">
+            <div class="d-flex flex-row justify-content-between">
+                <div class="w-25"
+                    style="
+                    text-align: center; 
+                    color: black; 
+                    background-color: #E6E6E6; 
+                    border: 1px solid white;"
+                >
+                    Место в рейтинге деп-та
+                </div>
+                <div class="w-75"
+                    style="
+                    text-align: center; 
+                    color: black; 
+                    background-color: #E6E6E6; 
+                    border: 1px solid white;">
+                    Ресторан
+                </div>
+            </div>
+            <t t-foreach="state.fieldValue" t-as="row" t-key="row['faults']">
+                <div class="d-flex flex-row justify-content-between">
+                    <div class="w-25" style="text-align: center;">
+                        <t t-esc="row['faults']" />
+                    </div>
+                    <div class="w-75" style="border-left: 2px solid white;">
+                        <t t-esc="row['restaurants']" />
+                    </div>
+                </div>
+            </t>
+        </div>
+    </t>
+
+</templates>
