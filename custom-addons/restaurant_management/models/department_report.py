@@ -57,6 +57,12 @@ class DepartmentReport(models.Model):
             (date.today() + relativedelta(months=-1)).month),
     )
 
+    report_previous_month = fields.Selection(
+        selection=MONTHS,
+        string="Report Previous Month",
+        compute="_compute_report_previous_month",
+    )
+
     responsible_id = fields.Many2one(
         comodel_name="res.users",
         default=lambda self: self.env.user.id,
@@ -73,6 +79,23 @@ class DepartmentReport(models.Model):
     )
 
     relative_fault_count_comment = fields.Text()
+
+    fault_count = fields.Integer(
+        compute="_compute_fault_count",
+        string="Fault Count",
+        store=True
+    )
+
+    fault_count_percentage = fields.Float(
+        compute="_compute_fault_count",
+        string="Fault Count Percentage",
+        store=True
+    )
+
+    relative_by_month_fault_count = fields.Integer(
+        compute="_compute_relative_by_month_fault_count",
+        store=True
+    )
 
     fault_count_chart = fields.Text(
         string='Plotly Chart',
@@ -101,10 +124,48 @@ class DepartmentReport(models.Model):
         store=True
     )
 
-
-
     taken_measures = fields.Text(string="Taken Measures")
     summary = fields.Text(string="Summary")
+
+    @api.depends("report_month")
+    def _compute_report_previous_month(self):
+        for record in self:
+            index = 0
+            for month in MONTHS:
+                if month[0] == record.report_month:
+                    break
+                index += 1
+            record.report_previous_month = MONTHS[index-1][0]
+
+    @api.depends("report_year", "report_month", "department_id")
+    def _compute_relative_by_month_fault_count(self):
+        for record in self:
+            record.relative_by_month_fault_count = 99
+
+    @api.depends("report_year", "report_month", "department_id")
+    def _compute_fault_count(self):
+        query = """
+            select 
+                check_list_category_id, 
+                sum(fault_count) as faults_count
+            from restaurant_management_fault_registry 
+            where 
+                state = 'confirm' and
+                fault_date >= %s and
+                fault_date <= %s
+            group by check_list_category_id;
+        """
+        for record in self:
+            date_start = date(year=int(record.report_year), month=int(record.report_month), day=1)
+            date_end = date_start + relativedelta(months=1)
+            self.env.cr.execute(
+                query, 
+                [date_start.isoformat(), date_end.isoformat()]
+            )
+            result = self.env.cr.fetchall()
+            department_fault_count = [res[1] for res in result if int(res[0]) == record.department_id.id]
+            record.fault_count = department_fault_count[0] if department_fault_count else 0
+            record.fault_count_percentage = round((record.fault_count/(sum(r[1] for r in result) or 1))*100, 2)
 
     @api.depends("report_year", "report_month", "department_id")
     def _compute_restaurant_rating_within_department(self):
@@ -199,7 +260,7 @@ class DepartmentReport(models.Model):
             data = json.loads(rec.top_violations_data)
 
             # Extract the category names and values from the data
-            max_len = max(len(item["name"]) for item in reversed(data))
+            max_len = max(len(item["name"]) for item in reversed(data)) if data else 10
             step = round(max_len/2)
             y = []
             for item in reversed(data):
