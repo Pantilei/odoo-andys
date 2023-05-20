@@ -18,7 +18,7 @@
     'assets': {
         'web._assets_primary_variables': [],
         'web.assets_backend': [
-            'web_widget_plotly_chart/static/src/lib/plotly/plotly-2.20.0.min.js',
+            'web_widget_plotly_chart/static/src/libraries/plotly/plotly-2.20.0.min.js',
             'web_widget_plotly_chart/static/src/js/widget_plotly.js',
         ],
         'web.assets_frontend': [],
