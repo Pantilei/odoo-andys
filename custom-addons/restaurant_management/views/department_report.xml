@@ -42,9 +42,7 @@
                             <div class="report-violations__content">
                                 <div class="report-violations__total-faults">
                                     <span>Кол-во нарушений</span>
-                                    <span>
-                                        <field name="fault_count" />
-                                    </span>
+                                    <field name="fault_count" />
                                     <span>Это <field name="fault_count_percentage" />% из общего
                                         кол-ва нарушений по компании за месяц</span>
                                 </div>
@@ -53,7 +51,7 @@
                                     <span>Кол-во нарушений <field name="report_previous_month"
                                             readonly="1" /> vs <field name="report_month"
                                             readonly="1" /></span>
-                                    <span>-6</span>
+                                    <field name="relative_by_month_fault_count" />
                                     <field name="relative_fault_count_comment" />
                                 </div>
 
@@ -69,9 +67,11 @@
                             <div class="report-section__header">
                                 <h2>Топ нарушений департамента</h2>
                             </div>
-                            <div class="report-top-violations__chart">
-                                <field name="top_violations_chart" widget="plotly_chart"
-                                    nolabel="1" />
+                            <div class="report-top-violations__chart_container">
+                                <div class="report-top-violations__chart">
+                                    <field name="top_violations_chart" widget="plotly_chart"
+                                        nolabel="1" />
+                                </div>
                             </div>
                         </div>
 
@@ -87,12 +87,12 @@
 
                                 <div class="report-restaurant-rating__mean-faults-per-restaurant">
                                     <span>Среднее кол-во нарушений на один ресторан</span>
-                                    <span>3,14</span>
+                                    <field name="mean_fault_count_per_restaurant" />
                                 </div>
 
                                 <div class="report-restaurant-rating__mean-faults-per-audit">
                                     <span>Среднее кол-во нарушений за одну проверку</span>
-                                    <span>1,57</span>
+                                    <field name="mean_fault_count_per_audit" />
                                 </div>
 
                             </div>
@@ -100,19 +100,19 @@
 
                         <div class="report-faults-taken-measures">
 
-                            <div class="report-faults-taken-measures__header">
+                            <div class="report-faults-taken-measures__content_left">
                                 <div class="report-section__header">
                                     <h2>Ошибки</h2>
                                 </div>
-                                <div class="report-section__header">
-                                    <h2>Предпринятые меры</h2>
-                                </div>
-                            </div>
-
-                            <div class="report-faults-taken-measures__content">
                                 <div class="report-faults-taken-measures__faults">
                                     <field name="top_violations_data"
                                         widget="top_violations_list_widget" />
+                                </div>
+                            </div>
+
+                            <div class="report-faults-taken-measures__content_right">
+                                <div class="report-section__header">
+                                    <h2>Предпринятые меры</h2>
                                 </div>
                                 <div class="report-faults-taken-measures__measures">
                                     <field name="taken_measures" />

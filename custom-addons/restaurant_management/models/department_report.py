@@ -1,8 +1,7 @@
 import json
+from calendar import monthrange
 from datetime import date
-from typing import cast
 
-import plotly
 import plotly.graph_objects as go
 from dateutil.relativedelta import relativedelta
 
@@ -22,6 +21,15 @@ MONTHS = [
     ("11", _("Nov")),
     ("12", _("Dec")),
 ]
+
+
+def _compute_date_start_end(report_year, report_month):
+    year=int(report_year)
+    month=int(report_month)
+    date_start = date(year=year, month=month, day=1)
+    date_end = date(year=year, month=month, day=monthrange(year, month)[1])
+
+    return date_start, date_end
 
 class DepartmentReport(models.Model):
     _name = "restaurant_management.department_report"
@@ -124,6 +132,15 @@ class DepartmentReport(models.Model):
         store=True
     )
 
+    mean_fault_count_per_restaurant = fields.Float(
+        compute="_compute_mean_fault_count",
+        store=True
+    )
+    mean_fault_count_per_audit = fields.Float(
+        compute="_compute_mean_fault_count",
+        store=True
+    )
+
     taken_measures = fields.Text(string="Taken Measures")
     summary = fields.Text(string="Summary")
 
@@ -138,9 +155,49 @@ class DepartmentReport(models.Model):
             record.report_previous_month = MONTHS[index-1][0]
 
     @api.depends("report_year", "report_month", "department_id")
-    def _compute_relative_by_month_fault_count(self):
+    def _compute_mean_fault_count(self):
         for record in self:
-            record.relative_by_month_fault_count = 99
+            date_start, date_end = _compute_date_start_end(record.report_year, record.report_month)
+            restaurant_count = self.env["restaurant_management.restaurant"].search_count([])
+            audit_count = self.env["restaurant_management.restaurant_audit"].search_count([
+                ("audit_date", ">=", date_start),
+                ("audit_date", "<=", date_end),
+            ])
+            record.mean_fault_count_per_restaurant = round(record.fault_count/restaurant_count, 2)
+            record.mean_fault_count_per_audit = round(record.fault_count/audit_count, 2)
+
+    @api.depends("report_year", "report_month", "department_id")
+    def _compute_relative_by_month_fault_count(self):
+        query = """
+            select 
+                faults_by_month_table.faults_count - lag(faults_by_month_table.faults_count) 
+                over 
+                (order by faults_by_month_table.fault_month) as fault_change
+            from 
+            (
+                select 
+                    date_trunc('month', fault_date) as fault_month, 
+                    sum(fault_count) as faults_count
+                from restaurant_management_fault_registry 
+                where 
+                    state = 'confirm' and
+                    fault_date >= %s and
+                    fault_date <= %s and 
+                    check_list_category_id = %s
+                group by fault_month
+            ) as faults_by_month_table
+            order by fault_change
+            limit 1;
+        """
+        for record in self:
+            date_end = date(
+                year=int(record.report_year), 
+                month=int(record.report_month),
+                day=monthrange(int(record.report_year), int(record.report_month))[1]
+            )
+            date_start = (date_end - relativedelta(days=45)).replace(day=1)
+            self.env.cr.execute(query, [date_start.isoformat(), date_end.isoformat(), record.department_id.id])
+            record.relative_by_month_fault_count = self.env.cr.fetchall()[0][0]
 
     @api.depends("report_year", "report_month", "department_id")
     def _compute_fault_count(self):

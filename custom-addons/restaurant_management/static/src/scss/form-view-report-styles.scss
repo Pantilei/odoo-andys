@@ -113,10 +113,6 @@
           &:nth-child(2) {
             font-size: 48px;
             color: var(--secondary-text-color);
-            span {
-              font-size: inherit;
-              text-decoration: none;
-            }
           }
 
           &:nth-child(3) {
@@ -167,11 +163,15 @@
   }
 
   & .report-top-violations {
-    & .report-top-violations__chart {
-      width: 100%;
-      border: 2px solid white;
-      border-radius: 3px;
-      padding: 3px;
+    & .report-top-violations__chart_container {
+      overflow-x: auto;
+
+      & .report-top-violations__chart {
+        min-width: 1180px;
+        border: 2px solid white;
+        border-radius: 3px;
+        padding: 3px;
+      }
     }
   }
 
@@ -242,36 +242,34 @@
   }
 
   & .report-faults-taken-measures {
-    & .report-faults-taken-measures__header {
-      display: flex;
-      justify-content: space-between;
-      gap: 3px;
-
-      & .report-section__header {
-        width: 50%;
-      }
-    }
-
-    & .report-faults-taken-measures__content {
-      display: flex;
-      justify-content: space-between;
-      gap: 3px;
+    display: flex;
+    justify-content: space-between;
+    gap: 3px;
+    & .report-faults-taken-measures__content_left {
+      width: 50%;
+      flex: 1;
 
       & .report-faults-taken-measures__faults {
-        width: 50%;
         min-height: 200px;
+        height: calc(100% - 40px);
         border: 2px solid white;
         border-radius: 3px;
       }
+    }
+
+    & .report-faults-taken-measures__content_right {
+      width: 50%;
+      flex: 1;
 
       & .report-faults-taken-measures__measures {
         display: flex;
         justify-content: center;
-        width: 50%;
         min-height: 200px;
+        height: calc(100% - 40px);
         border: 2px solid white;
         border-radius: 3px;
         color: white;
+        padding: 3px;
 
         & textarea {
           color: black;

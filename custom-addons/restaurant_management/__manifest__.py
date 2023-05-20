@@ -68,6 +68,7 @@
         'web.assets_backend': [
             'restaurant_management/static/src/scss/custom.scss',
             'restaurant_management/static/src/scss/form-view-report-styles.scss',
+            'restaurant_management/static/src/scss/form-view-report-styles-mobile.scss',
 
             'restaurant_management/static/src/js/tree_view_renderer.js',
 
