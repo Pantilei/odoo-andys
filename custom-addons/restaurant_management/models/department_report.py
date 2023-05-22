@@ -230,9 +230,8 @@ class DepartmentReport(models.Model):
                 record.fault_count = 0
                 record.fault_count_percentage = 0
                 continue
-
-            date_start = date(year=int(record.report_year), month=int(record.report_month), day=1)
-            date_end = date_start + relativedelta(months=1)
+            
+            date_start, date_end = _compute_date_start_end(record.report_year, record.report_month)
             self.env.cr.execute(
                 query, 
                 [date_start.isoformat(), date_end.isoformat()]
@@ -284,8 +283,7 @@ class DepartmentReport(models.Model):
                 }])
                 continue
 
-            date_start = date(year=int(rec.report_year), month=int(rec.report_month), day=1)
-            date_end = date_start + relativedelta(months=1)
+            date_start, date_end = _compute_date_start_end(rec.report_year, rec.report_month)
             self.env.cr.execute(
                 query, 
                 [date_start.isoformat(), date_end.isoformat(), rec.department_id.id]
@@ -329,8 +327,8 @@ class DepartmentReport(models.Model):
                     "total_faults": 0,
                 }])
                 continue
-            date_start = date(year=int(rec.report_year), month=int(rec.report_month), day=1)
-            date_end = date_start + relativedelta(months=1)
+
+            date_start, date_end = _compute_date_start_end(rec.report_year, rec.report_month)
             self.env.cr.execute(
                 query, 
                 [date_start.isoformat(), date_end.isoformat(), rec.department_id.id]
@@ -556,10 +554,9 @@ class DepartmentReport(models.Model):
             if not record.report_month or not record.report_year or not record.department_id:
                 record.department_rating = 0
                 continue
-
-            fault_date_start = date(year=int(record.report_year), month=int(record.report_month), day=1)
-            fault_date_end = fault_date_start + relativedelta(months=1)
-            self.env.cr.execute(query, [fault_date_start.isoformat(), fault_date_end.isoformat()])
+            
+            date_start, date_end = _compute_date_start_end(record.report_year, record.report_month)
+            self.env.cr.execute(query, [date_start.isoformat(), date_end.isoformat()])
             rating = 1
             data = self.env.cr.fetchall()
             record.department_rating = f"{rating}/{len(data)}"
