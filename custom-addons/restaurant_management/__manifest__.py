@@ -37,6 +37,7 @@
         'views/audit_distribution_views.xml',
 
         'views/department_report.xml',
+        'views/restaurant_report.xml',
 
         'wizards/reports.xml',
         'wizards/departaments_reports.xml',

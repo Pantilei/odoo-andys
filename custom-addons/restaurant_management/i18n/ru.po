@@ -1325,7 +1325,7 @@ msgstr "Проверки Видео Наблюдения"
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__responsible_id
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__responsible_id
 msgid "Auditer"
-msgstr "Аудитер"
+msgstr "Аудитор"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_audit_reports__audits_table_json

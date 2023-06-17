@@ -65,7 +65,7 @@
                                 <sheet>
                                     <group>
                                         <field name="check_list_category_id"
-                                            domain="[('check_list_type_id', '=', parent.check_list_type_id)]"    
+                                            domain="[('check_list_type_id', '=', parent.check_list_type_id)]"
                                             widget="selection" />
                                         <field name="check_list_id" widget="selection"
                                             domain="[('category_id', '=', check_list_category_id)]"
@@ -153,7 +153,7 @@
                             <sheet>
                                 <group>
                                     <field name="check_list_category_id" widget="selection"
-                                        domain="[('check_list_type_id', '=', parent.check_list_type_id)]" 
+                                        domain="[('check_list_type_id', '=', parent.check_list_type_id)]"
                                         readonly="1" />
                                     <field name="check_list_id" widget="selection" readonly="1"
                                         domain="[('category_id', '=', check_list_category_id)]" />
@@ -220,8 +220,8 @@
                             <field name="responsible_id" invisible="1" />
                             <field name="restaurant_id" invisible="1" />
                             <field name="check_check_list_identificator" optional="show" />
-                            <field name="check_list_category_id" 
-                                domain="[('check_list_type_id', '=', parent.check_list_type_id)]" 
+                            <field name="check_list_category_id"
+                                domain="[('check_list_type_id', '=', parent.check_list_type_id)]"
                                 readonly="1" optional="hide" />
                             <field name="check_list_id"
                                 domain="[('category_id', '=', check_list_category_id)]" readonly="1"
@@ -241,8 +241,8 @@
                             </header>
                             <sheet>
                                 <group>
-                                    <field name="check_list_category_id" 
-                                        domain="[('check_list_type_id', '=', parent.check_list_type_id)]" 
+                                    <field name="check_list_category_id"
+                                        domain="[('check_list_type_id', '=', parent.check_list_type_id)]"
                                         widget="selection"
                                         readonly="1" />
                                     <field name="check_list_id" widget="selection" readonly="1"
@@ -309,8 +309,8 @@
                             <field name="responsible_id" invisible="1" />
                             <field name="restaurant_id" invisible="1" />
                             <field name="check_check_list_identificator" optional="show" />
-                            <field name="check_list_category_id" 
-                                domain="[('check_list_type_id', '=', parent.check_list_type_id)]" 
+                            <field name="check_list_category_id"
+                                domain="[('check_list_type_id', '=', parent.check_list_type_id)]"
                                 readonly="1" optional="hide" />
                             <field name="check_list_id"
                                 domain="[('category_id', '=', check_list_category_id)]" readonly="1"
@@ -336,7 +336,7 @@
                                 <group>
                                     <field name="check_list_category_id"
                                         widget="selection"
-                                        domain="[('check_list_type_id', '=', parent.check_list_type_id)]" 
+                                        domain="[('check_list_type_id', '=', parent.check_list_type_id)]"
                                         readonly="1" />
                                     <field name="check_list_id" widget="selection" readonly="1"
                                         domain="[('category_id', '=', check_list_category_id)]" />
@@ -408,7 +408,7 @@
                             <field name="restaurant_id" invisible="1" />
                             <field name="check_check_list_identificator" optional="show" />
                             <field name="check_list_category_id"
-                                domain="[('check_list_type_id', '=', parent.check_list_type_id)]"     
+                                domain="[('check_list_type_id', '=', parent.check_list_type_id)]"
                                 readonly="1" force_save="1"
                                 optional="hide" />
                             <field name="check_list_id"
@@ -483,30 +483,6 @@
                     <field name="audit_start_time" widget="float_time" />
                     <field name="audit_end_time" widget="float_time" />
                 </tree>
-            </field>
-        </record>
-
-        <record id="restaurant_audit_video_surveillance_search" model="ir.ui.view">
-            <field name="name">restaurant_audit_video_surveillance.view.search</field>
-            <field name="model">restaurant_management.restaurant_audit</field>
-            <field name="arch" type="xml">
-                <search string="Restaurant Audit">
-                    <field name="restaurant_id" filter_domain="[('restaurant_id', '=ilike', self)]" />
-                    <field name="restaurant_network_id"
-                        filter_domain="[('restaurant_network_id', '=ilike', self)]" />
-                    <field name="responsible_id" />
-
-                    <group expand="0" string="Group By">
-                        <filter string="Restaurant" name="group_by_restaurant_id"
-                            context="{'group_by': 'restaurant_id'}" domain="[]" />
-                        <filter string="Restaurant Network" name="group_by_restaurant_network_id"
-                            context="{'group_by': 'restaurant_network_id'}" domain="[]" />
-                        <filter string="Responsible" name="group_by_responsible_id"
-                            context="{'group_by': 'responsible_id'}" domain="[]" />
-                        <filter string="Audit Date" name="group_by_audit_date"
-                            context="{'group_by': 'audit_date:month'}" domain="[]" />
-                    </group>
-                </search>
             </field>
         </record>
 

@@ -15,6 +15,24 @@ from odoo.osv import expression
 _logger = logging.getLogger(__name__)
 
 
+WEEKDAYS = [
+    ("0", "Monday"),
+    ("1", "Tuesday"),
+    ("2", "Wednesday"),
+    ("3", "Thursday"),
+    ("4", "Friday"),
+    ("5", "Saturday"),
+    ("6", "Sunday"),
+]
+
+DAY_TIME = [
+    ("morning", "Morning"),
+    ("day", "Day"),
+    ("evening", "Evening"),
+]
+
+
+
 class RestaurantAudit(models.Model):
     _name = 'restaurant_management.restaurant_audit'
     _description = 'Restaurant Audit'
@@ -85,6 +103,20 @@ class RestaurantAudit(models.Model):
         group_operator=False
     )
 
+    audit_week_day = fields.Selection(
+        selection=WEEKDAYS,
+        string="Week Day",
+        compute="_compute_week_day",
+        store=True
+    )
+
+    day_time = fields.Selection(
+        selection=DAY_TIME,
+        string="Day Time",
+        compute="_compute_day_time",
+        store=True
+    )
+
     fault_registry_ids = fields.One2many(
         comodel_name="restaurant_management.fault_registry",
         inverse_name="restaurant_audit_id"
@@ -121,6 +153,27 @@ class RestaurantAudit(models.Model):
     general_comment = fields.Text(
         string="General Comment"
     )
+
+    @api.depends("audit_date")
+    def _compute_week_day(self):
+        for record in self:
+            record.audit_week_day = record.audit_date and str(record.audit_date.weekday())
+
+    @api.depends("audit_start_time")
+    def _compute_day_time(self):
+        for record in self:
+            try:
+                hours = int(record.audit_start_time)
+                if 0 <= hours <= 11:
+                    record.day_time = "morning"
+                elif 12 <= hours <= 16:
+                    record.day_time = "day"
+                elif 17 <= hours <= 23:
+                    record.day_time = "evening"
+                else:
+                    record.day_time = False
+            except (ValueError, AttributeError):
+                record.day_time = False
 
     @api.depends("create_date")
     def _compute_available_for_edit(self):

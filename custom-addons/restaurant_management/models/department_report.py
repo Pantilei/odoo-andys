@@ -1,11 +1,14 @@
 import json
 from calendar import monthrange
-from datetime import date
+from datetime import date, timedelta
 
 import plotly.graph_objects as go
 from dateutil.relativedelta import relativedelta
 
 from odoo import _, api, fields, models
+
+from . import queries
+from .chart_builder import ChartBuilder
 
 MONTHS = [
     ("1", _("Jan")),
@@ -53,6 +56,12 @@ class DepartmentReport(models.Model):
         domain=[("no_fault_category", "=", False), ("default_category", "=", True)]
     )
 
+    restaurant_network_ids = fields.Many2many(
+        comodel_name="restaurant_management.restaurant_network",
+        relation='restaurant_management_dep_report_res_network_rel',
+        string="Restaurant Networks"
+    )
+
     report_year = fields.Selection(
         selection=[(str(year), str(year)) for year in range(1999, 2049)],
         string="Year of Report",
@@ -61,14 +70,13 @@ class DepartmentReport(models.Model):
     report_month = fields.Selection(
         string="Report Month",
         selection=MONTHS,
-        default=lambda self: str(
-            (date.today() + relativedelta(months=-1)).month),
+        default=lambda self: str((date.today() + relativedelta(months=-1)).month),
     )
 
     report_previous_month = fields.Selection(
         selection=MONTHS,
         string="Report Previous Month",
-        compute="_compute_report_previous_month",
+        readonly=True
     )
 
     responsible_id = fields.Many2one(
@@ -77,275 +85,237 @@ class DepartmentReport(models.Model):
         string="Responsible"
     )
 
-    total_departments_count = fields.Integer(
-        compute="_compute_total_departments_count",
-        store=True
-    )
+    department_rating = fields.Char(readonly=True)
+    relative_fault_count_comment = fields.Text(readonly=True)
 
-    department_rating = fields.Char(
-        compute="_compute_department_rating"
-    )
+    fault_count = fields.Integer(string="Fault Count", readonly=True)
+    fault_count_percentage = fields.Float(string="Fault Count Percentage", readonly=True)
+    relative_by_month_fault_count = fields.Integer(readonly=True)
 
-    relative_fault_count_comment = fields.Text()
-
-    fault_count = fields.Integer(
-        compute="_compute_fault_count",
-        string="Fault Count",
-        store=True
-    )
-
-    fault_count_percentage = fields.Float(
-        compute="_compute_fault_count",
-        string="Fault Count Percentage",
-        store=True
-    )
-
-    relative_by_month_fault_count = fields.Integer(
-        compute="_compute_relative_by_month_fault_count",
-        store=True
-    )
-
+    fault_count_chart_data = fields.Text(string="Chart Data", readonly=True)
     fault_count_chart = fields.Text(
-        string='Plotly Chart',
+        string='Fault Count Chart',
         compute='_compute_fault_count_chart',
+        readonly=True
     )
 
-    fault_count_chart_data = fields.Text(
-        string="Chart Data",
-        compute="_compute_faults_by_months",
-        store=True
-    )
-
+    top_violations_data = fields.Text(string="Top Violations", readonly=True)
     top_violations_chart = fields.Text(
         string="Top Violations Chart",
-        compute="_compute_top_violations_chart"
+        compute="_compute_top_violations_chart",
+        readonly=True
     )
 
-    top_violations_data = fields.Text(
-        string="Top Violations",
-        compute="_compute_top_violations",
-        store=True
-    )
-
-    restaurant_rating_within_department_data = fields.Text(
-        compute="_compute_restaurant_rating_within_department",
-        store=True
-    )
-
-    mean_fault_count_per_restaurant = fields.Float(
-        compute="_compute_mean_fault_count",
-        store=True
-    )
-    mean_fault_count_per_audit = fields.Float(
-        compute="_compute_mean_fault_count",
-        store=True
-    )
+    restaurant_rating_within_department_data = fields.Text(readonly=True)
+    mean_fault_count_per_restaurant = fields.Float(readonly=True)
+    mean_fault_count_per_audit = fields.Float(readonly=True)
 
     taken_measures = fields.Text(string="Taken Measures")
     summary = fields.Text(string="Summary")
 
-    @api.depends("report_month")
-    def _compute_report_previous_month(self):
-        for record in self:
-            if not record.report_month or not record.report_year or not record.department_id:
-                record.report_previous_month = MONTHS[0][0]
-                continue
-            index = 0
-            for month in MONTHS:
-                if month[0] == record.report_month:
-                    break
-                index += 1
-            record.report_previous_month = MONTHS[index-1][0]
 
-    @api.depends("report_year", "report_month", "department_id")
-    def _compute_mean_fault_count(self):
-        for record in self:
-            if not record.report_month or not record.report_year or not record.department_id:
-                record.mean_fault_count_per_restaurant = 0
-                record.mean_fault_count_per_audit = 0
-                continue
-
-            date_start, date_end = _compute_date_start_end(record.report_year, record.report_month)
-            restaurant_count = self.env["restaurant_management.restaurant"].search_count([])
-            audit_count = self.env["restaurant_management.restaurant_audit"].search_count([
-                ("audit_date", ">=", date_start),
-                ("audit_date", "<=", date_end),
-            ])
-            record.mean_fault_count_per_restaurant = round(record.fault_count/restaurant_count, 2) if restaurant_count else 0
-            record.mean_fault_count_per_audit = round(record.fault_count/audit_count, 2) if audit_count else 0
-
-    @api.depends("report_year", "report_month", "department_id")
-    def _compute_relative_by_month_fault_count(self):
-        query = """
-            select 
-                faults_by_month_table.faults_count - lag(faults_by_month_table.faults_count) 
-                over 
-                (order by faults_by_month_table.fault_month) as fault_change
-            from 
-            (
-                select 
-                    date_trunc('month', fault_date) as fault_month, 
-                    sum(fault_count) as faults_count
-                from restaurant_management_fault_registry 
-                where 
-                    state = 'confirm' and
-                    fault_date >= %s and
-                    fault_date <= %s and 
-                    check_list_category_id = %s
-                group by fault_month
-            ) as faults_by_month_table
-            order by fault_change
-            limit 1;
-        """
-        for record in self:
-            if not record.report_month or not record.report_year or not record.department_id:
-                record.relative_by_month_fault_count = 0
-                continue
-
-            date_end = date(
-                year=int(record.report_year), 
-                month=int(record.report_month),
-                day=monthrange(int(record.report_year), int(record.report_month))[1]
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            print("Create Vals: ", vals)
+            computed_values = self._get_computed_fields(
+                vals["report_month"], 
+                vals["report_year"], 
+                vals["department_id"],
+                vals["restaurant_network_ids"][0][2],
             )
-            date_start = (date_end - relativedelta(days=45)).replace(day=1)
-            self.env.cr.execute(query, [date_start.isoformat(), date_end.isoformat(), record.department_id.id])
-            data = self.env.cr.fetchall()
-            record.relative_by_month_fault_count = data[0][0] if data else 0
+            vals.update(computed_values)
+        return super(DepartmentReport, self).create(vals_list)
 
-    @api.depends("report_year", "report_month", "department_id")
-    def _compute_fault_count(self):
-        query = """
-            select 
-                check_list_category_id, 
-                sum(fault_count) as faults_count
-            from restaurant_management_fault_registry 
-            where 
-                state = 'confirm' and
-                fault_date >= %s and
-                fault_date <= %s
-            group by check_list_category_id;
-        """
-        for record in self:
-            if not record.report_month or not record.report_year or not record.department_id:
-                record.fault_count = 0
-                record.fault_count_percentage = 0
-                continue
-            
-            date_start, date_end = _compute_date_start_end(record.report_year, record.report_month)
-            self.env.cr.execute(
-                query, 
-                [date_start.isoformat(), date_end.isoformat()]
-            )
-            result = self.env.cr.fetchall()
-            department_fault_count = [res[1] for res in result if int(res[0]) == record.department_id.id]
-            record.fault_count = department_fault_count[0] if department_fault_count else 0
-            record.fault_count_percentage = round((record.fault_count/(sum(r[1] for r in result) or 1))*100, 2)
+    def write(self, vals):
+        print("Write Vals: ", vals)
+        restaurant_network_ids = vals.get("restaurant_network_ids")
+        computed_values = self._get_computed_fields(
+            vals.get("report_month", self.report_month), 
+            vals.get("report_year", self.report_year), 
+            vals.get("department_id", self.department_id.id),
+            restaurant_network_ids and restaurant_network_ids[0][2] or self.restaurant_network_ids.ids
+        )
+        vals.update(computed_values)
+        return super(DepartmentReport, self).write(vals)
 
-    @api.depends("report_year", "report_month", "department_id")
-    def _compute_restaurant_rating_within_department(self):
-        query = """
-            select 
-                coalesce(restaurant_rating.faults, 0) as faults,
-                restaurant_rating.restaurants as restaurants
-            from (
-                select 
-                    restaurant_name_to_fault_count.total_faults as faults,
-                    array_agg(restaurant_name_to_fault_count.restaurant_name) as restaurants 
-                from (
-                    select 
-                        rmr.name as restaurant_name,
-                        restaurant_to_fault_count.total_faults as total_faults
-                    from (
-                        SELECT 
-                            restaurant_id,
-                            SUM(fault_count) AS total_faults     
-                        FROM restaurant_management_fault_registry 
-                        WHERE
-                            state = 'confirm' and 
-                            fault_date >= %s and 
-                            fault_date <= %s and 
-                            check_list_category_id = %s
-                        GROUP BY restaurant_id 
-                    ) as restaurant_to_fault_count
-                    
-                    right join restaurant_management_restaurant rmr
-                    on restaurant_to_fault_count.restaurant_id = rmr.id
-                ) as restaurant_name_to_fault_count
-                group by total_faults
-            ) as restaurant_rating
-            order by faults asc;
-        """
-        for rec in self:
-            if not rec.report_month or not rec.report_year or not rec.department_id:
-                rec.restaurant_rating_within_department_data = json.dumps([{
-                    "faults": 0,
-                    "restaurants": 0,
-                }])
-                continue
+    def _get_computed_fields(
+            self, report_month, report_year, department_id, restaurant_network_ids
+        ):
+        restaurant_ids = self.env["restaurant_management.restaurant"].search([
+            ("restaurant_network_id", "in", restaurant_network_ids)
+        ])
 
-            date_start, date_end = _compute_date_start_end(rec.report_year, rec.report_month)
-            self.env.cr.execute(
-                query, 
-                [date_start.isoformat(), date_end.isoformat(), rec.department_id.id]
-            )
-            rec.restaurant_rating_within_department_data = json.dumps([{
-                    "faults": row[0],
-                    "restaurants": row[1],
-                } for row in self.env.cr.fetchall()
-            ])
+        report_previous_month = self._compute_report_previous_month(report_month)
+        fault_count, fault_count_percentage = self._compute_fault_count(
+            report_year, report_month, department_id, restaurant_ids.ids
+        )
+        mean_fault_count_per_restaurant, mean_fault_count_per_audit = self._compute_mean_fault_count(
+            report_year, report_month, fault_count, restaurant_ids.ids
+        )
+        relative_by_month_fault_count = self._compute_relative_by_month_fault_count(
+            report_year, report_month, department_id, restaurant_ids.ids
+        )
+        restaurant_rating_within_department_data = self._compute_restaurant_rating_within_department(
+            report_year, report_month, department_id, restaurant_ids.ids
+        )
 
-    @api.depends("report_year", "report_month", "department_id")
-    def _compute_top_violations(self):
-        query = """
-            select 
-                check_list_fault_count.check_list_id as id, 
-                rmcl.name as name,
-                check_list_fault_count.total_faults as total_faults
-            from (
-                SELECT 
-                    check_list_id,
-                    SUM(fault_count) AS total_faults     
-                FROM restaurant_management_fault_registry 
-                WHERE
-                    state = 'confirm' and 
-                    fault_date >= %s and 
-                    fault_date <= %s and 
-                    check_list_category_id = %s
-                GROUP BY check_list_id 
-            ) as check_list_fault_count
+        top_violations_data = self._compute_top_violations(
+            report_year, report_month, department_id, restaurant_ids.ids
+        )
 
-            inner join restaurant_management_check_list rmcl 
-            on check_list_fault_count.check_list_id = rmcl.id
-            order by total_faults desc
-            limit 10;
-        """
-        for rec in self:
-            if not rec.report_month or not rec.report_year or not rec.department_id:
-                rec.top_violations_data = json.dumps([{
-                    "id": 0,
-                    "name": "",
-                    "total_faults": 0,
-                }])
-                continue
+        fault_count_chart_data = self._compute_faults_by_months(
+            report_year, department_id, restaurant_ids.ids
+        )
 
-            date_start, date_end = _compute_date_start_end(rec.report_year, rec.report_month)
-            self.env.cr.execute(
-                query, 
-                [date_start.isoformat(), date_end.isoformat(), rec.department_id.id]
-            )
-            rec.top_violations_data = json.dumps([{
-                    "id": row[0],
-                    "name": row[1],
-                    "total_faults": row[2],
-                } for row in self.env.cr.fetchall()
-            ])
+        department_rating = self._compute_department_rating(
+            report_year, report_month, department_id, restaurant_ids.ids
+        )
 
-    @api.depends("top_violations_data")
+        return {
+            "report_previous_month": report_previous_month,
+            "fault_count": fault_count,
+            "fault_count_percentage": fault_count_percentage,
+            "mean_fault_count_per_restaurant": mean_fault_count_per_restaurant,
+            "mean_fault_count_per_audit": mean_fault_count_per_audit,
+            "relative_by_month_fault_count": relative_by_month_fault_count,
+            "restaurant_rating_within_department_data": restaurant_rating_within_department_data,
+            "top_violations_data": top_violations_data,
+            "fault_count_chart_data": fault_count_chart_data,
+            "department_rating": department_rating,
+        }
+
+    def _compute_report_previous_month(self, report_month):
+        index = 0
+        for month in MONTHS:
+            if month[0] == report_month:
+                break
+            index += 1
+        return MONTHS[index-1][0]
+
+    def _compute_fault_count(self, report_year, report_month, department_id, restaurant_ids):
+        date_start, date_end = _compute_date_start_end(report_year, report_month)
+        check_list_category_ids = self.env["restaurant_management.check_list_category"].search([])
+        self.env.cr.execute(
+            queries.fault_count_by_department_query, 
+            [
+                date_start.isoformat(), 
+                date_end.isoformat(), 
+                tuple(restaurant_ids),
+                tuple(check_list_category_ids.ids)
+            ]
+        )
+        result = self.env.cr.fetchall()
+        department_fault_count = [res[1] for res in result if int(res[0]) == department_id]
+        fault_count = department_fault_count[0] if department_fault_count else 0
+        fault_count_percentage = round((fault_count/(sum(r[1] for r in result) or 1))*100, 2)
+        
+        return fault_count, fault_count_percentage
+
+    def _compute_mean_fault_count(self, report_year, report_month, fault_count, restaurant_ids):
+        date_start, date_end = _compute_date_start_end(report_year, report_month)
+
+        audit_count = self.env["restaurant_management.restaurant_audit"].search_count([
+            ("audit_date", ">=", date_start),
+            ("audit_date", "<=", date_end),
+            ("restaurant_id", "in", restaurant_ids)
+        ])
+        mean_fault_count_per_restaurant = round(fault_count/len(restaurant_ids), 2) if len(restaurant_ids) else 0
+        mean_fault_count_per_audit = round(fault_count/audit_count, 2) if audit_count else 0
+        return mean_fault_count_per_restaurant, mean_fault_count_per_audit
+
+    def _compute_relative_by_month_fault_count(
+            self, report_year, report_month, department_id, restaurant_ids
+        ):
+        date_start, date_end = _compute_date_start_end(report_year, report_month)
+        date_start = (date_start - timedelta(days=1)).replace(day=1)
+
+        self.env.cr.execute(
+            queries.relative_by_month_fault_count_query, 
+            [date_start.isoformat(), date_end.isoformat(), department_id, tuple(restaurant_ids)]
+        )
+        data = self.env.cr.fetchall()
+        return data[0][0] if data else 0
+
+    def _compute_restaurant_rating_within_department(
+        self, report_year, report_month, department_id, restaurant_ids
+    ):
+        date_start, date_end = _compute_date_start_end(report_year, report_month)
+        self.env.cr.execute(
+            queries.restaurant_rating_within_department_query, 
+            [
+                date_start.isoformat(), 
+                date_end.isoformat(), 
+                department_id, 
+                tuple(restaurant_ids),
+                tuple(restaurant_ids)
+            ]
+        )
+        data = self.env.cr.fetchall()
+        return json.dumps([{
+                "rating": index,
+                "faults": row[0],
+                "restaurants": ", ".join(row[1]),
+                "restaurant_ids": row[2],
+            } for index, row in enumerate(data)
+        ])
+
+    def _compute_top_violations(self, report_year, report_month, department_id, restaurant_ids):
+        date_start, date_end = _compute_date_start_end(report_year, report_month)
+        self.env.cr.execute(
+            queries.top_violations_by_department_query, 
+            [date_start.isoformat(), date_end.isoformat(), department_id, tuple(restaurant_ids)]
+        )
+        return json.dumps([{
+                "id": row[0],
+                "name": row[1],
+                "total_faults": row[2],
+            } for row in self.env.cr.fetchall()
+        ])
+
+    def _compute_faults_by_months(self, report_year, department_id, restaurant_ids):
+        chart_date_start = date(year=int(report_year), month=1, day=1)
+        chart_date_end = date(year=int(report_year), month=12, day=31)
+        self.env.cr.execute(
+            queries.faults_by_months_query, 
+            [chart_date_start.isoformat(), chart_date_end.isoformat(), department_id, tuple(restaurant_ids)]
+        )
+        data = {d[0]: d[1] for d in self.env.cr.fetchall()}
+        year_this = [data.get(int(month_data[0]), 0) for month_data in MONTHS]
+
+        chart_date_start = date(year=int(report_year) - 1, month=1, day=1)
+        chart_date_end = date(year=int(report_year) - 1, month=12, day=31)
+        self.env.cr.execute(
+            queries.faults_by_months_query, 
+            [chart_date_start.isoformat(), chart_date_end.isoformat(), department_id, tuple(restaurant_ids)]
+        )
+        data = {d[0]: d[1] for d in self.env.cr.fetchall()}
+        year_before = [data.get(int(month_data[0]), 0) for month_data in MONTHS]
+        return json.dumps({
+            int(report_year): year_this,
+            int(report_year)-1: year_before,
+        })
+
+    def _compute_department_rating(self, report_year, report_month, department_id, restaurant_ids): 
+        date_start, date_end = _compute_date_start_end(report_year, report_month)
+        self.env.cr.execute(
+            queries.department_rating_query, 
+            [date_start.isoformat(), date_end.isoformat(), tuple(restaurant_ids)]
+        )
+        rating = 1
+        data = self.env.cr.fetchall()
+        department_rating = f"{rating}/{len(data)}"
+        for r in data:
+            if department_id in r[0]:
+                department_rating = f"{rating}/{len(data)}"
+                break
+            rating += 1
+
+        return department_rating
+
+    @api.depends("write_date")
     def _compute_top_violations_chart(self):
         for rec in self:
-            if not rec.report_month or not rec.report_year or not rec.department_id:
-                rec.top_violations_chart = ""
-                continue
             # Define the data for the bar chart
             data = json.loads(rec.top_violations_data)
 
@@ -359,100 +329,13 @@ class DepartmentReport(models.Model):
                     new_name += item["name"][chunk:chunk+step]
                     new_name += "<br>"
                 y.append(new_name)
-
+            
             x = [item['total_faults'] for item in reversed(data)]
-            layout = go.Layout(
-                # title='Double Line Chart',
-                xaxis=dict(
-                    tickfont=dict(color='white'), 
-                    titlefont=dict(color='white'), 
-                    showgrid=True,
-                ),
-                yaxis=dict(
-                    tickfont=dict(
-                        color='white',
-                        size=10,
-                    ), 
-                    titlefont=dict(color='white'),
-                ),
-                autosize=True,
-                height=350,
-                plot_bgcolor='rgba(0,0,0,0)',
-                paper_bgcolor='rgba(0,0,0,0)',
-                margin=dict(l=100, r=1, b=1, t=1, pad=1),
-            )
-
-            # Create the bar chart using plotly
-            fig = go.Figure(data=go.Bar(
-                x=x,  # Use values as the x-axis values
-                y=y,  # Use categories as the y-axis values
-                orientation='h',  # Set the orientation to horizontal
-                marker={"color": ["#71EDF1" for _ in y]},
-                # texttemplate='%{y}',  # Use %{y} to display the category names as labels
-                # textposition='auto'  # Set the position of the labels
-            ), layout=layout)
-
-            config = {'displayModeBar': False}
-            rec.top_violations_chart = fig.to_html(config=config)
-
-    @api.depends("report_year", "report_month", "department_id")
-    def _compute_faults_by_months(self):
-        query = """
-            SELECT 
-                EXTRACT(MONTH FROM faults_by_date.fault_month) AS month_of_faults, 
-                faults_by_date.total_faults AS total_faults
-            FROM
-            (
-                SELECT 
-                    DATE_TRUNC('month', rmfr.fault_date) AS fault_month,
-                    SUM(rmfr.fault_count) AS total_faults
-                FROM restaurant_management_fault_registry rmfr 
-                WHERE 
-                    rmfr.state = 'confirm' AND 
-                    rmfr.fault_date >= %s AND 
-                    rmfr.fault_date <= %s AND
-                    rmfr.check_list_category_id = %s
-                GROUP BY fault_month
-                ORDER BY fault_month DESC
-            ) AS faults_by_date;
-        """
-        for record in self:
-            if not record.report_month or not record.report_year or not record.department_id:
-                record.fault_count_chart_data = json.dumps({
-                    "": "",
-                })
-                continue
-
-            chart_date_start = date(year=int(record.report_year), month=1, day=1)
-            chart_date_end = date(year=int(record.report_year), month=12, day=31)
-            self.env.cr.execute(
-                query, 
-                [chart_date_start.isoformat(), chart_date_end.isoformat(), record.department_id.id]
-            )
-            data = {d[0]: d[1] for d in self.env.cr.fetchall()}
-            year_this = [data.get(int(month_data[0]), 0) for month_data in MONTHS]
-
-            chart_date_start = date(year=int(record.report_year) - 1, month=1, day=1)
-            chart_date_end = date(year=int(record.report_year) - 1, month=12, day=31)
-            self.env.cr.execute(
-                query, 
-                [chart_date_start.isoformat(), chart_date_end.isoformat(), record.department_id.id]
-            )
-            data = {d[0]: d[1] for d in self.env.cr.fetchall()}
-            year_before = [data.get(int(month_data[0]), 0) for month_data in MONTHS]
-            record.fault_count_chart_data = json.dumps({
-                int(record.report_year): year_this,
-                int(record.report_year)-1: year_before,
-            })
-
-
-    @api.depends("report_year", "report_month", "department_id")
+            rec.top_violations_chart = ChartBuilder().build_horizontal_bar_chart(x, y)
+    
+    @api.depends("write_date")
     def _compute_fault_count_chart(self):
         for rec in self:
-            if not rec.report_month or not rec.report_year or not rec.department_id:
-                rec.fault_count_chart = ""
-                continue
-
             # Create the data for the first line chart
             data = json.loads(rec.fault_count_chart_data)
             label1 = rec.report_year
@@ -463,107 +346,7 @@ class DepartmentReport(models.Model):
             upper_limit = round( max_value*1.1)
             months = [m[1] for m in self._fields['report_month']._description_selection(self.env)]
 
-            # Create the first line chart trace
-            trace1 = go.Scatter(
-                x=months,
-                y=y1,
-                mode='lines',
-                name=label1,
-                line=dict(color="#46A1BF")
+            rec.fault_count_chart = ChartBuilder().build_year_to_year_line_chart(
+                months, y1, y2, label1, label2, upper_limit
             )
-
-            # Create the second line chart trace
-            trace2 = go.Scatter(
-                x=months,
-                y=y2,
-                mode='lines',
-                name=label2,
-                line=dict(color="#5cc4cc")
-            )
-
-            # Combine the traces into a data object
-            data = [trace1, trace2]
-
-            # Create the layout for the chart
-            layout = go.Layout(
-                # title='Double Line Chart',
-                xaxis=dict(
-                    tickfont=dict(color='white'), 
-                    titlefont=dict(color='white'), 
-                    showgrid=False,
-                ),
-                yaxis=dict(
-                    tickfont=dict(color='white'), 
-                    titlefont=dict(color='white'),
-                    range=[0, upper_limit]
-                ),
-                autosize=True,
-                height=180,
-                plot_bgcolor='rgba(0,0,0,0)',
-                paper_bgcolor='rgba(0,0,0,0)',
-                showlegend=True,
-                legend=dict(x=0.5, y=1.1, orientation='h', yanchor='top', xanchor='center', font=dict(color="white")),
-                margin=dict(l=1, r=1, b=1, t=1, pad=1),
-            )
-
-            # Create the chart object
-            fig = go.Figure(data=data, layout=layout)
-            config = {'displayModeBar': False}
-
-            rec.fault_count_chart = fig.to_html(config=config)
-
-
-    @api.depends("report_year", "report_month", "department_id")
-    def _compute_total_departments_count(self):
-        total_departments_count = self.env["restaurant_management.check_list_category"].search_count([])
-        for record in self:
-            record.total_departments_count = total_departments_count
-
-    @api.depends("report_year", "report_month", "department_id")
-    def _compute_department_rating(self):
-        
-        query = """
-            SELECT 
-                ARRAY_AGG(department_faults.id) AS department_ids,
-                ARRAY_AGG(department_faults.name) AS department_names, 
-                fault_count
-            FROM (
-                SELECT 
-                    rmclc.id,
-                    rmclc.name,
-                    COALESCE(department_fault_counts.total_faults, 0) as fault_count
-                FROM 
-                    restaurant_management_check_list_category rmclc 
-                LEFT JOIN
-                (
-                    SELECT 
-                        check_list_category_id,
-                        SUM(fault_count) AS total_faults 
-                        FROM restaurant_management_fault_registry 
-                    WHERE
-                        state = 'confirm' and fault_date >= %s and fault_date <= %s
-                    GROUP BY check_list_category_id 
-                ) AS department_fault_counts
-                ON department_fault_counts.check_list_category_id = rmclc.id
-                WHERE rmclc.active = true and rmclc.no_fault_category = false and rmclc.default_category = true
-            ) AS department_faults
-            GROUP BY fault_count
-            ORDER BY fault_count ASC; 
-        """
-        for record in self:
-            if not record.report_month or not record.report_year or not record.department_id:
-                record.department_rating = 0
-                continue
-            
-            date_start, date_end = _compute_date_start_end(record.report_year, record.report_month)
-            self.env.cr.execute(query, [date_start.isoformat(), date_end.isoformat()])
-            rating = 1
-            data = self.env.cr.fetchall()
-            record.department_rating = f"{rating}/{len(data)}"
-            for r in data:
-                if record.department_id.id in r[0]:
-                    record.department_rating = f"{rating}/{len(data)}"
-                    break
-                rating += 1
-
-        
+ 

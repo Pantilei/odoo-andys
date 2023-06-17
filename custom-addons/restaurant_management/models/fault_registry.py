@@ -232,7 +232,8 @@ class FaultRegistry(models.Model):
     check_list_type_id = fields.Many2one(
         comodel_name="restaurant_management.check_list_type",
         related="restaurant_audit_id.check_list_type_id",
-        string="Check List Type"
+        string="Check List Type",
+        store=True
     )
 
     is_qcd_check_list_type = fields.Boolean(

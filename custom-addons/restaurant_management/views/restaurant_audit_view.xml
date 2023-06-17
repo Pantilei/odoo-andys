@@ -21,9 +21,15 @@
                         </group>
                     </group>
                     <group string="Check date and time">
-                        <field name="audit_date" />
-                        <field name="audit_start_time" widget="float_time" />
-                        <field name="audit_end_time" widget="float_time" />
+                        <group>
+                            <field name="audit_date" />
+                            <field name="audit_start_time" widget="float_time" />
+                            <field name="audit_end_time" widget="float_time" />
+                        </group>
+                        <group>
+                            <field name="audit_week_day" />
+                            <field name="day_time" />
+                        </group>
                     </group>
                     <group string="Faults">
                         <field name="fault_registry_ids" nolabel="1"
@@ -309,8 +315,8 @@
                             <field name="responsible_id" invisible="1" />
                             <field name="restaurant_id" invisible="1" />
                             <field name="check_check_list_identificator" optional="show" />
-                            <field name="check_list_category_id" 
-                                domain="[('check_list_type_id', '=', parent.check_list_type_id)]" 
+                            <field name="check_list_category_id"
+                                domain="[('check_list_type_id', '=', parent.check_list_type_id)]"
                                 readonly="1" optional="hide" />
                             <field name="check_list_id"
                                 domain="[('category_id', '=', check_list_category_id)]" readonly="1"
@@ -335,7 +341,7 @@
                             <sheet>
                                 <group>
                                     <field name="check_list_category_id" widget="selection"
-                                        domain="[('check_list_type_id', '=', parent.check_list_type_id)]" 
+                                        domain="[('check_list_type_id', '=', parent.check_list_type_id)]"
                                         readonly="1" />
                                     <field name="check_list_id" widget="selection" readonly="1"
                                         domain="[('category_id', '=', check_list_category_id)]" />
@@ -403,8 +409,8 @@
                             <field name="responsible_id" invisible="1" />
                             <field name="restaurant_id" invisible="1" />
                             <field name="check_check_list_identificator" optional="show" />
-                            <field name="check_list_category_id" 
-                                domain="[('check_list_type_id', '=', parent.check_list_type_id)]" 
+                            <field name="check_list_category_id"
+                                domain="[('check_list_type_id', '=', parent.check_list_type_id)]"
                                 readonly="1" force_save="1"
                                 optional="hide" />
                             <field name="check_list_id"
@@ -428,7 +434,7 @@
                             <sheet>
                                 <group>
                                     <field name="check_list_category_id" widget="selection"
-                                        domain="[('check_list_type_id', '=', parent.check_list_type_id)]" 
+                                        domain="[('check_list_type_id', '=', parent.check_list_type_id)]"
                                         attrs="{'readonly': [('parent.available_for_edit', '=', False)]}" />
                                     <field name="check_list_id" widget="selection"
                                         domain="[('category_id', '=', check_list_category_id)]"
@@ -491,6 +497,28 @@
                     <field name="restaurant_network_id"
                         filter_domain="[('restaurant_network_id', '=ilike', self)]" />
                     <field name="responsible_id" />
+
+                    <separator />
+                    <filter name="audit_week_day_mon" string="Monday"
+                        domain="[('audit_week_day', '=', '0')]" />
+                    <filter name="audit_week_day_tue" string="Tuesday"
+                        domain="[('audit_week_day', '=', '1')]" />
+                    <filter name="audit_week_day_wen" string="Wensday"
+                        domain="[('audit_week_day', '=', '2')]" />
+                    <filter name="audit_week_day_thu" string="Thursday"
+                        domain="[('audit_week_day', '=', '3')]" />
+                    <filter name="audit_week_day_fri" string="Friday"
+                        domain="[('audit_week_day', '=', '4')]" />
+                    <filter name="audit_week_day_sat" string="Saturday"
+                        domain="[('audit_week_day', '=', '5')]" />
+                    <filter name="audit_week_day_sun" string="Sunday"
+                        domain="[('audit_week_day', '=', '6')]" />
+                    <separator />
+                    <filter name="day_time_morning" string="Morning"
+                        domain="[('day_time', '=', 'morning')]" />
+                    <filter name="day_time_day" string="Day" domain="[('day_time', '=', 'day')]" />
+                    <filter name="day_time_evening" string="Evening"
+                        domain="[('day_time', '=', 'evening')]" />
 
                     <group expand="0" string="Group By">
                         <filter string="Restaurant" name="group_by_restaurant_id"

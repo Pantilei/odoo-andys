@@ -2,29 +2,20 @@
 <odoo>
     <data>
 
-        <record id="department_report_form_view_form" model="ir.ui.view">
-            <field name="name">department_report.view.form</field>
-            <field name="model">restaurant_management.department_report</field>
+        <record id="restaurant_report_form_view_form" model="ir.ui.view">
+            <field name="name">restaurant_report.view.form</field>
+            <field name="model">restaurant_management.restaurant_report</field>
             <field name="arch" type="xml">
                 <form>
                     <div class="report-container">
                         <div class="report-header">
                             <div class="report-main-info">
-                                <h1>
-                                    Отчет по департаменту
+                                <h1> Отчет по ресторану <field name="restaurant_id"
+                                        options="{'no_create': True, 'no_open': True}" />
                                 </h1>
                                 <div class="report-main-info__content">
-                                    <span class="report-main-info__department"> Департамет: <field
-                                            name="department_id"
-                                            options="{'no_create': True, 'no_open': True}" />
-                                    </span>
-                                    <span class="report-main-info__department"> Сеть ресторанов: <field
-                                            name="restaurant_network_ids"
-                                            widget="many2many_tags"
-                                            options="{'no_create': True, 'no_open': True}" />
-                                    </span>
                                     <span class="report-main-info__period"> Период: <field
-                                            name="report_month" force_save="1" /> <field
+                                            name="report_month" /> <field
                                             name="report_year" />
                                     </span>
                                     <span class="report-main-info__responsible"> Составил: <field
@@ -33,14 +24,17 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="report-raiting">
-                                <div class="raiting__name">Позиция департамента в рейтинге компании</div>
-                                <div class="raiting__value">
-                                    <field name="department_rating" />
-                                </div>
+                            <div class="report-logo">
+                                <field name="logo" />
                             </div>
                         </div>
-                        <div class="report-violations">
+                        <field name="restaurant_rating_within_network" />
+                        <br />
+                        <field name="restaurant_rating_by_audit_type_data" />
+                        <br />
+                        <field name="restaurant_rating_within_department_data" />
+
+                        <!-- <div class="report-violations">
                             <div class="report-section__header">
                                 <h2>Анализ нарушений по департаменту</h2>
                             </div>
@@ -55,7 +49,6 @@
                                 <div class="report-violations__relative-faults">
                                     <span>Кол-во нарушений <field name="report_previous_month"
                                             readonly="1" /> vs <field name="report_month"
-                                            force_save="1"
                                             readonly="1" /></span>
                                     <field name="relative_by_month_fault_count" />
                                     <field name="relative_fault_count_comment" />
@@ -125,7 +118,7 @@
                                 </div>
                             </div>
 
-                        </div>
+                        </div> -->
 
                         <div class="report-summary">
                             <div class="report-section__header">
@@ -140,22 +133,22 @@
             </field>
         </record>
 
-        <record id="department_report_tree_view_form" model="ir.ui.view">
-            <field name="name">department_report.view.tree</field>
-            <field name="model">restaurant_management.department_report</field>
+        <record id="restaurant_report_tree_view_form" model="ir.ui.view">
+            <field name="name">restaurant_report.view.tree</field>
+            <field name="model">restaurant_management.restaurant_report</field>
             <field name="arch" type="xml">
                 <tree>
                     <field name="name" />
-                    <field name="department_id" />
+                    <field name="restaurant_id" />
                     <field name="report_year" />
                     <field name="report_month" />
                 </tree>
             </field>
         </record>
 
-        <record id="department_report_action" model="ir.actions.act_window">
-            <field name="name">Company Reports</field>
-            <field name="res_model">restaurant_management.department_report</field>
+        <record id="restaurant_report_action" model="ir.actions.act_window">
+            <field name="name">Restaurant Report</field>
+            <field name="res_model">restaurant_management.restaurant_report</field>
             <field name="view_mode">tree,form</field>
             <field name="context">{}</field>
             <field name="target">current</field>

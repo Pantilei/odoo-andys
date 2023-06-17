@@ -25,7 +25,7 @@
             <t t-foreach="state.fieldValue" t-as="row" t-key="row['faults']">
                 <div class="d-flex flex-row justify-content-between">
                     <div class="w-25" style="text-align: center;">
-                        <t t-esc="row['faults']" />
+                        <t t-esc="row['rating']" />
                     </div>
                     <div class="w-75" style="border-left: 2px solid white;">
                         <t t-esc="row['restaurants']" />

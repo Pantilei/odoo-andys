@@ -13,4 +13,5 @@ from . import (
     restaurant,
     restaurant_audit,
     restaurant_network,
+    restaurant_report,
 )
