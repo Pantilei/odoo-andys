@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="restaurant_network_report_form_view_form" model="ir.ui.view">
+            <field name="name">restaurant_network_report.view.form</field>
+            <field name="model">restaurant_management.restaurant_network_report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="report-network-container">
+                        <div class="report-network-header">
+                            <div class="report-network-main-info">
+                                <h1> Отчет ДКК по сети <field name="restaurant_network_id"
+                                        options="{'no_create': True, 'no_open': True}" />
+                                </h1>
+                                <div class="report-network-main-info__content">
+                                    <div class="report-network-main-info__left">
+                                        <span class="report-network-main-info__period"> Период: <field
+                                                name="report_month" /> <field
+                                                name="report_year" />
+                                        </span>
+                                        <span class="report-network-main-info__responsible">
+                                            Составил: <field
+                                                name="responsible_id"
+                                                options="{'no_create': True, 'no_open': True}" />
+                                        </span>
+                                        <span class="report-network-main-info__line"> План / Факт
+                                            проверок: <field
+                                                name="planned_audit_count" readonly="1" /> / <field
+                                                name="actual_audit_count" readonly="1" />
+                                        </span>
+                                    </div>
+                                    <div class="report-network-main-info__right">
+                                        <field name="logo" widget="image" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="report-network-violations">
+                            <div class="report-network-section__header">
+                                <h2>Динамика ошибок на 1 проверку ( <field name="report_year"
+                                        readonly="1" force_save="1" /> vs. <field
+                                        name="previous_report_year" /> )</h2>
+                            </div>
+                            <div class="report-network-violations__content">
+                                <div class="report-network-violations__chart w-100">
+                                    <field name="monthly_fault_count_per_audit_chart"
+                                        widget="plotly_chart"
+                                        nolabel="1" />
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="report-network-yearly-fault-count-by-check-list">
+                            <div class="report-network-section__header">
+                                <h2> Кол-во ошибок на 1 проверку по категориям чек-листа ( <field
+                                        name="report_year"
+                                        readonly="1" force_save="1" /> vs. <field
+                                        name="previous_report_year" /> ) </h2>
+                            </div>
+                            <div class="report-network-yearly-fault-count-by-check-list__container">
+                                <div class="report-network-yearly-fault-count-by-check-list__chart">
+                                    <field
+                                        name="yearly_fault_count_per_audit_by_check_list_category"
+                                        nolabel="1" />
+                                    <!-- <field
+                                    name="yearly_fault_count_per_audit_by_check_list_category_chart"
+                                    widget="plotly_chart"
+                                        nolabel="1" /> -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="report-network-restaurant-rating">
+                            <div class="report-network-section__header">
+                                <h2>Рейтинг ресторанов по нарушениям департамента</h2>
+                            </div>
+                            <div class="report-network-restaurant-rating__content">
+                                <div class="report-network-restaurant-rating__table">
+                                    <field name="restaurant_rating_within_department_data"
+                                        nolabel="1" widget="restaurant_rating_table_widget" />
+                                </div>
+
+                                <div class="report-network-restaurant-rating__mean-faults-per-restaurant">
+                                    <span>Среднее кол-во нарушений на один ресторан</span>
+                                    <field name="mean_fault_count_per_restaurant" />
+                                </div>
+
+                                <div class="report-network-restaurant-rating__mean-faults-per-audit">
+                                    <span>Среднее кол-во нарушений за одну проверку</span>
+                                    <field name="mean_fault_count_per_audit" />
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="report-network-faults-taken-measures">
+
+                            <div class="report-network-faults-taken-measures__content_left">
+                                <div class="report-network-section__header">
+                                    <h2>Ошибки</h2>
+                                </div>
+                                <div class="report-network-faults-taken-measures__faults">
+                                    <field name="top_violations_data"
+                                        widget="top_violations_list_widget" />
+                                </div>
+                            </div>
+
+                            <div class="report-network-faults-taken-measures__content_right">
+                                <div class="report-network-section__header">
+                                    <h2>Предпринятые меры</h2>
+                                </div>
+                                <div class="report-network-faults-taken-measures__measures">
+                                    <field name="taken_measures" />
+                                </div>
+                            </div>
+
+                        </div> -->
+
+                        <div class="report-network-summary">
+                            <div class="report-network-section__header">
+                                <h2>Выводы</h2>
+                            </div>
+                            <div class="report-network-summary__content">
+                                <field name="summary" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="restaurant_network_report_tree_view_form" model="ir.ui.view">
+            <field name="name">restaurant_network_report.view.tree</field>
+            <field name="model">restaurant_management.restaurant_network_report</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" />
+                    <field name="restaurant_network_id" />
+                    <field name="report_year" />
+                    <field name="report_month" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="restaurant_network_report_action" model="ir.actions.act_window">
+            <field name="name">Restaurant Network Report</field>
+            <field name="res_model">restaurant_management.restaurant_network_report</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="target">current</field>
+        </record>
+
+    </data>
+</odoo>

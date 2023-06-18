@@ -218,37 +218,48 @@ GROUP by rtfc.fault_count
 order by rtfc.fault_count;
 """
 
-# restaurant_rating_within_department_query = """
-# select
-#     rtfc.fault_count as fault_count,
-#     array_agg(rtfc.restaurant_id) as restaurants,
-#     array_agg(rtfc.restaurant_name) as restaurant_names
+# Restaurant network queries
+faults_by_months_in_restaurant_network_query = """
+WITH faults_by_month AS (
+    SELECT 
+        DATE_TRUNC('month', rmfr.fault_date) AS fault_month,
+        SUM(rmfr.fault_count) AS total_faults
+    FROM restaurant_management_fault_registry rmfr 
+    WHERE 
+        rmfr.state = 'confirm' AND 
+        rmfr.fault_date >= %s AND 
+        rmfr.fault_date <= %s AND
+        rmfr.restaurant_id IN %s
+    GROUP BY fault_month
+    ORDER BY fault_month DESC
+)
 
-# FROM (
-#     select
-#         rmr.id AS restaurant_id,
-#         rmr.name AS restaurant_name,
-#         COALESCE(restaurant_to_fault_count.restaurant_fault_count, 0) AS fault_count
-#     FROM (
-#         select
-#             rmfr.restaurant_id AS restaurant_id,
-#             SUM(rmfr.fault_count) AS restaurant_fault_count
-#         FROM
-#             restaurant_management_fault_registry AS rmfr
-#         WHERE
-#             rmfr.fault_date >= %s
-#             AND rmfr.fault_date <= %s
-#             AND rmfr.check_list_category_id = %s
-#             AND rmfr.state = 'confirm'
-#         GROUP BY
-#             rmfr.restaurant_id
-#     ) AS restaurant_to_fault_count
-#     RIGHT JOIN restaurant_management_restaurant AS rmr ON rmr.id = restaurant_to_fault_count.restaurant_id
-# ) AS rtfc
-# GROUP by rtfc.fault_count
-# order by rtfc.fault_count;
-# """
+SELECT 
+    EXTRACT(MONTH FROM fault_month) AS month_of_faults, 
+    total_faults
+FROM faults_by_month;
+"""
 
+audits_by_months_in_restaurant_network_query = """
+WITH audits_by_month AS (
+    SELECT 
+        DATE_TRUNC('month', audit_date) AS audit_month,
+        SUM(1) AS total_audits
+    FROM restaurant_management_restaurant_audit
+    WHERE 
+        state = 'confirm' AND 
+        audit_date >= %s AND 
+        audit_date <= %s AND
+        restaurant_id IN %s
+    GROUP BY audit_month
+    ORDER BY audit_month DESC
+)
+
+SELECT 
+    EXTRACT(MONTH FROM audit_month) AS audit_month, 
+    total_audits
+FROM audits_by_month;
+"""
 
 
 test_func = """

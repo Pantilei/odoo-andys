@@ -117,7 +117,6 @@ class DepartmentReport(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
-            print("Create Vals: ", vals)
             computed_values = self._get_computed_fields(
                 vals["report_month"], 
                 vals["report_year"], 
@@ -128,7 +127,6 @@ class DepartmentReport(models.Model):
         return super(DepartmentReport, self).create(vals_list)
 
     def write(self, vals):
-        print("Write Vals: ", vals)
         restaurant_network_ids = vals.get("restaurant_network_ids")
         computed_values = self._get_computed_fields(
             vals.get("report_month", self.report_month), 

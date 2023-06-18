@@ -300,3 +300,222 @@
     }
   }
 }
+
+.report-network-container {
+  --primary-text-color: white;
+  --secondary-text-color: #5cc4cc;
+
+  background-color: #2d4669;
+  // height: 900px;
+  max-width: 1200px;
+  padding: 10px;
+  margin: 0 auto;
+
+  & .report-network-header {
+    display: flex;
+    justify-content: space-between;
+
+    & .report-network-main-info {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      border: 2px solid white;
+      border-radius: 3px;
+      padding: 5px;
+
+      & h1 {
+        color: var(--secondary-text-color);
+        font-size: 18px;
+        text-align: center;
+      }
+
+      & .report-network-main-info__content {
+        display: flex;
+        width: 100%;
+
+        & .report-network-main-info__left {
+          display: flex;
+          flex-direction: column;
+          width: 85%;
+          color: var(--primary-text-color);
+
+          & .report-network-main-info__period {
+            display: flex;
+            gap: 5px;
+            & span {
+              color: var(--secondary-text-color);
+            }
+          }
+
+          & .report-network-main-info__responsible {
+            & span {
+              color: var(--secondary-text-color);
+            }
+          }
+
+          & .report-network-main-info__line {
+            & span {
+              color: var(--secondary-text-color);
+            }
+          }
+        }
+
+        & .report-network-main-info__right {
+          width: 15%;
+        }
+      }
+    }
+  }
+
+  & .report-network-section__header {
+    margin: 10px auto 3px auto;
+    padding: 3px;
+    text-align: center;
+    font-size: 18px;
+    color: black;
+    background-color: var(--primary-text-color);
+    border-radius: 5px;
+  }
+
+  & .report-network-yearly-fault-count-by-check-list {
+    & .report-network-yearly-fault-count-by-check-list__container {
+      overflow-x: auto;
+
+      & .report-network-yearly-fault-count-by-check-list__chart {
+        min-width: 1180px;
+        border: 2px solid white;
+        border-radius: 3px;
+        padding: 3px;
+      }
+    }
+  }
+
+
+
+
+
+  & .report-network-restaurant-rating {
+    & .report-restaurant-rating__content {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+
+      & .report-network-restaurant-rating__table {
+        width: 70%;
+      }
+
+      & .report-network-restaurant-rating__mean-faults-per-restaurant {
+        display: flex;
+        flex-direction: column;
+        width: 15%;
+        border: 2px solid white;
+        padding: 5px;
+        color: var(--primary-text-color);
+        border-radius: 3px;
+
+        & span {
+          text-align: center;
+          &:nth-child(1) {
+            font-size: 16px;
+            text-decoration: underline;
+          }
+
+          &:nth-child(2) {
+            font-size: 48px;
+            color: var(--secondary-text-color);
+          }
+
+          &:nth-child(3) {
+            font-size: 10px;
+          }
+        }
+      }
+
+      & .report-network-restaurant-rating__mean-faults-per-audit {
+        display: flex;
+        flex-direction: column;
+        width: 15%;
+        border: 2px solid white;
+        padding: 5px;
+        color: var(--primary-text-color);
+        border-radius: 3px;
+
+        & span {
+          text-align: center;
+          &:nth-child(1) {
+            font-size: 16px;
+            text-decoration: underline;
+          }
+
+          &:nth-child(2) {
+            font-size: 48px;
+            color: var(--secondary-text-color);
+          }
+
+          &:nth-child(3) {
+            font-size: 10px;
+          }
+        }
+      }
+    }
+  }
+
+  & .report-network-faults-taken-measures {
+    display: flex;
+    justify-content: space-between;
+    gap: 3px;
+    & .report-network-faults-taken-measures__content_left {
+      width: 50%;
+      flex: 1;
+
+      & .report-network-faults-taken-measures__faults {
+        min-height: 200px;
+        height: calc(100% - 40px);
+        border: 2px solid white;
+        border-radius: 3px;
+      }
+    }
+
+    & .report-network-faults-taken-measures__content_right {
+      width: 50%;
+      flex: 1;
+
+      & .report-network-faults-taken-measures__measures {
+        display: flex;
+        justify-content: center;
+        min-height: 200px;
+        height: calc(100% - 40px);
+        border: 2px solid white;
+        border-radius: 3px;
+        color: white;
+        padding: 3px;
+
+        & textarea {
+          color: black;
+          margin: 5px auto;
+          min-height: 190px;
+          width: 99%;
+        }
+      }
+    }
+  }
+
+  & .report-network-summary {
+    & .report-network-summary__content {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      min-height: 200px;
+      border: 2px solid white;
+      border-radius: 3px;
+      color: white;
+
+      & textarea {
+        color: black;
+        margin: 5px auto;
+        min-height: 190px;
+        width: 99%;
+      }
+    }
+  }
+}
