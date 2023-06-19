@@ -99,14 +99,21 @@ class DepartmentReport(models.Model):
         readonly=True
     )
 
-    top_violations_data = fields.Text(string="Top Violations", readonly=True)
+    top_violations_data = fields.Text(
+        string="Top Violations", 
+        default="[]",
+        readonly=True
+    )
     top_violations_chart = fields.Text(
         string="Top Violations Chart",
         compute="_compute_top_violations_chart",
         readonly=True
     )
 
-    restaurant_rating_within_department_data = fields.Text(readonly=True)
+    restaurant_rating_within_department_data = fields.Text(
+        readonly=True,
+        default="[]"
+    )
     mean_fault_count_per_restaurant = fields.Float(readonly=True)
     mean_fault_count_per_audit = fields.Float(readonly=True)
 

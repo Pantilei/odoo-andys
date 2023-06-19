@@ -14,11 +14,11 @@ export default class PlotlyChartWidget extends AbstractFieldOwl {
     super.setup();
 
     this.state = useState({
-      fieldValue: this.value,
+      fieldValue: this.value || "",
     });
 
     onWillUpdateProps(async (nextProps) => {
-      this.state.fieldValue = this.value;
+      this.state.fieldValue = this.value || "";
     });
 
     onMounted(() => {});
