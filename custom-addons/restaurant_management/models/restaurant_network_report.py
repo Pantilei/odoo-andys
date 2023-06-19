@@ -180,7 +180,7 @@ class RestaurantNetworkReport(models.Model):
             report_year, restaurant_ids.ids
         )
         yearly_fault_count_per_audit_by_check_list_category = self._compute_yearly_fault_count_per_audit_by_check_list_category(
-            report_month, report_year, restaurant_network_id
+            report_year, restaurant_ids.ids
         )
         restaurant_rating_within_department = self._compute_restaurant_rating_within_department(report_month, report_year, restaurant_network_id)
         top_rating = self._compute_top_rating(report_month, report_year, restaurant_network_id)
@@ -259,9 +259,58 @@ class RestaurantNetworkReport(models.Model):
         })
     
     def _compute_yearly_fault_count_per_audit_by_check_list_category(
-            self, report_month, report_year, restaurant_network_id
+            self, report_year, restaurant_ids
         ):
-        return "{}"
+        chart_date_start = date(year=int(report_year), month=1, day=1)
+        chart_date_end = date(year=int(report_year), month=12, day=31)
+        audit_count = self.env["restaurant_management.restaurant_audit"].search_count([
+            ("audit_date", ">=", chart_date_start),
+            ("audit_date", "<=", chart_date_end),
+            ("restaurant_id", "in", restaurant_ids)
+        ])
+        self.env.cr.execute(
+            queries.yearly_faults_by_check_list_category, 
+            [chart_date_start.isoformat(), chart_date_end.isoformat(), tuple(restaurant_ids)]
+        )
+        faults_by_check_list_category_this_year = {
+            "check_list_category_ids": [],
+            "check_list_category_names": [],
+            "check_list_category_fault_counts": [],
+        }
+        for d in self.env.cr.fetchall():
+            faults_by_check_list_category_this_year["check_list_category_ids"].append(d[0])
+            faults_by_check_list_category_this_year["check_list_category_names"].append(d[1])
+            faults_by_check_list_category_this_year["check_list_category_fault_counts"].append(
+                round(d[2]/(audit_count or 1), 2)
+            )
+
+        chart_date_start = date(year=int(report_year) - 1, month=1, day=1)
+        chart_date_end = date(year=int(report_year) - 1, month=12, day=31)
+        audit_count = self.env["restaurant_management.restaurant_audit"].search_count([
+            ("audit_date", ">=", chart_date_start),
+            ("audit_date", "<=", chart_date_end),
+            ("restaurant_id", "in", restaurant_ids)
+        ])
+        faults_by_check_list_category_year_before = {
+            "check_list_category_ids": [],
+            "check_list_category_names": [],
+            "check_list_category_fault_counts": [],
+        }
+        self.env.cr.execute(
+            queries.yearly_faults_by_check_list_category, 
+            [chart_date_start.isoformat(), chart_date_end.isoformat(), tuple(restaurant_ids)]
+        )
+        for d in self.env.cr.fetchall():
+            faults_by_check_list_category_year_before["check_list_category_ids"].append(d[0])
+            faults_by_check_list_category_year_before["check_list_category_names"].append(d[1])
+            faults_by_check_list_category_year_before["check_list_category_fault_counts"].append(
+                round(d[2]/(audit_count or 1), 2)
+            )
+        
+        return json.dumps({
+            int(report_year): faults_by_check_list_category_this_year,
+            int(report_year)-1: faults_by_check_list_category_year_before,
+        })
     
     def _compute_restaurant_rating_within_department(self, report_month, report_year, restaurant_network_id):
         return "{}"
@@ -301,7 +350,14 @@ class RestaurantNetworkReport(models.Model):
     @api.depends("write_date")
     def _compute_yearly_fault_count_per_audit_by_check_list_category_chart(self):
         for record in self:
-            record.yearly_fault_count_per_audit_by_check_list_category_chart = ""
+            data = json.loads(record.yearly_fault_count_per_audit_by_check_list_category)
+            label1, label2 = tuple(data.keys())
+            x1 = data[label1]["check_list_category_fault_counts"]
+            x2 = data[label2]["check_list_category_fault_counts"]
+            
+            record.yearly_fault_count_per_audit_by_check_list_category_chart = ChartBuilder().build_grouped_horizontal_bar_chart(
+                data[label1]["check_list_category_names"], x1, x2
+            )
 
     @api.depends("write_date")
     def _compute_restaurant_rating_within_department_table(self):

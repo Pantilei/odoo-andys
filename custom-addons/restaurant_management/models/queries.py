@@ -261,6 +261,32 @@ SELECT
 FROM audits_by_month;
 """
 
+yearly_faults_by_check_list_category = """
+with check_list_category_to_fault_count as (
+    SELECT
+    	check_list_category_id,
+        COUNT(fault_count) as fault_count
+    FROM restaurant_management_fault_registry
+    WHERE 
+        state = 'confirm' AND 
+        fault_date >= %s AND 
+        fault_date <= %s AND
+        restaurant_id IN %s
+    GROUP BY check_list_category_id
+)
+
+select 
+	rmclc.id,
+	rmclc.name,
+coalesce(clctfc.fault_count, 0) as fault_count
+from check_list_category_to_fault_count as clctfc
+right join 
+	restaurant_management_check_list_category as rmclc 
+on clctfc.check_list_category_id = rmclc.id
+where
+	rmclc.active = true
+order by fault_count desc
+"""
 
 test_func = """
 

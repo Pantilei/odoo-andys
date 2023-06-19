@@ -62,13 +62,13 @@
                             </div>
                             <div class="report-network-yearly-fault-count-by-check-list__container">
                                 <div class="report-network-yearly-fault-count-by-check-list__chart">
-                                    <field
-                                        name="yearly_fault_count_per_audit_by_check_list_category"
-                                        nolabel="1" />
                                     <!-- <field
-                                    name="yearly_fault_count_per_audit_by_check_list_category_chart"
-                                    widget="plotly_chart"
+                                        name="yearly_fault_count_per_audit_by_check_list_category"
                                         nolabel="1" /> -->
+                                    <field
+                                        name="yearly_fault_count_per_audit_by_check_list_category_chart"
+                                        widget="plotly_chart"
+                                        nolabel="1" />
                                 </div>
                             </div>
                         </div>
