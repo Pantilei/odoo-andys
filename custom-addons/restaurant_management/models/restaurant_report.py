@@ -9,7 +9,6 @@ from odoo import _, api, fields, models
 
 from .queries import (
     restaurant_rating_by_audit_type_query,
-    restaurant_rating_within_department_query,
     restaurant_rating_within_network_query,
 )
 
@@ -227,10 +226,10 @@ class RestaurantReport(models.Model):
             date_start, date_end = _compute_date_start_end(record.report_year, record.report_month)
             restaurant_rating_within_department_data = []
             for check_list_category_id in self.env["restaurant_management.check_list_category"].search([]):
-                self.env.cr.execute(
-                    restaurant_rating_within_department_query, 
-                    [date_start.isoformat(), date_end.isoformat(), check_list_category_id.id]
-                )
+                # self.env.cr.execute(
+                #     restaurant_rating_within_department_query, 
+                #     [date_start.isoformat(), date_end.isoformat(), check_list_category_id.id]
+                # )
                 result = self.env.cr.fetchall()
                 restaurant_rating_within_department_data.append([
                     check_list_category_id.id,

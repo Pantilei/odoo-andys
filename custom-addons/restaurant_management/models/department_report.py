@@ -114,7 +114,6 @@ class DepartmentReport(models.Model):
         readonly=True,
         default="[]"
     )
-    mean_fault_count_per_restaurant = fields.Float(readonly=True)
     mean_fault_count_per_audit = fields.Float(readonly=True)
 
     taken_measures = fields.Text(string="Taken Measures")
@@ -155,7 +154,7 @@ class DepartmentReport(models.Model):
         fault_count, fault_count_percentage = self._compute_fault_count(
             report_year, report_month, department_id, restaurant_ids.ids
         )
-        mean_fault_count_per_restaurant, mean_fault_count_per_audit = self._compute_mean_fault_count(
+        mean_fault_count_per_audit = self._compute_mean_fault_count(
             report_year, report_month, fault_count, restaurant_ids.ids
         )
         relative_by_month_fault_count = self._compute_relative_by_month_fault_count(
@@ -181,7 +180,6 @@ class DepartmentReport(models.Model):
             "report_previous_month": report_previous_month,
             "fault_count": fault_count,
             "fault_count_percentage": fault_count_percentage,
-            "mean_fault_count_per_restaurant": mean_fault_count_per_restaurant,
             "mean_fault_count_per_audit": mean_fault_count_per_audit,
             "relative_by_month_fault_count": relative_by_month_fault_count,
             "restaurant_rating_within_department_data": restaurant_rating_within_department_data,
@@ -225,9 +223,7 @@ class DepartmentReport(models.Model):
             ("audit_date", "<=", date_end),
             ("restaurant_id", "in", restaurant_ids)
         ])
-        mean_fault_count_per_restaurant = round(fault_count/len(restaurant_ids), 2) if len(restaurant_ids) else 0
-        mean_fault_count_per_audit = round(fault_count/audit_count, 2) if audit_count else 0
-        return mean_fault_count_per_restaurant, mean_fault_count_per_audit
+        return round(fault_count/audit_count, 2) if audit_count else 0
 
     def _compute_relative_by_month_fault_count(
             self, report_year, report_month, department_id, restaurant_ids
@@ -247,7 +243,7 @@ class DepartmentReport(models.Model):
     ):
         date_start, date_end = _compute_date_start_end(report_year, report_month)
         self.env.cr.execute(
-            queries.restaurant_rating_within_department_query, 
+            queries.restaurant_faults_in_department_query, 
             [
                 date_start.isoformat(), 
                 date_end.isoformat(), 
@@ -256,14 +252,48 @@ class DepartmentReport(models.Model):
                 tuple(restaurant_ids)
             ]
         )
-        data = self.env.cr.fetchall()
-        return json.dumps([{
-                "rating": index,
-                "faults": row[0],
-                "restaurants": ", ".join(row[1]),
-                "restaurant_ids": row[2],
-            } for index, row in enumerate(data)
-        ])
+        faults_per_restaurant = self.env.cr.fetchall()
+
+        self.env.cr.execute(
+            queries.restaurant_audit_count_query,
+            [
+                date_start.isoformat(), 
+                date_end.isoformat(),
+                tuple(restaurant_ids)
+            ]
+        )
+
+        restaurant_to_audit_count = {
+            r[0]: r[1] for r in self.env.cr.fetchall()
+        }
+
+        results = []
+        for restaurant_id, restaurant_name, fault_count in faults_per_restaurant:
+            results.append({
+                "restaurant_id": restaurant_id,
+                "restaurant_name": restaurant_name,
+                "fault_count": fault_count,
+                "fault_count_per_audit": round(fault_count/restaurant_to_audit_count.get(restaurant_id, 1), 2)
+            })
+        
+        response = []
+        rating = 0
+        for row in sorted(results, key=lambda r: r["fault_count_per_audit"], reverse=True):
+            if response and response[-1]["fault_count_per_audit"] == row["fault_count_per_audit"]:
+                response[-1]["restaurant_id"].append(row["restaurant_id"])
+                response[-1]["restaurants"].append(row["restaurant_name"])
+                response[-1]["fault_count"].append(row["fault_count"])
+            elif not response or response[-1]["fault_count_per_audit"] != row["fault_count_per_audit"]:
+                rating += 1
+                response.append({
+                    "rating": rating,
+                    "fault_count_per_audit": row["fault_count_per_audit"],
+                    "restaurant_id": [row["restaurant_id"]],
+                    "restaurants": [row["restaurant_name"]],
+                    "fault_count": [row["fault_count"]]
+                })
+            
+        return json.dumps(response)
 
     def _compute_top_violations(self, report_year, report_month, department_id, restaurant_ids):
         date_start, date_end = _compute_date_start_end(report_year, report_month)
@@ -325,18 +355,26 @@ class DepartmentReport(models.Model):
             data = json.loads(rec.top_violations_data)
 
             # Extract the category names and values from the data
-            max_len = max(len(item["name"]) for item in reversed(data)) if data else 10
-            step = round(max_len/2)
-            y = []
-            for item in reversed(data):
-                new_name = ""
-                for chunk in range(0, len(item["name"]), step):
-                    new_name += item["name"][chunk:chunk+step]
-                    new_name += "<br>"
-                y.append(new_name)
-            
+            # max_length = 40
+            # y = []
+            # highest_bar_width = 0
+            # for item in reversed(data):
+            #     partitioned_name = []
+            #     for word in item["name"].split(" "):
+            #         if not partitioned_name:
+            #             partitioned_name.append(word)
+            #             continue
+
+            #         if len(partitioned_name[-1] + word) > max_length:
+            #             partitioned_name.append(word)
+            #         else:
+            #             partitioned_name[-1] = partitioned_name[-1] + f" {word}"
+            #     highest_bar_width = max(highest_bar_width, len(partitioned_name))
+            #     y.append("<br>".join(partitioned_name))
+        
             x = [item['total_faults'] for item in reversed(data)]
-            rec.top_violations_chart = ChartBuilder().build_horizontal_bar_chart(x, y)
+            y = [item['name'] for item in reversed(data)]
+            rec.top_violations_chart = ChartBuilder(height=len(y)*40).build_horizontal_bar_chart(x, y)
     
     @api.depends("write_date")
     def _compute_fault_count_chart(self):

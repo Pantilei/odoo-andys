@@ -91,11 +91,6 @@
                                         nolabel="1" widget="restaurant_rating_table_widget" />
                                 </div>
 
-                                <div class="report-restaurant-rating__mean-faults-per-restaurant">
-                                    <span>Среднее кол-во нарушений на один ресторан</span>
-                                    <field name="mean_fault_count_per_restaurant" />
-                                </div>
-
                                 <div class="report-restaurant-rating__mean-faults-per-audit">
                                     <span>Среднее кол-во нарушений за одну проверку</span>
                                     <field name="mean_fault_count_per_audit" />
@@ -105,18 +100,7 @@
                         </div>
 
                         <div class="report-faults-taken-measures">
-
-                            <div class="report-faults-taken-measures__content_left">
-                                <div class="report-section__header">
-                                    <h2>Ошибки</h2>
-                                </div>
-                                <div class="report-faults-taken-measures__faults">
-                                    <field name="top_violations_data"
-                                        widget="top_violations_list_widget" />
-                                </div>
-                            </div>
-
-                            <div class="report-faults-taken-measures__content_right">
+                            <div class="report-faults-taken-measures__content">
                                 <div class="report-section__header">
                                     <h2>Предпринятые меры</h2>
                                 </div>
