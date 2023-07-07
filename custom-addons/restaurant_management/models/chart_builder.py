@@ -254,7 +254,7 @@ class ChartBuilder:
             annotation=dict(
                 xref='paper', 
                 yref='y',
-                x=0.965, 
+                x=0, 
                 y=y1_mean*1 or 0.1,
                 xanchor='left',
                 text=f"{y1_mean}",
@@ -272,8 +272,8 @@ class ChartBuilder:
             annotation=dict(
                 xref='paper', 
                 yref='y',
-                x=0.965, 
-                y=y2_mean*1 or 0.1,
+                x=0, 
+                y=y2_mean or 0.1,
                 xanchor='left',
                 text=f"{y2_mean}",
                 font=dict(family='Arial', size=12, color=colors[1]),
