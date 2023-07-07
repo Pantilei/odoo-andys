@@ -1,14 +1,13 @@
 import json
-from calendar import monthrange
 from datetime import date, timedelta
 
-import plotly.graph_objects as go
 from dateutil.relativedelta import relativedelta
 
 from odoo import _, api, fields, models
 
 from . import queries
 from .chart_builder import ChartBuilder
+from .tools import compute_date_start_end, compute_restaurant_ratings
 
 MONTHS = [
     ("1", _("Jan")),
@@ -25,14 +24,6 @@ MONTHS = [
     ("12", _("Dec")),
 ]
 
-
-def _compute_date_start_end(report_year, report_month):
-    year=int(report_year)
-    month=int(report_month)
-    date_start = date(year=year, month=month, day=1)
-    date_end = date(year=year, month=month, day=monthrange(year, month)[1])
-
-    return date_start, date_end
 
 class DepartmentReport(models.Model):
     _name = "restaurant_management.department_report"
@@ -82,7 +73,7 @@ class DepartmentReport(models.Model):
     responsible_id = fields.Many2one(
         comodel_name="res.users",
         default=lambda self: self.env.user.id,
-        string="Responsible"
+        string="Composed by"
     )
 
     department_rating = fields.Char(readonly=True)
@@ -197,7 +188,7 @@ class DepartmentReport(models.Model):
         return MONTHS[index-1][0]
 
     def _compute_fault_count(self, report_year, report_month, department_id, restaurant_ids):
-        date_start, date_end = _compute_date_start_end(report_year, report_month)
+        date_start, date_end = compute_date_start_end(report_year, report_month)
         check_list_category_ids = self.env["restaurant_management.check_list_category"].search([])
         self.env.cr.execute(
             queries.fault_count_by_department_query, 
@@ -216,7 +207,7 @@ class DepartmentReport(models.Model):
         return fault_count, fault_count_percentage
 
     def _compute_mean_fault_count(self, report_year, report_month, fault_count, restaurant_ids):
-        date_start, date_end = _compute_date_start_end(report_year, report_month)
+        date_start, date_end = compute_date_start_end(report_year, report_month)
 
         audit_count = self.env["restaurant_management.restaurant_audit"].search_count([
             ("audit_date", ">=", date_start),
@@ -228,7 +219,7 @@ class DepartmentReport(models.Model):
     def _compute_relative_by_month_fault_count(
             self, report_year, report_month, department_id, restaurant_ids
         ):
-        date_start, date_end = _compute_date_start_end(report_year, report_month)
+        date_start, date_end = compute_date_start_end(report_year, report_month)
         date_start = (date_start - timedelta(days=1)).replace(day=1)
 
         self.env.cr.execute(
@@ -241,7 +232,7 @@ class DepartmentReport(models.Model):
     def _compute_restaurant_rating_within_department(
         self, report_year, report_month, department_id, restaurant_ids
     ):
-        date_start, date_end = _compute_date_start_end(report_year, report_month)
+        date_start, date_end = compute_date_start_end(report_year, report_month)
         self.env.cr.execute(
             queries.restaurant_faults_in_department_query, 
             [
@@ -262,41 +253,12 @@ class DepartmentReport(models.Model):
                 tuple(restaurant_ids)
             ]
         )
+        audits_per_restaurant = self.env.cr.fetchall()
 
-        restaurant_to_audit_count = {
-            r[0]: r[1] for r in self.env.cr.fetchall()
-        }
-
-        results = []
-        for restaurant_id, restaurant_name, fault_count in faults_per_restaurant:
-            results.append({
-                "restaurant_id": restaurant_id,
-                "restaurant_name": restaurant_name,
-                "fault_count": fault_count,
-                "fault_count_per_audit": round(fault_count/restaurant_to_audit_count.get(restaurant_id, 1), 2)
-            })
-        
-        response = []
-        rating = 0
-        for row in sorted(results, key=lambda r: r["fault_count_per_audit"], reverse=True):
-            if response and response[-1]["fault_count_per_audit"] == row["fault_count_per_audit"]:
-                response[-1]["restaurant_id"].append(row["restaurant_id"])
-                response[-1]["restaurants"].append(row["restaurant_name"])
-                response[-1]["fault_count"].append(row["fault_count"])
-            elif not response or response[-1]["fault_count_per_audit"] != row["fault_count_per_audit"]:
-                rating += 1
-                response.append({
-                    "rating": rating,
-                    "fault_count_per_audit": row["fault_count_per_audit"],
-                    "restaurant_id": [row["restaurant_id"]],
-                    "restaurants": [row["restaurant_name"]],
-                    "fault_count": [row["fault_count"]]
-                })
-            
-        return json.dumps(response)
+        return json.dumps(compute_restaurant_ratings(faults_per_restaurant, audits_per_restaurant))
 
     def _compute_top_violations(self, report_year, report_month, department_id, restaurant_ids):
-        date_start, date_end = _compute_date_start_end(report_year, report_month)
+        date_start, date_end = compute_date_start_end(report_year, report_month)
         self.env.cr.execute(
             queries.top_violations_by_department_query, 
             [date_start.isoformat(), date_end.isoformat(), department_id, tuple(restaurant_ids)]
@@ -312,7 +274,7 @@ class DepartmentReport(models.Model):
         chart_date_start = date(year=int(report_year), month=1, day=1)
         chart_date_end = date(year=int(report_year), month=12, day=31)
         self.env.cr.execute(
-            queries.faults_by_months_query, 
+            queries.faults_by_months_in_department_query, 
             [chart_date_start.isoformat(), chart_date_end.isoformat(), department_id, tuple(restaurant_ids)]
         )
         data = {d[0]: d[1] for d in self.env.cr.fetchall()}
@@ -321,7 +283,7 @@ class DepartmentReport(models.Model):
         chart_date_start = date(year=int(report_year) - 1, month=1, day=1)
         chart_date_end = date(year=int(report_year) - 1, month=12, day=31)
         self.env.cr.execute(
-            queries.faults_by_months_query, 
+            queries.faults_by_months_in_department_query, 
             [chart_date_start.isoformat(), chart_date_end.isoformat(), department_id, tuple(restaurant_ids)]
         )
         data = {d[0]: d[1] for d in self.env.cr.fetchall()}
@@ -332,7 +294,7 @@ class DepartmentReport(models.Model):
         })
 
     def _compute_department_rating(self, report_year, report_month, department_id, restaurant_ids): 
-        date_start, date_end = _compute_date_start_end(report_year, report_month)
+        date_start, date_end = compute_date_start_end(report_year, report_month)
         self.env.cr.execute(
             queries.department_rating_query, 
             [date_start.isoformat(), date_end.isoformat(), tuple(restaurant_ids)]
@@ -389,7 +351,7 @@ class DepartmentReport(models.Model):
             upper_limit = round( max_value*1.1)
             months = [m[1] for m in self._fields['report_month']._description_selection(self.env)]
 
-            rec.fault_count_chart = ChartBuilder().build_year_to_year_line_chart(
+            rec.fault_count_chart = ChartBuilder(height=200).build_year_to_year_line_chart(
                 months, y1, y2, label1, label2, upper_limit
             )
  

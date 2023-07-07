@@ -442,3 +442,147 @@
     }
   }
 }
+
+.report-company-container {
+  --primary-text-color: white;
+  --secondary-text-color: #5cc4cc;
+
+  background-color: #2d4669;
+  // height: 900px;
+  max-width: 1200px;
+  padding: 10px;
+  margin: 0 auto;
+
+  & .report-company-header {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 2px solid white;
+    border-radius: 3px;
+    padding: 5px;
+
+    & h1 {
+      color: var(--secondary-text-color);
+      font-size: 18px;
+      text-align: center;
+    }
+
+    & .report-company-header__content {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      color: var(--primary-text-color);
+
+      & .report-company-header__period {
+        display: flex;
+        gap: 5px;
+        & span {
+          color: var(--secondary-text-color);
+        }
+      }
+
+      & .report-company-header__responsible {
+        & span {
+          color: var(--secondary-text-color);
+        }
+      }
+
+      & .report-company-header__line {
+        & span {
+          color: var(--secondary-text-color);
+        }
+      }
+    }
+  }
+
+  & .report-company-section__header {
+    margin: 30px auto 3px auto;
+    padding: 3px;
+    text-align: center;
+    font-size: 18px;
+    color: black;
+    background-color: var(--primary-text-color);
+    border-radius: 5px;
+    width: 100%;
+    height: 35px;
+  }
+
+  & .report-company__audit-counts {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+
+    & .report-company__audit_chart {
+      width: 100%;
+      min-height: 200px;
+    }
+  }
+
+  & .report-company__fault-counts {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+
+    & .report-company__fault_chart {
+      width: 100%;
+      min-height: 200px;
+    }
+  }
+
+  & .report-company__relative-fault-counts {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+
+    & .report-company__relative-fault_chart {
+      width: 100%;
+      min-height: 200px;
+    }
+  }
+
+  & .report-company__top-faults {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+
+    & .report-company__top-fault_table {
+      width: 100%;
+      min-height: 200px;
+    }
+  }
+
+  & .report-company__restaurant-rating {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+
+    & .report-company__restaurant_rating_table {
+      width: 100%;
+      min-height: 200px;
+    }
+  }
+
+  & .report-company-summary {
+    & .report-company-summary__content {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      min-height: 200px;
+      border: 2px solid white;
+      border-radius: 3px;
+      color: white;
+
+      & textarea {
+        color: black;
+        margin: 5px auto;
+        min-height: 190px;
+        width: 99%;
+      }
+    }
+  }
+}

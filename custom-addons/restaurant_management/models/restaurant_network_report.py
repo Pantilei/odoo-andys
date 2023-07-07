@@ -98,7 +98,7 @@ class RestaurantNetworkReport(models.Model):
     responsible_id = fields.Many2one(
         comodel_name="res.users",
         default=lambda self: self.env.user.id,
-        string="Responsible"
+        string="Composed by"
     )
 
     logo = fields.Image(related='restaurant_network_id.logo', readonly=True)
@@ -157,7 +157,6 @@ class RestaurantNetworkReport(models.Model):
         return super(RestaurantNetworkReport, self).create(vals_list)
 
     def write(self, vals):
-        print("Write Vals: ", vals)
         computed_values = self._get_computed_fields(
             vals.get("report_month", self.report_month), 
             vals.get("report_year", self.report_year), 
@@ -264,6 +263,7 @@ class RestaurantNetworkReport(models.Model):
         chart_date_start = date(year=int(report_year), month=1, day=1)
         chart_date_end = date(year=int(report_year), month=12, day=31)
         audit_count = self.env["restaurant_management.restaurant_audit"].search_count([
+            ("state", "=", 'confirm'),
             ("audit_date", ">=", chart_date_start),
             ("audit_date", "<=", chart_date_end),
             ("restaurant_id", "in", restaurant_ids)
@@ -355,8 +355,10 @@ class RestaurantNetworkReport(models.Model):
             x1 = data[label1]["check_list_category_fault_counts"]
             x2 = data[label2]["check_list_category_fault_counts"]
             
-            record.yearly_fault_count_per_audit_by_check_list_category_chart = ChartBuilder().build_grouped_horizontal_bar_chart(
-                data[label1]["check_list_category_names"], x1, x2
+            record.yearly_fault_count_per_audit_by_check_list_category_chart = ChartBuilder(
+                height=len(data[label1]["check_list_category_names"])*40
+            ).build_grouped_horizontal_bar_chart(
+                data[label1]["check_list_category_names"], x1, x2, label1, label2
             )
 
     @api.depends("write_date")

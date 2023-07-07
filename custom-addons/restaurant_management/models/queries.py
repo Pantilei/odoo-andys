@@ -99,7 +99,7 @@ order by total_faults desc
 limit 10;
 """
 
-faults_by_months_query = """
+faults_by_months_in_department_query = """
 SELECT 
     EXTRACT(MONTH FROM faults_by_date.fault_month) AS month_of_faults, 
     faults_by_date.total_faults AS total_faults
@@ -156,6 +156,117 @@ ORDER BY fault_count ASC;
 """
 
 
+# Company queries
+planned_audit_count_by_year = """
+select 
+	year,
+	sum(jan) as jan,
+	sum(feb) as feb,
+	sum(mar) as mar,
+	sum(apr) as apr,
+	sum(may) as may,
+	sum(jun) as jun,
+	sum(jul) as jul,
+	sum(aug) as aug,
+	sum(sept) as sept,
+	sum(oct) as oct,
+	sum(nov) as nov,
+	sum("dec") as dec
+from restaurant_management_planned_audits rmpa 
+where 
+	restaurant_id in %s and 
+	year = %s
+group by year
+"""
+
+actual_audit_count_by_year = """
+select 
+	extract(month from date_trunc('month', audit_date)) as audit_month,
+	sum(1) as audit_count
+from restaurant_management_restaurant_audit rmra 
+where 
+	restaurant_id in %s and 
+	audit_date >= %s and 
+	audit_date <= %s and 
+	state = 'confirm'
+group by audit_month
+order by audit_month
+"""
+
+faults_by_months_in_company_query = """
+SELECT 
+    EXTRACT(MONTH FROM faults_by_date.fault_month) AS month_of_faults, 
+    faults_by_date.total_faults AS total_faults
+FROM
+(
+    SELECT 
+        DATE_TRUNC('month', rmfr.fault_date) AS fault_month,
+        SUM(rmfr.fault_count) AS total_faults
+    FROM restaurant_management_fault_registry rmfr 
+    WHERE 
+        rmfr.state = 'confirm' AND 
+        rmfr.fault_date >= %s AND 
+        rmfr.fault_date <= %s AND
+        rmfr.restaurant_id IN %s
+    GROUP BY fault_month
+    ORDER BY fault_month DESC
+) AS faults_by_date;
+"""
+
+top_faults_by_restaurants_query = """
+with check_list_to_fault_count as (
+	select
+		check_list_id,
+		sum(fault_count) as fault_count
+	from restaurant_management_fault_registry rmfr 
+	where
+		state = 'confirm' and
+		check_list_id is not null and 
+		fault_date >= %s and 
+		fault_date <= %s and 
+		restaurant_id in %s
+	group by check_list_id
+	order by fault_count desc 
+	limit 10
+)
+
+select 
+	rmcl.category_id as check_list_category_id,
+	rmclc.name as check_list_category_name,
+	rmcl.id as id,
+	rmcl.name as name,
+	cltfc.fault_count as fault_count
+from check_list_to_fault_count as cltfc
+left join restaurant_management_check_list rmcl on
+    cltfc.check_list_id = rmcl.id
+left join restaurant_management_check_list_category rmclc on
+    rmcl.category_id = rmclc.id
+order by fault_count desc 
+"""
+
+
+fault_counts_by_restaurants_query = """
+WITH restaurant_to_fault_count AS (
+    SELECT 
+        restaurant_id,
+        SUM(fault_count) AS total_faults     
+    FROM restaurant_management_fault_registry 
+    WHERE
+        state = 'confirm' and 
+        fault_date >= %s and 
+        fault_date <= %s and 
+        restaurant_id IN %s
+    GROUP BY restaurant_id
+)
+select 
+    rmr.id as restaurant_id,
+    rmr.name as restaurant_name,
+    COALESCE(restaurant_to_fault_count.total_faults, 0) as total_faults
+from restaurant_to_fault_count 
+right join restaurant_management_restaurant rmr
+on restaurant_to_fault_count.restaurant_id = rmr.id
+where rmr.id IN %s
+"""
 
 # Restaurant queries
 restaurant_rating_within_network_query = """

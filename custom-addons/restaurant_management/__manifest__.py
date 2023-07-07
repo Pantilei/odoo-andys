@@ -39,6 +39,7 @@
         'views/department_report.xml',
         'views/restaurant_report.xml',
         'views/restaurant_network_report.xml',
+        'views/company_report.xml',
 
         'wizards/reports.xml',
         'wizards/departaments_reports.xml',

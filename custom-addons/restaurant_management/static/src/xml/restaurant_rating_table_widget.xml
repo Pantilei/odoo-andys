@@ -36,7 +36,7 @@
                         <t t-esc="row['rating']" />
                     </div>
                     <div class="w-50 pl-1" style="border-left: 2px solid white;">
-                        <t t-esc="row['restaurants'].join(', ')" />
+                        <t t-esc="row['restaurant_names'].join(', ')" />
                     </div>
                     <div class="w-25" style="border-left: 2px solid white; text-align: center">
                         <t t-esc="row['fault_count_per_audit']" />

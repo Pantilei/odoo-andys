@@ -1,9 +1,10 @@
-from odoo import api, models, fields, _
-from odoo.osv import expression
-from odoo.exceptions import ValidationError
-
 from datetime import date
 
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
+from odoo.osv import expression
+
+from . import queries
 
 MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun',
           'jul', 'aug', 'sept', 'oct', 'nov', 'dec']
@@ -140,26 +141,14 @@ class PlannedAudits(models.Model):
             counts += a
         return counts
 
-        # if not year:
-        #     year = date.today().year
-        # if restaurant_id:
-        #     planned_audit_id = self.env["restaurant_management.planned_audits"].search([
-        #         ("restaurant_id", "=", restaurant_id),
-        #         ("year", "=", year)
-        #     ], limit=1)
-        #     return [getattr(planned_audit_id, month) for month in MONTHS]
-
-        # if restaurant_network_id:
-        #     planned_audit_ids = self.env["restaurant_management.planned_audits"].search([
-        #         ("restaurant_id.restaurant_network_id", "=", restaurant_network_id),
-        #         ("year", "=", year)
-        #     ])
-        #     return [sum(planned_audit_ids.mapped(month)) for month in MONTHS]
-
-        # planned_audit_ids = self.env["restaurant_management.planned_audits"].search([
-        #     ("year", "=", year)
-        # ])
-        # return [sum(planned_audit_ids.mapped(month)) for month in MONTHS]
+    def get_monthly_planned_audit_count(self, year, restaurant_ids):
+        self.env.cr.execute(
+            queries.planned_audit_count_by_year,
+            [tuple(restaurant_ids), year]
+        )
+        planned_audits = self.env.cr.fetchall()
+        return planned_audits and planned_audits[0][1:]
+        
 
     def create_yearly_planned_amount(self):
         year = date.today().year

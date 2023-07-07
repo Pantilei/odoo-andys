@@ -94,7 +94,7 @@ class RestaurantReport(models.Model):
     responsible_id = fields.Many2one(
         comodel_name="res.users",
         default=lambda self: self.env.user.id,
-        string="Responsible"
+        string="Composed by"
     )
 
     logo = fields.Image(related='restaurant_id.restaurant_network_id.logo', readonly=True)

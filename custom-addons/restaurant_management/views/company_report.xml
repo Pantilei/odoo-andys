@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="company_report_form_view_form" model="ir.ui.view">
+            <field name="name">company_report.view.form</field>
+            <field name="model">restaurant_management.company_report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="report-company-container">
+                        <div class="report-company-header">
+                            <h1> Отчет ДКК по <field name="company_id"
+                                    options="{'no_open': True, 'no_create': True}" /></h1>
+                            <div class="report-company-header__content">
+                                <span class="report-company-header__period"> Период: <field
+                                        name="report_month" /> <field
+                                        name="report_year" />
+                                </span>
+                                <span class="report-company-header__responsible"> Составил: <field
+                                        name="responsible_id"
+                                        options="{'no_create': True, 'no_open': True}" />
+                                </span>
+                                <span class="report-company-header__line"> Основан на данных сетей: <field
+                                        name="restaurant_network_ids"
+                                        widget="many2many_tags" />
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="report-company__audit-counts">
+                            <div class="report-company-section__header">
+                                <h2>Динамика количества проверок</h2>
+                            </div>
+
+                            <div class="report-company__audit_chart">
+                                <field name="monthly_audit_counts_chart" widget="plotly_chart" />
+                            </div>
+                        </div>
+
+                        <div class="report-company__fault-counts">
+                            <div class="report-company-section__header">
+                                <h2>Динамика общего количество ошибок</h2>
+                            </div>
+
+                            <div class="report-company__fault_chart">
+                                <field name="absolute_monthly_fault_counts_chart"
+                                    widget="plotly_chart" />
+                            </div>
+                        </div>
+
+                        <div class="report-company__relative-fault-counts">
+                            <div class="report-company-section__header">
+                                <h2> Динамика ошибок на единицу проверки</h2>
+                            </div>
+
+                            <div class="report-company__relative-fault_chart">
+                                <field name="relative_monthly_fault_counts_chart"
+                                    widget="plotly_chart" />
+                            </div>
+                        </div>
+
+                        <div class="report-company__top-fault-counts">
+                            <div class="report-company-section__header">
+                                <h2>Топ 10 нарушений</h2>
+                            </div>
+
+                            <div class="report-company__top-fault_table">
+                                <field name="top_faults_table" widget="html" />
+                            </div>
+                        </div>
+
+                        <div class="report-company__restaurant_rating">
+                            <div class="report-company-section__header">
+                                <h2>Рейтинг ресторанов</h2>
+                            </div>
+
+                            <div class="report-company__restaurant_rating_table">
+                                <field name="restaurant_rating_table" widget="html" />
+                            </div>
+                        </div>
+
+
+                        <div class="report-company-summary">
+                            <div class="report-company-section__header">
+                                <h2>Выводы</h2>
+                            </div>
+                            <div class="report-company-summary__content">
+                                <field name="summary" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="company_report_tree_view_form" model="ir.ui.view">
+            <field name="name">company_report.view.tree</field>
+            <field name="model">restaurant_management.company_report</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" invisible="1" />
+                    <field name="report_month" />
+                    <field name="report_year" />
+                    <field name="responsible_id" />
+                    <field name="create_date" />
+                    <field name="restaurant_network_ids" widget="many2many_tags" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="company_report_action" model="ir.actions.act_window">
+            <field name="name">Company Report</field>
+            <field name="res_model">restaurant_management.company_report</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="target">current</field>
+        </record>
+
+    </data>
+</odoo>

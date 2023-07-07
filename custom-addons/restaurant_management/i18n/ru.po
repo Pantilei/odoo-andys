@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-18 20:06+0000\n"
-"PO-Revision-Date: 2023-06-18 20:06+0000\n"
+"POT-Creation-Date: 2023-07-07 16:37+0000\n"
+"PO-Revision-Date: 2023-07-07 16:37+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -89,6 +89,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__1999
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__1999
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__1999
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__1999
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__1999
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__1999
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__1999
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__1999
@@ -126,6 +128,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2000
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2000
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2000
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2000
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2000
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2000
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2000
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2000
@@ -148,6 +152,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2001
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2001
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2001
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2001
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2001
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2001
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2001
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2001
@@ -170,6 +176,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2002
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2002
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2002
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2002
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2002
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2002
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2002
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2002
@@ -192,6 +200,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2003
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2003
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2003
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2003
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2003
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2003
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2003
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2003
@@ -214,6 +224,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2004
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2004
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2004
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2004
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2004
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2004
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2004
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2004
@@ -236,6 +248,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2005
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2005
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2005
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2005
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2005
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2005
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2005
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2005
@@ -258,6 +272,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2006
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2006
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2006
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2006
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2006
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2006
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2006
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2006
@@ -280,6 +296,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2007
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2007
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2007
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2007
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2007
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2007
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2007
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2007
@@ -302,6 +320,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2008
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2008
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2008
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2008
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2008
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2008
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2008
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2008
@@ -324,6 +344,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2009
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2009
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2009
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2009
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2009
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2009
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2009
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2009
@@ -346,6 +368,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2010
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2010
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2010
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2010
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2010
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2010
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2010
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2010
@@ -368,6 +392,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2011
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2011
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2011
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2011
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2011
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2011
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2011
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2011
@@ -390,6 +416,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2012
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2012
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2012
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2012
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2012
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2012
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2012
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2012
@@ -412,6 +440,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2013
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2013
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2013
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2013
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2013
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2013
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2013
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2013
@@ -434,6 +464,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2014
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2014
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2014
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2014
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2014
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2014
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2014
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2014
@@ -456,6 +488,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2015
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2015
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2015
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2015
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2015
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2015
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2015
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2015
@@ -478,6 +512,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2016
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2016
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2016
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2016
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2016
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2016
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2016
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2016
@@ -500,6 +536,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2017
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2017
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2017
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2017
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2017
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2017
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2017
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2017
@@ -522,6 +560,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2018
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2018
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2018
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2018
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2018
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2018
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2018
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2018
@@ -544,6 +584,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2019
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2019
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2019
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2019
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2019
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2019
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2019
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2019
@@ -566,6 +608,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2020
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2020
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2020
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2020
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2020
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2020
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2020
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2020
@@ -588,6 +632,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2021
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2021
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2021
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2021
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2021
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2021
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2021
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2021
@@ -610,6 +656,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2022
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2022
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2022
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2022
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2022
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2022
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2022
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2022
@@ -632,6 +680,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2023
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2023
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2023
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2023
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2023
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2023
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2023
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2023
@@ -654,6 +704,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2024
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2024
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2024
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2024
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2024
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2024
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2024
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2024
@@ -676,6 +728,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2025
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2025
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2025
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2025
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2025
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2025
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2025
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2025
@@ -698,6 +752,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2026
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2026
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2026
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2026
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2026
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2026
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2026
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2026
@@ -720,6 +776,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2027
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2027
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2027
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2027
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2027
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2027
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2027
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2027
@@ -742,6 +800,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2028
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2028
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2028
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2028
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2028
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2028
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2028
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2028
@@ -764,6 +824,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2029
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2029
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2029
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2029
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2029
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2029
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2029
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2029
@@ -786,6 +848,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2030
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2030
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2030
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2030
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2030
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2030
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2030
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2030
@@ -808,6 +872,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2031
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2031
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2031
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2031
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2031
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2031
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2031
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2031
@@ -830,6 +896,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2032
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2032
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2032
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2032
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2032
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2032
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2032
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2032
@@ -852,6 +920,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2033
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2033
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2033
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2033
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2033
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2033
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2033
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2033
@@ -874,6 +944,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2034
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2034
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2034
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2034
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2034
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2034
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2034
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2034
@@ -896,6 +968,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2035
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2035
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2035
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2035
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2035
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2035
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2035
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2035
@@ -918,6 +992,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2036
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2036
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2036
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2036
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2036
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2036
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2036
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2036
@@ -940,6 +1016,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2037
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2037
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2037
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2037
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2037
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2037
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2037
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2037
@@ -962,6 +1040,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2038
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2038
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2038
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2038
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2038
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2038
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2038
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2038
@@ -984,6 +1064,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2039
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2039
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2039
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2039
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2039
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2039
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2039
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2039
@@ -1006,6 +1088,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2040
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2040
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2040
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2040
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2040
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2040
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2040
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2040
@@ -1028,6 +1112,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2041
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2041
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2041
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2041
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2041
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2041
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2041
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2041
@@ -1050,6 +1136,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2042
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2042
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2042
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2042
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2042
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2042
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2042
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2042
@@ -1072,6 +1160,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2043
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2043
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2043
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2043
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2043
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2043
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2043
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2043
@@ -1094,6 +1184,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2044
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2044
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2044
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2044
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2044
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2044
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2044
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2044
@@ -1116,6 +1208,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2045
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2045
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2045
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2045
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2045
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2045
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2045
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2045
@@ -1138,6 +1232,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2046
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2046
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2046
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2046
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2046
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2046
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2046
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2046
@@ -1160,6 +1256,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2047
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2047
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2047
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2047
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2047
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2047
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2047
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2047
@@ -1182,6 +1280,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__year_start__2048
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_end__2048
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__year_start__2048
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__previous_report_year__2048
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_year__2048
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year__2048
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_end__2048
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__year_start__2048
@@ -1330,14 +1430,25 @@ msgid "<span>Среднее кол-во нарушений за одну про�
 msgstr ""
 
 #. module: restaurant_management
-#: model_terms:ir.ui.view,arch_db:restaurant_management.department_report_form_view_form
-msgid "<span>Среднее кол-во нарушений на один ресторан</span>"
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_company_report__absolute_monthly_fault_counts
+msgid "Absolute Monthly Fault Counts"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_company_report__absolute_monthly_fault_counts_chart
+msgid "Absolute Monthly Fault Counts Chart"
 msgstr ""
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_audit_temp_links__access_token
 msgid "Access Token"
 msgstr "Токен"
+
+#. module: restaurant_management
+#: code:addons/restaurant_management/models/company_report.py:0
+#, python-format
+msgid "Actual"
+msgstr "Факт"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_network_report__actual_audit_count
@@ -1379,6 +1490,7 @@ msgid "Anti Top Rating Table"
 msgstr ""
 
 #. module: restaurant_management
+#: code:addons/restaurant_management/models/company_report.py:0
 #: code:addons/restaurant_management/models/department_report.py:0
 #: code:addons/restaurant_management/models/restaurant_network_report.py:0
 #: code:addons/restaurant_management/models/restaurant_report.py:0
@@ -1394,6 +1506,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__month_start__4
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__month_end__4
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__month_start__4
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_month__4
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__month__4
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__month_end__4
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__month_start__4
@@ -1505,6 +1618,7 @@ msgid "Audits Table Json"
 msgstr "Таблица Проверок JSON"
 
 #. module: restaurant_management
+#: code:addons/restaurant_management/models/company_report.py:0
 #: code:addons/restaurant_management/models/department_report.py:0
 #: code:addons/restaurant_management/models/restaurant_network_report.py:0
 #: code:addons/restaurant_management/models/restaurant_report.py:0
@@ -1520,6 +1634,7 @@ msgstr "Таблица Проверок JSON"
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__month_start__8
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__month_end__8
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__month_start__8
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_month__8
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__month__8
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__month_end__8
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__month_start__8
@@ -1687,10 +1802,30 @@ msgid "Comment Required"
 msgstr "Обязательный Комментарий"
 
 #. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_company_report__company_id
+msgid "Company"
+msgstr "Компания"
+
+#. module: restaurant_management
+#: model:ir.actions.act_window,name:restaurant_management.company_report_action
+#: model:ir.model,name:restaurant_management.model_restaurant_management_company_report
+#: model:ir.ui.menu,name:restaurant_management.company_report_menu
+msgid "Company Report"
+msgstr "Отчёт по Компании"
+
+#. module: restaurant_management
 #: model:ir.actions.act_window,name:restaurant_management.all_restaurants_report_wizard_action
 #: model:ir.actions.act_window,name:restaurant_management.department_report_action
 msgid "Company Reports"
 msgstr "Отчёт по Компаниям"
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_company_report__responsible_id
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_department_report__responsible_id
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_network_report__responsible_id
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_report__responsible_id
+msgid "Composed by"
+msgstr "Составил"
 
 #. module: restaurant_management
 #: model:ir.ui.menu,name:restaurant_management.configuration_menu
@@ -1759,6 +1894,7 @@ msgstr "Создать запланированные проверки рест�
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list__create_uid
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__create_uid
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_type__create_uid
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_company_report__create_uid
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_departaments_reports_wizard__create_uid
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_department_report__create_uid
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__create_uid
@@ -1781,6 +1917,7 @@ msgstr "Создано Пользователем"
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list__create_date
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__create_date
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_type__create_date
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_company_report__create_date
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_departaments_reports_wizard__create_date
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_department_report__create_date
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__create_date
@@ -1837,6 +1974,7 @@ msgid "Day Time"
 msgstr "Время Дня"
 
 #. module: restaurant_management
+#: code:addons/restaurant_management/models/company_report.py:0
 #: code:addons/restaurant_management/models/department_report.py:0
 #: code:addons/restaurant_management/models/restaurant_network_report.py:0
 #: code:addons/restaurant_management/models/restaurant_report.py:0
@@ -1852,6 +1990,7 @@ msgstr "Время Дня"
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__month_start__12
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__month_end__12
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__month_start__12
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_month__12
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__month__12
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__month_end__12
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__month_start__12
@@ -1953,6 +2092,7 @@ msgstr "Описание"
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list__display_name
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__display_name
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_type__display_name
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_company_report__display_name
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_departaments_reports_wizard__display_name
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_department_report__display_name
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__display_name
@@ -2162,6 +2302,7 @@ msgid "Faults Reports"
 msgstr "Отчёты по Ошибкам"
 
 #. module: restaurant_management
+#: code:addons/restaurant_management/models/company_report.py:0
 #: code:addons/restaurant_management/models/department_report.py:0
 #: code:addons/restaurant_management/models/restaurant_network_report.py:0
 #: code:addons/restaurant_management/models/restaurant_report.py:0
@@ -2177,6 +2318,7 @@ msgstr "Отчёты по Ошибкам"
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__month_start__2
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__month_end__2
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__month_start__2
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_month__2
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__month__2
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__month_end__2
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__month_start__2
@@ -2285,6 +2427,7 @@ msgstr "Час"
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list__id
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__id
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_type__id
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_company_report__id
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_departaments_reports_wizard__id
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_department_report__id
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__id
@@ -2410,6 +2553,7 @@ msgid "Itentificator within category"
 msgstr "Идентификатор внутри категории"
 
 #. module: restaurant_management
+#: code:addons/restaurant_management/models/company_report.py:0
 #: code:addons/restaurant_management/models/department_report.py:0
 #: code:addons/restaurant_management/models/restaurant_network_report.py:0
 #: code:addons/restaurant_management/models/restaurant_report.py:0
@@ -2425,6 +2569,7 @@ msgstr "Идентификатор внутри категории"
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__month_start__1
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__month_end__1
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__month_start__1
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_month__1
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__month__1
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__month_end__1
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__month_start__1
@@ -2471,6 +2616,7 @@ msgid "Json Top Faults"
 msgstr ""
 
 #. module: restaurant_management
+#: code:addons/restaurant_management/models/company_report.py:0
 #: code:addons/restaurant_management/models/department_report.py:0
 #: code:addons/restaurant_management/models/restaurant_network_report.py:0
 #: code:addons/restaurant_management/models/restaurant_report.py:0
@@ -2486,6 +2632,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__month_start__7
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__month_end__7
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__month_start__7
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_month__7
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__month__7
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__month_end__7
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__month_start__7
@@ -2509,6 +2656,7 @@ msgid "July"
 msgstr "Июль"
 
 #. module: restaurant_management
+#: code:addons/restaurant_management/models/company_report.py:0
 #: code:addons/restaurant_management/models/department_report.py:0
 #: code:addons/restaurant_management/models/restaurant_network_report.py:0
 #: code:addons/restaurant_management/models/restaurant_report.py:0
@@ -2524,6 +2672,7 @@ msgstr "Июль"
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__month_start__6
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__month_end__6
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__month_start__6
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_month__6
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__month__6
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__month_end__6
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__month_start__6
@@ -2562,6 +2711,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list____last_update
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category____last_update
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_type____last_update
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_company_report____last_update
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_departaments_reports_wizard____last_update
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_department_report____last_update
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry____last_update
@@ -2584,6 +2734,7 @@ msgstr "Дата последнего обновления"
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list__write_uid
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__write_uid
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_type__write_uid
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_company_report__write_uid
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_departaments_reports_wizard__write_uid
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_department_report__write_uid
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__write_uid
@@ -2606,6 +2757,7 @@ msgstr "Последнее обновление пользователем"
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list__write_date
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__write_date
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_type__write_date
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_company_report__write_date
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_departaments_reports_wizard__write_date
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_department_report__write_date
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__write_date
@@ -2658,6 +2810,7 @@ msgid "Low level: up to 30%"
 msgstr "Низкая загруженность: до 30%"
 
 #. module: restaurant_management
+#: code:addons/restaurant_management/models/company_report.py:0
 #: code:addons/restaurant_management/models/department_report.py:0
 #: code:addons/restaurant_management/models/restaurant_network_report.py:0
 #: code:addons/restaurant_management/models/restaurant_report.py:0
@@ -2673,6 +2826,7 @@ msgstr "Низкая загруженность: до 30%"
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__month_start__3
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__month_end__3
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__month_start__3
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_month__3
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__month__3
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__month_end__3
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__month_start__3
@@ -2716,6 +2870,7 @@ msgid "Maximum file size is 100MB"
 msgstr "Максимальный размер файла 100MB"
 
 #. module: restaurant_management
+#: code:addons/restaurant_management/models/company_report.py:0
 #: code:addons/restaurant_management/models/department_report.py:0
 #: code:addons/restaurant_management/models/restaurant_network_report.py:0
 #: code:addons/restaurant_management/models/restaurant_report.py:0
@@ -2732,6 +2887,7 @@ msgstr "Максимальный размер файла 100MB"
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__month_start__5
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__month_end__5
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__month_start__5
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_month__5
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__month__5
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__month_end__5
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__month_start__5
@@ -2753,11 +2909,6 @@ msgstr "Май"
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_department_report__mean_fault_count_per_audit
 msgid "Mean Fault Count Per Audit"
 msgstr "Среднее Количество Ошибок на Проверку"
-
-#. module: restaurant_management
-#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_department_report__mean_fault_count_per_restaurant
-msgid "Mean Fault Count Per Restaurant"
-msgstr "Среднее Количество Ошибок на Ресторан"
 
 #. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_secret_guest_form_view
@@ -2824,6 +2975,16 @@ msgid "Month of Report"
 msgstr "Месяц Отчета"
 
 #. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_company_report__monthly_audit_counts
+msgid "Monthly Audit Counts"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_company_report__monthly_audit_counts_chart
+msgid "Monthly Audit Counts Chart"
+msgstr ""
+
+#. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_network_report__monthly_fault_count_per_audit
 msgid "Monthly Fault Count Per Audit"
 msgstr ""
@@ -2853,6 +3014,7 @@ msgstr "Утро"
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list__name
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_category__name
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_check_list_type__name
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_company_report__name
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_departaments_reports_wizard__name
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_department_report__name
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_reports_wizard__name
@@ -2926,6 +3088,12 @@ msgid "No Fault Count"
 msgstr "Нет Ошибки"
 
 #. module: restaurant_management
+#: code:addons/restaurant_management/models/company_report.py:0
+#, python-format
+msgid "No planned audits for restaurants"
+msgstr ""
+
+#. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
 msgid "None Severe Faults"
 msgstr "Не грубые ошики"
@@ -2936,6 +3104,7 @@ msgid "Notes"
 msgstr "Оценки"
 
 #. module: restaurant_management
+#: code:addons/restaurant_management/models/company_report.py:0
 #: code:addons/restaurant_management/models/department_report.py:0
 #: code:addons/restaurant_management/models/restaurant_network_report.py:0
 #: code:addons/restaurant_management/models/restaurant_report.py:0
@@ -2951,6 +3120,7 @@ msgstr "Оценки"
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__month_start__11
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__month_end__11
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__month_start__11
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_month__11
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__month__11
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__month_end__11
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__month_start__11
@@ -2979,6 +3149,7 @@ msgid "Number of planned audits in restaurant per month"
 msgstr "Количество планируемых проверок в ресторане за месяц"
 
 #. module: restaurant_management
+#: code:addons/restaurant_management/models/company_report.py:0
 #: code:addons/restaurant_management/models/department_report.py:0
 #: code:addons/restaurant_management/models/restaurant_network_report.py:0
 #: code:addons/restaurant_management/models/restaurant_report.py:0
@@ -2994,6 +3165,7 @@ msgstr "Количество планируемых проверок в рест
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__month_start__10
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__month_end__10
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__month_start__10
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_month__10
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__month__10
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__month_end__10
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__month_start__10
@@ -3085,6 +3257,12 @@ msgid "Photos"
 msgstr "Фото"
 
 #. module: restaurant_management
+#: code:addons/restaurant_management/models/company_report.py:0
+#, python-format
+msgid "Planned"
+msgstr "План"
+
+#. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_network_report__planned_audit_count
 msgid "Planned Audit Count"
 msgstr "Плановое Кол-во Проверок"
@@ -3127,6 +3305,7 @@ msgid "Previous"
 msgstr "Предыдущий"
 
 #. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_company_report__previous_report_year
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_network_report__previous_report_year
 msgid "Previous Year of Report"
 msgstr ""
@@ -3188,6 +3367,16 @@ msgid "Relative Faults Distribution One Month Json"
 msgstr ""
 
 #. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_company_report__relative_monthly_fault_counts
+msgid "Relative Monthly Fault Counts"
+msgstr ""
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_company_report__relative_monthly_fault_counts_chart
+msgid "Relative Monthly Fault Counts Chart"
+msgstr ""
+
+#. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_all_restaurants_report_wizard__report
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_departaments_reports_wizard__report
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_reports_wizard__report
@@ -3196,6 +3385,7 @@ msgid "Report"
 msgstr "Отчёт"
 
 #. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_company_report__report_month
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_department_report__report_month
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_network_report__report_month
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_report__report_month
@@ -3238,9 +3428,6 @@ msgid "Response Type"
 msgstr "Тип Ответа"
 
 #. module: restaurant_management
-#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_department_report__responsible_id
-#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_network_report__responsible_id
-#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_report__responsible_id
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_search
 msgid "Responsible"
@@ -3374,6 +3561,7 @@ msgstr "Отчёт по Сети Ресторанов"
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_all_restaurants_report_wizard__restaurant_network_ids
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_audit_reports__restaurant_network_ids
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_company_report__restaurant_network_ids
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_departaments_reports_wizard__restaurant_network_ids
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_department_report__restaurant_network_ids
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_reports_wizard__restaurant_network_ids
@@ -3387,6 +3575,7 @@ msgid "Restaurant QCD"
 msgstr "ДКК Ресторана"
 
 #. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_company_report__restaurant_rating
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__report__restaurant_rating
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_restaurant_reports_wizard__report__restaurant_rating
 msgid "Restaurant Rating"
@@ -3407,6 +3596,11 @@ msgstr ""
 #, python-format
 msgid "Restaurant Rating Dynamics within Department"
 msgstr "Динамика Рейтинга Ресторанов по Департаментам"
+
+#. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_company_report__restaurant_rating_table
+msgid "Restaurant Rating Table"
+msgstr ""
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_network_report__restaurant_rating_within_department
@@ -3492,6 +3686,7 @@ msgid "Secret Guest Audit Links"
 msgstr "Ссылки на проверки секретного гостя"
 
 #. module: restaurant_management
+#: code:addons/restaurant_management/models/company_report.py:0
 #: code:addons/restaurant_management/models/department_report.py:0
 #: code:addons/restaurant_management/models/restaurant_network_report.py:0
 #: code:addons/restaurant_management/models/restaurant_report.py:0
@@ -3507,6 +3702,7 @@ msgstr "Ссылки на проверки секретного гостя"
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_all_restaurants_report_wizard__month_start__9
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__month_end__9
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_audit_reports__month_start__9
+#: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_company_report__report_month__9
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__month__9
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__month_end__9
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__month_start__9
@@ -3619,6 +3815,7 @@ msgid "Suchif"
 msgstr "Сушеф"
 
 #. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_company_report__summary
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_department_report__summary
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_network_report__summary
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_report__summary
@@ -3699,6 +3896,7 @@ msgid "To"
 msgstr "По"
 
 #. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_company_report__top_faults
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_network_report__top_faults
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_departaments_reports_wizard__report__top_faults
 #: model:ir.model.fields.selection,name:restaurant_management.selection__restaurant_management_restaurant_reports_wizard__report__top_faults
@@ -3706,6 +3904,7 @@ msgid "Top Faults"
 msgstr "Топ Ошибок"
 
 #. module: restaurant_management
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_company_report__top_faults_table
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_network_report__top_faults_table
 msgid "Top Faults Table"
 msgstr ""
@@ -3961,6 +4160,7 @@ msgstr "Год начала"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_all_restaurants_report_wizard__year
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_company_report__report_year
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_departaments_reports_wizard__year
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_department_report__report_year
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_reports_wizard__year
@@ -4062,6 +4262,7 @@ msgid ""
 msgstr ""
 
 #. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.company_report_form_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.department_report_form_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_network_report_form_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_report_form_view_form
@@ -4092,8 +4293,23 @@ msgid "Динамика кол-ва ошибок."
 msgstr ""
 
 #. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.company_report_form_view_form
+msgid "Динамика количества проверок"
+msgstr ""
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.company_report_form_view_form
+msgid "Динамика общего количество ошибок"
+msgstr ""
+
+#. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_network_report_form_view_form
 msgid "Динамика ошибок на 1 проверку ("
+msgstr ""
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.company_report_form_view_form
+msgid "Динамика ошибок на единицу проверки"
 msgstr ""
 
 #. module: restaurant_management
@@ -4118,8 +4334,25 @@ msgid "Кол-во нарушений"
 msgstr ""
 
 #. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.company_report_restaurant_rating
+msgid "Кол-во нарушений на единицу проверки"
+msgstr ""
+
+#. module: restaurant_management
+#. openerp-web
+#: code:addons/restaurant_management/static/src/xml/restaurant_rating_table_widget.xml:0
+#, python-format
+msgid "Кол-во ошибок / ед. проверку"
+msgstr ""
+
+#. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_network_report_form_view_form
 msgid "Кол-во ошибок на 1 проверку по категориям чек-листа ("
+msgstr ""
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.company_report_top_faults
+msgid "Кол-во повторений"
 msgstr ""
 
 #. module: restaurant_management
@@ -4171,6 +4404,21 @@ msgid "Общий отчет по проверкам ресторанов за �
 msgstr ""
 
 #. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.company_report_form_view_form
+msgid "Основан на данных сетей:"
+msgstr ""
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.company_report_top_faults
+msgid "Отдел"
+msgstr ""
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.company_report_form_view_form
+msgid "Отчет ДКК по"
+msgstr ""
+
+#. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_network_report_form_view_form
 msgid "Отчет ДКК по сети"
 msgstr ""
@@ -4191,11 +4439,6 @@ msgid "Отчет по ресторану"
 msgstr ""
 
 #. module: restaurant_management
-#: model_terms:ir.ui.view,arch_db:restaurant_management.department_report_form_view_form
-msgid "Ошибки"
-msgstr ""
-
-#. module: restaurant_management
 #. openerp-web
 #: code:addons/restaurant_management/static/src/xml/json_to_top_faults_widget.xml:0
 #, python-format
@@ -4203,6 +4446,7 @@ msgid "Ошибки из чек листа эксперта ДКК"
 msgstr ""
 
 #. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.company_report_form_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.department_report_form_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_network_report_form_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_report_form_view_form
@@ -4230,6 +4474,11 @@ msgid "Плановое"
 msgstr ""
 
 #. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.company_report_restaurant_rating
+msgid "Позиция"
+msgstr ""
+
+#. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.department_report_form_view_form
 msgid "Позиция департамента в рейтинге компании"
 msgstr ""
@@ -4247,6 +4496,16 @@ msgid "Проверки"
 msgstr ""
 
 #. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.company_report_top_faults
+msgid "Пункт из чек-листа"
+msgstr ""
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.company_report_form_view_form
+msgid "Рейтинг ресторанов"
+msgstr ""
+
+#. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.department_report_form_view_form
 msgid "Рейтинг ресторанов по нарушениям департамента"
 msgstr ""
@@ -4254,6 +4513,7 @@ msgstr ""
 #. module: restaurant_management
 #. openerp-web
 #: code:addons/restaurant_management/static/src/xml/restaurant_rating_table_widget.xml:0
+#: model_terms:ir.ui.view,arch_db:restaurant_management.company_report_restaurant_rating
 #: model_terms:ir.ui.view,arch_db:restaurant_management.departaments_report
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurants_all_report
 #, python-format
@@ -4281,6 +4541,7 @@ msgid "Сеть ресторанов:"
 msgstr ""
 
 #. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.company_report_form_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.department_report_form_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_network_report_form_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_report_form_view_form
@@ -4292,6 +4553,11 @@ msgstr ""
 #: code:addons/restaurant_management/static/src/xml/reports_action.xml:0
 #, python-format
 msgid "Тип Отчёта"
+msgstr ""
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.company_report_form_view_form
+msgid "Топ 10 нарушений"
 msgstr ""
 
 #. module: restaurant_management
