@@ -74,8 +74,10 @@
                             <div class="section__header">
                                 <h2>Топ 10 нарушений</h2>
                             </div>
-                            <div class="top-faults__chart">
-                                <field name="top_faults_chart" widget="plotly_chart" />
+                            <div class="top-faults__container">
+                                <div class="top-faults__chart">
+                                    <field name="top_faults_chart" widget="plotly_chart" />
+                                </div>
                             </div>
                         </div>
 

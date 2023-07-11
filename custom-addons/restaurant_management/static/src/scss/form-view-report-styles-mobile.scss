@@ -55,4 +55,19 @@
       width: 100% !important;
     }
   }
+
+  .report-restaurant-container {
+    & .section {
+      display: flex;
+      flex-direction: column;
+
+      & .restaurant_indicators {
+        width: 100%;
+      }
+
+      & .faults_by_department {
+        width: 100%;
+      }
+    }
+  }
 }
