@@ -56,7 +56,7 @@ def _get_restaurant_rating(fault_counts_to_restaurants, restaurant_id):
 class RestaurantNetworkReport(models.Model):
     _name = "restaurant_management.restaurant_network_report"
     _description = "Restaurant Network Report"
-    
+    _order = "create_date desc"
 
     @api.depends("restaurant_network_id", "report_year", "report_month")
     def _compute_name(self):
@@ -343,7 +343,7 @@ class RestaurantNetworkReport(models.Model):
             max_value = max(max(y1), max(y2))
             upper_limit = round( max_value*1.1)
             months = [m[1] for m in self._fields['report_month']._description_selection(self.env)]            
-            record.monthly_fault_count_per_audit_chart = ChartBuilder().build_year_to_year_line_chart(
+            record.monthly_fault_count_per_audit_chart = ChartBuilder(height=300).build_year_to_year_line_chart(
                 months, y1, y2, label1, label2, upper_limit
             )
 

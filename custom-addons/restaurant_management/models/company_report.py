@@ -196,7 +196,7 @@ class CompanyReport(models.Model):
         date_start_this_year = date(year=report_year, month=1, day=1).isoformat()
         date_end_this_year = date(year=report_year, month=12, day=31).isoformat()
         self.env.cr.execute(
-            queries.faults_by_months_in_company_query,
+            queries.faults_by_months_in_restaurants_query,
             [date_start_this_year, date_end_this_year, tuple(restaurant_ids)]
         )
         this_year_month_to_fault_count = {
@@ -206,7 +206,7 @@ class CompanyReport(models.Model):
         date_start_prev_year = date(year=report_year-1, month=1, day=1).isoformat()
         date_end_prev_year = date(year=report_year-1, month=12, day=31).isoformat()
         self.env.cr.execute(
-            queries.faults_by_months_in_company_query,
+            queries.faults_by_months_in_restaurants_query,
             [date_start_prev_year, date_end_prev_year, tuple(restaurant_ids)]
         )
         prev_year_month_to_fault_count = {

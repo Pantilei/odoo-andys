@@ -525,5 +525,128 @@
                 </t>
             </div>
         </template>
+
+        <template id="restaurant_report_audit_info_table" name="restaurant_report_audit_info_table">
+            <style>
+                .audit-info-table {
+                border-collapse: collapse;
+                border: none;
+                width: 100%;
+                }
+
+                .audit-info-table td, .audit-info-table th {
+                border: 1px solid white;
+                text-align: center;
+                }
+
+                .audit-info-table tr:first-child th {
+                border-top: none;
+                }
+
+                .audit-info-table tr:last-child td {
+                border-bottom: none;
+                }
+
+                .audit-info-table tr td:first-child, .audit-info-table tr th:first-child {
+                border-left: none;
+                }
+
+                .audit-info-table tr td:last-child, .audit-info-table tr th:last-child {
+                border-right: none;
+                }
+            </style>
+            <div style="color: white">
+                <table class="audit-info-table">
+                    <tr>
+                        <th>
+                            Наименование
+                        </th>
+                        <th>
+                            День недели
+                        </th>
+                        <th>
+                            Время дня
+                        </th>
+                    </tr>
+                    <t t-foreach="audits" t-as="audit">
+                        <tr>
+                            <td>
+                                <t t-esc="audit['name']" />
+                            </td>
+                            <td>
+                                <t t-esc="audit['week_day_str']" />
+                            </td>
+                            <td>
+                                <t t-esc="audit['day_time_str']" />
+                            </td>
+                        </tr>
+                    </t>
+                </table>
+            </div>
+        </template>
+
+        <template id="restaurant_report_indicators" name="restaurant_report_indicators">
+            <div
+                style="display: flex: flex-direction: column; border: 2px solid white; border-radius: 3px; padding: 5px;">
+                <div style="display: flex; ">
+                    <span style="width: 50%; text-align: right;">
+                        Позиция в рейтинге:
+                    </span>
+                    <span
+                        style="width: 50%; text-align: left; margin-left: 5px; font-weight: 900;">
+                        <t t-esc="restaurant_rating" />
+                    </span>
+                </div>
+                <div style="display: flex; ">
+                    <span style="width: 50%; text-align: right;">
+                        Кол-во нарушений:
+                    </span>
+                    <span
+                        style="width: 50%; text-align: left; margin-left: 5px; font-weight: 900;">
+                        <t t-esc="fault_count" />
+                    </span>
+                </div>
+                <div style="display: flex; ">
+                    <span style="width: 50%; text-align: right;">
+                        Кол-во нарушений на 1 проверку:
+                    </span>
+                    <span
+                        style="width: 50%; text-align: left; margin-left: 5px; font-weight: 900;">
+                        <t t-esc="fault_count_per_audit" />
+                    </span>
+                </div>
+                <div style="display: flex; ">
+                    <span style="width: 50%; text-align: right;">
+                        Грубых нарушений:
+                    </span>
+                    <span
+                        style="width: 50%; text-align: left; margin-left: 5px; font-weight: 900;">
+                        <t t-esc="sever_fault_count or 'нет'" />
+                    </span>
+                </div>
+            </div>
+        </template>
+
+        <template id="restaurant_report_faults_per_department"
+            name="restaurant_report_faults_per_department">
+            <div
+                style="display: flex: flex-direction: column; border: 2px solid white; border-radius: 3px; padding: 5px;">
+                <t t-foreach="faults_per_department" t-as="row">
+                    <div style="display: flex;">
+                        <span style="width: 50%; text-align: right;">
+                            <t t-esc="row['check_list_category_name']" />: </span>
+                        <span
+                            style="display: flex; align-items: center; width: 50%; text-align: left; margin-left: 5px;">
+                            <span
+                                t-attf-style="width: {{row['width']}}%; height: 15px; background-color: #5CC4CC; border-radius: 0px 5px 5px 0px;"></span>
+                            <span style="margin-left: 5px; font-weight: 900;">
+                                <t t-esc="row['fault_count']" />
+                            </span>
+                        </span>
+                    </div>
+                </t>
+            </div>
+        </template>
+
     </data>
 </odoo>

@@ -36,13 +36,13 @@ class ChartBuilder:
             annotations.append(dict(
                 xref="x",
                 yref="y",
-                x=x_val+0.65,
+                x=x_val*1.02,
                 y=y_val,
                 text=x_val,
                 font=dict(family='Arial', size=12, color='white'),
                 showarrow=False,
-                xanchor='right',
-                align='center'
+                xanchor='left',
+                align='right'
             ))
         layout = go.Layout(
             # title='Double Line Chart',

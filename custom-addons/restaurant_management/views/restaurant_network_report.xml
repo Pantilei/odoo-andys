@@ -137,10 +137,12 @@
             <field name="model">restaurant_management.restaurant_network_report</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="name" />
+                    <field name="name" invisible="1" />
                     <field name="restaurant_network_id" />
-                    <field name="report_year" />
                     <field name="report_month" />
+                    <field name="report_year" />
+                    <field name="responsible_id" />
+                    <field name="create_date" />
                 </tree>
             </field>
         </record>

@@ -443,6 +443,129 @@
   }
 }
 
+.report-restaurant-container {
+  --primary-text-color: white;
+  --secondary-text-color: #5cc4cc;
+
+  background-color: #2d4669;
+  // height: 900px;
+  max-width: 1200px;
+  padding: 10px;
+  margin: 0 auto;
+
+  & .section__header {
+    margin: 10px auto 3px auto;
+    padding: 3px;
+    text-align: center;
+    font-size: 18px;
+    color: black;
+    background-color: var(--primary-text-color);
+    border-radius: 5px;
+    width: 100%;
+  }
+
+  & .header {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 2px solid white;
+    border-radius: 3px;
+    padding: 5px;
+
+    & h1 {
+      color: var(--secondary-text-color);
+      font-size: 18px;
+      text-align: center;
+    }
+
+    & .header__content {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      color: var(--primary-text-color);
+
+      & .header__line {
+        display: flex;
+        justify-content: flex-start;
+        gap: 5px;
+        width: 100%;
+      }
+    }
+  }
+
+  & .monthly_fault_chart {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    & .monthly_fault_chart__chart {
+      min-height: 150px;
+    }
+  }
+
+  & .audit-info {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    & .audit-info__table {
+      min-height: 150px;
+    }
+  }
+
+  & .section {
+    display: flex;
+    gap: 5px;
+
+    & .restaurant_indicators {
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+      min-height: 150px;
+      color: white;
+    }
+
+    & .faults_by_department {
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+      min-height: 150px;
+      color: white;
+    }
+  }
+
+  & .top-faults {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    & .top-faults__chart {
+      width: 100%;
+      min-height: 150px;
+    }
+  }
+
+  & .taken-measures {
+    display: flex;
+    flex-direction: column;
+
+    & .taken-measures__measures {
+      display: flex;
+      justify-content: center;
+      min-height: 200px;
+      border: 2px solid white;
+      border-radius: 3px;
+      color: white;
+      padding: 3px;
+
+      & textarea {
+        color: black;
+        margin: 5px auto;
+        min-height: 190px;
+        width: 99%;
+      }
+    }
+  }
+}
+
 .report-company-container {
   --primary-text-color: white;
   --secondary-text-color: #5cc4cc;

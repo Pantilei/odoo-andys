@@ -28,7 +28,7 @@ MONTHS = [
 class DepartmentReport(models.Model):
     _name = "restaurant_management.department_report"
     _description = "Department Report"
-    
+    _order = "create_date desc"
 
     @api.depends("department_id", "report_year", "report_month")
     def _compute_name(self):

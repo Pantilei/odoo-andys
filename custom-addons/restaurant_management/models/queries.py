@@ -1,17 +1,27 @@
 
 # Department queries
 fault_count_by_department_query = """
-select 
-    check_list_category_id, 
-    sum(fault_count) as faults_count
-from restaurant_management_fault_registry 
-where 
-    state = 'confirm' and
-    fault_date >= %s and
-    fault_date <= %s and
-    restaurant_id IN %s and
-    check_list_category_id IN %s
-group by check_list_category_id;
+WITH fault_count_per_check_list_category as (
+    select 
+        check_list_category_id, 
+        sum(fault_count) as faults_count
+    from restaurant_management_fault_registry 
+    where 
+        state = 'confirm' and
+        fault_date >= %s and
+        fault_date <= %s and
+        restaurant_id IN %s and
+        check_list_category_id IN %s
+    group by check_list_category_id
+)
+
+SELECT 
+    fcpclc.check_list_category_id,
+    fcpclc.faults_count,
+    rmclc.name as check_list_category_name
+FROM fault_count_per_check_list_category as fcpclc
+LEFT JOIN restaurant_management_check_list_category as rmclc
+ON fcpclc.check_list_category_id = rmclc.id;
 """
 
 relative_by_month_fault_count_query = """
@@ -193,7 +203,7 @@ group by audit_month
 order by audit_month
 """
 
-faults_by_months_in_company_query = """
+faults_by_months_in_restaurants_query = """
 SELECT 
     EXTRACT(MONTH FROM faults_by_date.fault_month) AS month_of_faults, 
     faults_by_date.total_faults AS total_faults
@@ -326,6 +336,30 @@ FROM (
 ) AS rtfc
 GROUP by rtfc.fault_count
 order by rtfc.fault_count;
+"""
+
+top_violations_in_restaurant_query = """
+select 
+    check_list_fault_count.check_list_id as id, 
+    rmcl.name as name,
+    COALESCE(check_list_fault_count.total_faults, 0) as total_faults
+from (
+    SELECT 
+        check_list_id,
+        SUM(fault_count) AS total_faults     
+    FROM restaurant_management_fault_registry 
+    WHERE
+        state = 'confirm' and 
+        fault_date >= %s and 
+        fault_date <= %s and
+        restaurant_id IN %s
+    GROUP BY check_list_id 
+) as check_list_fault_count
+
+inner join restaurant_management_check_list rmcl 
+on check_list_fault_count.check_list_id = rmcl.id
+order by total_faults desc
+limit 10;
 """
 
 # Restaurant network queries

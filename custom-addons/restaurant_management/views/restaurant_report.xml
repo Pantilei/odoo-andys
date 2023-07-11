@@ -7,125 +7,85 @@
             <field name="model">restaurant_management.restaurant_report</field>
             <field name="arch" type="xml">
                 <form>
-                    <div class="report-container">
-                        <div class="report-header">
-                            <div class="report-main-info">
-                                <h1> Отчет по ресторану <field name="restaurant_id"
+                    <div class="report-restaurant-container">
+                        <div class="header">
+                            <h1> Отчет по ресторану</h1>
+                            <div class="header__content">
+                                <span class="header__line"> Ресторан: <field
+                                        name="restaurant_id"
                                         options="{'no_create': True, 'no_open': True}" />
-                                </h1>
-                                <div class="report-main-info__content">
-                                    <span class="report-main-info__period"> Период: <field
-                                            name="report_month" /> <field
-                                            name="report_year" />
-                                    </span>
-                                    <span class="report-main-info__responsible"> Составил: <field
-                                            name="responsible_id"
-                                            options="{'no_create': True, 'no_open': True}" />
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="report-logo">
-                                <field name="logo" />
-                            </div>
-                        </div>
-                        <field name="restaurant_rating_within_network" />
-                        <br />
-                        <field name="restaurant_rating_by_audit_type_data" />
-                        <br />
-                        <field name="restaurant_rating_within_department_data" />
-
-                        <!-- <div class="report-violations">
-                            <div class="report-section__header">
-                                <h2>Анализ нарушений по департаменту</h2>
-                            </div>
-                            <div class="report-violations__content">
-                                <div class="report-violations__total-faults">
-                                    <span>Кол-во нарушений</span>
-                                    <field name="fault_count" />
-                                    <span>Это <field name="fault_count_percentage" />% из общего
-                                        кол-ва нарушений по компании за месяц</span>
-                                </div>
-
-                                <div class="report-violations__relative-faults">
-                                    <span>Кол-во нарушений <field name="report_previous_month"
-                                            readonly="1" /> vs <field name="report_month"
-                                            readonly="1" /></span>
-                                    <field name="relative_by_month_fault_count" />
-                                    <field name="relative_fault_count_comment" />
-                                </div>
-
-                                <div class="report-violations__chart">
-                                    <field name="fault_count_chart" widget="plotly_chart"
-                                        nolabel="1" />
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="report-top-violations">
-                            <div class="report-section__header">
-                                <h2>Топ нарушений департамента</h2>
-                            </div>
-                            <div class="report-top-violations__chart_container">
-                                <div class="report-top-violations__chart">
-                                    <field name="top_violations_chart" widget="plotly_chart"
-                                        nolabel="1" />
-                                </div>
+                                </span>
+                                <span class="header__line"> Директоры: <field
+                                        name="director_ids" widget="many2many_tags" />
+                                </span>
+                                <span class="header__line"> Период: <field
+                                        name="report_month" /> <field
+                                        name="report_year" />
+                                </span>
+                                <span class="header__line"> Составил: <field
+                                        name="responsible_id"
+                                        options="{'no_create': True, 'no_open': True}" />
+                                </span>
+                                <span class="header__line"> Сеть Ресторанов: <field
+                                        name="restaurant_network_ids"
+                                        widget="many2many_tags"
+                                        options="{'no_create': True, 'no_open': True}" />
+                                </span>
                             </div>
                         </div>
 
-                        <div class="report-restaurant-rating">
-                            <div class="report-section__header">
-                                <h2>Рейтинг ресторанов по нарушениям департамента</h2>
+                        <div class="monthly_fault_chart">
+                            <div class="section__header">
+                                <h2>Динамика ошибок на единицу проверки</h2>
                             </div>
-                            <div class="report-restaurant-rating__content">
-                                <div class="report-restaurant-rating__table">
-                                    <field name="restaurant_rating_within_department_data"
-                                        nolabel="1" widget="restaurant_rating_table_widget" />
-                                </div>
-
-                                <div class="report-restaurant-rating__mean-faults-per-restaurant">
-                                    <span>Среднее кол-во нарушений на один ресторан</span>
-                                    <field name="mean_fault_count_per_restaurant" />
-                                </div>
-
-                                <div class="report-restaurant-rating__mean-faults-per-audit">
-                                    <span>Среднее кол-во нарушений за одну проверку</span>
-                                    <field name="mean_fault_count_per_audit" />
-                                </div>
-
+                            <div class="monthly_fault_chart__chart">
+                                <field name="relative_monthly_fault_counts_chart"
+                                    widget="plotly_chart" />
                             </div>
                         </div>
 
-                        <div class="report-faults-taken-measures">
+                        <div class="audit-info">
+                            <div class="section__header">
+                                <h2>Информация о проверках</h2>
+                            </div>
+                            <div class="audit-info__table">
+                                <field name="audits_info_table" widget="html" />
+                            </div>
+                        </div>
 
-                            <div class="report-faults-taken-measures__content_left">
-                                <div class="report-section__header">
-                                    <h2>Ошибки</h2>
+                        <div class="section">
+                            <div class="restaurant_indicators">
+                                <div class="section__header">
+                                    <h2>Показатели ресторана</h2>
                                 </div>
-                                <div class="report-faults-taken-measures__faults">
-                                    <field name="top_violations_data"
-                                        widget="top_violations_list_widget" />
-                                </div>
+                                <field name="indicators_html" widget="html" />
                             </div>
 
-                            <div class="report-faults-taken-measures__content_right">
-                                <div class="report-section__header">
-                                    <h2>Предпринятые меры</h2>
+                            <div class="faults_by_department">
+                                <div class="section__header">
+                                    <h2>Ошибки по департаментам</h2>
                                 </div>
-                                <div class="report-faults-taken-measures__measures">
-                                    <field name="taken_measures" />
-                                </div>
+                                <field name="faults_per_department_html" widget="html" />
                             </div>
 
-                        </div> -->
+                        </div>
 
-                        <div class="report-summary">
-                            <div class="report-section__header">
-                                <h2>Выводы</h2>
+                        <div class="top-faults">
+                            <div class="section__header">
+                                <h2>Топ 10 нарушений</h2>
                             </div>
-                            <div class="report-summary__content">
-                                <field name="summary" />
+                            <div class="top-faults__chart">
+                                <field name="top_faults_chart" widget="plotly_chart" />
+                            </div>
+                        </div>
+
+
+                        <div class="taken-measures">
+                            <div class="section__header">
+                                <h2>Принятые меры администратором по выявленным нарушениям</h2>
+                            </div>
+                            <div class="taken-measures__measures">
+                                <field name="taken_measures" />
                             </div>
                         </div>
                     </div>
@@ -138,10 +98,12 @@
             <field name="model">restaurant_management.restaurant_report</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="name" />
-                    <field name="restaurant_id" />
-                    <field name="report_year" />
+                    <field name="name" invisible="1" />
                     <field name="report_month" />
+                    <field name="report_year" />
+                    <field name="responsible_id" />
+                    <field name="create_date" />
+                    <field name="restaurant_network_ids" widget="many2many_tags" />
                 </tree>
             </field>
         </record>
