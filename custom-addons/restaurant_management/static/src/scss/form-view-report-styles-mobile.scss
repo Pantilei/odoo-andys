@@ -70,4 +70,23 @@
       }
     }
   }
+
+  .report-network-container {
+    & .restaurant-rating {
+      & .restaurant-rating__content {
+        display: flex;
+        flex-direction: column;
+
+        & .top-rating {
+          width: 100%;
+          margin-top: 10px;
+        }
+
+        & .anti-top-rating {
+          width: 100%;
+          margin-top: 10px;
+        }
+      }
+    }
+  }
 }

@@ -351,7 +351,7 @@ class CompanyReport(models.Model):
             top_faults = json.loads(record.top_faults)
             for top_fault in top_faults:
                 top_fault["progress_bar"] = round(top_fault["fault_count"]/top_faults[0]["fault_count"], 4)*100
-            template = self.env.ref("restaurant_management.company_report_top_faults")
+            template = self.env.ref("restaurant_management.report_top_faults_table")
             record.top_faults_table = template._render({"top_faults": top_faults})
 
     

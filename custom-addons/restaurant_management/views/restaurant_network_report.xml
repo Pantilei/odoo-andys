@@ -38,7 +38,7 @@
                         </div>
 
                         <div class="report-network-violations">
-                            <div class="report-network-section__header">
+                            <div class="section__header">
                                 <h2>Динамика ошибок на 1 проверку ( <field name="report_year"
                                         readonly="1" force_save="1" /> vs. <field
                                         name="previous_report_year" /> )</h2>
@@ -53,18 +53,15 @@
 
                         </div>
 
-                        <div class="report-network-yearly-fault-count-by-check-list">
-                            <div class="report-network-section__header">
+                        <div class="yearly-fault-count-by-check-list">
+                            <div class="section__header">
                                 <h2> Кол-во ошибок на 1 проверку по категориям чек-листа ( <field
                                         name="report_year"
                                         readonly="1" force_save="1" /> vs. <field
                                         name="previous_report_year" /> ) </h2>
                             </div>
-                            <div class="report-network-yearly-fault-count-by-check-list__container">
-                                <div class="report-network-yearly-fault-count-by-check-list__chart">
-                                    <!-- <field
-                                        name="yearly_fault_count_per_audit_by_check_list_category"
-                                        nolabel="1" /> -->
+                            <div class="yearly-fault-count-by-check-list__container">
+                                <div class="yearly-fault-count-by-check-list__chart">
                                     <field
                                         name="yearly_fault_count_per_audit_by_check_list_category_chart"
                                         widget="plotly_chart"
@@ -73,54 +70,33 @@
                             </div>
                         </div>
 
-                        <!-- <div class="report-network-restaurant-rating">
-                            <div class="report-network-section__header">
-                                <h2>Рейтинг ресторанов по нарушениям департамента</h2>
+                        <div class="restaurant-rating">
+                            <div class="section__header">
+                                <h2>Топ и АнтиТоп по кол-во ошибок на 1 проверку</h2>
                             </div>
-                            <div class="report-network-restaurant-rating__content">
-                                <div class="report-network-restaurant-rating__table">
-                                    <field name="restaurant_rating_within_department_data"
-                                        nolabel="1" widget="restaurant_rating_table_widget" />
+                            <div class="restaurant-rating__content">
+                                <div class="top-rating">
+                                    <h3>Топ</h3>
+                                    <field name="top_rating_table" widget="html" />
                                 </div>
-
-                                <div class="report-network-restaurant-rating__mean-faults-per-restaurant">
-                                    <span>Среднее кол-во нарушений на один ресторан</span>
-                                    <field name="mean_fault_count_per_restaurant" />
+                                <div class="anti-top-rating">
+                                    <h3>Анти Топ</h3>
+                                    <field name="anti_top_rating_table" widget="html" />
                                 </div>
-
-                                <div class="report-network-restaurant-rating__mean-faults-per-audit">
-                                    <span>Среднее кол-во нарушений за одну проверку</span>
-                                    <field name="mean_fault_count_per_audit" />
-                                </div>
-
                             </div>
                         </div>
 
-                        <div class="report-network-faults-taken-measures">
-
-                            <div class="report-network-faults-taken-measures__content_left">
-                                <div class="report-network-section__header">
-                                    <h2>Ошибки</h2>
-                                </div>
-                                <div class="report-network-faults-taken-measures__faults">
-                                    <field name="top_violations_data"
-                                        widget="top_violations_list_widget" />
-                                </div>
+                        <div class="top-faults">
+                            <div class="section__header">
+                                <h2>Топ 10 нарушений</h2>
                             </div>
-
-                            <div class="report-network-faults-taken-measures__content_right">
-                                <div class="report-network-section__header">
-                                    <h2>Предпринятые меры</h2>
-                                </div>
-                                <div class="report-network-faults-taken-measures__measures">
-                                    <field name="taken_measures" />
-                                </div>
+                            <div class="top-top-faults__content">
+                                <field name="top_faults_table" widget="html" />
                             </div>
-
-                        </div> -->
+                        </div>
 
                         <div class="report-network-summary">
-                            <div class="report-network-section__header">
+                            <div class="section__header">
                                 <h2>Выводы</h2>
                             </div>
                             <div class="report-network-summary__content">

@@ -8,6 +8,7 @@ from odoo import _, api, fields, models
 
 from . import queries
 from .chart_builder import ChartBuilder
+from .tools import compute_date_start_end, compute_restaurant_ratings
 
 MONTHS = [
     ("1", _("Jan")),
@@ -23,34 +24,6 @@ MONTHS = [
     ("11", _("Nov")),
     ("12", _("Dec")),
 ]
-
-
-def _compute_date_start_end(report_year, report_month):
-    year=int(report_year)
-    month=int(report_month)
-    date_start = date(year=year, month=month, day=1)
-    date_end = date(year=year, month=month, day=monthrange(year, month)[1])
-
-    return date_start, date_end
-
-def _get_restaurant_rating(fault_counts_to_restaurants, restaurant_id):
-    """
-    fault_counts_to_restaurants:
-    [
-        (15, [16, 36], ['АП26', 'ЛП18']), 
-        (16, [5], ['АП11']), 
-        (17, [1], ['АП1']), 
-        (18, [4, 19], ['АП9', 'АП30']), 
-        (22, [6], ['АП12']), 
-        (25, [31], ['ЛП11'])
-    ]
-    """
-    rating = 0
-    for fault_count_to_restaurants in fault_counts_to_restaurants:
-        rating += 1
-        if restaurant_id in fault_count_to_restaurants[1]:
-            break
-    return rating
 
 
 class RestaurantNetworkReport(models.Model):
@@ -121,14 +94,12 @@ class RestaurantNetworkReport(models.Model):
         compute="_compute_restaurant_rating_within_department_table"
     )
 
-    top_rating = fields.Text()
+    restaurants_rating = fields.Text()
     top_rating_table = fields.Text(
-        compute="top_rating_table"
+        compute="_compute_rating_tables_html"
     )
-
-    anti_top_rating = fields.Text()
     anti_top_rating_table = fields.Text(
-        compute="_compute_anti_top_rating_table"
+        compute="_compute_rating_tables_html"
     )
 
     top_faults_within_department = fields.Text()
@@ -147,7 +118,6 @@ class RestaurantNetworkReport(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
-            print("Create Vals: ", vals)
             computed_values = self._get_computed_fields(
                 vals["report_month"], 
                 vals["report_year"], 
@@ -163,7 +133,6 @@ class RestaurantNetworkReport(models.Model):
             vals.get("restaurant_network_id", self.restaurant_network_id.id)
         )
         vals.update(computed_values)
-        print("Vals: ", vals)
         return super(RestaurantNetworkReport, self).write(vals)
 
     def _get_computed_fields(self, report_month, report_year, restaurant_network_id):
@@ -174,7 +143,6 @@ class RestaurantNetworkReport(models.Model):
         actual_audit_count = self._compute_actual_audit_count(report_month, report_year, restaurant_network_id)
         planned_audit_count = self._compute_planned_audit_count(report_month, report_year, restaurant_network_id)
 
-
         monthly_fault_count_per_audit = self._compute_monthly_fault_count_per_audit(
             report_year, restaurant_ids.ids
         )
@@ -182,12 +150,11 @@ class RestaurantNetworkReport(models.Model):
             report_year, restaurant_ids.ids
         )
         restaurant_rating_within_department = self._compute_restaurant_rating_within_department(report_month, report_year, restaurant_network_id)
-        top_rating = self._compute_top_rating(report_month, report_year, restaurant_network_id)
-        anti_top_rating = self._compute_anti_top_rating(report_month, report_year, restaurant_network_id)
+        restaurants_rating = self._compute_restaurants_rating(report_month, report_year, restaurant_ids.ids)
         top_faults_within_department = self._compute_top_faults_within_department(
             report_month, report_year, restaurant_network_id
         )
-        top_faults = self._compute_top_faults(report_month, report_year, restaurant_network_id)
+        top_faults = self._compute_top_faults(report_month, report_year, restaurant_ids.ids)
 
         return {
             "actual_audit_count": actual_audit_count,
@@ -195,14 +162,13 @@ class RestaurantNetworkReport(models.Model):
             "monthly_fault_count_per_audit": monthly_fault_count_per_audit,
             "yearly_fault_count_per_audit_by_check_list_category": yearly_fault_count_per_audit_by_check_list_category,
             "restaurant_rating_within_department": restaurant_rating_within_department,
-            "top_rating": top_rating,
-            "anti_top_rating": anti_top_rating,
+            "restaurants_rating": restaurants_rating,
             "top_faults_within_department": top_faults_within_department,
             "top_faults": top_faults
         }
     
     def _compute_actual_audit_count(self, report_month, report_year, restaurant_network_id):
-        date_start, date_end = _compute_date_start_end(report_year, report_month)
+        date_start, date_end = compute_date_start_end(report_year, report_month)
         return self.env["restaurant_management.restaurant_audit"].search_count([
             ("restaurant_id.restaurant_network_id", "=", restaurant_network_id),
             ("audit_date", ">=", date_start),
@@ -210,7 +176,7 @@ class RestaurantNetworkReport(models.Model):
         ])
     
     def _compute_planned_audit_count(self, report_month, report_year, restaurant_network_id):
-        date_start, date_end = _compute_date_start_end(report_year, report_month)
+        date_start, date_end = compute_date_start_end(report_year, report_month)
         return self.env["restaurant_management.planned_audits"].get_number_of_audits(
             date_start, date_end, restaurant_network_id=restaurant_network_id
         )[0]
@@ -315,17 +281,47 @@ class RestaurantNetworkReport(models.Model):
     def _compute_restaurant_rating_within_department(self, report_month, report_year, restaurant_network_id):
         return "{}"
     
-    def _compute_top_rating(self, report_month, report_year, restaurant_network_id):
-        return "{}"
-    
-    def _compute_anti_top_rating(self, report_month, report_year, restaurant_network_id):
-        return ""
+    def _compute_restaurants_rating(self, report_month, report_year, restaurant_ids):
+        date_start, date_end = compute_date_start_end(report_year, report_month)
+        self.env.cr.execute(
+            queries.fault_counts_by_restaurants_query,
+            [
+                date_start.isoformat(), 
+                date_end.isoformat(),
+                tuple(restaurant_ids),
+                tuple(restaurant_ids)
+            ]
+        )
+        faults_per_restaurant = self.env.cr.fetchall()
+
+        self.env.cr.execute(
+            queries.restaurant_audit_count_query,
+            [
+                date_start.isoformat(), 
+                date_end.isoformat(),
+                tuple(restaurant_ids)
+            ]
+        )
+        audits_per_restaurant = self.env.cr.fetchall()
+        return json.dumps(compute_restaurant_ratings(faults_per_restaurant, audits_per_restaurant))
     
     def _compute_top_faults_within_department(self, report_month, report_year, restaurant_network_id):
         return "{}"
 
-    def _compute_top_faults(self, report_month, report_year, restaurant_network_id):
-        return "{}"
+    def _compute_top_faults(self, report_month, report_year, restaurant_ids):
+        date_start, date_end = compute_date_start_end(report_year, report_month)
+        self.env.cr.execute(
+            queries.top_faults_by_restaurants_query,
+            [date_start.isoformat(), date_end.isoformat(), tuple(restaurant_ids)]
+        )
+        return json.dumps([{
+            "department_id": row[0],
+            "department_name": row[1],
+            "check_list_id": row[2],
+            "check_list_name": row[3],
+            "fault_count": row[4]
+            } for row in self.env.cr.fetchall()
+        ])
 
     @api.depends("report_year")
     def _compute_previous_report_year(self):
@@ -365,11 +361,21 @@ class RestaurantNetworkReport(models.Model):
     def _compute_restaurant_rating_within_department_table(self):
         for record in self:
             record.restaurant_rating_within_department_table = ""
-
+    
     @api.depends("write_date")
-    def _compute_anti_top_rating_table(self):
+    def _compute_rating_tables_html(self):
         for record in self:
-            record.anti_top_rating_table = ""
+            template = self.env.ref("restaurant_management.restaurant_network_report_restaurant_rating")
+            restaurants_rating = json.loads(record.restaurants_rating)
+            for restaurant_rating in restaurants_rating:
+                restaurant_rating["restaurants"] = ", ".join(restaurant_rating["restaurant_names"])
+            mean_index = round(len(restaurants_rating)/2)
+            record.top_rating_table = template._render({
+                "restaurant_ratings": restaurants_rating[:mean_index]
+            })
+            record.anti_top_rating_table = template._render({
+                "restaurant_ratings": list(reversed(restaurants_rating[mean_index:]))
+            })
 
     @api.depends("write_date")
     def _compute_top_faults_within_department_charts(self):
@@ -379,4 +385,8 @@ class RestaurantNetworkReport(models.Model):
     @api.depends("write_date")
     def _compute_top_faults_table(self):
         for record in self:
-            record.top_faults_table = ""
+            top_faults = json.loads(record.top_faults)
+            for top_fault in top_faults:
+                top_fault["progress_bar"] = round(top_fault["fault_count"]/top_faults[0]["fault_count"], 4)*100
+            template = self.env.ref("restaurant_management.report_top_faults_table")
+            record.top_faults_table = template._render({"top_faults": top_faults})

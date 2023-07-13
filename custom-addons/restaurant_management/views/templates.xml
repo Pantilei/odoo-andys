@@ -438,7 +438,7 @@
         </template>
 
 
-        <template id="company_report_top_faults" name="company_report_top_faults">
+        <template id="report_top_faults_table" name="report_top_faults_table">
             <div style="color: white;">
                 <div class="d-flex justify-content-between">
                     <div
@@ -643,6 +643,48 @@
                                 <t t-esc="row['fault_count']" />
                             </span>
                         </span>
+                    </div>
+                </t>
+            </div>
+        </template>
+
+
+        <template id="restaurant_network_report_restaurant_rating"
+            name="company_report_restaurant_rating">
+            <div style="color: white">
+                <div class="d-flex justify-content-between">
+                    <div
+                        class="d-flex align-items-center justify-content-center text-center border-right border-bottom border-white font-weight-bold"
+                        style="width: 15%; text-decoration: underline; font-size: 12px;">
+                        Позиция
+                    </div>
+                    <div
+                        class="d-flex align-items-center justify-content-center text-center border-right border-bottom border-white font-weight-bold"
+                        style="width: 65%; text-decoration: underline; font-size: 12px;">
+                        Ресторан
+                    </div>
+                    <div
+                        class="d-flex align-items-center justify-content-center text-center border-bottom border-white font-weight-bold"
+                        style="width: 20%; text-decoration: underline; font-size: 12px;">
+                        Значение
+                    </div>
+                </div>
+                <t t-foreach="restaurant_ratings" t-as="rating_data">
+                    <div class="d-flex justify-content-between">
+                        <div
+                            class="border-right border-white text-center pl-2 pt-2 font-weight-bold"
+                            style="width: 15%;">
+                            <t t-esc="rating_data_index + 1" />
+                        </div>
+                        <div class="border-right border-white pl-2 pt-2"
+                            style="width: 65%">
+                            <t t-esc="rating_data['restaurants']" />
+                        </div>
+                        <div
+                            class="text-center font-weight-bold pt-2"
+                            style="width: 20%">
+                            <t t-esc="rating_data['fault_count_per_audit']" />
+                        </div>
                     </div>
                 </t>
             </div>

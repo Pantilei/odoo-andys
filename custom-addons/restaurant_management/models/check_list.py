@@ -77,27 +77,6 @@ class CheckList(models.Model):
             else:
                 record.name = ''
 
-    # def name_get(self):
-    #     result = []
-    #     for record in self:
-    #         name = record.full_identificator + ' ' + record.description
-    #         result.append((record.id, name))
-    #     return result
-
-    # @api.model
-    # def _name_search(self, name, args=None, operator='ilike', limit=100, name_get_uid=None):
-    #     args = args or []
-    #     domain = []
-    #     if name:
-    #         domain = ['|',
-    #                   ('full_identificator', '=', name.split(' ')[0]),
-    #                   ('name', operator, name)
-    #                   ]
-    #     print(domain)
-    #     return self._search(expression.AND([domain, args]), limit=limit, access_rights_uid=name_get_uid)
-
-    # Temporary methods, remove when not needed
-
     @api.model
     def _import_faults_data(self):
         RestaurantAudit = self.env["restaurant_management.restaurant_audit"]
@@ -110,10 +89,6 @@ class CheckList(models.Model):
         audits = []
         audit_id = 0
         for record in df_faults.to_dict("records"):
-            # print("\n\n", record)
-            # if not record['Категория Чек Листа'] or not record['Чек Лист']:
-            #     continue
-
             restaurant_id = self._get_restaurant(record["Ресторан"])
             responsible_id = self._get_responsible(record["Эксперт ДКК"])
 
@@ -130,11 +105,6 @@ class CheckList(models.Model):
             check_list_id = self._get_check_list(
                 record['Чек Лист'], check_list_category_id)
             if not all([restaurant_id, responsible_id]):
-                print("\n\n")
-                print([restaurant_id, responsible_id,
-                       check_list_category_id, check_list_id])
-                print(record["Ресторан"], record["Эксперт ДКК"], record[
-                      'Категория Чек Листа'], record['Чек Лист'])
                 raise UserError(" ".join([record["Ресторан"], ": ", record["Эксперт ДКК"], ": ",
                                          record['Категория Чек Листа'], ": ", record['Чек Лист'], ": ", restaurant_id, ": ", responsible_id,
                                          ": ", check_list_category_id, ": ", check_list_id]))
