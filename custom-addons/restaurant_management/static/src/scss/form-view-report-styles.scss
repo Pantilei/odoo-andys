@@ -342,16 +342,23 @@
     border-radius: 5px;
   }
 
-  & .yearly-fault-count-by-check-list {
-    & .yearly-fault-count-by-check-list__container {
+  & .relative-fault-count-per-department {
+    & .relative-fault-count-per-department__container {
       overflow-x: auto;
 
-      & .yearly-fault-count-by-check-list__chart {
+      & .relative-fault-count-per-department__chart {
         min-width: 1180px;
         border: 2px solid white;
         border-radius: 3px;
         padding: 3px;
       }
+    }
+  }
+
+  & .restaurant-rating-per-department {
+    & .restaurant-rating-per-department__content {
+      color: --primary-text-color;
+      width: 100%;
     }
   }
 

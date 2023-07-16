@@ -44,24 +44,28 @@ class DepartmentReport(models.Model):
 
     department_id = fields.Many2one(
         comodel_name="restaurant_management.check_list_category",
-        domain=[("no_fault_category", "=", False), ("default_category", "=", True)]
+        domain=[("no_fault_category", "=", False), ("default_category", "=", True)],
+        required=True
     )
 
     restaurant_network_ids = fields.Many2many(
         comodel_name="restaurant_management.restaurant_network",
         relation='restaurant_management_dep_report_res_network_rel',
-        string="Restaurant Networks"
+        string="Restaurant Networks",
+        required=True
     )
 
     report_year = fields.Selection(
         selection=[(str(year), str(year)) for year in range(1999, 2049)],
         string="Year of Report",
-        default=lambda self: str(date.today().year)
+        default=lambda self: str(date.today().year),
+        required=True
     )
     report_month = fields.Selection(
         string="Report Month",
         selection=MONTHS,
         default=lambda self: str((date.today() + relativedelta(months=-1)).month),
+        required=True
     )
 
     report_previous_month = fields.Selection(
@@ -73,7 +77,8 @@ class DepartmentReport(models.Model):
     responsible_id = fields.Many2one(
         comodel_name="res.users",
         default=lambda self: self.env.user.id,
-        string="Composed by"
+        string="Composed by",
+        required=True
     )
 
     department_rating = fields.Char(readonly=True)
@@ -336,7 +341,7 @@ class DepartmentReport(models.Model):
         
             x = [item['total_faults'] for item in reversed(data)]
             y = [item['name'] for item in reversed(data)]
-            rec.top_violations_chart = ChartBuilder(height=len(y)*40).build_horizontal_bar_chart(x, y)
+            rec.top_violations_chart = ChartBuilder(height=(len(y) or 1)*40).build_horizontal_bar_chart(x, y)
     
     @api.depends("write_date")
     def _compute_fault_count_chart(self):

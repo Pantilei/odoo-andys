@@ -141,7 +141,7 @@
         </record>
 
         <record id="department_report_action" model="ir.actions.act_window">
-            <field name="name">Company Reports</field>
+            <field name="name">Department Reports</field>
             <field name="res_model">restaurant_management.department_report</field>
             <field name="view_mode">tree,form</field>
             <field name="context">{}</field>

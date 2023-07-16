@@ -19,8 +19,25 @@
                                                 name="report_month" /> <field
                                                 name="report_year" />
                                         </span>
-                                        <span class="report-network-main-info__responsible">
-                                            Составил: <field
+                                        <span class="report-network-main-info__line"> Количество
+                                            ошибок на 1 проверку по департаментам: <field
+                                                name="relative_fault_count_on_department_ids"
+                                                widget="many2many_tags"
+                                                options="{'no_create': True, 'no_open': True}" />
+                                        </span>
+                                        <span class="report-network-main-info__line"> Рейтинг
+                                            ресторанов по департаментам: <field
+                                                name="restaurant_rating_within_department_ids"
+                                                widget="many2many_tags"
+                                                options="{'no_create': True, 'no_open': True}" />
+                                        </span>
+                                        <span class="report-network-main-info__line"> Топ / Анти Топ
+                                            по департаментам: <field
+                                                name="top_within_department_ids"
+                                                widget="many2many_tags"
+                                                options="{'no_create': True, 'no_open': True}" />
+                                        </span>
+                                        <span class="report-network-main-info__line"> Составил: <field
                                                 name="responsible_id"
                                                 options="{'no_create': True, 'no_open': True}" />
                                         </span>
@@ -53,20 +70,30 @@
 
                         </div>
 
-                        <div class="yearly-fault-count-by-check-list">
+                        <div class="relative-fault-count-per-department">
                             <div class="section__header">
-                                <h2> Кол-во ошибок на 1 проверку по категориям чек-листа ( <field
+                                <h2> Кол-во ошибок на 1 проверку по департаментам ( <field
                                         name="report_year"
                                         readonly="1" force_save="1" /> vs. <field
                                         name="previous_report_year" /> ) </h2>
                             </div>
-                            <div class="yearly-fault-count-by-check-list__container">
-                                <div class="yearly-fault-count-by-check-list__chart">
+                            <div class="relative-fault-count-per-department__container">
+                                <div class="relative-fault-count-per-department__chart">
                                     <field
-                                        name="yearly_fault_count_per_audit_by_check_list_category_chart"
+                                        name="relative_fault_count_per_department_chart"
                                         widget="plotly_chart"
                                         nolabel="1" />
                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="restaurant-rating-per-department">
+                            <div class="section__header">
+                                <h2>Рейтинг ресторанов по департаментам</h2>
+                            </div>
+                            <div class="restaurant-rating-per-department__content">
+                                <field name="restaurant_rating_within_department_table"
+                                    widget="html" />
                             </div>
                         </div>
 

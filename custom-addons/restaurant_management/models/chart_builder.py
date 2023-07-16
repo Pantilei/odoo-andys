@@ -110,9 +110,9 @@ class ChartBuilder:
                 dict(
                     xref="x",
                     yref="y",
-                    x=xp+0.03,
+                    x=xp,
                     y=i-0.23,
-                    xanchor='center',
+                    xanchor='left',
                     text=xp,
                     font=dict(family='Arial', size=12, color='white'),
                     showarrow=False
@@ -124,9 +124,9 @@ class ChartBuilder:
                 dict(
                     xref="x",
                     yref="y",
-                    x=xp+0.03,
+                    x=xp,
                     y=i+0.23,
-                    xanchor='center',
+                    xanchor='left',
                     text=xp,
                     font=dict(family='Arial', size=12, color='white'),
                     showarrow=False

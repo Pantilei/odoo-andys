@@ -46,6 +46,9 @@ class RestaurantReport(models.Model):
             else:
                 record.director_ids = False
 
+    @api.onchange("restaurant_id")
+    def _set_restaurant_network(self):
+        self.restaurant_network_ids = self.restaurant_id.restaurant_network_id.ids
 
     name = fields.Char(
         compute="_compute_name"
@@ -60,9 +63,15 @@ class RestaurantReport(models.Model):
     restaurant_network_ids = fields.Many2many(
         comodel_name="restaurant_management.restaurant_network",
         relation="restaurant_management_res_nets_to_res_rep",
-        default=lambda self: self.env["restaurant_management.restaurant_network"].search([]).ids,
         required=True,
         string="Restaurant Networks"
+    )
+
+    department_ids = fields.Many2many(
+        comodel_name="restaurant_management.check_list_category",
+        relation="restaurant_management_department_to_res_rep",
+        required=True,
+        string="Departments"
     )
     
     director_ids = fields.Many2many(
@@ -129,6 +138,7 @@ class RestaurantReport(models.Model):
                 int(vals["report_year"]), 
                 vals["restaurant_id"],
                 vals["restaurant_network_ids"][0][2],
+                vals["department_ids"][0][2]
             )
             vals.update(computed_values)
         return super(RestaurantReport, self).create(vals_list)
@@ -138,28 +148,39 @@ class RestaurantReport(models.Model):
             restaurant_network_ids = vals["restaurant_network_ids"][0][2]
         else:
             restaurant_network_ids = self.restaurant_network_ids.ids
+
+        if "department_ids" in vals:
+            department_ids = vals["department_ids"][0][2]
+        else:
+            department_ids = self.department_ids.ids
+
         computed_values = self._get_computed_fields(
             int(vals.get("report_month", self.report_month)), 
             int(vals.get("report_year", self.report_year)), 
             int(vals.get("restaurant_id", self.restaurant_id.id)), 
-            restaurant_network_ids
+            restaurant_network_ids,
+            department_ids
         )
         vals.update(computed_values)
         return super(RestaurantReport, self).write(vals)
 
-    def _get_computed_fields(self, report_month, report_year, restaurant_id, restaurant_network_ids):
+    def _get_computed_fields(self, report_month, report_year, restaurant_id, restaurant_network_ids, department_ids):
         restaurant_ids = self.env["restaurant_management.restaurant"].search([
             ("restaurant_network_id", "in", restaurant_network_ids)
         ]).ids
-        absolute_monthly_fault_counts = self._compute_absolute_monthly_fault_counts(report_year, restaurant_id)
+        absolute_monthly_fault_counts = self._compute_absolute_monthly_fault_counts(
+            report_year, restaurant_id, department_ids
+        )
         relative_monthly_fault_counts = self._compute_relative_monthly_fault_counts(
             report_year, restaurant_id, absolute_monthly_fault_counts
         )
 
         audits_info = self._compute_audits_info(report_month, report_year, restaurant_id)
-        indicators = self._compute_indicators(report_month, report_year, restaurant_id, restaurant_ids)
-        faults_per_department = self._compute_faults_per_department(report_month, report_year, restaurant_id)
-        top_faults = self._compute_top_faults(report_month, report_year, restaurant_id)
+        indicators = self._compute_indicators(report_month, report_year, restaurant_id, restaurant_ids, department_ids)
+        faults_per_department = self._compute_faults_per_department(
+            report_month, report_year, restaurant_id, department_ids
+        )
+        top_faults = self._compute_top_faults(report_month, report_year, restaurant_id, department_ids)
 
         return {
             "relative_monthly_fault_counts": relative_monthly_fault_counts,
@@ -169,12 +190,12 @@ class RestaurantReport(models.Model):
             "top_faults": top_faults 
         }
     
-    def _compute_absolute_monthly_fault_counts(self, report_year, restaurant_id):
+    def _compute_absolute_monthly_fault_counts(self, report_year, restaurant_id, department_ids):
         date_start_this_year = date(year=report_year, month=1, day=1).isoformat()
         date_end_this_year = date(year=report_year, month=12, day=31).isoformat()
         self.env.cr.execute(
-            queries.faults_by_months_in_restaurants_query,
-            [date_start_this_year, date_end_this_year, (restaurant_id, )]
+            queries.faults_by_months_in_restaurants_in_departments_query,
+            [date_start_this_year, date_end_this_year, (restaurant_id, ), tuple(department_ids)]
         )
         this_year_month_to_fault_count = {
             row[0]: row[1] for row in self.env.cr.fetchall()
@@ -183,8 +204,8 @@ class RestaurantReport(models.Model):
         date_start_prev_year = date(year=report_year-1, month=1, day=1).isoformat()
         date_end_prev_year = date(year=report_year-1, month=12, day=31).isoformat()
         self.env.cr.execute(
-            queries.faults_by_months_in_restaurants_query,
-            [date_start_prev_year, date_end_prev_year, (restaurant_id, )]
+            queries.faults_by_months_in_restaurants_in_departments_query,
+            [date_start_prev_year, date_end_prev_year, (restaurant_id, ), tuple(department_ids)]
         )
         prev_year_month_to_fault_count = {
             row[0]: row[1] for row in self.env.cr.fetchall()
@@ -254,7 +275,8 @@ class RestaurantReport(models.Model):
             audit_week_day_name = [r[1] for r in audit_week_days if r[0] == audit.audit_week_day]
             day_time_name = [r[1] for r in day_times if r[0] == audit.day_time]
             result.append({
-                "name": audit.name,
+                "id": audit.id,
+                "audit_date": audit.audit_date.isoformat(),
                 "week_day": audit.audit_week_day,
                 "week_day_str": audit_week_day_name[0] if audit_week_day_name else '',
                 "day_time": audit.day_time,
@@ -262,10 +284,11 @@ class RestaurantReport(models.Model):
             })
         return json.dumps(result)
 
-    def _compute_indicators(self, report_month, report_year, restaurant_id, restaurant_ids):
+    def _compute_indicators(self, report_month, report_year, restaurant_id, restaurant_ids, department_ids):
         date_start, date_end = compute_date_start_end(report_year, report_month)
         sever_fault_count = self.env["restaurant_management.fault_registry"].search_count([
             ("restaurant_id", "=", restaurant_id),
+            ("check_list_category_id", "in", department_ids),
             ("severe", "=", True),
             ("fault_date", ">=", date_start),
             ("fault_date", "<=", date_end),
@@ -277,11 +300,12 @@ class RestaurantReport(models.Model):
             "sever_fault_count": sever_fault_count,
         }
         self.env.cr.execute(
-            queries.fault_counts_by_restaurants_query,
+            queries.fault_counts_by_restaurants_in_departments_query,
             [
                 date_start.isoformat(), 
                 date_end.isoformat(),
                 tuple(restaurant_ids),
+                tuple(department_ids),
                 tuple(restaurant_ids)
             ]
         )
@@ -312,9 +336,9 @@ class RestaurantReport(models.Model):
 
         return json.dumps(result)
     
-    def _compute_faults_per_department(self, report_month, report_year, restaurant_id):
+    def _compute_faults_per_department(self, report_month, report_year, restaurant_id, department_ids):
         date_start, date_end = compute_date_start_end(report_year, report_month)
-        check_list_category_ids = self.env["restaurant_management.check_list_category"].search([])
+        check_list_category_ids = self.env["restaurant_management.check_list_category"].browse(department_ids)
         self.env.cr.execute(
             queries.fault_count_by_department_query,
             [
@@ -338,11 +362,11 @@ class RestaurantReport(models.Model):
         result.sort(key=lambda r: r["fault_count"], reverse=True)
         return json.dumps(result)
 
-    def _compute_top_faults(self, report_month, report_year, restaurant_id):
+    def _compute_top_faults(self, report_month, report_year, restaurant_id, department_ids):
         start_date, end_date = compute_date_start_end(report_year, report_month)
         self.env.cr.execute(
             queries.top_violations_in_restaurant_query,
-            [start_date.isoformat(), end_date.isoformat(), (restaurant_id, )]
+            [start_date.isoformat(), end_date.isoformat(), (restaurant_id, ), tuple(department_ids)]
         )
         return json.dumps([{
                 "check_list_id": row[0],
@@ -401,4 +425,4 @@ class RestaurantReport(models.Model):
             for fault in top_faults:
                 x.append(fault["fault_count"])
                 y.append(fault["check_list_name"])
-            record.top_faults_chart = ChartBuilder(height=len(y)*40).build_horizontal_bar_chart(x, y)
+            record.top_faults_chart = ChartBuilder(height=(len(y) or 1)*40).build_horizontal_bar_chart(x, y)

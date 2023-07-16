@@ -559,7 +559,7 @@
                 <table class="audit-info-table">
                     <tr>
                         <th>
-                            Наименование
+                            Дата Проверки
                         </th>
                         <th>
                             День недели
@@ -571,7 +571,7 @@
                     <t t-foreach="audits" t-as="audit">
                         <tr>
                             <td>
-                                <t t-esc="audit['name']" />
+                                <t t-esc="audit['audit_date']" />
                             </td>
                             <td>
                                 <t t-esc="audit['week_day_str']" />
@@ -684,6 +684,32 @@
                             class="text-center font-weight-bold pt-2"
                             style="width: 20%">
                             <t t-esc="rating_data['fault_count_per_audit']" />
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </template>
+
+        <template id="restaurant_network_report_restaurant_rating_per_department"
+            name="restaurant_network_report_restaurant_rating_per_department">
+            <div class="d-flex flex-wrap" style="color: white;">
+                <t t-foreach="restaurant_rating_within_department" t-as="rating_in_department">
+                    <div class="d-flex flex-column p-2" style="width: 350px;">
+                        <h3 class="font-weight-bold text-center w-100" style="color: white;">
+                            <t t-esc="rating_in_department['department_name']" />
+                        </h3>
+                        <div class="d-flex flex-column w-100">
+                            <t t-foreach="rating_in_department['ratings']" t-as="rating">
+                                <div class="d-flex">
+                                    <div class="p-1" style="width: 10%">
+                                        <t t-esc="rating['rating']" />
+                                    </div>
+                                    <div class="border border-whote border-right-0 p-1"
+                                        style="width: 90%">
+                                        <t t-esc="', '.join(rating['restaurant_names'])" />
+                                    </div>
+                                </div>
+                            </t>
                         </div>
                     </div>
                 </t>

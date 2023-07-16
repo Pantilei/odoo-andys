@@ -31,6 +31,11 @@
                                         widget="many2many_tags"
                                         options="{'no_create': True, 'no_open': True}" />
                                 </span>
+                                <span class="header__line"> Департаменты: <field
+                                        name="department_ids"
+                                        widget="many2many_tags"
+                                        options="{'no_create': True, 'no_open': True}" />
+                                </span>
                             </div>
                         </div>
 
@@ -72,7 +77,7 @@
 
                         <div class="top-faults">
                             <div class="section__header">
-                                <h2>Топ 10 нарушений</h2>
+                                <h2>Топ нарушений</h2>
                             </div>
                             <div class="top-faults__container">
                                 <div class="top-faults__chart">
