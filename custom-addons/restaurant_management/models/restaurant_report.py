@@ -423,6 +423,8 @@ class RestaurantReport(models.Model):
             top_faults = json.loads(record.top_faults)
             x, y = [], []
             for fault in top_faults:
+                if not fault["fault_count"]:
+                    continue
                 x.append(fault["fault_count"])
                 y.append(fault["check_list_name"])
             record.top_faults_chart = ChartBuilder(height=(len(y) or 1)*40).build_horizontal_bar_chart(x, y)
