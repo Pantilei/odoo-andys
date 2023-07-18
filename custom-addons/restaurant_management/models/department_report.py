@@ -224,15 +224,36 @@ class DepartmentReport(models.Model):
     def _compute_relative_by_month_fault_count(
             self, report_year, report_month, department_id, restaurant_ids
         ):
-        date_start, date_end = compute_date_start_end(report_year, report_month)
-        date_start = (date_start - timedelta(days=1)).replace(day=1)
+        date_start_current, date_end_current = compute_date_start_end(report_year, report_month)
+        date_start_before = date_start_current + relativedelta(months=-1)
+        date_end_before = date_end_current + relativedelta(months=-1)
 
-        self.env.cr.execute(
-            queries.relative_by_month_fault_count_query, 
-            [date_start.isoformat(), date_end.isoformat(), department_id, tuple(restaurant_ids)]
+        current_month_count = self.env["restaurant_management.fault_registry"].read_group(
+            domain = [
+                ("state", "=", "confirm"),
+                ("check_list_category_id", "=", department_id),
+                ("restaurant_id", "in", restaurant_ids),
+                ("fault_date", ">=", date_start_current),
+                ("fault_date", "<=", date_end_current),
+            ],
+            fields=["check_list_category_id", "fault_count:sum"],
+            groupby=["check_list_category_id"]
         )
-        data = self.env.cr.fetchall()
-        return data[0][0] if data else 0
+
+        before_month_count = self.env["restaurant_management.fault_registry"].read_group(
+            domain=[
+                ("state", "=", "confirm"),
+                ("check_list_category_id", "=", department_id),
+                ("restaurant_id", "in", restaurant_ids),
+                ("fault_date", ">=", date_start_before),
+                ("fault_date", "<=", date_end_before),
+            ],
+            fields=["check_list_category_id", "fault_count:sum"],
+            groupby=["check_list_category_id"]
+        )
+        current_month_fault_count = current_month_count[0]["fault_count"] if current_month_count else 0
+        before_month_fault_count = before_month_count[0]["fault_count"] if before_month_count else 0
+        return current_month_fault_count - before_month_fault_count
 
     def _compute_restaurant_rating_within_department(
         self, report_year, report_month, department_id, restaurant_ids
