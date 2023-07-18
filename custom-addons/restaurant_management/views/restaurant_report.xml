@@ -106,11 +106,11 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="name" invisible="1" />
+                    <field name="restaurant_id" />
                     <field name="report_month" />
                     <field name="report_year" />
                     <field name="responsible_id" />
                     <field name="create_date" />
-                    <field name="restaurant_network_ids" widget="many2many_tags" />
                 </tree>
             </field>
         </record>
