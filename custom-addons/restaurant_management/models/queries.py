@@ -456,7 +456,7 @@ yearly_faults_by_check_list_category = """
 with check_list_category_to_fault_count as (
     SELECT
     	check_list_category_id,
-        COUNT(fault_count) as fault_count
+        SUM(fault_count) as fault_count
     FROM restaurant_management_fault_registry
     WHERE 
         state = 'confirm' AND 
