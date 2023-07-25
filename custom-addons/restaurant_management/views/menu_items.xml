@@ -70,29 +70,30 @@
         groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_restaurant_director,restaurant_management.group_restaurant_management_audit_controller,restaurant_management.group_restaurant_management_dkk_manager"
         sequence="40">
 
-        <menuitem id="departament_report_menu"
-            name="Departament Report"
-            action="department_report_action"
+        <menuitem id="company_report_menu"
+            name="Company Report"
+            action="company_report_action"
             groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_audit_controller,restaurant_management.group_restaurant_management_dkk_manager"
-            sequence="25" />
-
-        <menuitem id="restaurant_report_menu"
-            name="Restaurant Report"
-            action="restaurant_report_action"
-            groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_audit_controller,restaurant_management.group_restaurant_management_dkk_manager"
-            sequence="30" />
+            sequence="20" />
 
         <menuitem id="restaurant_network_report_menu"
             name="Restaurant Network Report"
             action="restaurant_network_report_action"
             groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_audit_controller,restaurant_management.group_restaurant_management_dkk_manager"
-            sequence="35" />
+            sequence="30" />
 
-        <menuitem id="company_report_menu"
-            name="Company Report"
-            action="company_report_action"
+        <menuitem id="departament_report_menu"
+            name="Departament Report"
+            action="department_report_action"
             groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_audit_controller,restaurant_management.group_restaurant_management_dkk_manager"
             sequence="40" />
+
+        <menuitem id="restaurant_report_menu"
+            name="Restaurant Report"
+            action="restaurant_report_action"
+            groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_audit_controller,restaurant_management.group_restaurant_management_dkk_manager"
+            sequence="50" />
+
     </menuitem>
 
     <menuitem id="menu_main_restaurants"

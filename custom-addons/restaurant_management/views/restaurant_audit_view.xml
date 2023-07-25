@@ -478,7 +478,7 @@
             <field name="model">restaurant_management.restaurant_audit</field>
             <field name="arch" type="xml">
                 <tree string="Audit of Expert DKK" default_order="audit_date desc">
-                    <field name="name" />
+                    <field name="name" invisible="1" />
                     <field name="restaurant_id" />
                     <field name="responsible_id" />
                     <field name="audit_date" />
