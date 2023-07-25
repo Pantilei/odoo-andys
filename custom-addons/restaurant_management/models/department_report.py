@@ -374,7 +374,7 @@ class DepartmentReport(models.Model):
             y1 = data[label1]
             y2 = data[label2]
             max_value = max(max(y1), max(y2))
-            upper_limit = round( max_value*1.1)
+            upper_limit = round( max_value*1.2)
             months = [m[1] for m in self._fields['report_month']._description_selection(self.env)]
 
             rec.fault_count_chart = ChartBuilder(height=200).build_year_to_year_line_chart(
