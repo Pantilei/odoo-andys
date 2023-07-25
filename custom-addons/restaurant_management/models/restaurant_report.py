@@ -384,7 +384,7 @@ class RestaurantReport(models.Model):
             y1 = data[label1]
             y2 = data[label2]
             max_value = max(max(y1), max(y2))
-            upper_limit = round(max_value*1.2)
+            upper_limit = round(max_value*1.2, ndigits=2)
             months = [m[1] for m in self._fields['report_month']._description_selection(self.env)]            
             record.relative_monthly_fault_counts_chart = ChartBuilder(height=250).build_year_to_year_line_chart(
                 months, y1, y2, label1, label2, upper_limit
