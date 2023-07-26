@@ -104,7 +104,7 @@
             <field name="name">restaurant_report.view.tree</field>
             <field name="model">restaurant_management.restaurant_report</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree default_order="report_year desc">
                     <field name="name" invisible="1" />
                     <field name="restaurant_id" />
                     <field name="report_month" />
@@ -115,11 +115,38 @@
             </field>
         </record>
 
+        <record id="restaurant_report_search_view_form" model="ir.ui.view">
+            <field name="name">restaurant_report.view.search</field>
+            <field name="model">restaurant_management.restaurant_report</field>
+            <field name="arch" type="xml">
+                <search string="Restaurant Report">
+                    <field name="restaurant_id" />
+                    <field name="restaurant_network_id" />
+                    <field name="responsible_id" />
+                    <separator />
+
+                    <group expand="0" string="Group By">
+                        <filter string="Report Year" name="group_by_report_year"
+                            context="{'group_by': 'report_year'}" domain="[]" />
+                        <filter string="Report Month" name="group_by_report_month"
+                            context="{'group_by': 'report_month'}" domain="[]" />
+                        <filter string="Restaurant Network" name="group_by_restaurant_network"
+                            context="{'group_by': 'restaurant_network_id'}"
+                            domain="[]" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
         <record id="restaurant_report_action" model="ir.actions.act_window">
             <field name="name">Restaurant Report</field>
             <field name="res_model">restaurant_management.restaurant_report</field>
             <field name="view_mode">tree,form</field>
-            <field name="context">{}</field>
+            <!-- <field name="context">{'group_by':['report_year', 'report_month',
+                'restaurant_network_id']}</field> -->
+            <field name="context">{'search_default_group_by_report_year':1,
+                'search_default_group_by_report_month': 1,
+                'search_default_group_by_restaurant_network': 1}</field>
             <field name="target">current</field>
         </record>
 

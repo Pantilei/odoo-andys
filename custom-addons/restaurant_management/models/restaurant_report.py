@@ -60,6 +60,12 @@ class RestaurantReport(models.Model):
         string="Restaurant"
     )
 
+    restaurant_network_id = fields.Many2one(
+        comodel_name="restaurant_management.restaurant_network",
+        related="restaurant_id.restaurant_network_id",
+        store=True
+    )
+
     restaurant_network_ids = fields.Many2many(
         comodel_name="restaurant_management.restaurant_network",
         relation="restaurant_management_res_nets_to_res_rep",
