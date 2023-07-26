@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-23 13:38+0000\n"
-"PO-Revision-Date: 2023-07-23 13:38+0000\n"
+"POT-Creation-Date: 2023-07-26 19:31+0000\n"
+"PO-Revision-Date: 2023-07-26 19:31+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1855,6 +1855,7 @@ msgstr "Компания"
 #: model:ir.actions.act_window,name:restaurant_management.company_report_action
 #: model:ir.model,name:restaurant_management.model_restaurant_management_company_report
 #: model:ir.ui.menu,name:restaurant_management.company_report_menu
+#: model_terms:ir.ui.view,arch_db:restaurant_management.company_report_search_view_form
 msgid "Company Report"
 msgstr "Отчёт по Компании"
 
@@ -2110,6 +2111,7 @@ msgstr "Рейтинг Департамента"
 
 #. module: restaurant_management
 #: model:ir.model,name:restaurant_management.model_restaurant_management_department_report
+#: model_terms:ir.ui.view,arch_db:restaurant_management.department_report_search_view_form
 msgid "Department Report"
 msgstr "Отчёт по Департаменту"
 
@@ -2440,8 +2442,12 @@ msgstr "Оценка"
 #. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.audit_distribution_view_search
 #: model_terms:ir.ui.view,arch_db:restaurant_management.check_list_category_view_search
+#: model_terms:ir.ui.view,arch_db:restaurant_management.company_report_search_view_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.department_report_search_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_search
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_network_report_search_view_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_report_search_view_form
 msgid "Group By"
 msgstr "Группировать по"
 
@@ -3453,6 +3459,9 @@ msgstr "Отчёт"
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_department_report__report_month
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_network_report__report_month
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_report__report_month
+#: model_terms:ir.ui.view,arch_db:restaurant_management.department_report_search_view_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_network_report_search_view_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_report_search_view_form
 msgid "Report Month"
 msgstr "Месяц Отчёта"
 
@@ -3460,6 +3469,14 @@ msgstr "Месяц Отчёта"
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_department_report__report_previous_month
 msgid "Report Previous Month"
 msgstr "Предыдущий Месяц Отчёта"
+
+#. module: restaurant_management
+#: model_terms:ir.ui.view,arch_db:restaurant_management.company_report_search_view_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.department_report_search_view_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_network_report_search_view_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_report_search_view_form
+msgid "Report Year"
+msgstr "Год Отчёта"
 
 #. module: restaurant_management
 #. openerp-web
@@ -3599,9 +3616,11 @@ msgstr "Уровень загруженности Ресторана"
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant__restaurant_network_id
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_audit__restaurant_network_id
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_network_report__restaurant_network_id
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_restaurant_report__restaurant_network_id
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_search
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_search
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_network_view_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_report_search_view_form
 msgid "Restaurant Network"
 msgstr "Сеть Ресторанов"
 
@@ -3614,6 +3633,7 @@ msgstr "Руководитель сети"
 #: model:ir.actions.act_window,name:restaurant_management.restaurant_network_report_action
 #: model:ir.model,name:restaurant_management.model_restaurant_management_restaurant_network_report
 #: model:ir.ui.menu,name:restaurant_management.restaurant_network_report_menu
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_network_report_search_view_form
 msgid "Restaurant Network Report"
 msgstr "Отчёт по Сети Ресторанов"
 
@@ -3679,6 +3699,7 @@ msgstr ""
 #: model:ir.model,name:restaurant_management.model_report_restaurant_management_restaurant_report
 #: model:ir.model,name:restaurant_management.model_restaurant_management_restaurant_report
 #: model:ir.ui.menu,name:restaurant_management.restaurant_report_menu
+#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_report_search_view_form
 msgid "Restaurant Report"
 msgstr "Отчёт по Ресторану"
 
