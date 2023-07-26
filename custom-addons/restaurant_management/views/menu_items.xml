@@ -35,7 +35,7 @@
     <menuitem id="menu_analysis_of_chesks"
         name="Analysis of checks"
         web_icon="restaurant_management,static/src/img/analysis.png"
-        groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_restaurant_director,restaurant_management.group_restaurant_management_audit_controller,restaurant_management.group_restaurant_management_dkk_manager"
+        groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_audit_controller,restaurant_management.group_restaurant_management_dkk_manager"
         sequence="30">
 
         <menuitem id="departaments_analysis_menu"
@@ -47,19 +47,19 @@
         <menuitem id="restaurant_analysis_menu"
             name="Restaurant Analysis"
             action="restaurant_reports_wizard_action"
-            groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_restaurant_director,restaurant_management.group_restaurant_management_dkk_manager"
+            groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_dkk_manager"
             sequence="17" />
 
         <menuitem id="all_restaurants_analysis_menu"
             name="Faults Analysis"
             action="all_restaurants_report_wizard_action"
-            groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_restaurant_director,restaurant_management.group_restaurant_management_dkk_manager"
+            groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_dkk_manager"
             sequence="18" />
 
         <menuitem id="audit_analysis_menu"
             name="Audit Analysis"
             action="audit_reports_action"
-            groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_restaurant_director,restaurant_management.group_restaurant_management_dkk_manager"
+            groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_dkk_manager"
             sequence="19" />
     </menuitem>
 
@@ -91,7 +91,7 @@
         <menuitem id="restaurant_report_menu"
             name="Restaurant Report"
             action="restaurant_report_action"
-            groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_audit_controller,restaurant_management.group_restaurant_management_dkk_manager"
+            groups="restaurant_management.group_restaurant_management_reporter,restaurant_management.group_restaurant_management_manager,restaurant_management.group_restaurant_management_restaurant_director,restaurant_management.group_restaurant_management_audit_controller,restaurant_management.group_restaurant_management_dkk_manager"
             sequence="50" />
 
     </menuitem>
