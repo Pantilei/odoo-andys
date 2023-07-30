@@ -1,15 +1,15 @@
-import random
-from odoo import models, fields, api, _
-from datetime import date, datetime, timedelta
-from dateutil.relativedelta import relativedelta
-from dateutil.rrule import rrule, MONTHLY
-from calendar import monthrange
-
-import json
 import itertools
+import json
+import random
+from calendar import monthrange
+from datetime import date, datetime, timedelta
+
+from dateutil.relativedelta import relativedelta
+from dateutil.rrule import MONTHLY, rrule
+
+from odoo import _, api, fields, models
 
 from ..tools import short_date
-
 
 LINE_COLORS = itertools.cycle((
     'rgb(54, 162, 235)',
@@ -47,11 +47,13 @@ class AllRestaurantsReports(models.TransientModel):
     _name = "restaurant_management.all_restaurants_report_wizard"
     _description = "Wizard to print all restaurants report"
 
-    def _default_month_end(self):
-        return str((date.today()).month)
+    def _default_date_end(self):
+        d = date.today() + relativedelta(months=-1)
+        return date(year=d.year, month=d.month, day=monthrange(d.year, d.month)[1])
 
-    def _default_month_start(self):
-        return str((date.today() + relativedelta(months=-2)).month)
+    def _default_date_start(self):
+        d = date.today() + relativedelta(months=-1)
+        return date(year=d.year, month=d.month, day=1)
 
     def _get_default_departaments(self):
         return self.env["restaurant_management.check_list_category"].search([
@@ -70,7 +72,7 @@ class AllRestaurantsReports(models.TransientModel):
         ("fault_count_dynamics", "Fault Count Dynamics"),
         ("relative_faults_distribution", "Relative Faults Distribution"),
     ],
-        default="relative_faults_distribution",
+        default="fault_count_dynamics",
         required=True
     )
 
@@ -102,152 +104,109 @@ class AllRestaurantsReports(models.TransientModel):
         required=True
     )
 
-    year = fields.Selection(
-        selection=[(str(year), str(year)) for year in range(1999, 2049)],
-        string="Year of Report",
-        default=lambda self: str(date.today().year)
+    date_start = fields.Date(
+        string="Date Start",
+        default=_default_date_start
     )
-
-    month = fields.Selection(
-        string="Month of Report",
-        selection=MONTHS,
-        default=lambda self: str(
-            (date.today() + relativedelta(months=-1)).month),
-    )
-
-    year_start = fields.Selection(
-        selection=[(str(year), str(year)) for year in range(1999, 2049)],
-        string="Year Start",
-        default=lambda self: str(
-            (date.today() + relativedelta(months=-2)).year)
-    )
-
-    month_start = fields.Selection(
-        string="Month Start",
-        selection=MONTHS,
-        default=_default_month_start,
-    )
-
-    year_end = fields.Selection(
-        selection=[(str(year), str(year)) for year in range(1999, 2049)],
+    date_end = fields.Date(
         string="Date End",
-        default=lambda self: str(date.today().year),
+        default=_default_date_end
     )
 
-    month_end = fields.Selection(
-        selection=MONTHS,
-        default=_default_month_end,
-        string="Month End"
-    )
+    # @api.depends("report", "restaurant_network_ids", "check_list_category_ids", "date_start", "date_end")
+    # def _compute_relative_faults_distribution_json(self):
+    #     for record in self:
+    #         FaultRegistry = self.env["restaurant_management.fault_registry"]
+    #         date_start_short = date(
+    #             year=int(record.year),
+    #             month=int(record.month),
+    #             day=1
+    #         )
+    #         date_end_short = date(
+    #             year=int(record.year),
+    #             month=int(record.month),
+    #             day=monthrange(year=int(record.year),
+    #                            month=int(record.month))[1]
+    #         )
 
-    @api.depends("report", "restaurant_network_ids", "check_list_category_ids", "year", "month", "year_start",
-                 "year_end", "month_start", "month_end")
-    def _compute_relative_faults_distribution_json(self):
-        for record in self:
-            FaultRegistry = self.env["restaurant_management.fault_registry"]
-        for record in self:
-            date_start_short = date(
-                year=int(record.year),
-                month=int(record.month),
-                day=1
-            )
-            date_end_short = date(
-                year=int(record.year),
-                month=int(record.month),
-                day=monthrange(year=int(record.year),
-                               month=int(record.month))[1]
-            )
+    #         fault_count_per_department_short = []
+    #         labels_short = []
+    #         background_colors = []
+    #         for category_id in record.check_list_category_ids:
+    #             fault_count_short = FaultRegistry.get_fault_counts(
+    #                 date_start_short, date_end_short,
+    #                 restaurant_network_ids=record.restaurant_network_ids.ids,
+    #                 check_list_category_ids=category_id.ids
+    #             )
+    #             fault_count_per_department_short.append(fault_count_short)
+    #             labels_short.append(category_id.name)
+    #             background_colors.append(
+    #                 f'rgb({str(round(255*random.random()))}, {str(round(255*random.random()))}, {str(round(255*random.random()))})'
+    #             )
 
-            fault_count_per_department_short = []
-            labels_short = []
-            background_colors = []
-            for category_id in record.check_list_category_ids:
-                fault_count_short = FaultRegistry.get_fault_counts(
-                    date_start_short, date_end_short,
-                    restaurant_network_ids=record.restaurant_network_ids.ids,
-                    check_list_category_ids=category_id.ids
-                )
-                fault_count_per_department_short.append(fault_count_short)
-                labels_short.append(category_id.name)
-                background_colors.append(
-                    f'rgb({str(round(255*random.random()))}, {str(round(255*random.random()))}, {str(round(255*random.random()))})'
-                )
+    #         # all_count_short = sum(fault_count_per_department_short)
+    #         # fault_count_per_department_short_percentage = [
+    #         #     round((i/all_count_short)*100, ndigits=1) for i in fault_count_per_department_short
+    #         # ]
 
-            # all_count_short = sum(fault_count_per_department_short)
-            # fault_count_per_department_short_percentage = [
-            #     round((i/all_count_short)*100, ndigits=1) for i in fault_count_per_department_short
-            # ]
+    #         short_data_chart_configs = self._construct_chart_configs(
+    #             fault_count_per_department_short, labels_short, background_colors)
+    #         record.relative_faults_distribution_one_month_json = json.dumps(
+    #             short_data_chart_configs)
 
-            short_data_chart_configs = self._construct_chart_configs(
-                fault_count_per_department_short, labels_short, background_colors)
-            record.relative_faults_distribution_one_month_json = json.dumps(
-                short_data_chart_configs)
+    #         date_start_long = date(
+    #             year=int(record.year_start),
+    #             month=int(record.month_start),
+    #             day=1
+    #         )
+    #         date_end_long = date(
+    #             year=int(record.year_end),
+    #             month=int(record.month_end),
+    #             day=monthrange(year=int(record.year_end),
+    #                            month=int(record.month_end))[1]
+    #         )
+    #         fault_count_per_department_long = []
+    #         labels_long = []
+    #         for category_id in record.check_list_category_ids:
+    #             fault_count_long = FaultRegistry.get_fault_counts(
+    #                 date_start_long, date_end_long,
+    #                 restaurant_network_ids=record.restaurant_network_ids.ids,
+    #                 check_list_category_ids=category_id.ids
+    #             )
+    #             fault_count_per_department_long.append(fault_count_long)
+    #             labels_long.append(category_id.name)
 
-            date_start_long = date(
-                year=int(record.year_start),
-                month=int(record.month_start),
-                day=1
-            )
-            date_end_long = date(
-                year=int(record.year_end),
-                month=int(record.month_end),
-                day=monthrange(year=int(record.year_end),
-                               month=int(record.month_end))[1]
-            )
-            fault_count_per_department_long = []
-            labels_long = []
-            for category_id in record.check_list_category_ids:
-                fault_count_long = FaultRegistry.get_fault_counts(
-                    date_start_long, date_end_long,
-                    restaurant_network_ids=record.restaurant_network_ids.ids,
-                    check_list_category_ids=category_id.ids
-                )
-                fault_count_per_department_long.append(fault_count_long)
-                labels_long.append(category_id.name)
+    #         # all_count_long = sum(fault_count_per_department_long)
+    #         # fault_count_per_department_long_percentage = [
+    #         #     round((i/all_count_long)*100, ndigits=1) for i in fault_count_per_department_long
+    #         # ]
 
-            # all_count_long = sum(fault_count_per_department_long)
-            # fault_count_per_department_long_percentage = [
-            #     round((i/all_count_long)*100, ndigits=1) for i in fault_count_per_department_long
-            # ]
+    #         long_data_chart_configs = self._construct_chart_configs(
+    #             fault_count_per_department_long, labels_long, background_colors)
 
-            long_data_chart_configs = self._construct_chart_configs(
-                fault_count_per_department_long, labels_long, background_colors)
+    #         record.relative_faults_distribution_month_range_json = json.dumps(
+    #             long_data_chart_configs)
 
-            record.relative_faults_distribution_month_range_json = json.dumps(
-                long_data_chart_configs)
+    # def _construct_chart_configs(self, data, labels, background_colors):
+    #     data = {
+    #         'labels': labels,
+    #         'datasets': [{
+    #             'data': data,
+    #             'backgroundColor': background_colors
+    #         }],
+    #     }
 
-    def _construct_chart_configs(self, data, labels, background_colors):
-        data = {
-            'labels': labels,
-            'datasets': [{
-                'data': data,
-                'backgroundColor': background_colors
-            }],
-        }
+    #     return {
+    #         'type': 'pie',
+    #         'data': data
+    #     }
 
-        return {
-            'type': 'pie',
-            'data': data
-        }
-
-    @api.depends("report", "restaurant_network_ids", "check_list_category_ids", "year_start",
-                 "year_end", "month_start", "month_end")
+    @api.depends("report", "restaurant_network_ids", "check_list_category_ids", "date_start", "date_end")
     def _compute_dynamics_of_faults_json(self):
         FaultRegistry = self.env["restaurant_management.fault_registry"]
         for record in self:
-            date_start = date(
-                year=int(record.year_start),
-                month=int(record.month_start),
-                day=1
-            )
-            date_end = date(
-                year=int(record.year_end),
-                month=int(record.month_end),
-                day=monthrange(year=int(record.year_end),
-                               month=int(record.month_end))[1]
-            )
             fault_registry_data = FaultRegistry.get_fault_counts_per_month(
-                date_start, date_end,
+                record.date_start, record.date_end,
                 restaurant_network_ids=record.restaurant_network_ids.ids,
                 check_list_category_ids=record.check_list_category_ids.ids
             )
@@ -299,7 +258,7 @@ class AllRestaurantsReports(models.TransientModel):
             }]
 
             data = {
-                'labels': record._get_month_range(date_start, date_end),
+                'labels': record._get_month_range(record.date_start, record.date_end),
                 'datasets': dataset,
             }
             options = {

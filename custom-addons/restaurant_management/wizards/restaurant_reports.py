@@ -1,14 +1,14 @@
-from odoo import models, fields, api, _
-from datetime import date, datetime, timedelta
-from dateutil.relativedelta import relativedelta
-from dateutil.rrule import rrule, MONTHLY
-from calendar import monthrange
-
-import json
 import itertools
+import json
+from calendar import monthrange
+from datetime import date, datetime, timedelta
+
+from dateutil.relativedelta import relativedelta
+from dateutil.rrule import MONTHLY, rrule
+
+from odoo import _, api, fields, models
 
 from ..tools import short_date
-
 
 COLORS = itertools.cycle((
     ['54', '162', '235'],
@@ -45,11 +45,13 @@ class RestaurantReports(models.TransientModel):
     _name = "restaurant_management.restaurant_reports_wizard"
     _description = "Wizard to print the restaurant reports"
 
-    def _default_month_end(self):
-        return str(date.today().month)
+    def _default_date_end(self):
+        d = date.today() + relativedelta(months=-1)
+        return date(year=d.year, month=d.month, day=monthrange(d.year, d.month)[1])
 
-    def _default_month_start(self):
-        return str((date.today() + relativedelta(months=-2)).month)
+    def _default_date_start(self):
+        d = date.today() + relativedelta(months=-1)
+        return date(year=d.year, month=d.month, day=1)
 
     def _get_default_departaments(self):
         return self.env["restaurant_management.check_list_category"].search([
@@ -95,48 +97,13 @@ class RestaurantReports(models.TransientModel):
         required=True
     )
 
-    # restaurant_network_ids = fields.Many2many(
-    #     comodel_name="restaurant_management.restaurant_network",
-    #     relation="restaurant_management_rn_r_reports_wizard_rel",
-    #     string="Restaurant Networks",
-    #     default=_default_restaurant_network_id
-    # )
-
-    year = fields.Selection(
-        selection=[(str(year), str(year)) for year in range(1999, 2049)],
-        string="Year of Report",
-        default=lambda self: str(date.today().year)
+    date_start = fields.Date(
+        string="Date Start",
+        default=_default_date_start
     )
-
-    month = fields.Selection(
-        string="Month of Report",
-        selection=MONTHS,
-        default=lambda self: str(
-            (date.today() + relativedelta(months=-1)).month),
-    )
-
-    year_start = fields.Selection(
-        selection=[(str(year), str(year)) for year in range(1999, 2049)],
-        string="Year Start",
-        default=lambda self: str(date.today().year)
-    )
-
-    month_start = fields.Selection(
-        string="Month Start",
-        selection=MONTHS,
-        default=_default_month_start,
-    )
-
-    year_end = fields.Selection(
-        selection=[(str(year), str(year)) for year in range(1999, 2049)],
+    date_end = fields.Date(
         string="Date End",
-        default=lambda self: str(date.today().year),
-    )
-
-    month_end = fields.Selection(
-        selection=MONTHS,
-        default=_default_month_end,
-        string="Month End"
+        default=_default_date_end
     )
 
     json_chart = fields.Text(
@@ -155,30 +122,17 @@ class RestaurantReports(models.TransientModel):
         compute="_compute_json_restaurant_rating_chart"
     )
 
-    @api.depends("report", "restaurant_id", "check_list_category_ids", "year_start", "month_start", "year_end", "month_end")
+    @api.depends("report", "restaurant_id", "check_list_category_ids", "date_start", "date_end")
     def _compute_json_restaurant_rating_chart(self):
-        RestaurantNetwork = self.env["restaurant_management.restaurant_network"]
         FaultRegistry = self.env["restaurant_management.fault_registry"]
-        FaultCategory = self.env["restaurant_management.check_list_category"]
         for record in self:
-            date_start = date(
-                year=int(record.year_start),
-                month=int(record.month_start),
-                day=1
-            )
-            date_end = date(
-                year=int(record.year_end),
-                month=int(record.month_end),
-                day=monthrange(year=int(record.year_end),
-                               month=int(record.month_end))[1]
-            )
             dataset = []
             all_data = []
             for check_list_category_id in record.check_list_category_ids:
                 color = ",".join(next(COLORS))
                 dataset_data = FaultRegistry.get_restaurant_rating_monthly_data(
-                    date_start,
-                    date_end,
+                    record.date_start,
+                    record.date_end,
                     record.restaurant_id.id,
                     check_list_category_ids=check_list_category_id.ids,
                 )
@@ -207,7 +161,7 @@ class RestaurantReports(models.TransientModel):
                     }
                 })
             data = {
-                'labels': record._get_month_range(date_start, date_end),
+                'labels': record._get_month_range(record.date_start, record.date_end),
                 'datasets': dataset,
             }
             options = {
@@ -257,14 +211,12 @@ class RestaurantReports(models.TransientModel):
 
             record.json_restaurant_rating_chart = json.dumps(configs)
 
-    @api.depends("report", "restaurant_id", "check_list_category_ids", "year", "month")
+    @api.depends("report", "restaurant_id", "check_list_category_ids", "date_start", "date_end")
     def _compute_json_restaurant_rating(self):
-        RestaurantNetwork = self.env["restaurant_management.restaurant_network"]
         FaultRegistry = self.env["restaurant_management.fault_registry"]
-        FaultCategory = self.env["restaurant_management.check_list_category"]
         for record in self:
-            if not record.report or not record.year or \
-                    not record.month or not record.restaurant_id or \
+            if not record.report or not record.date_start or \
+                    not record.date_end or not record.restaurant_id or \
                     not record.check_list_category_ids:
 
                 record.json_restaurant_rating = json.dumps({
@@ -272,19 +224,10 @@ class RestaurantReports(models.TransientModel):
                     "restaurant_id": False
                 })
                 return
-            report_date = date(
-                year=int(record.year),
-                month=int(record.month),
-                day=1
-            )
-
-            # restaurant_rating = FaultRegistry.get_restaurant_rating_data(
-            #     report_date,
-            #     restaurant_network_id=record.restaurant_id.restaurant_network_id.id,
-            #     check_list_category_ids=record.check_list_category_ids.ids)
 
             restaurant_rating_per_audit = FaultRegistry.get_restaurant_rating_per_audit_data(
-                report_date,
+                date_start=record.date_start,
+                date_end=record.date_end,
                 restaurant_network_id=record.restaurant_id.restaurant_network_id.id,
                 check_list_category_ids=record.check_list_category_ids.ids)
 
@@ -306,31 +249,18 @@ class RestaurantReports(models.TransientModel):
                 "restaurant_id": record.restaurant_id.id
             })
 
-    @api.depends("report", "restaurant_id", "check_list_category_ids", "year", "month")
+    @api.depends("report", "restaurant_id", "check_list_category_ids", "date_start", "date_end")
     def _compute_json_top_faults(self):
-        RestaurantNetwork = self.env["restaurant_management.restaurant_network"]
         FaultRegistry = self.env["restaurant_management.fault_registry"]
-        FaultCategory = self.env["restaurant_management.check_list_category"]
         for record in self:
-            if not record.report or not record.year or not record.month or \
+            if not record.report or not record.date_start or not record.date_end or \
                     not record.check_list_category_ids:
 
                 record.json_top_faults = json.dumps([])
                 return
-
-            date_start = date(
-                year=int(record.year),
-                month=int(record.month),
-                day=1
-            )
-            date_end = date(
-                year=int(record.year),
-                month=int(record.month),
-                day=monthrange(year=int(record.year),
-                               month=int(record.month))[1]
-            )
+            
             res = self.env['restaurant_management.fault_registry'].get_top_faults(
-                date_start, date_end,
+                record.date_start, record.date_end,
                 check_list_category_id=None,
                 check_list_category_ids=record.check_list_category_ids.ids,
                 restaurant_id=record.restaurant_id.id,
@@ -346,8 +276,8 @@ class RestaurantReports(models.TransientModel):
                     top_fault[1],
                     top_fault[2],
                     FaultRegistry.get_director_comments_of_faults(
-                        date_start,
-                        date_end,
+                        record.date_start,
+                        record.date_end,
                         top_fault[0],
                         restaurant_id=record.restaurant_id.id,
                     )
@@ -355,23 +285,12 @@ class RestaurantReports(models.TransientModel):
 
             record.json_top_faults = json.dumps(top_faults_with_comments)
 
-    @api.depends("report", "restaurant_id", "year_start", "year_end", "month_start", "month_end", "check_list_category_ids")
+    @api.depends("report", "restaurant_id", "date_start", "date_end", "check_list_category_ids")
     def _compute_json_chart(self):
         for record in self:
-            date_start = date(
-                year=int(self.year_start),
-                month=int(self.month_start),
-                day=1
-            )
-            date_end = date(
-                year=int(self.year_end),
-                month=int(self.month_end),
-                day=monthrange(year=int(self.year_end),
-                               month=int(self.month_end))[1]
-            )
-            dataset, maximum = self._get_chart_data(date_start, date_end)
+            dataset, maximum = self._get_chart_data(record.date_start, record.date_end)
             data = {
-                'labels': self._get_month_range(date_start, date_end),
+                'labels': self._get_month_range(record.date_start, record.date_end),
                 'datasets': dataset,
             }
 

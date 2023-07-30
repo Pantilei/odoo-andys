@@ -1,15 +1,15 @@
-from numpy import dstack
-from odoo import models, fields, api, _
-from datetime import date, datetime, timedelta
-from dateutil.relativedelta import relativedelta
-from dateutil.rrule import rrule, MONTHLY
-from calendar import monthrange
-
-import json
 import itertools
+import json
+from calendar import monthrange
+from datetime import date, datetime, timedelta
+
+from dateutil.relativedelta import relativedelta
+from dateutil.rrule import MONTHLY, rrule
+from numpy import dstack
+
+from odoo import _, api, fields, models
 
 from ..tools import short_date
-
 
 COLORS = itertools.cycle((
     ['54', '162', '235'],
@@ -45,11 +45,13 @@ class DepartamentsReports(models.TransientModel):
     _name = "restaurant_management.departaments_reports_wizard"
     _description = "Wizard to print the departaments reports"
 
-    def _default_month_end(self):
-        return str((date.today()).month)
+    def _default_date_end(self):
+        d = date.today() + relativedelta(months=-1)
+        return date(year=d.year, month=d.month, day=monthrange(d.year, d.month)[1])
 
-    def _default_month_start(self):
-        return str((date.today() + relativedelta(months=-2)).month)
+    def _default_date_start(self):
+        d = date.today() + relativedelta(months=-1)
+        return date(year=d.year, month=d.month, day=1)
 
     def _get_default_departaments(self):
         return self.env["restaurant_management.check_list_category"].search([
@@ -101,6 +103,15 @@ class DepartamentsReports(models.TransientModel):
         required=True
     )
 
+    date_start = fields.Date(
+        string="Date Start",
+        default=_default_date_start
+    )
+    date_end = fields.Date(
+        string="Date End",
+        default=_default_date_end
+    )
+
     year = fields.Selection(
         selection=[(str(year), str(year)) for year in range(1999, 2049)],
         string="Year of Report",
@@ -114,53 +125,21 @@ class DepartamentsReports(models.TransientModel):
             (date.today() + relativedelta(months=-1)).month),
     )
 
-    year_start = fields.Selection(
-        selection=[(str(year), str(year)) for year in range(1999, 2049)],
-        string="Year Start",
-        default=lambda self: str(
-            (date.today() + relativedelta(months=-2)).year)
-    )
-
-    month_start = fields.Selection(
-        string="Month Start",
-        selection=MONTHS,
-        default=_default_month_start,
-    )
-
-    year_end = fields.Selection(
-        selection=[(str(year), str(year)) for year in range(1999, 2049)],
-        string="Date End",
-        default=lambda self: str(date.today().year),
-    )
-
-    month_end = fields.Selection(
-        selection=MONTHS,
-        default=_default_month_end,
-        string="Month End"
-    )
-
-    @api.depends("report", "restaurant_network_ids", "check_list_category_ids", "year", "month")
+    @api.depends("report", "restaurant_network_ids", "check_list_category_ids", "date_start", "date_end")
     def _compute_json_restaurant_rating(self):
-        RestaurantNetwork = self.env["restaurant_management.restaurant_network"]
         FaultRegistry = self.env["restaurant_management.fault_registry"]
-        FaultCategory = self.env["restaurant_management.check_list_category"]
         for record in self:
-            if not record.report or not record.year or \
-                    not record.month or not record.restaurant_network_ids or \
+            if not record.report or not record.date_start or \
+                    not record.date_end or not record.restaurant_network_ids or \
                     not record.check_list_category_ids:
 
                 record.json_restaurant_rating = json.dumps({
                     "grouped_restaurant_rating_per_audit": [],
                 })
                 return
-            report_date = date(
-                year=int(record.year),
-                month=int(record.month),
-                day=1
-            )
-
             restaurant_rating_per_audit = FaultRegistry.get_restaurant_rating_per_audit_data(
-                report_date,
+                date_start=record.date_start,
+                date_end=record.date_end,
                 restaurant_network_ids=record.restaurant_network_ids.ids,
                 check_list_category_ids=record.check_list_category_ids.ids)
 
@@ -181,32 +160,19 @@ class DepartamentsReports(models.TransientModel):
                 "grouped_restaurant_rating_per_audit": grouped_restaurant_rating_per_audit,
             })
 
-    @api.depends("report", "restaurant_network_ids", "check_list_category_ids", "year", "month")
+    @api.depends("report", "restaurant_network_ids", "check_list_category_ids", "date_start", "date_end")
     def _compute_json_top_faults(self):
-        RestaurantNetwork = self.env["restaurant_management.restaurant_network"]
         FaultRegistry = self.env["restaurant_management.fault_registry"]
-        FaultCategory = self.env["restaurant_management.check_list_category"]
         for record in self:
-            if not record.report or not record.year or \
-                    not record.month or not record.restaurant_network_ids or \
+            if not record.report or not record.date_start or \
+                    not record.date_end or not record.restaurant_network_ids or \
                     not record.check_list_category_ids:
 
                 record.json_top_faults = json.dumps([])
                 return
 
-            date_start = date(
-                year=int(record.year),
-                month=int(record.month),
-                day=1
-            )
-            date_end = date(
-                year=int(record.year),
-                month=int(record.month),
-                day=monthrange(year=int(record.year),
-                               month=int(record.month))[1]
-            )
             res = self.env['restaurant_management.fault_registry'].get_top_faults(
-                date_start, date_end,
+                record.date_start, record.date_end,
                 check_list_category_id=None,
                 check_list_category_ids=record.check_list_category_ids.ids,
                 restaurant_id=None,
@@ -222,8 +188,8 @@ class DepartamentsReports(models.TransientModel):
                     top_fault[1],
                     top_fault[2],
                     FaultRegistry.get_category_responsible_comments_of_faults(
-                        date_start,
-                        date_end,
+                        record.date_start,
+                        record.date_end,
                         top_fault[0],
                         restaurant_network_ids=record.restaurant_network_ids.ids,
                     )
@@ -231,13 +197,11 @@ class DepartamentsReports(models.TransientModel):
 
             record.json_top_faults = json.dumps(top_faults_with_comments)
 
-    @api.depends("report", "year_start", "year_end", "month_start", "month_end",
-                 "restaurant_network_ids", "check_list_category_ids")
+    @api.depends("report", "date_start", "date_end", "restaurant_network_ids", "check_list_category_ids")
     def _compute_json_chart(self):
         for record in self:
-            if not record.report or not record.year_start or \
-                    not record.year_end or not record.month_start or \
-                    not record.month_end or not record.restaurant_network_ids or \
+            if not record.report or not record.date_start or \
+                    not record.date_end or not record.restaurant_network_ids or \
                     not record.check_list_category_ids:
                 record.json_chart = json.dumps({
                     'type': 'bar',
@@ -253,20 +217,8 @@ class DepartamentsReports(models.TransientModel):
                 })
                 return
 
-            date_start = date(
-                year=int(record.year_start),
-                month=int(record.month_start),
-                day=1
-            )
-            date_end = date(
-                year=int(record.year_end),
-                month=int(record.month_end),
-                day=monthrange(year=int(record.year_end),
-                               month=int(record.month_end))[1]
-            )
-
             chart_data = record._get_chart_data(
-                date_start, date_end, record.check_list_category_ids)
+                record.date_start, record.date_end, record.check_list_category_ids)
 
             options = record._get_chart_options(
                 chart_data["mean_value"], chart_data["max_value"])

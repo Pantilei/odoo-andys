@@ -557,11 +557,16 @@ class FaultRegistry(models.Model):
         return res
 
     @api.model
-    def get_restaurant_rating_per_audit_data(self, report_date,
-                                             restaurant_network_id=None,
-                                             restaurant_network_ids=None,
-                                             check_list_category_id=None,
-                                             check_list_category_ids=None):
+    def get_restaurant_rating_per_audit_data(
+        self, 
+        report_date=None,
+        restaurant_network_id=None,
+        restaurant_network_ids=None,
+        check_list_category_id=None,
+        check_list_category_ids=None,
+        date_start=None,
+        date_end=None,
+    ):
         """
         Returns the rating in form of:
         list([restaurant_id, restaurant_name, relative_fault_count, rating])
@@ -574,11 +579,13 @@ class FaultRegistry(models.Model):
         Restaurant = self.env["restaurant_management.restaurant"]
         FaultRegistry = self.env["restaurant_management.fault_registry"]
         FaultAudit = self.env["restaurant_management.restaurant_audit"]
-        date_start = date(year=report_date.year,
-                          month=report_date.month, day=1)
-        date_end = date(year=report_date.year,
-                        month=report_date.month,
-                        day=monthrange(report_date.year, report_date.month)[1])
+        if not date_start:
+            date_start = date(year=report_date.year,
+                            month=report_date.month, day=1)
+        if not date_end:
+            date_end = date(year=report_date.year,
+                            month=report_date.month,
+                            day=monthrange(report_date.year, report_date.month)[1])
 
         restaurant_domain = []
         if restaurant_network_id:

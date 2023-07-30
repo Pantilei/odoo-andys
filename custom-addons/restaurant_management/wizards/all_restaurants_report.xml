@@ -11,27 +11,21 @@
                         <field name="report" />
                     </group>
                     <group>
-                        <field name="check_list_category_ids" options="{'no_create': True}" widget="many2many_tags" />
-                        <field name="restaurant_network_ids" options="{'no_create': True}" widget="many2many_tags" />
+                        <field name="check_list_category_ids" options="{'no_create': True}"
+                            widget="many2many_tags" />
+                        <field name="restaurant_network_ids" options="{'no_create': True}"
+                            widget="many2many_tags" />
                     </group>
-                    <group string="Date of report" attrs="{'invisible': [('report', 'not in', ['relative_faults_distribution'])]}">
-                        <field name="year" required="1" />
-                        <field name="month" required="1" />
+                    <group string="Date of report">
+                        <field name="date_start" required="1" />
+                        <field name="date_end" required="1" />
                     </group>
-                    <group string="Date range for dynamics">
-                        <group>
-                            <field name="year_start" required="1" />
-                            <field name="month_start" required="1" />
-                        </group>
-                        <group>
-                            <field name="year_end" required="1" />
-                            <field name="month_end" required="1" />
-                        </group>
-                    </group>
-                    <div class="d-flex justify-content-center w-100" attrs="{'invisible': [('report', 'not in', ['fault_count_dynamics'])]}">
+                    <div class="d-flex justify-content-center w-100"
+                        attrs="{'invisible': [('report', 'not in', ['fault_count_dynamics'])]}">
                         <field name="dynamics_of_faults_json" widget="json_to_chart" />
                     </div>
-                    <div class="container" style="margin: 0 auto;" attrs="{'invisible': [('report', 'not in', ['relative_faults_distribution'])]}">
+                    <!-- <div class="container" style="margin: 0 auto;" attrs="{'invisible':
+                    [('report', 'not in', ['relative_faults_distribution'])]}">
                         <div class="row">
                             <div class="col-6">
                                 <field name="relative_faults_distribution_month_range_json" widget="json_to_pie_chart" />
@@ -40,7 +34,7 @@
                                 <field name="relative_faults_distribution_one_month_json" widget="json_to_pie_chart" />
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </form>
             </field>
         </record>

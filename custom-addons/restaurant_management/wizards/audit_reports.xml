@@ -8,17 +8,12 @@
             <field name="arch" type="xml">
                 <form>
                     <group>
-                        <field name="restaurant_network_ids" options="{'no_create': True}" widget="many2many_tags" />
+                        <field name="restaurant_network_ids" options="{'no_create': True}"
+                            widget="many2many_tags" />
                     </group>
                     <group string="Date range">
-                        <group>
-                            <field name="year_start" required="1" />
-                            <field name="month_start" required="1" />
-                        </group>
-                        <group>
-                            <field name="year_end" required="1" />
-                            <field name="month_end" required="1" />
-                        </group>
+                        <field name="date_start" required="1" />
+                        <field name="date_end" required="1" />
                     </group>
                     <div>
                         <field name="audits_table_json" widget="json_to_audit_tables" />
