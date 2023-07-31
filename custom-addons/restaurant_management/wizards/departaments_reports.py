@@ -131,7 +131,7 @@ class DepartamentsReports(models.TransientModel):
         for record in self:
             if not record.report or not record.date_start or \
                     not record.date_end or not record.restaurant_network_ids or \
-                    not record.check_list_category_ids:
+                    not record.check_list_category_ids or record.date_start > record.date_end:
 
                 record.json_restaurant_rating = json.dumps({
                     "grouped_restaurant_rating_per_audit": [],
@@ -166,9 +166,9 @@ class DepartamentsReports(models.TransientModel):
         for record in self:
             if not record.report or not record.date_start or \
                     not record.date_end or not record.restaurant_network_ids or \
-                    not record.check_list_category_ids:
+                    not record.check_list_category_ids or record.date_start > record.date_end:
 
-                record.json_top_faults = json.dumps([])
+                record.json_top_faults = json.dumps({})
                 return
 
             res = self.env['restaurant_management.fault_registry'].get_top_faults(
@@ -202,7 +202,8 @@ class DepartamentsReports(models.TransientModel):
         for record in self:
             if not record.report or not record.date_start or \
                     not record.date_end or not record.restaurant_network_ids or \
-                    not record.check_list_category_ids:
+                    not record.check_list_category_ids or record.date_start > record.date_end:
+
                 record.json_chart = json.dumps({
                     'type': 'bar',
                     'data': {

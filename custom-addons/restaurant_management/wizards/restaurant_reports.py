@@ -126,6 +126,12 @@ class RestaurantReports(models.TransientModel):
     def _compute_json_restaurant_rating_chart(self):
         FaultRegistry = self.env["restaurant_management.fault_registry"]
         for record in self:
+            if not record.report or not record.date_start or \
+                    not record.date_end or not record.restaurant_id or \
+                    not record.check_list_category_ids or record.date_start > record.date_end:
+
+                record.json_restaurant_rating_chart = json.dumps({})
+                return
             dataset = []
             all_data = []
             for check_list_category_id in record.check_list_category_ids:
@@ -217,7 +223,7 @@ class RestaurantReports(models.TransientModel):
         for record in self:
             if not record.report or not record.date_start or \
                     not record.date_end or not record.restaurant_id or \
-                    not record.check_list_category_ids:
+                    not record.check_list_category_ids or record.date_start > record.date_end:
 
                 record.json_restaurant_rating = json.dumps({
                     "grouped_restaurant_rating_per_audit": [],
@@ -253,10 +259,11 @@ class RestaurantReports(models.TransientModel):
     def _compute_json_top_faults(self):
         FaultRegistry = self.env["restaurant_management.fault_registry"]
         for record in self:
-            if not record.report or not record.date_start or not record.date_end or \
-                    not record.check_list_category_ids:
+            if not record.report or not record.date_start or \
+                    not record.date_end or not record.restaurant_id or \
+                    not record.check_list_category_ids or record.date_start > record.date_end:
 
-                record.json_top_faults = json.dumps([])
+                record.json_top_faults = json.dumps({})
                 return
             
             res = self.env['restaurant_management.fault_registry'].get_top_faults(
@@ -288,6 +295,12 @@ class RestaurantReports(models.TransientModel):
     @api.depends("report", "restaurant_id", "date_start", "date_end", "check_list_category_ids")
     def _compute_json_chart(self):
         for record in self:
+            if not record.report or not record.date_start or \
+                    not record.date_end or not record.restaurant_id or \
+                    not record.check_list_category_ids or record.date_start > record.date_end:
+
+                record.json_chart = json.dumps({})
+                return
             dataset, maximum = self._get_chart_data(record.date_start, record.date_end)
             data = {
                 'labels': self._get_month_range(record.date_start, record.date_end),

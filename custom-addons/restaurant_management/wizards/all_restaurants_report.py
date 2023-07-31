@@ -205,6 +205,13 @@ class AllRestaurantsReports(models.TransientModel):
     def _compute_dynamics_of_faults_json(self):
         FaultRegistry = self.env["restaurant_management.fault_registry"]
         for record in self:
+            if not record.report or not record.date_start or \
+                    not record.date_end or not record.restaurant_network_ids or \
+                    not record.check_list_category_ids or record.date_start > record.date_end:
+
+                record.dynamics_of_faults_json = json.dumps({})
+                return
+            
             fault_registry_data = FaultRegistry.get_fault_counts_per_month(
                 record.date_start, record.date_end,
                 restaurant_network_ids=record.restaurant_network_ids.ids,
