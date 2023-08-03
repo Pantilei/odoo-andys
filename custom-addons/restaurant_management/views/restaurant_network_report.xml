@@ -20,7 +20,7 @@
                                                 name="report_year" />
                                         </span>
                                         <span class="report-network-main-info__line"> Количество
-                                            ошибок на 1 проверку по департаментам: <field
+                                            ошибок на 1 проверку по категориям: <field
                                                 name="relative_fault_count_on_department_ids"
                                                 widget="many2many_tags"
                                                 options="{'no_create': True, 'no_open': True}" />
@@ -72,7 +72,7 @@
 
                         <div class="relative-fault-count-per-department">
                             <div class="section__header">
-                                <h2> Кол-во ошибок на 1 проверку по департаментам ( <field
+                                <h2> Кол-во ошибок на 1 проверку по категориям ( <field
                                         name="report_year"
                                         readonly="1" force_save="1" /> vs. <field
                                         name="previous_report_year" /> ) </h2>

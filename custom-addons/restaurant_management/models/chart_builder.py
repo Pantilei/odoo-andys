@@ -87,7 +87,7 @@ class ChartBuilder:
 
         config = {'displayModeBar': False}
         
-        return fig.to_html(config=config)
+        return fig.to_html(config=config, include_plotlyjs=False)
     
     def build_grouped_horizontal_bar_chart(self, y, x1, x2, label1, label2):
         colors = ("#46A1BF", "#5cc4cc")
@@ -192,7 +192,7 @@ class ChartBuilder:
 
         config = {'displayModeBar': False}
         
-        return fig.to_html(config=config)
+        return fig.to_html(config=config, include_plotlyjs=False)
     
     def build_year_to_year_line_chart(self, x, y1, y2, label1, label2, upper_limit):
         colors = ("#46A1BF", "#5cc4cc")
@@ -284,4 +284,4 @@ class ChartBuilder:
         
         config = {'displayModeBar': False}
 
-        return fig.to_html(config=config)  
+        return fig.to_html(config=config, include_plotlyjs=False)  
