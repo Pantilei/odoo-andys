@@ -182,10 +182,10 @@ class RestaurantAudit(models.Model):
                 record.available_for_edit = True
             elif record.create_date:
                 create_date_week_day = record.create_date.weekday()
-                delta = timedelta(hours=24)
+                delta = timedelta(hours=48)
                 # Do not consider weekends if created in friday
                 if create_date_week_day == 4:
-                    delta = timedelta(hours=24*3)
+                    delta = timedelta(hours=24*4)
                 record.available_for_edit = (
                     record.create_date + delta) > datetime.now()
             else:
