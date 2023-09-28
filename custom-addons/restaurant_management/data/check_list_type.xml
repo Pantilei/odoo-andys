@@ -5,10 +5,10 @@
         <field name="name">ДКК</field>
     </record>
     <record id="video_surveillance_check_list_type" model="restaurant_management.check_list_type">
-        <field name="name">Видео Наблюдение</field>
+        <field name="name">Проверка завода и складов снабжения</field>
     </record>
     <record id="secret_guest_check_list_type" model="restaurant_management.check_list_type">
-        <field name="name">Секретный Гость</field>
+        <field name="name">Тайный Гость</field>
     </record>
 
 </odoo>

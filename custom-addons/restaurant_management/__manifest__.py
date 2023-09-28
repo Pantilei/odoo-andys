@@ -28,7 +28,7 @@
         'views/restaurant_views.xml',
         'views/restaurant_network_views.xml',
         'views/restaurant_audit_view.xml',
-        'views/restaurant_audit_video_surveillance_view.xml',
+        'views/audit_of_factory_and_supply_warehouses_view.xml',
         'views/restaurant_audit_secret_guest_view.xml',
 
         'views/check_list_views.xml',

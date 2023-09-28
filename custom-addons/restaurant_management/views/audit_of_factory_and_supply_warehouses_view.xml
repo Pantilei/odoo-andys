@@ -1,7 +1,7 @@
 <odoo>
     <data>
-        <record id="restaurant_audit_video_surveillance_form" model="ir.ui.view">
-            <field name="name">restaurant_audit_video_surveillance.view.form</field>
+        <record id="audit_of_factory_and_supply_warehouses_form" model="ir.ui.view">
+            <field name="name">audit_of_factory_and_supply_warehouses.view.form</field>
             <field name="model">restaurant_management.restaurant_audit</field>
             <field name="arch" type="xml">
                 <form string="Audit of Video Surveillance" duplicate="0">
@@ -102,12 +102,12 @@
         </record>
 
         <record
-            id="restaurant_audit_video_surveillance_form_group_restaurant_management_restaurant_director"
+            id="audit_of_factory_and_supply_warehouses_form_group_restaurant_management_restaurant_director"
             model="ir.ui.view">
             <field name="name">
-                restaurant_audit_video_surveillance.view.form.group_restaurant_management_restaurant_director</field>
+                audit_of_factory_and_supply_warehouses.view.form.group_restaurant_management_restaurant_director</field>
             <field name="model">restaurant_management.restaurant_audit</field>
-            <field name="inherit_id" ref="restaurant_audit_video_surveillance_form" />
+            <field name="inherit_id" ref="audit_of_factory_and_supply_warehouses_form" />
             <field name="groups_id"
                 eval="[(6, 0, [ref('group_restaurant_management_restaurant_director')])]" />
             <field name="arch" type="xml">
@@ -191,12 +191,12 @@
         </record>
 
         <record
-            id="restaurant_audit_video_surveillance_form_group_restaurant_management_audit_controller"
+            id="audit_of_factory_and_supply_warehouses_form_group_restaurant_management_audit_controller"
             model="ir.ui.view">
             <field name="name">
-                restaurant_audit_video_surveillance_view.view.form.group_restaurant_management_audit_controller</field>
+                audit_of_factory_and_supply_warehouses_view.view.form.group_restaurant_management_audit_controller</field>
             <field name="model">restaurant_management.restaurant_audit</field>
-            <field name="inherit_id" ref="restaurant_audit_video_surveillance_form" />
+            <field name="inherit_id" ref="audit_of_factory_and_supply_warehouses_form" />
             <field name="groups_id"
                 eval="[(6, 0, [ref('group_restaurant_management_audit_controller')])]" />
             <field name="arch" type="xml">
@@ -280,12 +280,12 @@
         </record>
 
         <record
-            id="restaurant_audit_video_surveillance_form_group_restaurant_management_dkk_manager"
+            id="audit_of_factory_and_supply_warehouses_form_group_restaurant_management_dkk_manager"
             model="ir.ui.view">
             <field name="name">
-                restaurant_audit_video_surveillance.view.form.group_restaurant_management_dkk_manager</field>
+                audit_of_factory_and_supply_warehouses.view.form.group_restaurant_management_dkk_manager</field>
             <field name="model">restaurant_management.restaurant_audit</field>
-            <field name="inherit_id" ref="restaurant_audit_video_surveillance_form" />
+            <field name="inherit_id" ref="audit_of_factory_and_supply_warehouses_form" />
             <field name="groups_id"
                 eval="[(6, 0, [ref('group_restaurant_management_dkk_manager')])]" />
             <field name="arch" type="xml">
@@ -373,12 +373,12 @@
         </record>
 
         <record
-            id="restaurant_audit_video_surveillance_form_group_restaurant_management_video_operator"
+            id="audit_of_factory_and_supply_warehouses_form_group_restaurant_management_video_operator"
             model="ir.ui.view">
             <field name="name">
-                restaurant_audit_video_surveillance.view.form.group_restaurant_management_video_operator</field>
+                audit_of_factory_and_supply_warehouses.view.form.group_restaurant_management_video_operator</field>
             <field name="model">restaurant_management.restaurant_audit</field>
-            <field name="inherit_id" ref="restaurant_audit_video_surveillance_form" />
+            <field name="inherit_id" ref="audit_of_factory_and_supply_warehouses_form" />
             <field name="groups_id"
                 eval="[(6, 0, [ref('group_restaurant_management_video_operator')])]" />
             <field name="arch" type="xml">
@@ -471,8 +471,8 @@
             </field>
         </record>
 
-        <record id="restaurant_audit_video_surveillance_tree_view" model="ir.ui.view">
-            <field name="name">restaurant_audit_video_surveillance.view.tree</field>
+        <record id="audit_of_factory_and_supply_warehouses_tree_view" model="ir.ui.view">
+            <field name="name">audit_of_factory_and_supply_warehouses.view.tree</field>
             <field name="model">restaurant_management.restaurant_audit</field>
             <field name="arch" type="xml">
                 <tree string="Audit of Video Surveillance" default_order="audit_date desc">
@@ -487,14 +487,14 @@
         </record>
 
         <!-- actions opening views on models -->
-        <record id="restaurant_audit_video_surveillance_action" model="ir.actions.act_window">
+        <record id="audit_of_factory_and_supply_warehouses_action" model="ir.actions.act_window">
             <field name="name">Audit of Video Surveillance</field>
             <field name="res_model">restaurant_management.restaurant_audit</field>
             <field name="view_mode">tree,form</field>
             <field name="view_ids"
                 eval="[(5, 0, 0),
-                        (0, 0, {'view_mode': 'tree', 'view_id': ref('restaurant_audit_video_surveillance_tree_view')}),
-                        (0, 0, {'view_mode': 'form', 'view_id': ref('restaurant_audit_video_surveillance_form')})]" />
+                        (0, 0, {'view_mode': 'tree', 'view_id': ref('audit_of_factory_and_supply_warehouses_tree_view')}),
+                        (0, 0, {'view_mode': 'form', 'view_id': ref('audit_of_factory_and_supply_warehouses_form')})]" />
             <field name="context"
                 eval="{'default_check_list_type_id': ref('video_surveillance_check_list_type')}" />
             <field name="domain"

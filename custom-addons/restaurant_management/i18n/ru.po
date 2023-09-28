@@ -1103,8 +1103,8 @@ msgstr "Временные Ссылки на Проверки"
 #: model:ir.ui.menu,name:restaurant_management.restaurant_audit
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_tree_view
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form
-msgid "Audit of Expert DKK"
-msgstr "Проверка Эксперта ДКК"
+msgid "Restaurant Audit"
+msgstr "Проверка Ресторана"
 
 #. module: restaurant_management
 #: model:ir.actions.act_window,name:restaurant_management.restaurant_audit_secret_guest_action
@@ -1116,15 +1116,15 @@ msgstr "Проверки Секретного Гостя"
 #. module: restaurant_management
 #: model:ir.ui.menu,name:restaurant_management.restaurant_audit_secret_guest
 msgid "Audit of Secret Guests"
-msgstr "Проверки Секретных Гостей"
+msgstr "Проверка Тайного Гостя"
 
 #. module: restaurant_management
-#: model:ir.actions.act_window,name:restaurant_management.restaurant_audit_video_surveillance_action
-#: model:ir.ui.menu,name:restaurant_management.restaurant_audit_video_surveillance
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_tree_view
-msgid "Audit of Video Surveillance"
-msgstr "Проверки Видео Наблюдения"
+#: model:ir.actions.act_window,name:restaurant_management.audit_of_factory_and_supply_warehouses_action
+#: model:ir.ui.menu,name:restaurant_management.audit_of_factory_and_supply_warehouses
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_tree_view
+msgid "Audit of factory and supply warehouses"
+msgstr "Проверка завода и складов снабжения"
 
 #. module: restaurant_management
 #: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__responsible_id
@@ -1208,8 +1208,8 @@ msgstr "По грубости"
 #: model_terms:ir.ui.view,arch_db:restaurant_management.reports_wizard_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form_group_restaurant_management_dkk_manager
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form_group_restaurant_management_dkk_manager
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form_group_restaurant_management_dkk_manager
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_dkk_manager
 msgid "Cancel"
@@ -1285,7 +1285,7 @@ msgstr "Чек-лист Тайного Покупателя"
 
 #. module: restaurant_management
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form
 msgid "Check date and time"
 msgstr "Дата и Время проверки"
@@ -1364,8 +1364,8 @@ msgstr "Конфигурации"
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form_group_restaurant_management_restaurant_director
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form_group_restaurant_management_dkk_manager
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form_group_restaurant_management_dkk_manager
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form_group_restaurant_management_dkk_manager
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_dkk_manager
 msgid "Confirm"
@@ -1801,7 +1801,7 @@ msgstr "Кол-во ошибок на проверку"
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_graph_view
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_pivot
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form
 msgid "Faults"
 msgstr "Ошибки"
@@ -2028,11 +2028,11 @@ msgstr "Должность Причастного работника"
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form_group_restaurant_management_audit_controller
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form_group_restaurant_management_dkk_manager
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form_group_restaurant_management_restaurant_director
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form_group_restaurant_management_audit_controller
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form_group_restaurant_management_dkk_manager
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form_group_restaurant_management_restaurant_director
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form_group_restaurant_management_video_operator
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form_group_restaurant_management_audit_controller
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form_group_restaurant_management_dkk_manager
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form_group_restaurant_management_restaurant_director
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form_group_restaurant_management_video_operator
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_audit_controller
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_auditer
@@ -2062,7 +2062,7 @@ msgid "Is Secret Guest Type"
 msgstr "Секретный Гость"
 
 #. module: restaurant_management
-#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__is_video_surveillance_check_list_type
+#: model:ir.model.fields,field_description:restaurant_management.field_restaurant_management_fault_registry__is_audit_of_factory_and_supply_warehouses_check_list_type
 msgid "Is Video Surveillance Check List Type"
 msgstr "Видеонаблюдение Чек Лист"
 
@@ -2390,11 +2390,11 @@ msgstr "Среднее Количество Ошибок на Проверку"
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form_group_restaurant_management_audit_controller
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form_group_restaurant_management_dkk_manager
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form_group_restaurant_management_restaurant_director
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form_group_restaurant_management_audit_controller
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form_group_restaurant_management_dkk_manager
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form_group_restaurant_management_restaurant_director
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form_group_restaurant_management_video_operator
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form_group_restaurant_management_audit_controller
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form_group_restaurant_management_dkk_manager
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form_group_restaurant_management_restaurant_director
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form_group_restaurant_management_video_operator
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_audit_controller
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_auditer
@@ -2501,11 +2501,11 @@ msgstr "Название"
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form_group_restaurant_management_audit_controller
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form_group_restaurant_management_dkk_manager
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form_group_restaurant_management_restaurant_director
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form_group_restaurant_management_audit_controller
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form_group_restaurant_management_dkk_manager
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form_group_restaurant_management_restaurant_director
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form_group_restaurant_management_video_operator
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form_group_restaurant_management_audit_controller
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form_group_restaurant_management_dkk_manager
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form_group_restaurant_management_restaurant_director
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form_group_restaurant_management_video_operator
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_audit_controller
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_auditer
@@ -2686,11 +2686,11 @@ msgstr "Фото"
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form_group_restaurant_management_audit_controller
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form_group_restaurant_management_dkk_manager
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form_group_restaurant_management_restaurant_director
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form_group_restaurant_management_audit_controller
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form_group_restaurant_management_dkk_manager
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form_group_restaurant_management_restaurant_director
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form_group_restaurant_management_video_operator
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form_group_restaurant_management_audit_controller
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form_group_restaurant_management_dkk_manager
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form_group_restaurant_management_restaurant_director
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form_group_restaurant_management_video_operator
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_audit_controller
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_auditer
@@ -2726,11 +2726,11 @@ msgstr "Плановые проверки"
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form_group_restaurant_management_audit_controller
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form_group_restaurant_management_dkk_manager
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form_group_restaurant_management_restaurant_director
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form_group_restaurant_management_audit_controller
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form_group_restaurant_management_dkk_manager
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form_group_restaurant_management_restaurant_director
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form_group_restaurant_management_video_operator
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form_group_restaurant_management_audit_controller
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form_group_restaurant_management_dkk_manager
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form_group_restaurant_management_restaurant_director
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form_group_restaurant_management_video_operator
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_audit_controller
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_auditer
@@ -2907,11 +2907,11 @@ msgstr "Эксперт ДКК"
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form_group_restaurant_management_audit_controller
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form_group_restaurant_management_dkk_manager
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form_group_restaurant_management_restaurant_director
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form_group_restaurant_management_audit_controller
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form_group_restaurant_management_dkk_manager
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form_group_restaurant_management_restaurant_director
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form_group_restaurant_management_video_operator
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form_group_restaurant_management_audit_controller
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form_group_restaurant_management_dkk_manager
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form_group_restaurant_management_restaurant_director
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form_group_restaurant_management_video_operator
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_audit_controller
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_auditer
@@ -2964,11 +2964,11 @@ msgstr "Проверка Ресторана"
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form_group_restaurant_management_audit_controller
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form_group_restaurant_management_dkk_manager
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_secret_guest_form_group_restaurant_management_restaurant_director
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form_group_restaurant_management_audit_controller
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form_group_restaurant_management_dkk_manager
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form_group_restaurant_management_restaurant_director
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form_group_restaurant_management_video_operator
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form_group_restaurant_management_audit_controller
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form_group_restaurant_management_dkk_manager
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form_group_restaurant_management_restaurant_director
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form_group_restaurant_management_video_operator
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_audit_controller
 #: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_view_form_group_restaurant_management_auditer
@@ -3470,11 +3470,11 @@ msgstr "Видео"
 #. module: restaurant_management
 #: model:res.groups,name:restaurant_management.group_restaurant_management_video_operator
 #: model_terms:ir.ui.view,arch_db:restaurant_management.fault_registry_view_form
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form_group_restaurant_management_audit_controller
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form_group_restaurant_management_dkk_manager
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form_group_restaurant_management_restaurant_director
-#: model_terms:ir.ui.view,arch_db:restaurant_management.restaurant_audit_video_surveillance_form_group_restaurant_management_video_operator
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form_group_restaurant_management_audit_controller
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form_group_restaurant_management_dkk_manager
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form_group_restaurant_management_restaurant_director
+#: model_terms:ir.ui.view,arch_db:restaurant_management.audit_of_factory_and_supply_warehouses_form_group_restaurant_management_video_operator
 msgid "Video Operator"
 msgstr "Видео Оператор"
 
