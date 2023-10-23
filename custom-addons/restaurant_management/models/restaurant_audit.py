@@ -81,6 +81,7 @@ class RestaurantAudit(models.Model):
         comodel_name="res.users",
         string="Restaurant Directors",
         compute="_compute_restaurant_directors",
+        store=True
     )
 
     responsible_id = fields.Many2one(
