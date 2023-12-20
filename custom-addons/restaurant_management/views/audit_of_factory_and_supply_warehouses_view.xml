@@ -75,10 +75,10 @@
                                         <field name="severe" widget="boolean_toggle" />
                                     </group>
 
-                                    <group string="Involved Worker/Department Manager">
+                                    <!-- <group string="Involved Worker/Department Manager">
                                         <field name="fault_type" string="Position" />
                                         <field name="guilty_person_id" string="Name/Family Name" />
-                                    </group>
+                                    </group> -->
 
                                     <group string="Measures Taken">
                                         <field name="comment" widget="html" string="Video Operator" />
@@ -162,11 +162,11 @@
                                     <field name="severe" readonly="1" widget="boolean_toggle" />
                                 </group>
 
-                                <group string="Involved Worker/Department Manager">
+                                <!-- <group string="Involved Worker/Department Manager">
                                     <field name="fault_type" string="Position" readonly="1" />
                                     <field name="guilty_person_id" string="Name/Family Name"
                                         readonly="1" />
-                                </group>
+                                </group> -->
 
                                 <group string="Measures Taken">
                                     <field name="comment" readonly="1" widget="html"
@@ -252,11 +252,11 @@
                                     <field name="severe" readonly="1" widget="boolean_toggle" />
                                 </group>
 
-                                <group string="Involved Worker/Department Manager">
+                                <!-- <group string="Involved Worker/Department Manager">
                                     <field name="fault_type" readonly="1" string="Position" />
                                     <field name="guilty_person_id" readonly="1"
                                         string="Name/Family Name" />
-                                </group>
+                                </group> -->
 
                                 <group string="Measures Taken">
                                     <field name="comment" readonly="1" widget="html"
@@ -345,11 +345,11 @@
                                     <field name="severe" widget="boolean_toggle" />
                                 </group>
 
-                                <group string="Involved Worker/Department Manager">
+                                <!-- <group string="Involved Worker/Department Manager">
                                     <field name="fault_type" readonly="1" string="Position" />
                                     <field name="guilty_person_id" readonly="1"
                                         string="Name/Family Name" />
-                                </group>
+                                </group> -->
 
                                 <group string="Measures Taken">
                                     <field name="comment" widget="html" readonly="1"
@@ -444,10 +444,10 @@
                                         attrs="{'readonly': [('parent.available_for_edit', '=', False)]}" />
                                 </group>
 
-                                <group string="Involved Worker/Department Manager">
+                                <!-- <group string="Involved Worker/Department Manager">
                                     <field name="fault_type" string="Position" />
                                     <field name="guilty_person_id" string="Name/Family Name" />
-                                </group>
+                                </group> -->
 
                                 <group string="Measures Taken">
                                     <field name="comment" widget="html" string="Video Operator"

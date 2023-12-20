@@ -168,14 +168,14 @@
                 <xpath expr="//field[@name='fault_count']" position="replace">
                     <field name="fault_count" readonly="1" />
                 </xpath>
-                <xpath expr="//field[@name='fault_type']" position="replace">
+                <!-- <xpath expr="//field[@name='fault_type']" position="replace">
                     <field name="fault_type"
                         attrs="{'readonly': [('available_for_edit', '=', False)]}" string="Position" />
-                </xpath>
-                <xpath expr="//field[@name='guilty_person_id']" position="replace">
+                </xpath> -->
+                <!-- <xpath expr="//field[@name='guilty_person_id']" position="replace">
                     <field name="guilty_person_id" string="Name/Family Name"
                         attrs="{'readonly': [('available_for_edit', '=', False)]}" />
-                </xpath>
+                </xpath> -->
                 <xpath expr="//field[@name='severe']" position="replace">
                     <field name="severe" readonly="1" widget="boolean_toggle" />
                 </xpath>
@@ -266,12 +266,12 @@
                 <xpath expr="//field[@name='fault_count']" position="replace">
                     <field name="fault_count" />
                 </xpath>
-                <xpath expr="//field[@name='fault_type']" position="replace">
+                <!-- <xpath expr="//field[@name='fault_type']" position="replace">
                     <field name="fault_type" readonly="1" string="Position" />
-                </xpath>
-                <xpath expr="//field[@name='guilty_person_id']" position="replace">
+                </xpath> -->
+                <!-- <xpath expr="//field[@name='guilty_person_id']" position="replace">
                     <field name="guilty_person_id" string="Name/Family Name" readonly="1" />
-                </xpath>
+                </xpath> -->
                 <xpath expr="//field[@name='comment']" position="replace">
                     <field name="comment" readonly="1" widget="html" string="Expert DCC" />
                 </xpath>
@@ -316,12 +316,12 @@
                     <field name="fault_count" readonly="1"
                         attrs="{'readonly': [('id', '!=', False)]}" />
                 </xpath>
-                <xpath expr="//field[@name='fault_type']" position="replace">
+                <!-- <xpath expr="//field[@name='fault_type']" position="replace">
                     <field name="fault_type" readonly="1" string="Position" />
-                </xpath>
-                <xpath expr="//field[@name='guilty_person_id']" position="replace">
+                </xpath> -->
+                <!-- <xpath expr="//field[@name='guilty_person_id']" position="replace">
                     <field name="guilty_person_id" string="Name/Family Name" readonly="1" />
-                </xpath>
+                </xpath> -->
                 <xpath expr="//field[@name='comment']" position="replace">
                     <field name="comment" string="Expert DCC"
                         attrs="{'readonly': [('available_for_edit', '=', False)]}" widget="html" />
@@ -412,7 +412,7 @@
                         domain="[('fault_count', '!=', 0)]" />
 
                     <separator />
-                    <filter string="Cook" name="cook_fault_type"
+                    <!-- <filter string="Cook" name="cook_fault_type"
                         domain="[('fault_type', '=', 'cook')]" />
                     <filter string="Suchif" name="suchif_fault_type"
                         domain="[('fault_type', '=', 'suchif')]" />
@@ -423,7 +423,7 @@
                     <filter string="Barman" name="barman_fault_type"
                         domain="[('fault_type', '=', 'barman')]" />
                     <filter string="Delivery" name="delivery_fault_type"
-                        domain="[('fault_type', '=', 'delivery')]" />
+                        domain="[('fault_type', '=', 'delivery')]" /> -->
 
                     <separator />
                     <filter string="Severe Faults" name="severe_faults"
@@ -447,8 +447,8 @@
                         <filter string="Involved Worker Name/Family Name"
                             name="group_by_guilty_person_id"
                             context="{'group_by': 'guilty_person_id'}" domain="[]" />
-                        <filter string="Involved Worker Position" name="group_by_fault_type"
-                            context="{'group_by': 'fault_type'}" domain="[]" />
+                        <!-- <filter string="Involved Worker Position" name="group_by_fault_type"
+                            context="{'group_by': 'fault_type'}" domain="[]" /> -->
                         <filter string="State" name="group_by_state" context="{'group_by': 'state'}"
                             domain="[]" />
                         <filter string="By Severety" name="group_by_severe"
