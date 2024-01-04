@@ -409,8 +409,10 @@ class FaultRegistry(models.Model):
                 restaurant_network_id=restaurant_network_id
         )
 
-        fault_per_audit = [round(fault_count/audit_count, 2)if audit_count else 0 for audit_count,
-                           fault_count in zip(audit_counts["actual"], fault_counts)]
+        fault_per_audit = [
+            round(fault_count/audit_count, 2) if audit_count else 0 
+            for audit_count, fault_count in zip(audit_counts["actual"], fault_counts)
+        ]
 
         return {
             "fault_per_audit": fault_per_audit,
@@ -620,10 +622,10 @@ class FaultRegistry(models.Model):
 
             fault_count = sum(restaurant_faults.mapped("fault_count"))
 
-            actual_count_of_audits = FaultAudit.get_audit_counts_per_month(
+            actual_count_of_audits = sum(FaultAudit.get_audit_counts_per_month(
                 date_start, date_end,
                 restaurant_id=restaurant_id.id
-            )["actual"][0]
+            )["actual"])
 
             res.append(
                 [restaurant_id.id, restaurant_id.name, round(fault_count/actual_count_of_audits, 2) if actual_count_of_audits else 0, 1])
