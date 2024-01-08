@@ -331,4 +331,4 @@ class AllRestaurantsReports(models.TransientModel):
             record.dynamics_of_faults_json = json.dumps(configs)
 
     def _get_month_range(self, date_start, date_end):
-        return [short_date(r) for r in rrule(MONTHLY, dtstart=date_start, until=date_end)]
+        return [short_date(r) for r in rrule(MONTHLY, dtstart=date_start.replace(day=1), until=date_end.replace(day=1))]

@@ -324,8 +324,10 @@ class FaultRegistry(models.Model):
         date_start = date(year=year-1, month=month, day=1)
         date_end = date(year=year, month=month,
                         day=monthrange(year, month)[1])
-        months = [short_date(d) for d in rrule(MONTHLY,
-                                               dtstart=date_start, until=date_end)]
+        months = [
+            short_date(d) for d in 
+            rrule(MONTHLY, dtstart=date_start.replace(day=1), until=date_end.replace(day=1))
+        ]
 
         return {
             "months": months,
@@ -392,9 +394,10 @@ class FaultRegistry(models.Model):
             groupby=['fault_date:month'],
         )
 
-        month_range = list(rrule(MONTHLY, dtstart=date_start, until=date_end))
+        month_range = list(
+            rrule(MONTHLY, dtstart=date_start.replace(day=1), until=date_end.replace(day=1))
+        )
         fault_counts = [0 for _ in range(len(month_range))]
-
         for m_i, month in enumerate(month_range):
             for row in fault_count_per_month:
                 d = datetime.strptime(
@@ -468,7 +471,7 @@ class FaultRegistry(models.Model):
         if isinstance(restaurant_id, int):
             restaurant_id = Restaurant.browse(restaurant_id)
         restaurant_rating_per_month = []
-        for r_date in rrule(MONTHLY, dtstart=date_start, until=date_end):
+        for r_date in rrule(MONTHLY, dtstart=date_start.replace(day=1), until=date_end.replace(day=1)):
             restaurant_ratings = self.get_restaurant_rating_per_audit_data(
                 r_date,
                 restaurant_network_id=restaurant_id.restaurant_network_id.id,

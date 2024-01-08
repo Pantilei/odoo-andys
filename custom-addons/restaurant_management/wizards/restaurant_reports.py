@@ -355,7 +355,7 @@ class RestaurantReports(models.TransientModel):
             record.json_chart = json.dumps(configs)
 
     def _get_month_range(self, date_start, date_end):
-        return [short_date(r) for r in rrule(MONTHLY, dtstart=date_start, until=date_end)]
+        return [short_date(r) for r in rrule(MONTHLY, dtstart=date_start.replace(day=1), until=date_end.replace(day=1))]
 
     def _get_chart_data(self, date_start, date_end):
         CheckListCategory = self.env["restaurant_management.check_list_category"]

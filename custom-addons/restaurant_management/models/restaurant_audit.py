@@ -8,7 +8,6 @@ from datetime import date, datetime, timedelta
 
 import requests
 from dateutil.rrule import MONTHLY, rrule
-
 from odoo import _, api, fields, models, registry
 from odoo.osv import expression
 
@@ -370,16 +369,16 @@ class RestaurantAudit(models.Model):
             groupby=['audit_date:month'],
         )
         date_range_monthly = list(
-            rrule(MONTHLY, dtstart=date_start, until=date_end))
+            rrule(MONTHLY, dtstart=date_start.replace(day=1), until=date_end.replace(day=1))
+        )
         audit_counts = [0 for _ in range(len(date_range_monthly))]
-        # months = []
         for index, d in enumerate(date_range_monthly):
             for row in audit_count_per_month:
                 row_date = datetime.strptime(
                     row["__range"]["audit_date"]["from"], "%Y-%m-%d")
                 if row_date.year == d.year and row_date.month == d.month:
                     audit_counts[index] = row["audit_date_count"]
-
+        
         return {
             "actual": audit_counts,
             "planned": self.env["restaurant_management.planned_audits"].get_number_of_audits(

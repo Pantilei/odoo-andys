@@ -1,11 +1,9 @@
 import json
 from calendar import monthrange
-from datetime import date, datetime, timedelta
+from datetime import date
 
 from dateutil.relativedelta import relativedelta
 from dateutil.rrule import MONTHLY, rrule
-from numpy import dstack
-
 from odoo import _, api, fields, models
 
 from ..tools import short_date
@@ -78,4 +76,4 @@ class AuditReports(models.TransientModel):
                 {"months": month_range, **audit_counts})
 
     def _get_month_range(self, date_start, date_end):
-        return [short_date(r) for r in rrule(MONTHLY, dtstart=date_start, until=date_end)]
+        return [short_date(r) for r in rrule(MONTHLY, dtstart=date_start.replace(day=1), until=date_end.replace(day=1))]
