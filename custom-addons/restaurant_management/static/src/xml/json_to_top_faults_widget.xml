@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+
+    <t t-name="JsonToTopFaults" owl="1">
+        <div class="container">
+            <div class="row border border-dark">
+                <div class="col-10">
+                    <span class="mx-auto d-block" style="font-size: 24px;">
+                        Ошибки из чек листа эксперта ДКК
+                    </span>
+                </div>
+                <div class="col-2 border-left border-dark">
+                    <span class="mx-auto d-block" style="font-size: 24px;">
+                        Count
+                    </span>
+                </div>
+            </div>
+            <t t-if="state.fieldValue.length!==0">
+                <t t-foreach="state.fieldValue" t-as="topFault" t-key="topFault[0]">
+                    <div class="row border border-dark">
+                        <div class="col-10">
+                            <span style="vertical-align:bottom;">
+                                <t t-esc="topFault[1]" />
+                            </span>
+                        </div>
+                        <div class="col-2 border-left border-dark">
+                            <span class="badge badge-pill d-block mx-auto my-auto" style="font-size: 16px;">
+                                <t t-esc="topFault[2]" />
+                            </span>
+                        </div>
+                    </div>
+                </t>
+            </t>
+            <t t-if="state.fieldValue.length==0">
+                <div class="row border border-dark">
+                    <div class="col-5"></div>
+                    <div class="col-2">No Data</div>
+                    <div class="col-5"></div>
+                </div>
+            </t>
+
+        </div>
+    </t>
+
+</templates>

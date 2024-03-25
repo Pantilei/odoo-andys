@@ -1,0 +1,92 @@
+@media screen and (max-width: 1200px) {
+  .report-header {
+    display: flex;
+    flex-direction: column;
+  }
+  .report-main-info {
+    width: 100% !important;
+  }
+  .report-raiting {
+    width: 100% !important;
+    margin-top: 5px;
+  }
+
+  .report-violations__content {
+    display: flex;
+    flex-direction: column;
+  }
+  .report-violations__total-faults {
+    width: 100% !important;
+  }
+  .report-violations__relative-faults {
+    width: 100% !important;
+  }
+  .report-violations__chart {
+    width: 100% !important;
+  }
+
+  .report-restaurant-rating__content {
+    display: flex;
+    flex-direction: column;
+  }
+  .report-restaurant-rating__table {
+    width: 100% !important;
+  }
+  .report-restaurant-rating__mean-faults-per-restaurant {
+    width: 100% !important;
+  }
+  .report-restaurant-rating__mean-faults-per-audit {
+    width: 100% !important;
+  }
+
+  .report-faults-taken-measures__header {
+    display: flex;
+    flex-direction: column;
+  }
+  .report-section__header {
+    width: 100% !important;
+  }
+
+  .report-faults-taken-measures {
+    display: flex;
+    flex-direction: column;
+
+    & .report-faults-taken-measures__content {
+      width: 100% !important;
+    }
+  }
+
+  .report-restaurant-container {
+    & .section {
+      display: flex;
+      flex-direction: column;
+
+      & .restaurant_indicators {
+        width: 100%;
+      }
+
+      & .faults_by_department {
+        width: 100%;
+      }
+    }
+  }
+
+  .report-network-container {
+    & .restaurant-rating {
+      & .restaurant-rating__content {
+        display: flex;
+        flex-direction: column;
+
+        & .top-rating {
+          width: 100%;
+          margin-top: 10px;
+        }
+
+        & .anti-top-rating {
+          width: 100%;
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+}

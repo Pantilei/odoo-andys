@@ -1,0 +1,720 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Main layout -->
+        <template id="restaurant_management.secret_guest_audit_layout"
+            name="Secret Guest Audit Layout"
+            inherit_id="web.layout" primary="True">
+            <xpath expr="//head/meta[last()]" position="after">
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+            </xpath>
+            <xpath expr="//head/link[last()]" position="after">
+                <link rel="preload"
+                    href="/web/static/lib/fontawesome/fonts/fontawesome-webfont.woff2?v=4.7.0"
+                    as="font" crossorigin="" />
+                <t t-call-assets="web.assets_common" t-js="false" />
+                <t t-call-assets="web.assets_frontend" t-js="false" />
+            </xpath>
+            <xpath expr="//head/script[@id='web.layout.odooscript']" position="after">
+                <t t-call-assets="web.assets_common_minimal" t-css="false" defer_load="True" />
+                <t t-call-assets="web.assets_frontend_minimal" t-css="false" defer_load="True" />
+                <t t-call="web.conditional_assets_tests" />
+                <t t-call-assets="web.assets_common_lazy" t-css="false" lazy_load="True" />
+                <t t-call-assets="web.assets_frontend_lazy" t-css="false" lazy_load="True" />
+
+                <t t-call-assets="restaurant_management.secret_guest_audit" lazy_load="True" />
+                <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+                    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+                    crossorigin="anonymous"></script>
+
+                <!-- <link rel="stylesheet"
+                    href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css" />
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/dropzone.js"></script> -->
+
+                <link
+                    href="https://unpkg.com/filepond-plugin-image-preview@4.2.1/dist/filepond-plugin-image-preview.min.css"
+                    rel="stylesheet" />
+                <link href="https://unpkg.com/filepond@4.4.10/dist/filepond.css" rel="stylesheet" />
+                <script
+                    src="https://unpkg.com/filepond-plugin-image-preview@4.2.1/dist/filepond-plugin-image-preview.js"></script>
+                <script
+                    src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
+                <script
+                    src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
+                <script src="https://unpkg.com/filepond@4.4.10/dist/filepond.js"></script>
+
+
+            </xpath>
+            <xpath expr="//t[@t-out='0']" position="replace">
+                <div id="wrapwrap" t-attf-class="#{pageName or ''}">
+                    <header t-if="not no_header" id="top"></header>
+                    <main class="o_main_container">
+                        <!-- <span class="oe_img_bg_review"
+                            t-attf-style="background-image:  linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+                        url('{{bg_image}}')" /> -->
+                        <t t-out="0" />
+                    </main>
+                    <footer t-if="not no_footer" id="bottom" t-attf-class="bg-light o_footer">
+                        <div id="footer" />
+                    </footer>
+                </div>
+            </xpath>
+        </template>
+
+        <!-- Main survey template -->
+        <template id="secret_guest_audit_main_page" name="Secret Guest Audit main page">
+            <t t-call="restaurant_management.secret_guest_audit_layout">
+                <section class="container bg-light">
+                    <!-- Start Header form -->
+                    <div class="text-center pt-5">
+                        <img src="/web/binary/company_logo" alt="network-logo" width="72"
+                            height="72" />
+                        <h2>
+                            <t t-esc="title" />
+                        </h2>
+                    </div>
+                    <!-- End Header form -->
+
+                    <!-- Start Card -->
+                    <div class="card o_forms_main">
+                        <!-- Start Card Body -->
+                        <div class="card-body">
+                            <!-- Start Form -->
+                            <form id="user_form" action="#" method="" class="form_with_validation"
+                                novalidate="1"
+                                autocomplete="off">
+                                <!-- Restaurant -->
+                                <div class="form-group">
+                                    <label>Restaurant</label>
+                                    <div
+                                        class="d-flex flex-row justify-content-between align-items-center">
+                                        <select class="form-control mr-1" id="restaurant"
+                                            name="restaurant" required="true" disabled="true">
+                                            <option t-attf-value="{{restaurant['id']}}"
+                                                selected="true">
+                                                <t t-esc="restaurant['restaurant_display_name']" />
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- End Restaurant -->
+
+                                <!-- Start Input Email -->
+                                <div class="form-group">
+                                    <label for="inputEmail">Email</label>
+                                    <input type="email" class="form-control" id="inputEmail"
+                                        name="email" placeholder="an*******@gmail.com"
+                                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                                        required="true" />
+                                </div>
+                                <!-- End Input Email -->
+
+                                <!-- Start Input Date , Start Time and End Time -->
+                                <div class="form-row">
+                                    <!-- Start Input Date -->
+                                    <div class="form-group col-md-4">
+                                        <label for="audit_date">Visit Date</label>
+                                        <input type="date" class="form-control" id="audit_date"
+                                            name="audit_date" required="true" />
+                                        <small class="form-text text-muted">Please choose date and
+                                            time for visit.</small>
+                                    </div>
+                                    <!-- End Input Date -->
+
+                                    <!-- Start Input Start Time -->
+                                    <div class="form-group col-md-4">
+                                        <label>Start Time</label>
+                                        <div
+                                            class="d-flex flex-row justify-content-between align-items-center">
+                                            <select class="form-control mr-1"
+                                                id="start_time_hour" name="start_time_hour"
+                                                required="1">
+                                                <option value="" disabled="1" selected="1">Hour</option>
+                                                <t t-foreach="range(1,24,1)" t-as="hour">
+                                                    <option t-attf-value="{{hour}}">
+                                                        <t t-esc="hour" />
+                                                    </option>
+                                                </t>
+                                            </select>
+                                            <div class="pl-1 pr-2">:</div>
+                                            <select class="form-control" id="start_time_minute"
+                                                name="start_time_minute" required="1">
+                                                <option value="" disabled="1" selected="1">Min</option>
+                                                <option value="0">00</option>
+                                                <option value="15">15</option>
+                                                <option value="30">30</option>
+                                                <option value="45">45</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- End Input Start Time -->
+
+                                    <!-- Start Input End Time -->
+                                    <div class="form-group col-md-4">
+                                        <label>End Time</label>
+                                        <div
+                                            class="d-flex flex-row justify-content-between align-items-center">
+                                            <select class="form-control mr-1" id="end_time_hour"
+                                                name="end_time_hour" required="true">
+                                                <option value="" disabled="true" selected="1">Hour</option>
+                                                <t t-foreach="range(1,24,1)" t-as="hour">
+                                                    <option t-attf-value="{{hour}}">
+                                                        <t t-esc="hour" />
+                                                    </option>
+                                                </t>
+                                            </select>
+                                            <div class="pl-1 pr-2">:</div>
+                                            <select class="form-control" id="end_time_minute"
+                                                name="end_time_minute" required="1">
+                                                <option value="" disabled="1" selected="1">Min</option>
+                                                <option value="0">00</option>
+                                                <option value="15">15</option>
+                                                <option value="30">30</option>
+                                                <option value="45">45</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- End Input End Time -->
+                                </div>
+                                <!-- End Input Date , Start Time and End Time -->
+
+                                <!-- Waiter name -->
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Waiter Name</label>
+                                        <div
+                                            class="d-flex flex-row justify-content-between align-items-center">
+                                            <input type="text" class="form-control"
+                                                id="waiter_name"
+                                                name="waiter_name"
+                                                placeholder="Waiter name in badge"
+                                                required="1" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label style="height: 15px;"></label>
+                                        <div
+                                            class="d-flex flex-row justify-content-between align-items-center">
+                                            <input type="text" class="form-control"
+                                                id="waiter_name_in_check"
+                                                name="waiter_name_in_check"
+                                                placeholder="Waiter name in check" required="1" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Waiter name -->
+
+                                <!-- Restaurant -->
+                                <div class="form-group">
+                                    <label>Load level of Restaurant</label>
+                                    <div
+                                        class="d-flex flex-row justify-content-between align-items-center">
+                                        <select class="form-control mr-1"
+                                            id="load_level_of_restaurant"
+                                            name="load_level_of_restaurant" required="true">
+                                            <t t-foreach="loading_level" t-as="level">
+                                                <t t-if="level['id']=='low'">
+                                                    <option t-attf-value="{{level['id']}}"
+                                                        selected="true">
+                                                        <t t-esc="level['value']" />
+                                                    </option>
+                                                </t>
+                                                <t t-else="">
+                                                    <option t-attf-value="{{level['id']}}">
+                                                        <t t-esc="level['value']" />
+                                                    </option>
+                                                </t>
+
+                                            </t>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- End Restaurant -->
+                            </form>
+                            <!-- End Form -->
+
+                            <hr />
+
+                            <!-- Start Form -->
+                            <form id="check_list_form" action="#" method=""
+                                class="form_with_validation"
+                                novalidate="1"
+                                autocomplete="off">
+                                <t t-foreach="check_list_data" t-as="category">
+                                    <div class="bg-light mb-3 p-2 rounded">
+                                        <div class="d-flex flex-column">
+                                            <p class="h2">
+                                                <u>
+                                                    <t t-esc="category['name']" />
+                                                </u>
+                                            </p>
+                                            <div class="d-flex justify-content-between"
+                                                style="font-style: italic;"
+                                                t-if="category['response_type'] == 'notes'">
+                                                <p style="display: inline; font-size: 12px;"> Исходя
+                                                    из сегодняшнего
+                                                    опыта, оцените
+                                                    ваш
+                                                    визит по категориям от 1 до 5
+                                                </p>
+                                                <ul>
+                                                    <li
+                                                        style="display: inline-block; font-size: 12px;">1
+                                                        -
+                                                        не понравилось.</li>
+                                                    <li
+                                                        style="display: inline-block; font-size: 12px;">5
+                                                        -
+                                                        отлично.</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <t t-foreach="category['check_lists']" t-as="check_list">
+                                                <div
+                                                    class="form-group d-flex justify-content-between"
+                                                    style="margin-bottom: 0px;">
+
+                                                    <legend class="col-form-label pt-0 bullet">
+                                                        <t t-esc="check_list['description']" />
+                                                    </legend>
+                                                    <t
+                                                        t-if="category['response_type'] == 'yes_no'">
+                                                        <div
+                                                            class="form-check form-check-inline">
+                                                            <input type="radio"
+                                                                class="form-check-input js_check_list"
+                                                                t-attf-id="check_list_{{check_list['id']}}_yes"
+                                                                t-attf-name="check_list_{{check_list['id']}}"
+                                                                value="yes"
+                                                                required="1" />
+                                                            <label class="form-check-label"
+                                                                t-attf-for="check_list_{{check_list['id']}}_yes">
+                                                                Yes
+                                                            </label>
+                                                        </div>
+                                                        <div
+                                                            class="form-check form-check-inline">
+                                                            <input type="radio"
+                                                                class="form-check-input js_check_list"
+                                                                t-attf-name="check_list_{{check_list['id']}}"
+                                                                t-attf-id="check_list_{{check_list['id']}}_no"
+                                                                value="no"
+                                                                required="1" />
+                                                            <label class="form-check-label"
+                                                                t-attf-for="check_list_{{check_list['id']}}_no">
+                                                                No
+                                                            </label>
+                                                        </div>
+                                                    </t>
+
+
+                                                    <t
+                                                        t-if="category['response_type'] == 'notes'">
+                                                        <t t-foreach="[1, 2, 3, 4, 5]" t-as="note">
+                                                            <div
+                                                                class="form-check form-check-inline">
+                                                                <input type="radio"
+                                                                    class="form-check-input js_check_list"
+                                                                    t-attf-name="check_list_{{check_list['id']}}"
+                                                                    t-attf-id="check_list_{{check_list['id']}}_{{note}}"
+                                                                    t-attf-value="{{note}}"
+                                                                    required="1" />
+                                                                <label class="form-check-label"
+                                                                    t-attf-for="check_list_{{check_list['id']}}_{{note}}">
+                                                                    <t t-esc="note" />
+                                                                </label>
+                                                            </div>
+                                                        </t>
+                                                    </t>
+                                                </div>
+                                                <small
+                                                    t-attf-class="{{'' if check_list['info'] else 'd-none'}}"
+                                                    class="form-text text-muted"
+                                                    style="font-size: 12px;
+                                                    font-style: italic; color: #666666;">
+                                                    <t t-esc="check_list['info']" />
+                                                </small>
+
+                                                <t t-if="check_list['comment_required']">
+                                                    <div class="form-group comment_required">
+                                                        <textarea class="form-control"
+                                                            t-attf-id="check_list_comment_{{check_list['id']}}"
+                                                            t-attf-name="check_list_comment_{{check_list['id']}}"
+                                                            placeholder="Comment Required"
+                                                            required="true"
+                                                            rows="3"></textarea>
+                                                    </div>
+                                                </t>
+                                                <t t-else="">
+                                                    <div class="form-group comment_optional">
+                                                        <textarea class="form-control"
+                                                            t-attf-id="check_list_comment_{{check_list['id']}}"
+                                                            t-attf-name="check_list_comment_{{check_list['id']}}"
+                                                            placeholder="Comment Required"
+                                                            rows="3"></textarea>
+                                                    </div>
+                                                </t>
+
+                                                <t t-if="check_list['photo_required']">
+                                                    <div class="form-group">
+                                                        <input type="file"
+                                                            t-attf-name="check_list_file_{{check_list['id']}}[]"
+                                                            class='file_upload_input filepond'
+                                                            multiple="true" required="true" />
+                                                    </div>
+                                                </t>
+                                                <t t-else="">
+                                                    <div
+                                                        class="form-group optional-file-input">
+                                                        <input type="file"
+                                                            t-attf-name="check_list_file_{{check_list['id']}}[]"
+                                                            class='file_upload_input filepond'
+                                                            multiple="true" />
+                                                    </div>
+                                                </t>
+
+                                                <hr />
+                                            </t>
+                                        </div>
+                                    </div>
+                                </t>
+                                <div class="bg-light mb-3 p-2 rounded">
+                                    <textarea class="form-control"
+                                        id="general_comment"
+                                        name="general_comment"
+                                        required="true"
+                                        placeholder="Комментарий и общее впечатление от визита"
+                                        rows="5"></textarea>
+                                </div>
+
+                                <!-- Start Submit Button -->
+                                <button class="btn btn-primary btn-block col-lg-2 o_submit_button"
+                                    type="submit">
+                                    Submit
+                                </button>
+                                <!-- End Submit Button -->
+
+                            </form>
+                        </div>
+                        <!-- End Card Body -->
+                    </div>
+                </section>
+            </t>
+        </template>
+
+        <template id="secret_guest_audit_thank_you_page" name="Secret Guest Audit Thank You page">
+            <t t-call="restaurant_management.secret_guest_audit_layout">
+                <div class="content" style="background-color: #EEEEEE;">
+                    <div class="wrapper-1"
+                        style="width:100%; height:100vh; display: flex; flex-direction: column;">
+                        <img src="/restaurant_management/static/src/img/done.jpg"
+                            style="margin: 20px auto 10px;"
+                            alt="network-logo"
+                            width="130"
+                            height="130" />
+                        <div class="wrapper-2" style="padding: 0px 30px; text-align:center;">
+                            <p class="thank_you-main">
+                                Данные вашего визита внесены.
+                            </p>
+                            <p class="thank_you-main">
+                                Благодарим за участие.
+                            </p>
+                            <p class="thank_you-secondary mt-4">
+                                Куратор уже получил уведомление о том, что вы заполнили бланк
+                                визита.
+                            </p>
+                            <p class="thank_you-secondary">
+                                В течение 8 рабочих часов он с вами свяжется для дальнейших
+                                инструкций.
+                            </p>
+                            <p class="thank_you-secondary mt-3">
+                                С уважением, команда Andys Pizza и La Plăcinte.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+
+        <template id="report_top_faults_table" name="report_top_faults_table">
+            <div style="color: white;">
+                <div class="d-flex justify-content-between">
+                    <div
+                        class="d-flex align-items-center justify-content-center text-center border-right border-bottom border-white font-weight-bold"
+                        style="width: 15%; text-decoration: underline; font-size: 12px;">
+                        Отдел
+                    </div>
+                    <div
+                        class="d-flex align-items-center justify-content-center text-center border-right border-bottom border-white font-weight-bold"
+                        style="width: 65%; text-decoration: underline; font-size: 12px;">
+                        Пункт из чек-листа
+                    </div>
+                    <div
+                        class="d-flex align-items-center justify-content-center text-center border-bottom border-white font-weight-bold"
+                        style="width: 20%; text-decoration: underline; font-size: 12px;">
+                        Кол-во повторений
+                    </div>
+                </div>
+                <t t-foreach="top_faults" t-as="fault_data">
+                    <div class="d-flex justify-content-between">
+                        <div
+                            class="border-right border-white text-center pl-2 pt-2 font-weight-bold"
+                            style="width: 15%;">
+                            <t t-esc="fault_data['department_name']" />
+                        </div>
+                        <div class="border-right border-white pl-2 pt-2"
+                            style="width: 65%">
+                            <t t-esc="fault_data['check_list_name']" />
+                        </div>
+                        <div
+                            class="d-flex align-items-center justify-content-center font-weight-bold pt-2"
+                            style="width: 20%">
+
+                            <span class="d-flex justify-content-center"
+                                style="width: 20%; margin: 0px 5px;">
+                                <t t-esc="fault_data['fault_count']" />
+                            </span>
+                            <span class="d-flex w-75">
+                                <span
+                                    t-attf-style="display: inline-block; width: {{fault_data['progress_bar']}}%; height: 19.5px; background-color: #5CC4CC"></span>
+                            </span>
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </template>
+
+        <template id="company_report_restaurant_rating" name="company_report_restaurant_rating">
+            <div style="color: white">
+                <div class="d-flex justify-content-between">
+                    <div
+                        class="d-flex align-items-center justify-content-center text-center border-right border-bottom border-white font-weight-bold"
+                        style="width: 15%; text-decoration: underline; font-size: 12px;">
+                        Позиция
+                    </div>
+                    <div
+                        class="d-flex align-items-center justify-content-center text-center border-right border-bottom border-white font-weight-bold"
+                        style="width: 65%; text-decoration: underline; font-size: 12px;">
+                        Ресторан
+                    </div>
+                    <div
+                        class="d-flex align-items-center justify-content-center text-center border-bottom border-white font-weight-bold"
+                        style="width: 20%; text-decoration: underline; font-size: 12px;">
+                        Кол-во нарушений на единицу проверки
+                    </div>
+                </div>
+                <t t-foreach="restaurant_ratings" t-as="rating_data">
+                    <div class="d-flex justify-content-between">
+                        <div
+                            class="border-right border-white text-center pl-2 pt-2 font-weight-bold"
+                            style="width: 15%;">
+                            <t t-esc="rating_data['rating']" />
+                        </div>
+                        <div class="border-right border-white pl-2 pt-2"
+                            style="width: 65%">
+                            <t t-esc="rating_data['restaurants']" />
+                        </div>
+                        <div
+                            class="text-center font-weight-bold pt-2"
+                            style="width: 20%">
+                            <t t-esc="rating_data['fault_count_per_audit']" />
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </template>
+
+        <template id="restaurant_report_audit_info_table" name="restaurant_report_audit_info_table">
+            <style>
+                .audit-info-table {
+                border-collapse: collapse;
+                border: none;
+                width: 100%;
+                }
+
+                .audit-info-table td, .audit-info-table th {
+                border: 1px solid white;
+                text-align: center;
+                }
+
+                .audit-info-table tr:first-child th {
+                border-top: none;
+                }
+
+                .audit-info-table tr:last-child td {
+                border-bottom: none;
+                }
+
+                .audit-info-table tr td:first-child, .audit-info-table tr th:first-child {
+                border-left: none;
+                }
+
+                .audit-info-table tr td:last-child, .audit-info-table tr th:last-child {
+                border-right: none;
+                }
+            </style>
+            <div style="color: white">
+                <table class="audit-info-table">
+                    <tr>
+                        <th>
+                            Дата Проверки
+                        </th>
+                        <th>
+                            День недели
+                        </th>
+                        <th>
+                            Время дня
+                        </th>
+                    </tr>
+                    <t t-foreach="audits" t-as="audit">
+                        <tr>
+                            <td>
+                                <t t-esc="audit['audit_date']" />
+                            </td>
+                            <td>
+                                <t t-esc="audit['week_day_str']" />
+                            </td>
+                            <td>
+                                <t t-esc="audit['day_time_str']" />
+                            </td>
+                        </tr>
+                    </t>
+                </table>
+            </div>
+        </template>
+
+        <template id="restaurant_report_indicators" name="restaurant_report_indicators">
+            <div
+                style="display: flex: flex-direction: column; border: 2px solid white; border-radius: 3px; padding: 5px;">
+                <div style="display: flex; ">
+                    <span style="width: 50%; text-align: right;">
+                        Позиция в рейтинге:
+                    </span>
+                    <span
+                        style="width: 50%; text-align: left; margin-left: 5px; font-weight: 900;">
+                        <t t-esc="restaurant_rating" />
+                    </span>
+                </div>
+                <div style="display: flex; ">
+                    <span style="width: 50%; text-align: right;">
+                        Кол-во нарушений:
+                    </span>
+                    <span
+                        style="width: 50%; text-align: left; margin-left: 5px; font-weight: 900;">
+                        <t t-esc="fault_count" />
+                    </span>
+                </div>
+                <div style="display: flex; ">
+                    <span style="width: 50%; text-align: right;">
+                        Кол-во нарушений на 1 проверку:
+                    </span>
+                    <span
+                        style="width: 50%; text-align: left; margin-left: 5px; font-weight: 900;">
+                        <t t-esc="fault_count_per_audit" />
+                    </span>
+                </div>
+                <div style="display: flex; ">
+                    <span style="width: 50%; text-align: right;">
+                        Грубых нарушений:
+                    </span>
+                    <span
+                        style="width: 50%; text-align: left; margin-left: 5px; font-weight: 900;">
+                        <t t-esc="sever_fault_count or 'нет'" />
+                    </span>
+                </div>
+            </div>
+        </template>
+
+        <template id="restaurant_report_faults_per_department"
+            name="restaurant_report_faults_per_department">
+            <div
+                style="display: flex: flex-direction: column; border: 2px solid white; border-radius: 3px; padding: 5px;">
+                <t t-foreach="faults_per_department" t-as="row">
+                    <div style="display: flex;">
+                        <span style="width: 50%; text-align: right;">
+                            <t t-esc="row['check_list_category_name']" />: </span>
+                        <span
+                            style="display: flex; align-items: center; width: 50%; text-align: left; margin-left: 5px;">
+                            <span
+                                t-attf-style="width: {{row['width']}}%; height: 15px; background-color: #5CC4CC; border-radius: 0px 5px 5px 0px;"></span>
+                            <span style="margin-left: 5px; font-weight: 900;">
+                                <t t-esc="row['fault_count']" />
+                            </span>
+                        </span>
+                    </div>
+                </t>
+            </div>
+        </template>
+
+
+        <template id="restaurant_network_report_restaurant_rating"
+            name="company_report_restaurant_rating">
+            <div style="color: white">
+                <div class="d-flex justify-content-between">
+                    <div
+                        class="d-flex align-items-center justify-content-center text-center border-right border-bottom border-white font-weight-bold"
+                        style="width: 15%; text-decoration: underline; font-size: 12px;">
+                        Позиция
+                    </div>
+                    <div
+                        class="d-flex align-items-center justify-content-center text-center border-right border-bottom border-white font-weight-bold"
+                        style="width: 65%; text-decoration: underline; font-size: 12px;">
+                        Ресторан
+                    </div>
+                    <div
+                        class="d-flex align-items-center justify-content-center text-center border-bottom border-white font-weight-bold"
+                        style="width: 20%; text-decoration: underline; font-size: 12px;">
+                        Значение
+                    </div>
+                </div>
+                <t t-foreach="restaurant_ratings" t-as="rating_data">
+                    <div class="d-flex justify-content-between">
+                        <div
+                            class="border-right border-white text-center pl-2 pt-2 font-weight-bold"
+                            style="width: 15%;">
+                            <t t-esc="rating_data_index + 1" />
+                        </div>
+                        <div class="border-right border-white pl-2 pt-2"
+                            style="width: 65%">
+                            <t t-esc="rating_data['restaurants']" />
+                        </div>
+                        <div
+                            class="text-center font-weight-bold pt-2"
+                            style="width: 20%">
+                            <t t-esc="rating_data['fault_count_per_audit']" />
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </template>
+
+        <template id="restaurant_network_report_restaurant_rating_per_department"
+            name="restaurant_network_report_restaurant_rating_per_department">
+            <div class="d-flex flex-wrap" style="color: white;">
+                <t t-foreach="restaurant_rating_within_department" t-as="rating_in_department">
+                    <div class="d-flex flex-column p-2" style="width: 350px;">
+                        <h3 class="font-weight-bold text-center w-100" style="color: white;">
+                            <t t-esc="rating_in_department['department_name']" />
+                        </h3>
+                        <div class="d-flex flex-column w-100">
+                            <t t-foreach="rating_in_department['ratings']" t-as="rating">
+                                <div class="d-flex">
+                                    <div class="p-1" style="width: 10%">
+                                        <t t-esc="rating['rating']" />
+                                    </div>
+                                    <div class="border border-whote border-right-0 p-1"
+                                        style="width: 90%">
+                                        <t t-esc="', '.join(rating['restaurant_names'])" />
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </template>
+
+    </data>
+</odoo>

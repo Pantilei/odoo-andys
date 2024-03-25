@@ -1,0 +1,52 @@
+<odoo>
+    <data>
+        <record id="audit_distribution_form" model="ir.ui.view">
+            <field name="name">audit_distribution.view.form</field>
+            <field name="model">restaurant_management.audit_distribution</field>
+            <field name="arch" type="xml">
+                <form string="Audit Distribution">
+                    <sheet>
+                        <group>
+                            <field name="restaurant_id" />
+                            <field name="user_id" />
+                            <field name="audit_date" optional="hide" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="audit_distribution_tree_view" model="ir.ui.view">
+            <field name="name">audit_distribution.view.tree</field>
+            <field name="model">restaurant_management.audit_distribution</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" default_order="audit_date desc">
+                    <field name="restaurant_id" />
+                    <field name="user_id" />
+                    <field name="audit_date" optional="hide" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="audit_distribution_view_search" model="ir.ui.view">
+            <field name="name">audit_distribution.view.search</field>
+            <field name="model">restaurant_management.audit_distribution</field>
+            <field name="arch" type="xml">
+                <search>
+                    <group expand="0" string="Group By">
+                        <filter name="group_by_audit_date" string="Audit Date" domain="[]" context="{'group_by': 'audit_date:month'}" />
+                        <filter name="group_by_user_id" string="Expert QCD" domain="[]" context="{'group_by': 'user_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- actions opening views on models -->
+        <record id="audit_distribution_action" model="ir.actions.act_window">
+            <field name="name">Audit Distribution</field>
+            <field name="res_model">restaurant_management.audit_distribution</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_group_by_audit_date': 1}</field>
+        </record>
+
+    </data>
+</odoo>

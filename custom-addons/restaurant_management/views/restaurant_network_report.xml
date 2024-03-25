@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="restaurant_network_report_form_view_form" model="ir.ui.view">
+            <field name="name">restaurant_network_report.view.form</field>
+            <field name="model">restaurant_management.restaurant_network_report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="report-network-container">
+                        <div class="report-network-header">
+                            <div class="report-network-main-info">
+                                <h1> Отчет ДКК по сети <field name="restaurant_network_id"
+                                        options="{'no_create': True, 'no_open': True}" />
+                                </h1>
+                                <div class="report-network-main-info__content">
+                                    <div class="report-network-main-info__left">
+                                        <span class="report-network-main-info__period"> Период: <field
+                                                name="report_month" /> <field
+                                                name="report_year" />
+                                        </span>
+                                        <span class="report-network-main-info__line"> Количество
+                                            ошибок на 1 проверку по категориям: <field
+                                                name="relative_fault_count_on_department_ids"
+                                                widget="many2many_tags"
+                                                options="{'no_create': True, 'no_open': True}" />
+                                        </span>
+                                        <span class="report-network-main-info__line"> Рейтинг
+                                            ресторанов по департаментам: <field
+                                                name="restaurant_rating_within_department_ids"
+                                                widget="many2many_tags"
+                                                options="{'no_create': True, 'no_open': True}" />
+                                        </span>
+                                        <span class="report-network-main-info__line"> Топ / Анти Топ
+                                            по департаментам: <field
+                                                name="top_within_department_ids"
+                                                widget="many2many_tags"
+                                                options="{'no_create': True, 'no_open': True}" />
+                                        </span>
+                                        <span class="report-network-main-info__line"> Составил: <field
+                                                name="responsible_id"
+                                                options="{'no_create': True, 'no_open': True}" />
+                                        </span>
+                                        <span class="report-network-main-info__line"> План / Факт
+                                            проверок: <field
+                                                name="planned_audit_count" readonly="1" /> / <field
+                                                name="actual_audit_count" readonly="1" />
+                                        </span>
+                                    </div>
+                                    <div class="report-network-main-info__right">
+                                        <field name="logo" widget="image" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="report-network-violations">
+                            <div class="section__header">
+                                <h2>Динамика ошибок на 1 проверку ( <field name="report_year"
+                                        readonly="1" force_save="1" /> vs. <field
+                                        name="previous_report_year" /> )</h2>
+                            </div>
+                            <div class="report-network-violations__content">
+                                <div class="report-network-violations__chart w-100">
+                                    <field name="monthly_fault_count_per_audit_chart"
+                                        widget="plotly_chart"
+                                        nolabel="1" />
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="relative-fault-count-per-department">
+                            <div class="section__header">
+                                <h2> Кол-во ошибок на 1 проверку по категориям ( <field
+                                        name="report_year"
+                                        readonly="1" force_save="1" /> vs. <field
+                                        name="previous_report_year" /> ) </h2>
+                            </div>
+                            <div class="relative-fault-count-per-department__container">
+                                <div class="relative-fault-count-per-department__chart">
+                                    <field
+                                        name="relative_fault_count_per_department_chart"
+                                        widget="plotly_chart"
+                                        nolabel="1" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="restaurant-rating-per-department">
+                            <div class="section__header">
+                                <h2>Рейтинг ресторанов по департаментам</h2>
+                            </div>
+                            <div class="restaurant-rating-per-department__content">
+                                <field name="restaurant_rating_within_department_table"
+                                    widget="html" />
+                            </div>
+                        </div>
+
+                        <div class="restaurant-rating">
+                            <div class="section__header">
+                                <h2>Топ и АнтиТоп по кол-во ошибок на 1 проверку</h2>
+                            </div>
+                            <div class="restaurant-rating__content">
+                                <div class="top-rating">
+                                    <h3>Топ</h3>
+                                    <field name="top_rating_table" widget="html" />
+                                </div>
+                                <div class="anti-top-rating">
+                                    <h3>Анти Топ</h3>
+                                    <field name="anti_top_rating_table" widget="html" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="top-faults">
+                            <div class="section__header">
+                                <h2>Топ 10 нарушений</h2>
+                            </div>
+                            <div class="top-top-faults__content">
+                                <field name="top_faults_table" widget="html" />
+                            </div>
+                        </div>
+
+                        <div class="report-network-summary">
+                            <div class="section__header">
+                                <h2>Выводы</h2>
+                            </div>
+                            <div class="report-network-summary__content">
+                                <field name="summary" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="restaurant_network_report_tree_view_form" model="ir.ui.view">
+            <field name="name">restaurant_network_report.view.tree</field>
+            <field name="model">restaurant_management.restaurant_network_report</field>
+            <field name="arch" type="xml">
+                <tree default_order="report_year desc">
+                    <field name="name" invisible="1" />
+                    <field name="restaurant_network_id" />
+                    <field name="report_month" />
+                    <field name="report_year" />
+                    <field name="responsible_id" />
+                    <field name="create_date" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="restaurant_network_report_search_view_form" model="ir.ui.view">
+            <field name="name">restaurant_network_report.view.search</field>
+            <field name="model">restaurant_management.restaurant_network_report</field>
+            <field name="arch" type="xml">
+                <search string="Restaurant Network Report">
+                    <field name="restaurant_network_id" />
+                    <field name="responsible_id" />
+                    <separator />
+
+                    <group expand="0" string="Group By">
+                        <filter string="Report Year" name="group_by_report_year"
+                            context="{'group_by': 'report_year'}" domain="[]" />
+                        <filter string="Report Month" name="group_by_report_month"
+                            context="{'group_by': 'report_month'}" domain="[]" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="restaurant_network_report_action" model="ir.actions.act_window">
+            <field name="name">Restaurant Network Report</field>
+            <field name="res_model">restaurant_management.restaurant_network_report</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_group_by_report_year':1,
+                'search_default_group_by_report_month': 1}</field>
+            <field name="target">current</field>
+        </record>
+
+    </data>
+</odoo>

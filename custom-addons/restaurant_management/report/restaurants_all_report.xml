@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="action_restaurants_all_report" model="ir.actions.report">
+            <field name="name">General Report</field>
+            <field name="model">restaurant_management.reports_wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <!-- <field name="report_type">qweb-html</field> -->
+            <field name="report_name">restaurant_management.restaurants_all_report</field>
+            <field name="report_file">restaurant_management.restaurants_all_report</field>
+            <field name="print_report_name">'Report'</field>
+            <field name="paperformat_id" ref="report_paper_format" />
+        </record>
+
+        <template id="restaurants_all_report">
+            <t t-call="web.html_container">
+
+                <div class="article">
+                    <div class="page">
+
+                        <div class="row p-0 report-header_container">
+                            <div class="col-9 p-0 report-header_title">
+                                Общий отчет по проверкам ресторанов за месяц.
+                            </div>
+                            <div class="col-3">
+                                <img src="/restaurant_management/static/src/img/andys_logo.jpg" alt="Andy's Logo" />
+                                <img src="/restaurant_management/static/src/img/la_placinte_logo.jpg" alt="La Placinte Logo" />
+                            </div>
+                        </div>
+
+                        <div class="row zero_min_height">
+                            <div class="col-12 p-0">
+                                <div class="report-header_border" />
+                            </div>
+                        </div>
+
+                        <div class="container report-page_content_spacing">
+                            <div class="row report-date">
+                                <p class="col-2 p-0 ">
+                                    <t t-esc="report_date" />
+                                </p>
+                                <div class="col-10"></div>
+                            </div>
+
+                            <div class="row section-name w-210mm">
+                                <h4 class="col-12 p-0">1. Количество проверок</h4>
+                            </div>
+                            <div class="row w-210mm">
+                                <table class="col-12 report-audit-amount-table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="width: 15%;"></th>
+                                            <t t-foreach="months if len(months) &lt; 12 else months[:12]" t-as="month">
+                                                <th class="report-audit-amount-table--header" style="width: 7.1%;" scope="col">
+                                                    <t t-esc="month" />
+                                                </th>
+                                            </t>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th class="report-audit-amount-table--header" scope="row">Плановое</th>
+                                            <t t-foreach="counts_per_month['planned'] if len(months) &lt; 12 else counts_per_month['planned'][:12]" t-as="countPlanned">
+                                                <td>
+                                                    <t t-esc="countPlanned" />
+                                                </td>
+                                            </t>
+                                        </tr>
+                                        <tr>
+                                            <th class="report-audit-amount-table--header" scope="row">Фактическое</th>
+                                            <t t-foreach="counts_per_month['actual'] if len(months) &lt; 12 else counts_per_month['actual'][:12]" t-as="countActual">
+                                                <td>
+                                                    <t t-esc="countActual" />
+                                                </td>
+                                            </t>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="row section-name w-210mm">
+                                <h4 class="col-12 p-0">2. Динамика общего кол-ва ошибок.</h4>
+                            </div>
+                            <div class="row w-210mm">
+                                <img class="col-12 img--bordered" t-attf-src="data:image/png;base64,{{dynamics_of_faults_png}}" />
+                            </div>
+
+                            <p style="page-break-before:always;"></p>
+
+                            <t t-foreach="fault_category_data" t-as="fault_category">
+                                <div class="row section-name w-210mm">
+                                    <h4 class="col-12 p-0">
+                                        <t t-esc="fault_category_index + 3" />
+                                        . Динамика кол-ва ошибок по
+                                        <t t-esc="fault_category[0]" />
+                                        .
+                                    </h4>
+                                </div>
+                                <div class="row w-210mm">
+                                    <img class="col-12 img--bordered" t-attf-src="data:image/png;base64,{{fault_category[1]}}" />
+                                </div>
+
+                                <t t-if="(fault_category_index + 1) % 2 == 0">
+                                    <p style="page-break-before:always;"></p>
+                                </t>
+                            </t>
+
+                            <p style="page-break-before:always;"></p>
+
+                            <div class="row section-name w-210mm">
+                                <h4 class="col-12 p-0">
+                                    <t t-esc="len(fault_category_data) + 3" />
+                                    . Рейтинг ресторанов по общему количеству ошибок.
+                                </h4>
+                            </div>
+                            <div class="row w-210mm">
+                                <div class="col-12 row">
+                                    <div class="col-6">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <table class="report-rating-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="table-header" scope="col">Ресторан</th>
+                                                            <th class="table-header" scope="col">
+                                                            Кол-во
+                                                        </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <t t-foreach="restaurant_rating" t-as="row">
+                                                            <tr t-attf-style="color: {{'red' if len(restaurant_rating)//2 &lt; row_index+1 else 'green'}}">
+                                                                <t t-foreach="row[1:]" t-as="cell" t-key="cell_index">
+                                                                    <td t-att-class="'font-weight-bold' if cell_index == (len(row)-1) else ''">
+                                                                        <t t-esc="cell" />
+                                                                    </td>
+                                                                </t>
+                                                            </tr>
+                                                        </t>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <table class="report-rating-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="table-header" scope="col">Ресторан</th>
+                                                            <th class="table-header" scope="col">
+                                                            Кол-во/1 проверка
+                                                        </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <t t-foreach="restaurant_rating_per_audit" t-as="row" t-key="row_index">
+                                                            <tr t-attf-style="color: {{'red' if len(restaurant_rating)//2 &lt; row_index+1 else 'green'}}">
+                                                                <t t-foreach="row[1:]" t-as="cell" t-key="cell_index">
+                                                                    <td t-att-class="'font-weight-bold' if cell_index == (len(row)-1) else ''">
+                                                                        <t t-esc="cell" />
+                                                                    </td>
+                                                                </t>
+                                                            </tr>
+                                                        </t>
+
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p style="page-break-before:always;"></p>
+                    </div>
+                </div>
+
+            </t>
+
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="action_restaurant_report" model="ir.actions.report">
+            <field name="name">Restaurant Report</field>
+            <field name="model">restaurant_management.reports_wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <!-- <field name="report_type">qweb-html qweb-pdf</field> -->
+            <field name="report_name">restaurant_management.restaurant_report</field>
+            <field name="report_file">restaurant_management.restaurant_report</field>
+            <field name="print_report_name">'Report'</field>
+            <field name="paperformat_id" ref="report_paper_format" />
+        </record>
+
+        <template id="restaurant_report">
+            <t t-call="web.html_container">
+                <div class="article">
+                    <div class="page">
+
+                        <div class="row p-0 report-header_container">
+                            <div class="col-9 p-0 report-header_title">
+                                Общий отчет по проверкам ресторана
+                                <t t-esc="restaurant_name" />
+                            </div>
+                            <div class="col-3">
+                                <img src="/restaurant_management/static/src/img/andys_logo.jpg" alt="Andy's Logo" />
+                                <img src="/restaurant_management/static/src/img/la_placinte_logo.jpg" alt="La Placinte Logo" />
+                            </div>
+                        </div>
+
+                        <div class="row zero_min_height">
+                            <div class="col-12 p-0">
+                                <div class="report-header_border" />
+                            </div>
+                        </div>
+
+                        <div class="container p-0  report-page_content_spacing">
+                            <div class="row report-date">
+                                <p class="col-2 p-0 ">
+                                    <t t-esc="report_date" />
+                                </p>
+                                <div class="col-10"></div>
+                            </div>
+
+                            <div class="row section-name w-210mm">
+                                <h4 class="col-12 p-0">1. Количество проверок</h4>
+                            </div>
+                            <div class="row w-210mm">
+                                <table class="col-12 report-audit-amount-table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="width: 15%;"></th>
+                                            <t t-foreach="months if len(months) &lt; 12 else months[:12]" t-as="month">
+                                                <th class="report-audit-amount-table--header" style="width: 7.1%;" scope="col">
+                                                    <t t-esc="month" />
+                                                </th>
+                                            </t>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th class="report-audit-amount-table--header" scope="row">Плановое</th>
+                                            <t t-foreach="counts_per_month['planned'] if len(months) &lt; 12 else counts_per_month['planned'][:12]" t-as="countPlanned">
+                                                <td>
+                                                    <t t-esc="countPlanned" />
+                                                </td>
+                                            </t>
+                                        </tr>
+                                        <tr>
+                                            <th class="report-audit-amount-table--header" scope="row">Фактическое</th>
+                                            <t t-foreach="counts_per_month['actual'] if len(months) &lt; 12 else counts_per_month['actual'][:12]" t-as="countActual">
+                                                <td>
+                                                    <t t-esc="countActual" />
+                                                </td>
+                                            </t>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="row section-name w-210mm">
+                                <h4 class="col-12 p-0">2. Движение ресторана по шкале рейтинга.</h4>
+                            </div>
+                            <div class="row w-210mm">
+                                <img class="col-12 img--bordered" t-attf-src="data:image/png;base64,{{dynamics_of_rating_png}}" />
+                            </div>
+
+                            <p style="page-break-before:always;"></p>
+
+                            <div class="row section-name w-210mm">
+                                <h4 class="col-12 p-0">3. Относительное среднее значение ошибок.</h4>
+                            </div>
+                            <div class="row w-210mm">
+                                <img class="col-12 img--bordered" t-attf-src="data:image/png;base64,{{relative_fault_count_png}}" />
+                            </div>
+
+                            <p style="page-break-before:always;"></p>
+
+                            <div class="row section-name w-210mm">
+                                <h4>
+                                    4. Топ
+                                    <t t-out="20 if len(top_faults_with_comments) &gt; 20 else len(top_faults_with_comments)" />
+                                    ошибок по ресторану - принятые меры директора ресторана
+                                </h4>
+                            </div>
+                            <div class="row w-210mm">
+                                <div class="col-12">
+                                    <table class="table-top-faults">
+                                        <tbody>
+                                            <t t-foreach="top_faults_with_comments[:20] if len(top_faults_with_comments) &gt; 20 else top_faults_with_comments" t-as="top_fault">
+                                                <tr style="font-size: 4.5mm;">
+                                                    <td>
+                                                        <span style="color: white; background-color: red; padding: 0.5mm 2mm; font-size: 6mm; border-radius: 2mm; margin: 0 1mm 0 0;">
+                                                            <t t-esc="top_fault[2]" />
+                                                        </span>
+                                                        <span style="vertical-align:bottom;">
+                                                            <t t-esc="top_fault[1]" />
+                                                        </span>
+                                                        <hr />
+                                                        <t t-out="Markup(top_fault[3])" />
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <p style="page-break-before:always;"></p>
+                        </div>
+                    </div>
+                </div>
+
+            </t>
+
+        </template>
+    </data>
+</odoo>

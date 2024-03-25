@@ -1,0 +1,684 @@
+.report-container {
+  --primary-text-color: white;
+  --secondary-text-color: #5cc4cc;
+
+  background-color: #2d4669;
+  // height: 900px;
+  max-width: 1200px;
+  padding: 10px;
+  margin: 0 auto;
+
+  & .report-header {
+    display: flex;
+    justify-content: space-between;
+
+    & .report-main-info {
+      display: flex;
+      flex-direction: column;
+      width: 80%;
+      border: 2px solid white;
+      border-radius: 3px;
+      padding: 5px;
+
+      & h1 {
+        color: var(--secondary-text-color);
+        font-size: 18px;
+        text-align: center;
+      }
+
+      & .report-main-info__content {
+        display: flex;
+        flex-direction: column;
+        color: var(--primary-text-color);
+
+        & .report-main-info__department {
+          & span {
+            color: var(--secondary-text-color);
+            text-decoration: underline;
+          }
+        }
+
+        & .report-main-info__period {
+          display: flex;
+          gap: 5px;
+          & span {
+            color: var(--secondary-text-color);
+          }
+        }
+
+        & .report-main-info__responsible {
+          & span {
+            color: var(--secondary-text-color);
+          }
+        }
+      }
+    }
+
+    & .report-raiting {
+      display: flex;
+      flex-direction: column;
+      width: 18%;
+      border: 2px solid white;
+      border-radius: 3px;
+      padding: 3px;
+
+      & .raiting__name {
+        color: var(--primary-text-color);
+        font-size: 16px;
+        text-align: center;
+        text-decoration: underline;
+      }
+
+      & .raiting__value {
+        color: var(--secondary-text-color);
+        text-align: center;
+        font-size: 48px;
+        font-weight: bold;
+      }
+    }
+  }
+
+  & .report-section__header {
+    margin: 10px auto 3px auto;
+    padding: 3px;
+    text-align: center;
+    font-size: 18px;
+    color: black;
+    background-color: var(--primary-text-color);
+    border-radius: 5px;
+  }
+
+  & .report-violations {
+    & .report-violations__content {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+
+      & .report-violations__total-faults {
+        display: flex;
+        flex-direction: column;
+        width: 10%;
+        border: 2px solid white;
+        padding: 5px;
+        color: var(--primary-text-color);
+        border-radius: 3px;
+
+        & span {
+          text-align: center;
+          &:nth-child(1) {
+            font-size: 16px;
+            text-decoration: underline;
+          }
+
+          &:nth-child(2) {
+            font-size: 48px;
+            color: var(--secondary-text-color);
+          }
+
+          &:nth-child(3) {
+            font-size: 10px;
+            span {
+              font-size: inherit;
+            }
+          }
+        }
+      }
+
+      & .report-violations__relative-faults {
+        display: flex;
+        flex-direction: column;
+        width: 15%;
+        border: 2px solid white;
+        padding: 5px;
+        color: var(--primary-text-color);
+        border-radius: 3px;
+
+        & span {
+          text-align: center;
+          &:nth-child(1) {
+            font-size: 16px;
+            text-decoration: underline;
+            & span {
+              font-size: 16px;
+              color: white;
+              text-decoration: underline;
+            }
+          }
+
+          &:nth-child(2) {
+            font-size: 48px;
+            color: var(--secondary-text-color);
+          }
+
+          &:nth-child(3) {
+            font-size: 10px;
+          }
+        }
+      }
+
+      & .report-violations__chart {
+        width: 75%;
+      }
+    }
+  }
+
+  & .report-top-violations {
+    & .report-top-violations__chart_container {
+      overflow-x: auto;
+
+      & .report-top-violations__chart {
+        min-width: 1180px;
+        border: 2px solid white;
+        border-radius: 3px;
+        padding: 3px;
+      }
+    }
+  }
+
+  & .report-restaurant-rating {
+    & .report-restaurant-rating__content {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+
+      & .report-restaurant-rating__table {
+        width: 85%;
+        & div {
+          margin-bottom: 0px;
+        }
+      }
+
+      & .report-restaurant-rating__mean-faults-per-audit {
+        display: flex;
+        flex-direction: column;
+        width: 15%;
+        border: 2px solid white;
+        padding: 5px;
+        color: var(--primary-text-color);
+        border-radius: 3px;
+
+        & span {
+          text-align: center;
+          &:nth-child(1) {
+            font-size: 16px;
+            text-decoration: underline;
+          }
+
+          &:nth-child(2) {
+            font-size: 48px;
+            color: var(--secondary-text-color);
+          }
+
+          &:nth-child(3) {
+            font-size: 10px;
+          }
+        }
+      }
+    }
+  }
+
+  & .report-faults-taken-measures {
+    display: flex;
+    justify-content: space-between;
+    gap: 3px;
+
+    & .report-faults-taken-measures__content {
+      width: 50%;
+      flex: 1;
+
+      & .report-faults-taken-measures__measures {
+        display: flex;
+        justify-content: center;
+        min-height: 200px;
+        height: calc(100% - 40px);
+        border: 2px solid white;
+        border-radius: 3px;
+        color: white;
+        padding: 3px;
+
+        & textarea {
+          color: black;
+          margin: 5px auto;
+          min-height: 190px;
+          width: 99%;
+        }
+      }
+    }
+  }
+
+  & .report-summary {
+    & .report-summary__content {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      min-height: 200px;
+      border: 2px solid white;
+      border-radius: 3px;
+      color: white;
+
+      & textarea {
+        color: black;
+        margin: 5px auto;
+        min-height: 190px;
+        width: 99%;
+      }
+    }
+  }
+}
+
+.report-network-container {
+  --primary-text-color: white;
+  --secondary-text-color: #5cc4cc;
+
+  background-color: #2d4669;
+  // height: 900px;
+  max-width: 1200px;
+  padding: 10px;
+  margin: 0 auto;
+
+  & .report-network-header {
+    display: flex;
+    justify-content: space-between;
+
+    & .report-network-main-info {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      border: 2px solid white;
+      border-radius: 3px;
+      padding: 5px;
+
+      & h1 {
+        color: var(--secondary-text-color);
+        font-size: 18px;
+        text-align: center;
+      }
+
+      & .report-network-main-info__content {
+        display: flex;
+        width: 100%;
+
+        & .report-network-main-info__left {
+          display: flex;
+          flex-direction: column;
+          width: 85%;
+          color: var(--primary-text-color);
+
+          & .report-network-main-info__period {
+            display: flex;
+            gap: 5px;
+            & span {
+              color: var(--secondary-text-color);
+            }
+          }
+
+          & .report-network-main-info__responsible {
+            & span {
+              color: var(--secondary-text-color);
+            }
+          }
+
+          & .report-network-main-info__line {
+            & span {
+              color: var(--secondary-text-color);
+            }
+          }
+        }
+
+        & .report-network-main-info__right {
+          width: 15%;
+        }
+      }
+    }
+  }
+
+  & .section__header {
+    margin: 10px auto 3px auto;
+    padding: 3px;
+    text-align: center;
+    font-size: 18px;
+    color: black;
+    background-color: var(--primary-text-color);
+    border-radius: 5px;
+  }
+
+  & .relative-fault-count-per-department {
+    & .relative-fault-count-per-department__container {
+      overflow-x: auto;
+
+      & .relative-fault-count-per-department__chart {
+        min-width: 1180px;
+        border: 2px solid white;
+        border-radius: 3px;
+        padding: 3px;
+      }
+    }
+  }
+
+  & .restaurant-rating-per-department {
+    & .restaurant-rating-per-department__content {
+      color: --primary-text-color;
+      width: 100%;
+    }
+  }
+
+  & .restaurant-rating {
+    & .restaurant-rating__content {
+      display: flex;
+      justify-content: space-around;
+      gap: 10px;
+      color: --primary-text-color;
+
+      & .top-rating {
+        display: flex;
+        flex-direction: column;
+        width: 45%;
+
+        & h3 {
+          color: var(--primary-text-color);
+          text-align: center;
+        }
+      }
+
+      & .anti-top-rating {
+        display: flex;
+        flex-direction: column;
+        width: 45%;
+
+        & h3 {
+          color: var(--primary-text-color);
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  & .report-network-summary {
+    & .report-network-summary__content {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      min-height: 200px;
+      border: 2px solid white;
+      border-radius: 3px;
+      color: white;
+
+      & textarea {
+        color: black;
+        margin: 5px auto;
+        min-height: 190px;
+        width: 99%;
+      }
+    }
+  }
+}
+
+.report-restaurant-container {
+  --primary-text-color: white;
+  --secondary-text-color: #5cc4cc;
+
+  background-color: #2d4669;
+  // height: 900px;
+  max-width: 1200px;
+  padding: 10px;
+  margin: 0 auto;
+
+  & .section__header {
+    margin: 10px auto 3px auto;
+    padding: 3px;
+    text-align: center;
+    font-size: 18px;
+    color: black;
+    background-color: var(--primary-text-color);
+    border-radius: 5px;
+    width: 100%;
+  }
+
+  & .header {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 2px solid white;
+    border-radius: 3px;
+    padding: 5px;
+
+    & h1 {
+      color: var(--secondary-text-color);
+      font-size: 18px;
+      text-align: center;
+    }
+
+    & .header__content {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      color: var(--primary-text-color);
+
+      & .header__line {
+        display: flex;
+        justify-content: flex-start;
+        gap: 5px;
+        width: 100%;
+      }
+    }
+  }
+
+  & .monthly_fault_chart {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    & .monthly_fault_chart__chart {
+      min-height: 150px;
+    }
+  }
+
+  & .audit-info {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    & .audit-info__table {
+      min-height: 150px;
+    }
+  }
+
+  & .section {
+    display: flex;
+    gap: 5px;
+
+    & .restaurant_indicators {
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+      min-height: 150px;
+      color: white;
+    }
+
+    & .faults_by_department {
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+      min-height: 150px;
+      color: white;
+    }
+  }
+
+  & .top-faults {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    & .top-faults__container {
+      overflow-x: auto;
+      & .top-faults__chart {
+        width: 100%;
+        min-width: 1180px;
+        min-height: 150px;
+      }
+    }
+  }
+
+  & .taken-measures {
+    display: flex;
+    flex-direction: column;
+
+    & .taken-measures__measures {
+      display: flex;
+      justify-content: center;
+      min-height: 200px;
+      border: 2px solid white;
+      border-radius: 3px;
+      color: white;
+      padding: 3px;
+
+      & textarea {
+        color: black;
+        margin: 5px auto;
+        min-height: 190px;
+        width: 99%;
+      }
+    }
+  }
+}
+
+.report-company-container {
+  --primary-text-color: white;
+  --secondary-text-color: #5cc4cc;
+
+  background-color: #2d4669;
+  // height: 900px;
+  max-width: 1200px;
+  padding: 10px;
+  margin: 0 auto;
+
+  & .report-company-header {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 2px solid white;
+    border-radius: 3px;
+    padding: 5px;
+
+    & h1 {
+      color: var(--secondary-text-color);
+      font-size: 18px;
+      text-align: center;
+    }
+
+    & .report-company-header__content {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      color: var(--primary-text-color);
+
+      & .report-company-header__period {
+        display: flex;
+        gap: 5px;
+        & span {
+          color: var(--secondary-text-color);
+        }
+      }
+
+      & .report-company-header__responsible {
+        & span {
+          color: var(--secondary-text-color);
+        }
+      }
+
+      & .report-company-header__line {
+        & span {
+          color: var(--secondary-text-color);
+        }
+      }
+    }
+  }
+
+  & .report-company-section__header {
+    margin: 30px auto 3px auto;
+    padding: 3px;
+    text-align: center;
+    font-size: 18px;
+    color: black;
+    background-color: var(--primary-text-color);
+    border-radius: 5px;
+    width: 100%;
+    height: 35px;
+  }
+
+  & .report-company__audit-counts {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+
+    & .report-company__audit_chart {
+      width: 100%;
+      min-height: 200px;
+    }
+  }
+
+  & .report-company__fault-counts {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+
+    & .report-company__fault_chart {
+      width: 100%;
+      min-height: 200px;
+    }
+  }
+
+  & .report-company__relative-fault-counts {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+
+    & .report-company__relative-fault_chart {
+      width: 100%;
+      min-height: 200px;
+    }
+  }
+
+  & .report-company__top-faults {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+
+    & .report-company__top-fault_table {
+      width: 100%;
+      min-height: 200px;
+    }
+  }
+
+  & .report-company__restaurant-rating {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+
+    & .report-company__restaurant_rating_table {
+      width: 100%;
+      min-height: 200px;
+    }
+  }
+
+  & .report-company-summary {
+    & .report-company-summary__content {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      min-height: 200px;
+      border: 2px solid white;
+      border-radius: 3px;
+      color: white;
+
+      & textarea {
+        color: black;
+        margin: 5px auto;
+        min-height: 190px;
+        width: 99%;
+      }
+    }
+  }
+}

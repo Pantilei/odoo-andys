@@ -10,7 +10,14 @@
                             <field name="category_id" />
                         </group>
                         <group>
+                            <field name="identificator" />
+                            <field name="full_identificator" />
+                            <field name="photo_required" />
+                            <field name="comment_required" />
+                        </group>
+                        <group>
                             <field name="description" />
+                            <field name="info" />
                         </group>
                     </sheet>
                 </form>
@@ -21,9 +28,24 @@
             <field name="model">restaurant_management.check_list</field>
             <field name="arch" type="xml">
                 <tree>
+                    <field name="sequence" widget="handle" />
                     <field name="category_id" />
+                    <field name="full_identificator" />
                     <field name="description" />
+                    <field name="info" />
                 </tree>
+            </field>
+        </record>
+
+        <record id="check_list_view_search" model="ir.ui.view">
+            <field name="name">check_list.view.search</field>
+            <field name="model">restaurant_management.check_list</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" string="Check List" />
+                    <field name="full_identificator" string="Identificator"
+                        filter_domain="[('full_identificator', '=', self)]" />
+                </search>
             </field>
         </record>
 

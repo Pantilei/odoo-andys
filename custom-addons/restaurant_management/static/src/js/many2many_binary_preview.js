@@ -231,7 +231,6 @@ var FieldMany2ManyBinaryPreview = AbstractField.extend({
                 fields: ['id', 'mimetype', 'index_content'],
             },
         }).then(result => {
-            console.log("result:", result);
             this.attachments = result.map(r => {
                 return {
                     id: r.id,

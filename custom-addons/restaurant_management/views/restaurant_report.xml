@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="restaurant_report_form_view_form" model="ir.ui.view">
+            <field name="name">restaurant_report.view.form</field>
+            <field name="model">restaurant_management.restaurant_report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="report-restaurant-container">
+                        <div class="header">
+                            <h1> Отчет по ресторану</h1>
+                            <div class="header__content">
+                                <span class="header__line"> Ресторан: <field
+                                        name="restaurant_id"
+                                        options="{'no_create': True, 'no_open': True}" />
+                                </span>
+                                <span class="header__line"> Директоры: <field
+                                        name="director_ids" widget="many2many_tags" />
+                                </span>
+                                <span class="header__line"> Период: <field
+                                        name="report_month" /> <field
+                                        name="report_year" />
+                                </span>
+                                <span class="header__line"> Составил: <field
+                                        name="responsible_id"
+                                        options="{'no_create': True, 'no_open': True}" />
+                                </span>
+                                <span class="header__line"> Сеть Ресторанов: <field
+                                        name="restaurant_network_ids"
+                                        widget="many2many_tags"
+                                        options="{'no_create': True, 'no_open': True}" />
+                                </span>
+                                <span class="header__line"> Департаменты: <field
+                                        name="department_ids"
+                                        widget="many2many_tags"
+                                        options="{'no_create': True, 'no_open': True}" />
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="monthly_fault_chart">
+                            <div class="section__header">
+                                <h2>Динамика ошибок на единицу проверки</h2>
+                            </div>
+                            <div class="monthly_fault_chart__chart">
+                                <field name="relative_monthly_fault_counts_chart"
+                                    widget="plotly_chart" />
+                            </div>
+                        </div>
+
+                        <div class="audit-info">
+                            <div class="section__header">
+                                <h2>Информация о проверках</h2>
+                            </div>
+                            <div class="audit-info__table">
+                                <field name="audits_info_table" widget="html" />
+                            </div>
+                        </div>
+
+                        <div class="section">
+                            <div class="restaurant_indicators">
+                                <div class="section__header">
+                                    <h2>Показатели ресторана</h2>
+                                </div>
+                                <field name="indicators_html" widget="html" />
+                            </div>
+
+                            <div class="faults_by_department">
+                                <div class="section__header">
+                                    <h2>Ошибки по департаментам</h2>
+                                </div>
+                                <field name="faults_per_department_html" widget="html" />
+                            </div>
+
+                        </div>
+
+                        <div class="top-faults">
+                            <div class="section__header">
+                                <h2>Топ нарушений</h2>
+                            </div>
+                            <div class="top-faults__container">
+                                <div class="top-faults__chart">
+                                    <field name="top_faults_chart" widget="plotly_chart" />
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="taken-measures">
+                            <div class="section__header">
+                                <h2>Принятые меры администратором по выявленным нарушениям</h2>
+                            </div>
+                            <div class="taken-measures__measures">
+                                <field name="taken_measures" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="restaurant_report_tree_view_form" model="ir.ui.view">
+            <field name="name">restaurant_report.view.tree</field>
+            <field name="model">restaurant_management.restaurant_report</field>
+            <field name="arch" type="xml">
+                <tree default_order="report_year desc">
+                    <field name="name" invisible="1" />
+                    <field name="restaurant_id" />
+                    <field name="report_month" />
+                    <field name="report_year" />
+                    <field name="responsible_id" />
+                    <field name="create_date" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="restaurant_report_search_view_form" model="ir.ui.view">
+            <field name="name">restaurant_report.view.search</field>
+            <field name="model">restaurant_management.restaurant_report</field>
+            <field name="arch" type="xml">
+                <search string="Restaurant Report">
+                    <field name="restaurant_id" />
+                    <field name="restaurant_network_id" />
+                    <field name="responsible_id" />
+                    <separator />
+
+                    <group expand="0" string="Group By">
+                        <filter string="Report Year" name="group_by_report_year"
+                            context="{'group_by': 'report_year'}" domain="[]" />
+                        <filter string="Report Month" name="group_by_report_month"
+                            context="{'group_by': 'report_month'}" domain="[]" />
+                        <filter string="Restaurant Network" name="group_by_restaurant_network"
+                            context="{'group_by': 'restaurant_network_id'}"
+                            domain="[]" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="restaurant_report_action" model="ir.actions.act_window">
+            <field name="name">Restaurant Report</field>
+            <field name="res_model">restaurant_management.restaurant_report</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="context">{'group_by':['report_year', 'report_month',
+                'restaurant_network_id']}</field> -->
+            <field name="context">{'search_default_group_by_report_year':1,
+                'search_default_group_by_report_month': 1,
+                'search_default_group_by_restaurant_network': 1}</field>
+            <field name="target">current</field>
+        </record>
+
+    </data>
+</odoo>

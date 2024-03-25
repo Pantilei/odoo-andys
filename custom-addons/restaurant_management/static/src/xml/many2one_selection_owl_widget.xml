@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+
+    <t t-name="Many2oneSelectionOwl" owl="1">
+        <select class="o_input o_field_widget o_quick_editable o_required_modifier" name="check_list_id">
+            <option value="false" style="display: none"></option>
+            <option value="258" style="">5.1 Наличие и ведения документаций.</option>
+            <option value="259" style="">5.2 Сроки годность и комплектация огнетушителей соблюдены, противопожарные датчики в рабочем состояние.</option>
+            <option value="260" style="">5.3 Тех карты, чек листы и инструкций присутствует в кухне, в баре и десерт баре.</option>
+            <option value="261" style="">5.4 Необходимые медикаменты в аптечке присутствуют, сроки годности соблюдены.</option>
+        </select>
+    </t>
+
+</templates>

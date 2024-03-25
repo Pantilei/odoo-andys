@@ -5,22 +5,73 @@
             <field name="model">restaurant_management.restaurant</field>
             <field name="arch" type="xml">
                 <form string="Restaurant">
+                    <header>
+                        <button string="Generate Secret Guest Link" name="generate_temp_audit_link"
+                            type="object" class="oe_highlight" />
+                    </header>
                     <sheet>
                         <group>
                             <field name="name" />
+                            <field name="restaurant_display_name" />
                         </group>
                         <group>
                             <field name="restaurant_network_id" />
-                            <field name="director_id" options="{'no_create': True}" />
+                            <field name="director_ids" widget="many2many_tags"
+                                options="{'no_create': True}" />
                         </group>
                         <group>
                             <label for="street" string="Address" />
                             <div class="o_address_format">
-                                <field name="street" placeholder="Street..." class="o_address_street" />
-                                <field name="street2" placeholder="Street 2..." class="o_address_street" />
+                                <field name="street" placeholder="Street..."
+                                    class="o_address_street" />
+                                <field name="street2" placeholder="Street 2..."
+                                    class="o_address_street" />
                                 <field name="city" placeholder="City" />
-                                <field name="country_id" placeholder="Country" class="o_address_country" options="{'no_open': True, 'no_create': True}" />
+                                <field name="country_id" placeholder="Country"
+                                    class="o_address_country"
+                                    options="{'no_open': True, 'no_create': True}" />
                             </div>
+                        </group>
+                        <group string="Secret Guest Audit Links">
+                            <field name="audit_temp_link_ids" readonly="1" nolabel="1">
+                                <tree default_order="valid_until desc"
+                                    decoration-success="is_active == True"
+                                    limit="5">
+                                    <field name="access_token" invisible="1" />
+                                    <field name="valid_until" />
+                                    <field name="is_active" />
+                                    <field name="link" widget="url" />
+                                    <!-- <field name="link" widget="CopyClipboardChar"/> -->
+                                </tree>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                            <field name="valid_until" />
+                                            <field name="is_active" />
+                                            <field name="link" widget="CopyClipboardChar" />
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </group>
+                        <group string="Planned Audits">
+                            <field name="planned_audit_ids" nolabel="1">
+                                <tree default_order="year desc" editable="bottom" limit="5">
+                                    <field name="year" />
+                                    <field name="jan" />
+                                    <field name="feb" />
+                                    <field name="mar" />
+                                    <field name="apr" />
+                                    <field name="may" />
+                                    <field name="jun" />
+                                    <field name="jul" />
+                                    <field name="aug" />
+                                    <field name="sept" />
+                                    <field name="oct" />
+                                    <field name="nov" />
+                                    <field name="dec" />
+                                </tree>
+                            </field>
                         </group>
                     </sheet>
                 </form>
@@ -32,6 +83,7 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="name" />
+                    <field name="restaurant_display_name" />
                 </tree>
             </field>
         </record>

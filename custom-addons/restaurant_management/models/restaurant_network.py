@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import api, fields, models
 
 
 class RestaurantNetwork(models.Model):
@@ -11,3 +11,5 @@ class RestaurantNetwork(models.Model):
     description = fields.Text(
         string="Description"
     )
+
+    logo = fields.Image()

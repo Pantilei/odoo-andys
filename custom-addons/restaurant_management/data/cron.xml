@@ -1,24 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="ir_cron_generate_check_list_data" model="ir.cron">
-        <field name="name">Generate Check List Data</field>
-        <field name="model_id" ref="restaurant_management.model_restaurant_management_fault_registry" />
+
+    <record id="ir_cron_import_faults_data" model="ir.cron">
+        <field name="name">Import Faults Data</field>
+        <field name="model_id" ref="restaurant_management.model_restaurant_management_check_list" />
         <field name="state">code</field>
-        <field name="code">model._populate_data()</field>
+        <field name="code">model._import_faults_data()</field>
         <field name="active" eval="False" />
         <field name="interval_number">1</field>
         <field name="interval_type">days</field>
         <field name="numbercall">-1</field>
     </record>
 
-    <record id="ir_cron_import_check_list_data" model="ir.cron">
-        <field name="name">Import Check List Data</field>
-        <field name="model_id" ref="restaurant_management.model_restaurant_management_check_list" />
+    <record id="ir_cron_create_planned_audits_of_restaurants" model="ir.cron">
+        <field name="name">Create planned audit amount of restaurants</field>
+        <field name="model_id" ref="restaurant_management.model_restaurant_management_planned_audits" />
         <field name="state">code</field>
-        <field name="code">model._create_check_lists_and_categories()</field>
-        <field name="active" eval="False" />
+        <field name="code">model.create_yearly_planned_amount()</field>
+        <field name="active" eval="True" />
         <field name="interval_number">1</field>
         <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+    </record>
+
+    <record id="ir_cron_create_audits_of_restaurants" model="ir.cron">
+        <field name="name">Create audits of restaurants</field>
+        <field name="model_id" ref="restaurant_management.model_restaurant_management_audit_distribution" />
+        <field name="state">code</field>
+        <field name="code">model.create_distributions()</field>
+        <field name="active" eval="True" />
+        <field name="interval_number">1</field>
+        <field name="interval_type">months</field>
+        <!-- <field name="nextcall" eval="(DateTime.now().replace(day=20, hour=2, minute=0) + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')" /> -->
+        <field name="numbercall">-1</field>
+    </record>
+
+    <record id="ir_cron_clear_old_attachments_of_restaurants" model="ir.cron">
+        <field name="name">Clear old audit attachments</field>
+        <field name="model_id" ref="restaurant_management.model_restaurant_management_fault_registry" />
+        <field name="state">code</field>
+        <field name="code">model.clear_old_attachments()</field>
+        <field name="active" eval="True" />
+        <field name="interval_number">1</field>
+        <field name="interval_type">months</field>
         <field name="numbercall">-1</field>
     </record>
 </odoo>

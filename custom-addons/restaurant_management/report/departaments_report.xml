@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="action_departaments_report" model="ir.actions.report">
+            <field name="name">Departaments Report</field>
+            <field name="model">restaurant_management.reports_wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <!-- <field name="report_type">qweb-html qweb-pdf</field> -->
+            <field name="report_name">restaurant_management.departaments_report</field>
+            <field name="report_file">restaurant_management.departaments_report</field>
+            <field name="print_report_name">'Report'</field>
+            <field name="paperformat_id" ref="report_paper_format" />
+        </record>
+
+        <template id="departaments_report">
+            <t t-call="web.html_container">
+
+                <div class="article">
+                    <div class="page">
+                        <div class="row p-0 report-header_container">
+                            <div class="col-9 p-0 report-header_title">
+                                Отчет по ошибкам по департаменту
+                                <t t-esc="check_list_category_name" />
+                                .
+                            </div>
+                            <div class="col-3">
+                                <img src="/restaurant_management/static/src/img/andys_logo.jpg" alt="Andy's Logo" />
+                                <img src="/restaurant_management/static/src/img/la_placinte_logo.jpg" alt="La Placinte Logo" />
+                            </div>
+                        </div>
+
+                        <div class="row zero_min_height">
+                            <div class="col-12 p-0">
+                                <div class="report-header_border" />
+                            </div>
+                        </div>
+
+                        <div class="container p-0 report-page_content_spacing">
+                            <div class="row report-date">
+                                <p class="col-2 p-0 ">
+                                    <t t-esc="report_date" />
+                                </p>
+                                <div class="col-10"></div>
+                            </div>
+
+                            <div class="row section-name w-210mm">
+                                <h4 class="col-12 p-0">
+                                    1. Динамика кол-ва ошибок по
+                                    <t t-esc="check_list_category_name" />
+                                    .
+                                </h4>
+                            </div>
+                            <div class="row w-210mm">
+                                <img class="col-12 img--bordered" t-attf-src="data:image/png;base64,{{dynamics_of_faults_png}}" />
+                            </div>
+
+                            <p style="page-break-before:always;"></p>
+
+                            <div class="row section-name w-210mm">
+                                <h4 class="col-12 p-0">
+                                    2. Рейтинг ресторанов компании по департаменту
+                                    <t t-esc="check_list_category_name" />
+                                    .
+                                </h4>
+                            </div>
+                            <div class="row w-210mm">
+                                <div class="col-6">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <table class="report-rating-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="table-header" scope="col">
+                                                        Ресторан
+                                                    </th>
+                                                        <th class="table-header" scope="col">
+                                                        Кол-во
+                                                    </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <t t-foreach="restaurant_rating" t-as="row">
+                                                        <tr t-attf-style="color: {{'red' if len(restaurant_rating)//2 &lt; row_index+1 else 'green'}}">
+                                                            <t t-foreach="row[1:]" t-as="cell" t-key="cell_index">
+                                                                <td t-att-class="'font-weight-bold' if cell_index == (len(row)-1) else ''">
+                                                                    <t t-esc="cell" />
+                                                                </td>
+                                                            </t>
+                                                        </tr>
+                                                    </t>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <table class="report-rating-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="table-header" scope="col">Ресторан</th>
+                                                        <th class="table-header" scope="col">
+                                                            Кол-во/1 проверка
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <t t-foreach="restaurant_rating_per_audit" t-as="row" t-key="row_index">
+                                                        <tr t-attf-style="color: {{'red' if len(restaurant_rating)//2 &lt; row_index+1 else 'green'}}">
+                                                            <t t-foreach="row[1:]" t-as="cell" t-key="cell_index">
+                                                                <td t-att-class="'font-weight-bold' if cell_index == (len(row)-1) else ''">
+                                                                    <t t-esc="cell" />
+                                                                </td>
+                                                            </t>
+                                                        </tr>
+                                                    </t>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <p style="page-break-before:always;"></p>
+
+                            <div class="row section-name w-210mm">
+                                <div class="col-12">
+                                    <h4>
+                                        3. Топ
+                                        <t t-out="10 if len(top_faults_with_comments) &gt; 10 else len(top_faults_with_comments)" />
+                                        ошибок по департаменту - принятые меры ответственного по департаменту
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class="row w-210mm">
+                                <div class="col-12">
+                                    <table class="table-top-faults">
+                                        <tbody>
+                                            <t t-foreach="top_faults_with_comments[:10] if len(top_faults_with_comments) &gt; 10 else top_faults_with_comments" t-as="top_fault">
+                                                <tr style="font-size: 4.5mm;">
+                                                    <td>
+                                                        <span style="color: white; background-color: red; padding: 0.5mm 2mm; font-size: 6mm; border-radius: 2mm; margin: 0 1mm 0 0;">
+                                                            <t t-esc="top_fault[2]" />
+                                                        </span>
+                                                        <span style="vertical-align:bottom;">
+                                                            <t t-esc="top_fault[1]" />
+                                                        </span>
+                                                        <hr />
+                                                        <t t-out="Markup(top_fault[3])" />
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <p style="page-break-before:always;"></p>
+                        </div>
+                    </div>
+                </div>
+            </t>
+
+        </template>
+    </data>
+</odoo>

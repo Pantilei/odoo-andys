@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <!-- Template for ScanDrivesHeader  -->
+    <t t-name="ReportsAppMain" owl="1">
+        <div>
+            <div class="o_control_panel d-flex flex-row">
+                <h1>Reports</h1>
+            </div>
+            <div class="d-flex justify-content-start flex-wrap ml-5 mt-3">
+                <div class="d-flex flex-column ml-2">
+                    <label for="reportType">Тип Отчёта</label>
+                    <select t-on-change="_onReportTypeChange" class="form-control" id="reportType">
+                        <!-- <option value="audits_per_month_table" t-att-selected="state.reportType === 'audits_per_month_table'">
+                            Количество проверок
+                        </option> -->
+                        <option value="dynamics_of_faults_per_month_graph" t-att-selected="state.reportType === 'dynamics_of_faults_per_month_graph'">
+                            Динамика кол-ва ошибок.
+                        </option>
+                        <!-- <option value="restaurant_rating" t-att-selected="state.reportType === 'restaurant_rating'">
+                            Рейтинг ресторанов по общему количеству ошибок.
+                        </option>
+                        <option value="relative_restaurant_rating" t-att-selected="state.reportType === 'relative_restaurant_rating'">
+                            Рейтинг ресторанов по общему количеству ошибок на единицу проверки.
+                        </option>
+                        <option value="departaments" t-att-selected="state.reportType === 'departaments'">
+                            Рейтинг ресторанов по департаментам.
+                        </option> -->
+                    </select>
+                </div>
+
+                <!-- <div class="d-flex flex-column ml-2">
+                    <label for="year">Год</label>
+                    <select t-on-change="_onYearChange" class="form-control" id="year">
+                        <t t-foreach="_getOptionYears()" t-as="year" t-key="year">
+                            <option t-att-value="year" t-att-selected="year === state.currentYear">
+                                <t t-esc="year" />
+                            </option>
+                        </t>
+                    </select>
+                </div>
+
+                <div class="d-flex flex-column ml-2" t-if="['audits_per_month_table', 'restaurant_rating', 'relative_restaurant_rating'].indexOf(state.reportType) === -1">
+                    <label for="check_list_category">Категории Чек Листов</label>
+                    <select t-on-change="_onCategoryChange" class="form-control" id="check_list_category">
+                        <option value="all" t-att-selected="state.currentCheckListCategory == 'all'">Все</option>
+                        <t t-foreach="state.checkListCategories" t-as="category" t-key="category.id">
+                            <option t-att-value="category.id" t-att-selected="state.currentCheckListCategory == category.id">
+                                <t t-esc="category.display_name" />
+                            </option>
+                        </t>
+                    </select>
+                </div>
+
+                <div class="d-flex flex-column ml-2" t-if="['restaurant_rating', 'relative_restaurant_rating'].indexOf(state.reportType) === -1">
+                    <label for="restaurant_network">Сеть Ресторанов</label>
+                    <select t-on-change="_onRestaurantNetworkChange" class="form-control" id="restaurant_network">
+                        <option value="all" t-att-selected="state.currentRestaurantNetwork == 'all'">Все</option>
+                        <t t-foreach="state.restaurantNetworks" t-as="network" t-key="network.id">
+                            <option t-att-value="network.id" t-att-selected="state.currentRestaurantNetwork == network.id">
+                                <t t-esc="network.name" />
+                            </option>
+                        </t>
+                    </select>
+                </div>
+                <div class="d-flex flex-column ml-2" t-if="['restaurant_rating', 'relative_restaurant_rating'].indexOf(state.reportType) === -1">
+                    <label for="restaurants">Рестораны</label>
+                    <select t-on-change="_onRestaurantChange" class="form-control" id="restaurants">
+                        <option value="all" t-att-selected="state.currentRestaurant == 'all'">Все</option>
+                        <t t-foreach="state.restaurants" t-as="restaurant" t-key="restaurant.id">
+                            <option t-att-value="restaurant.id" t-att-selected="state.currentRestaurant == restaurant.id">
+                                <t t-esc="restaurant.name" />
+                            </option>
+                        </t>
+                    </select>
+                </div> -->
+            </div>
+            <div class="d-flex flex-column justify-content-center mt-5 overflow-auto">
+                <!-- <table class="table" t-if="state.reportType == 'audits_per_month_table'">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <t t-foreach="months" t-as="month" t-key="month">
+                                <th scope="col">
+                                    <t t-esc="month" />
+                                </th>
+                            </t>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Плановое</th>
+                            <t t-foreach="state.auditCountsPerMonth.planned" t-as="countPlanned" t-key="countPlanned_index">
+                                <td>
+                                    <t t-esc="countPlanned" />
+                                </td>
+                            </t>
+                        </tr>
+                        <tr>
+                            <th scope="row">Фактическое</th>
+                            <t t-foreach="state.auditCountsPerMonth.actual" t-as="countActual" t-key="countActual_index">
+                                <td>
+                                    <t t-esc="countActual" />
+                                </td>
+                            </t>
+                        </tr>
+                    </tbody>
+                </table> -->
+
+                <!-- <table class="table" t-if="state.reportType == 'restaurant_rating'">
+                    <thead>
+                        <tr>
+                            <th scope="col">Ресторан</th>
+                            <t t-foreach="months" t-as="month" t-key="month">
+                                <th scope="col">
+                                    <t t-esc="month" />
+                                </th>
+                            </t>
+                            <th scope="col">
+                                Обшее количество
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="state.restaurantRating" t-as="row" t-key="row_index">
+                            <tr>
+                                <t t-foreach="row" t-as="cell" t-key="cell_index">
+                                    <td t-att-class="cell_index == (row.length-1) ? 'font-weight-bold' : ''">
+                                        <t t-esc="cell" />
+                                    </td>
+                                </t>
+                            </tr>
+                        </t>
+
+                    </tbody>
+                </table> -->
+
+                <!-- <table class="table" t-if="state.reportType == 'relative_restaurant_rating'">
+                    <thead>
+                        <tr>
+                            <th scope="col">Ресторан</th>
+                            <t t-foreach="months" t-as="month" t-key="month">
+                                <th scope="col">
+                                    <t t-esc="month" />
+                                </th>
+                            </t>
+                            <th scope="col">
+                                Обшее количество
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="state.relativeRestaurantRating" t-as="row" t-key="row_index">
+                            <tr>
+                                <t t-foreach="row" t-as="cell" t-key="cell_index">
+                                    <td t-att-class="cell_index == (row.length-1) ? 'font-weight-bold' : ''">
+                                        <t t-esc="cell" />
+                                    </td>
+                                </t>
+                            </tr>
+                        </t>
+
+                    </tbody>
+                </table> -->
+
+                <div class="o_graph_container">
+                    <div class="o_graph_canvas_container">
+                        <canvas t-ref="graphCanvasRef" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </t>
+</templates>

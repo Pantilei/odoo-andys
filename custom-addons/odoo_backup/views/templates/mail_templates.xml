@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="successful_google_drive_upload_email">
+            <h3>Backup Successfully Uploaded!</h3>
+            Please see below details.
+            <br/>
+            <br/>
+            <b>
+                Backup File: <t t-esc="bkp_file"/>
+                <a t-attf-href='https://drive.google.com/drive/u/0/folders/{{drive_folder_id}}'>
+                    Open
+                </a>
+            </b>
+
+        </template>
+
+        <template id="failed_google_drive_upload_email">
+            <h3>Backup Upload Failed!</h3>
+            Please see below details.
+            <br/>
+            <br/>
+            <table style='width:100%'>
+                <tr>
+                    <th align='left'>Backup</th>
+                    <td><t t-esc="bkp_file"/></td>
+                </tr>
+                <tr>
+                    <th align='left'>Code</th>
+                    <td><t t-esc="code"/></td>
+                </tr>
+                <tr>
+                    <th align='left'>Message</th>
+                    <td><t t-esc="message"/></td>
+                </tr>
+                <tr>
+                    <th align='left'>Reason</th>
+                    <td><t t-esc="reason"/></td>
+                </tr>
+            </table>
+
+        </template>
+
+
+        <template id="failed_sftp_upload_email">
+            <h3>Backup Upload Failed!</h3>
+            <h3>Dear,</h3>
+            <p>
+                The backup for the server <t t-esc="host"/> with IP: <t t-esc="sftp_host"/> failed.
+            </p>
+            <p>
+                 Please check the following details:
+            </p>
+            <p>
+                IP address SFTP server: <t t-esc="sftp_host"/>
+            </p>
+            <p>
+                Username: <t t-esc="sftp_user"/>
+            </p>
+            <p>
+                Error details: <t t-esc="errors"/>
+            </p>
+            <p>
+                With kind regards!
+            </p>
+        </template>
+
+    </data>
+</odoo>

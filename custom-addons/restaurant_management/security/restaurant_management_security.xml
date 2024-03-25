@@ -1,36 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record model="ir.module.category" id="module_category_restaurant_management">
-        <field name="name">Restaurant DKK</field>
+        <field name="name">Restaurant QCD</field>
         <field name="description">Helps to manage Restaurant Management.</field>
         <field name="sequence">10</field>
     </record>
-
+    <!-- Groups -->
     <record id="group_restaurant_management_reporter" model="res.groups">
-        <field name="name">Reporter</field>
+        <field name="name">Restaurant Network Manager</field>
         <field name="category_id" ref="module_category_restaurant_management" />
-        <field name="comment">User under this group are allowed to only view report menu in Restaurant Management</field>
+        <field name="comment">User under this group are allowed to only view report menu in
+            Restaurant Management</field>
     </record>
 
     <record id="group_restaurant_management_auditer" model="res.groups">
-        <field name="name">Expert DKK</field>
+        <field name="name">Expert QCD</field>
         <field name="category_id" ref="module_category_restaurant_management" />
-        <field name="comment">User under this group are allowed to manage restaurant audits and register faults</field>
+        <field name="comment">User under this group are allowed to manage restaurant audits and
+            register faults</field>
+    </record>
+    <record id="group_restaurant_management_video_operator" model="res.groups">
+        <field name="name">Video Operator</field>
+        <field name="category_id" ref="module_category_restaurant_management" />
+        <field name="comment">User under this group are allowed to manage video surveillance and
+            register faults</field>
     </record>
 
     <record id="group_restaurant_management_audit_controller" model="res.groups">
-        <field name="name">Responsible for category faults</field>
+        <field name="name">Responsible within Department</field>
         <field name="category_id" ref="module_category_restaurant_management" />
-        <field name="comment">User under this group are allowed to view and cancel the expert DKK registered faults</field>
+        <field name="comment">User under this group are allowed to view and cancel the expert QCD
+            registered faults</field>
+    </record>
+
+    <record id="group_restaurant_management_restaurant_director" model="res.groups">
+        <field name="name">Restaurant director</field>
+        <field name="category_id" ref="module_category_restaurant_management" />
+        <field name="comment">User under this group are restaurant directors</field>
+    </record>
+
+    <record id="group_restaurant_management_dkk_manager" model="res.groups">
+        <field name="name">QCD Manager</field>
+        <field name="category_id" ref="module_category_restaurant_management" />
+        <field name="comment">User under this group are QCD managers</field>
     </record>
 
     <record id="group_restaurant_management_manager" model="res.groups">
         <field name="name">Administrator</field>
         <field name="category_id" ref="module_category_restaurant_management" />
-        <field name="implied_ids" eval="[(4, ref('group_restaurant_management_reporter')), 
+        <!-- <field name="implied_ids" eval="[(4, ref('group_restaurant_management_reporter')), 
                                          (4, ref('group_restaurant_management_auditer')), 
-                                         (4, ref('group_restaurant_management_audit_controller'))]" />
+                                         (4, ref('group_restaurant_management_restaurant_director')), 
+                                         (4, ref('group_restaurant_management_audit_controller'))]" /> -->
         <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]" />
-        <field name="comment">User under this group are allowed to manange everythin in restaurant</field>
+        <field name="comment">User under this group are allowed to manange everything in restaurant</field>
+    </record>
+
+
+    <!-- Record rule -->
+    <!-- Model: restaurant_management_restaurant_audit -->
+    <record id="restaurant_audit_auditer_responsible_rule" model="ir.rule">
+        <field name="name">Restaurant Audit, Auditer, Responsible Rule</field>
+        <field name="model_id" ref="model_restaurant_management_restaurant_audit" />
+        <field name="domain_force">['|', ('responsible_id', '=', user.id), ('responsible_id', '=',
+            False)]</field>
+        <field name="groups" eval="[(4, ref('group_restaurant_management_auditer'))]" />
+        <!-- Temporary disable this rule -->
+        <field name="active" eval="False" />
+    </record>
+
+    <record id="restaurant_audit_restaurant_director_restaurant_rule" model="ir.rule">
+        <field name="name">Restaurant Audit, Restaurant Director, Restaurant Rule</field>
+        <field name="model_id" ref="model_restaurant_management_restaurant_audit" />
+        <field name="domain_force">[('restaurant_id.director_ids', 'in', [user.id])]</field>
+        <field name="groups" eval="[(4, ref('group_restaurant_management_restaurant_director'))]" />
+    </record>
+
+    <record id="restaurant_audit_admin_responsible_rule" model="ir.rule">
+        <field name="name">Restaurant Audit, Admin, Reporter, Audit Controller, Responsible Rule</field>
+        <field name="model_id" ref="model_restaurant_management_restaurant_audit" />
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups"
+            eval="[(4, ref('group_restaurant_management_manager')),
+                                    (4, ref('group_restaurant_management_reporter')), 
+                                    (4, ref('group_restaurant_management_audit_controller'))]" />
+    </record>
+
+    <!-- Model: restaurant_management_fault_registry -->
+    <record id="fault_registry_auditer_responsible_rule" model="ir.rule">
+        <field name="name">Fault Registry, Auditer, Responsible Rule</field>
+        <field name="model_id" ref="model_restaurant_management_fault_registry" />
+        <field name="domain_force">['|', ('responsible_id', '=', user.id), ('responsible_id', '=',
+            False)]</field>
+        <field name="groups" eval="[(4, ref('group_restaurant_management_auditer'))]" />
+        <!-- Temporary disable this rule -->
+        <field name="active" eval="False" />
+    </record>
+
+    <record id="fault_registry_restaurant_director_restaurant_rule" model="ir.rule">
+        <field name="name">Fault Registry, Restaurant Director, Responsible Rule</field>
+        <field name="model_id" ref="model_restaurant_management_fault_registry" />
+        <field name="domain_force">[('restaurant_id.director_ids', 'in', [user.id])]</field>
+        <field name="groups" eval="[(4, ref('group_restaurant_management_restaurant_director'))]" />
+    </record>
+
+    <record id="fault_registry_admin_responsible_rule" model="ir.rule">
+        <field name="name">Fault Registry, Admin, Reporter, Audit Controller, Responsible Rule</field>
+        <field name="model_id" ref="model_restaurant_management_fault_registry" />
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups"
+            eval="[(4, ref('group_restaurant_management_manager')),
+                                    (4, ref('group_restaurant_management_reporter')), 
+                                    (4, ref('group_restaurant_management_audit_controller'))]" />
+    </record>
+
+    <record id="restaurant_report_director_restaurant_rule" model="ir.rule">
+        <field name="name">Restaurant director can seen only his restaurant reports</field>
+        <field name="model_id" ref="model_restaurant_management_restaurant_report" />
+        <field name="domain_force">[('restaurant_id.director_ids', 'in', [user.id])]</field>
+        <field name="groups" eval="[(4, ref('group_restaurant_management_restaurant_director'))]" />
     </record>
 </odoo>

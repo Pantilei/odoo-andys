@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- Layout of Report -->
+        <template id="layout_of_report">
+            <div class="header">
+                <div class="row">
+                    <div class="col-9"></div>
+                    <div class="col-3">
+                        <img class="ml-auto" style="width: 70px;" src="/restaurant_management/static/src/img/andys_logo.jpg" alt="Andy's Logo" />
+                        <img class="ml-1" style="width: 70px;" src="/restaurant_management/static/src/img/la_placinte_logo.jpg" alt="La Placinte Logo" />
+                    </div>
+                </div>
+                <div class="row zero_min_height">
+                    <div class="col-12">
+                        <div style="border-bottom: 1px solid black;" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="article">
+                <t t-out="0" />
+            </div>
+
+            <div class="footer o_standard_footer">
+                <div class="text-center" style="border-top: 1px solid black;">
+                    <div t-if="report_type == 'pdf'" class="text-muted">
+                        Page:
+                        <span class="page" />
+                        /
+                        <span class="topage" />
+                    </div>
+                </div>
+            </div>
+
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,127 @@
+
+.report-header_container {
+    margin-left: 15mm; 
+    margin-right: 15mm; 
+    min-height: 15mm;
+
+    & img {
+        height: 15mm;
+
+        &:nth-child(1) {
+            margin-left: auto;
+        }
+        &:nth-child(2) {
+            margin-left: 1mm;
+        }
+    }
+}
+
+.report-header_title {
+    font-size: 5.5mm; 
+    font-weight: bold;
+    vertical-align: bottom;
+    min-height: 15mm;
+    margin-top: auto;
+}
+
+.report-header_border {
+    border-bottom: 1.5mm solid #CF431A;
+}
+
+.report-page_content_spacing {
+    margin-left: 15mm; 
+    margin-right: 15mm;
+    width: 210mm;
+}
+
+.report-date {
+    font-size: 4mm;
+    margin-top: 2mm;
+}
+
+.section-name {
+    & h4 {
+        font-size: 5mm; 
+        font-weight: bold;
+    }  
+    margin-top: 3mm;
+    margin-bottom: 4mm;  
+}
+
+.table-header {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.img--bordered {
+    border: 0.75mm solid black;
+    border-radius: 6mm;
+}
+
+.w-210mm {
+    width: 210mm;
+}
+
+.report-audit-amount-table {
+    table-layout: fixed;
+    width: 800px;
+    border-collapse: collapse;
+    border-style: hidden;
+
+    & td {
+        border: 1px solid black;
+        text-align: center;
+    }
+
+    & th {
+        border: 1px solid black;
+        text-align: center;
+    }
+
+    .report-audit-amount-table--header {
+        font-size: 4mm;
+        font-weight: bold;
+    }
+
+}
+
+.table-top-faults {
+    table-layout: fixed;
+    width: 210mm;
+
+    border-collapse: collapse;
+    border-radius: 5mm;
+    border-style: hidden;
+    box-shadow: 0 0 0 0.5mm black;
+
+    & td {
+        border: 0.5mm solid black;
+        padding: 2mm;
+    }
+
+}
+
+.report-rating-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+
+    thead {
+        display: table-row-group;
+    }
+    
+    th, td {
+        text-align: left;
+        padding: 1mm;
+    }
+
+    th {
+        font-weight: bold;
+        border-bottom: #ddd;
+    }
+
+    & tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+}

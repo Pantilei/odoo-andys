@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+
+    <t t-name="JsonToChart" owl="1">
+        <div>
+            <div class="o_graph_container">
+                <div class="o_graph_canvas_container" style="position: relative; height:70vh; width:80vw">
+                    <canvas t-ref="graphCanvasRef" />
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

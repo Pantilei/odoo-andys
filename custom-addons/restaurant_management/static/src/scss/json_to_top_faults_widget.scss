@@ -1,0 +1,15 @@
+.top-faults-table {
+    table-layout: fixed;
+    width: 80%;
+
+    border-collapse: collapse;
+    border-radius: 10px;
+    border-style: hidden;
+    box-shadow: 0 0 0 2px black;
+
+    & td {
+        border: 2px solid black;
+        padding: 5px;
+    }
+
+}

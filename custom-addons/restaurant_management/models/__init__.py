@@ -1,9 +1,19 @@
 # -*- coding: utf-8 -*-
 
-from . import check_list
-from . import check_list_category
-from . import restaurant
-from . import restaurant_network
-from . import fault_registry
-from . import restaurant_audit
-from . import ir_attachment
+from . import (
+    audit_distribution,
+    audit_temp_links,
+    check_list,
+    check_list_category,
+    check_list_type,
+    company_report,
+    department_report,
+    fault_registry,
+    ir_attachment,
+    planned_audits,
+    restaurant,
+    restaurant_audit,
+    restaurant_network,
+    restaurant_network_report,
+    restaurant_report,
+)

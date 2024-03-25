@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="PlotlyChart" owl="1">
+        <div style="width: 100%;">
+            <t t-raw="state.fieldValue" />
+        </div>
+    </t>
+
+</templates>

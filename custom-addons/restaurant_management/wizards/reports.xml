@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="reports_wizard_view_form" model="ir.ui.view">
+            <field name="name">reports_vizard.view.form</field>
+            <field name="model">restaurant_management.reports_wizard</field>
+            <field name="arch" type="xml">
+                <form string="PDF reports">
+                    <sheet>
+                        <group>
+                            <field name="report" required="1" />
+                        </group>
+                        <group>
+                            <field name="check_list_category_id" options="{'no_create': True}" attrs="{'invisible': [('report', '!=', 'general_report_by_restaurant_department')], 'required': [('report', '=', 'general_report_by_restaurant_department')]}" />
+
+                            <field name="restaurant_network_ids" options="{'no_create': True}" attrs="{'invisible': [('report', 'not in', ['general_report_by_audit_of_all_restaurants', 'general_report_by_restaurant_department'])], 'required': [('report', 'in', ['general_report_by_audit_of_all_restaurants', 'general_report_by_restaurant_department'])]}" widget="many2many_tags" />
+
+                            <field name="restaurant_id" options="{'no_create': True}" attrs="{'invisible': [('report', '!=', 'general_report_by_audit_of_restaurant')], 'required': [('report', '=', 'general_report_by_audit_of_restaurant')]}" />
+                            <field name="check_list_category_ids" options="{'no_create': True}" attrs="{'invisible': [('report', 'not in', ['general_report_by_audit_of_restaurant', 'general_report_by_audit_of_all_restaurants'])], 'required': [('report', 'in', ['general_report_by_audit_of_restaurant', 'general_report_by_audit_of_all_restaurants'])]}" widget="many2many_tags" />
+                        </group>
+                        <group string="Date of report">
+                            <field name="year" required="1" />
+                            <field name="month" required="1" />
+                        </group>
+                        <group string="Date range for dynamics">
+                            <group>
+                                <field name="year_start" required="1" />
+                                <field name="month_start" required="1" />
+                            </group>
+                            <group>
+                                <field name="year_end" required="1" />
+                                <field name="month_end" required="1" />
+                            </group>
+                        </group>
+                        <!-- <field name="restaurant_network_id" widget="selection" /> -->
+                    </sheet>
+                    <footer>
+                        <button name="print_report" string="Print Report" type="object" class="oe_highlight" />
+                        <button special="cancel" string="Cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="reports_wizard_action" model="ir.actions.act_window">
+            <field name="name">Reports Action</field>
+            <field name="res_model">restaurant_management.reports_wizard</field>
+            <field name="view_mode">form</field>
+            <field name="context">{}</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

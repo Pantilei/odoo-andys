@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+
+    <t t-name="JsonAuditReports" owl="1">
+        <div class="w-100">
+            <div class="d-flex justify-content-center mt-3">
+                <span class="font-weight-bold">Проверки</span>
+            </div>
+            <div style="overflow-x: auto;">
+                <table class="table mx-auto" style="display: table;">
+                    <thead>
+                        <tr>
+                            <td scope="col" class="font-weight-bold">Месяц</td>
+                            <t t-foreach="state.fieldValue['months']" t-as="month" t-key="month">
+                                <td scope="col" class="font-weight-bold">
+                                    <t t-esc="month" />
+                                </td>
+                            </t>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-weight-bold">Планновые</td>
+                            <t t-foreach="state.fieldValue['planned']" t-as="audit_count" t-key="audit_count_index">
+                                <td>
+                                    <t t-esc="audit_count" />
+                                </td>
+                            </t>
+                        </tr>
+                        <tr>
+                            <td class="font-weight-bold">Фактическое</td>
+                            <t t-foreach="state.fieldValue['actual']" t-as="audit_count" t-key="audit_count_index">
+                                <td>
+                                    <t t-esc="audit_count" />
+                                </td>
+                            </t>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </t>
+
+</templates>
